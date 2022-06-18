@@ -12,6 +12,12 @@ pool: Beast
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 6.x
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
