@@ -1,17 +1,9 @@
-# Starter pipeline
-
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
 pool: Beast
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 - task: UseDotNet@2
   displayName: 'Use .NET Core sdk'
   inputs:
@@ -20,8 +12,5 @@ steps:
     installationPath: $(Agent.ToolsDirectory)/dotnet
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'build'
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    command: 'publish'
+
