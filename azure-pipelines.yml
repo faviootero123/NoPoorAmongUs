@@ -27,7 +27,7 @@ steps:
   inputs:
     command: 'custom'
     custom: 'ef'
-    arguments: 'migrations script --context -i -o $(Build.ArtifactStagingDirectory)/sql'
+    arguments: 'migrations script -i -o $(Build.ArtifactStagingDirectory)/sql'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: release'
