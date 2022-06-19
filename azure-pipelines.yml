@@ -17,11 +17,17 @@ steps:
     publishWebProjects: false
     zipAfterPublish: true
 
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     command: 'custom'
-#     custom: 'ef'
-#     arguments: 'migrations script --context -i -o $(Build.ArtifactStagingDirectory)/sql
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    custom: 'tool'
+    arguments: 'restore'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    custom: 'ef'
+    arguments: 'migrations script --context -i -o $(Build.ArtifactStagingDirectory)/sql'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: release'
