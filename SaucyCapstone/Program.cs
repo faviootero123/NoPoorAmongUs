@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SaucyCapstone.Static;
 using SaucyCapstone.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,14 +20,19 @@ services.AddDefaultIdentity<IdentityUser>(options =>
     options.Stores.MaxLengthForKeys = 128;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
+services.AddAuthorization();
+
 services.AddDatabaseDeveloperPageExceptionFilter();
 services.AddRazorPages()
     .AddRazorRuntimeCompilation();
+
 services.AddControllersWithViews();
 
 
-
 var app = builder.Build();
+
+//Seed the data to the database
+await app.Services.SeedDataAsync();
 
 var mvcBuilder = builder.Services.AddRazorPages();
 // Configure the HTTP request pipeline. AKA middleware
