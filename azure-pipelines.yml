@@ -27,7 +27,7 @@ steps:
   inputs:
     command: 'custom'
     custom: 'ef'
-    arguments: 'migrations script -i --project $(Build.ArtifactStagingDirectory)/SaucyCapstone/SaucyCapstone.csproj -o $(Build.ArtifactStagingDirectory)/ef.sql'
+    arguments: 'migrations script -i --project $(Build.SourcesDirectory)/SaucyCapstone/SaucyCapstone.csproj -o $(Build.ArtifactStagingDirectory)/ef.sql'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: release'
