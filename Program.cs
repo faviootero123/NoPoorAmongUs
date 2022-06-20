@@ -4,29 +4,38 @@ using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
     options.Stores.MaxLengthForKeys = 128;
-})
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+}).AddEntityFrameworkStores<ApplicationDbContext>();
+
+services.AddDatabaseDeveloperPageExceptionFilter();
+services.AddRazorPages()
+    .AddRazorRuntimeCompilation();
+services.AddControllersWithViews();
 
 
-builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+var mvcBuilder = builder.Services.AddRazorPages();
+// Configure the HTTP request pipeline. AKA middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseHttpsRedirection();
+    app.UseDeveloperExceptionPage();
+    mvcBuilder.AddRazorRuntimeCompilation();
 }
 else
 {
@@ -35,18 +44,17 @@ else
     app.UseHsts();
 }
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
 
 app.UseStaticFiles();
 
 app.UseRouting();
+
+//Handles headers forwarded from nginx
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
+
 app.UseAuthentication();
 app.UseAuthorization();
 
