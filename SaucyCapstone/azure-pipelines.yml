@@ -1,0 +1,36 @@
+trigger:
+- master
+
+pool: Beast
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 6.x
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    arguments: '--output $(Build.ArtifactStagingDirectory)'
+    publishWebProjects: false
+    zipAfterPublish: true
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    custom: 'tool'
+    arguments: 'restore'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    custom: 'ef'
+    arguments: 'migrations script -i -o $(Build.ArtifactStagingDirectory)/ef.sql'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: release'
+  inputs:
+    ArtifactName: 'release'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
