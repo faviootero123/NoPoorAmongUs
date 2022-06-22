@@ -28,6 +28,7 @@ services.AddRazorPages()
 
 services.AddControllersWithViews();
 
+services.AddSession();
 
 var app = builder.Build();
 
@@ -54,6 +55,7 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 //Handles headers forwarded from nginx
 app.UseForwardedHeaders(new ForwardedHeadersOptions
