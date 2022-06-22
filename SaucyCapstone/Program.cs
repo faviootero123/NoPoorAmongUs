@@ -16,7 +16,8 @@ services.AddDbContext<ApplicationDbContext>(options =>
 
 services.AddDefaultIdentity<IdentityUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedEmail = true;
+    options.User.RequireUniqueEmail = true;
     options.Stores.MaxLengthForKeys = 128;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -32,8 +33,9 @@ services.AddControllersWithViews();
 var app = builder.Build();
 
 //Seed the data to the database
-await app.Services.SeedDataAsync();
-
+if (app.Configuration.GetValue<bool>("SeedData")) {
+    await app.Services.SeedDataAsync();
+}
 var mvcBuilder = builder.Services.AddRazorPages();
 // Configure the HTTP request pipeline. AKA middleware
 if (app.Environment.IsDevelopment())
