@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Assement
+    public class Assesment
     {
         //Properties
         public int AssesmentId { get; set; }

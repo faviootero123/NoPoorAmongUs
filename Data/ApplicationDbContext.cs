@@ -13,7 +13,7 @@ public class ApplicationDbContext : IdentityDbContext
     }
 
     public DbSet<Applicant> Applicants => Set<Applicant>();
-    public DbSet<Assement> Assements => Set<Assement>();
+    public DbSet<Assesment> Assements => Set<Assesment>();
     public DbSet<Attendance> Attendances => Set<Attendance>();
     public DbSet<Class> Classes => Set<Class>();
     public DbSet<ClassEnrollment> ClassEnrollments => Set<ClassEnrollment>();
