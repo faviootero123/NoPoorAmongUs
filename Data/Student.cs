@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace Data
         //public DateTime LastModifiedDate { get; set; }
 
         //Relationships
+        //[ForeignKey("ApplicantId")]
+        public int ApplicantId { get; set; }
         public Applicant ApplicationInformation { get; set; }
         public IEnumerable<StudentNote> Notes { get; set; }
         public IEnumerable<StudentDoc> Docs { get; set; }

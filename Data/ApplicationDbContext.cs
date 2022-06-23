@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,26 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
+
+    public DbSet<Applicant> Applicants => Set<Applicant>();
+    public DbSet<Assesment> Assements => Set<Assesment>();
+    public DbSet<Attendance> Attendances => Set<Attendance>();
+    public DbSet<Class> Classes => Set<Class>();
+    public DbSet<ClassEnrollment> ClassEnrollments => Set<ClassEnrollment>();
+    public DbSet<ClassSession> ClassSessions => Set<ClassSession>();
+    public DbSet<Course> Courses => Set<Course>();
+    public DbSet<DocType> DocTypes => Set<DocType>();
+    public DbSet<Grade> Grades => Set<Grade>();
+    public DbSet<Guardian> Guardians => Set<Guardian>();
+    public DbSet<Instructor> Instructors => Set<Instructor>();
+    public DbSet<NoteType> NoteTypes => Set<NoteType>();
+    public DbSet<Rating> Ratings => Set<Rating>();
+    public DbSet<School> Schools => Set<School>();
+    public DbSet<Student> Students => Set<Student>();
+    public DbSet<StudentDoc> StudentDocs => Set<StudentDoc>();
+    public DbSet<StudentNote> StudentNotes => Set<StudentNote>();
+    public DbSet<Term> Terms => Set<Term>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

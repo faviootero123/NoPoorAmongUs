@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SaucyCapstone.Constants;
 
 namespace SaucyCapstone.Static
 {
@@ -6,19 +7,43 @@ namespace SaucyCapstone.Static
     {
         public static async Task SeedDataAsync(this IServiceProvider provider)
         {
-            string[] roleNames = { "Admin", "Student", "Instructor" };
+            //Seed Roles
+            string[] roleNames = { Roles.Admin, Roles.Student, Roles.Instructor, Roles.SocialWorker };
             var roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = provider.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = provider.GetRequiredService<UserManager<IdentityUser>>();
+            
             foreach (var roleName in roleNames)
             {
                 IdentityResult roleResult;
                 var roleExist = await roleManager.RoleExistsAsync(roleName);
                 if (!roleExist)
                 {
-                    //create the roles and seed them to the database: Question 1
                     roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
+
+            ///Seed users
+            var users = new List<IdentityUser>()
+            {
+                new IdentityUser
+                {
+
+                }
+            };
+
+            IdentityResult userResult;
+            foreach (var user in users)
+            {
+                var userExists  = await userManager.FindByNameAsync(user.UserName);
+                if(userExists is not null) {
+                    userResult = await userManager.CreateAsync(user);
+                }
+                    
+            }
+            IdentityResult addToRoleResult;
+            //how to add role to a user
+            var _user = await userManager.FindByNameAsync("username");
+            if (_user is not null) addToRoleResult = await userManager.AddToRoleAsync(_user, Roles.Admin);
         }
     }
 }
