@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Static;
 using SaucyCapstone.Data;
+using System.Configuration;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SaucyCapstone.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -29,6 +32,12 @@ services.AddRazorPages()
 
 services.AddControllersWithViews();
 
+var emailConfig = builder.Configuration
+    .GetSection("EmailConfiguration")
+    .Get<EmailConfiguration>();
+services.AddSingleton(emailConfig);
+
+services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
@@ -51,7 +60,6 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 
 app.UseStaticFiles();
 
