@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="3.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />
 	<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.6" />
@@ -15,6 +16,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.6" />
+    <PackageReference Include="MimeKit" Version="3.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +27,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Views\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
