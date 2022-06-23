@@ -38,6 +38,7 @@ var emailConfig = builder.Configuration
 services.AddSingleton(emailConfig);
 
 services.AddScoped<IEmailSender, EmailSender>();
+services.AddSession();
 
 var app = builder.Build();
 
@@ -64,6 +65,7 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 //Handles headers forwarded from nginx
 app.UseForwardedHeaders(new ForwardedHeadersOptions

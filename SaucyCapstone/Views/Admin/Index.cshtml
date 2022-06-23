@@ -1,0 +1,37 @@
+﻿
+<h1>admin dashboard</h1>
+ <div class="w3-bar w3-black">
+    <button class="btn btn-primary" onclick="changeTab('Course')">Course</button>
+    <button class="btn btn-primary" onclick="changeTab('Criteria')">Criteria</button>
+    <button class="btn btn-primary" onclick="changeTab('School')">School</button>
+    <button class="btn btn-primary" onclick="changeTab('Term')">Term</button>
+    <button class="btn btn-primary" onclick="changeTab('Roles')">Roles</button>
+  </div>
+  
+  <div id="Course" class="w3-container w3-border category">
+    <p>CRUD for courses</p>
+  </div>
+  <div id="Criteria" class="category" style="display:none">
+    <p>CRUD for rating criteria</p>
+  </div>
+  <div id="School" class="category" style="display:none">
+    <p>CRUD for schools</p>
+  </div>
+  <div id="Term" class="category" style="display:none">
+    <p>CRUD for terms</p>
+  </div>
+  <div id="Roles" class="category" style="display:none">
+    <p>CRUD for roles</p>
+  </div>
+
+
+<script>
+    function changeTab(category) {
+      var i, x, tablinks;
+      x = document.getElementsByClassName("category");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      document.getElementById(category).style.display = "block";
+    }
+</script>
