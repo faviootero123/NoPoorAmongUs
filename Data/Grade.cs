@@ -12,6 +12,6 @@ namespace Data
         public int GradeId { get; set; }
         //Relationships 
         public ClassEnrollment ClassEnrollment { get; set; }
-        public Assement Assement { get; set; }
+        public Assesment Assement { get; set; }
     }
 }

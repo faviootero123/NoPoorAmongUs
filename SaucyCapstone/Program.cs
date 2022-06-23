@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Static;
 using SaucyCapstone.Data;
+using System.Configuration;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SaucyCapstone.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -16,7 +19,8 @@ services.AddDbContext<ApplicationDbContext>(options =>
 
 services.AddDefaultIdentity<IdentityUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedEmail = true;
+    options.User.RequireUniqueEmail = true;
     options.Stores.MaxLengthForKeys = 128;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -28,13 +32,20 @@ services.AddRazorPages()
 
 services.AddControllersWithViews();
 
+var emailConfig = builder.Configuration
+    .GetSection("EmailConfiguration")
+    .Get<EmailConfiguration>();
+services.AddSingleton(emailConfig);
+
+services.AddScoped<IEmailSender, EmailSender>();
 services.AddSession();
 
 var app = builder.Build();
 
 //Seed the data to the database
-await app.Services.SeedDataAsync();
-
+if (app.Configuration.GetValue<bool>("SeedData")) {
+    await app.Services.SeedDataAsync();
+}
 var mvcBuilder = builder.Services.AddRazorPages();
 // Configure the HTTP request pipeline. AKA middleware
 if (app.Environment.IsDevelopment())
@@ -50,7 +61,6 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 
 app.UseStaticFiles();
 
