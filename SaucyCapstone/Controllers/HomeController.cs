@@ -18,6 +18,15 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult About()
+    {
+        return View();
+    }
+    public IActionResult Report()
+    {
+        return View();
+    }
+
     public IActionResult ThemeDemo()
     {
         return View();
