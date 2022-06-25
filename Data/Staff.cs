@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Guardian
+    public class Staff
     {
         #region Properties
-        public int GuardianId { get; set; }
+        public int StaffId { get; set; }
+
+        [Required]
+        public string StaffType { get; set; } = string.Empty;
 
         [Required]
         public string FirstName { get; set; } = string.Empty;
@@ -20,12 +23,17 @@ namespace Data
         public string LastName { get; set; } = string.Empty;
 
         [Required]
-        public string Relation { get; set; } = string.Empty;
+        public int AccessLevel { get; set; }
         #endregion
 
         #region Relationships
-        //One Guardian to many Students
-        public IEnumerable<Student> Students { get; set; }
+        //Many Staff to zero or one StudentNotes
+        [ForeignKey("StudentNoteId")]
+        public StudentNote? StudentNote { get; set; }
+        public int StudentNoteId { get; set; }
+
+        //Zero or one Staff to many Subjects
+        public IEnumerable<Subject>? Subjects { get; set; }
         #endregion
     }
 }

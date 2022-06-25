@@ -12,23 +12,23 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
 
-    public DbSet<Applicant> Applicants => Set<Applicant>();
-    public DbSet<Assesment> Assements => Set<Assesment>();
+
+    public DbSet<Assessment> Assessments => Set<Assessment>();
     public DbSet<Attendance> Attendances => Set<Attendance>();
-    public DbSet<Class> Classes => Set<Class>();
-    public DbSet<ClassEnrollment> ClassEnrollments => Set<ClassEnrollment>();
-    public DbSet<ClassSession> ClassSessions => Set<ClassSession>();
     public DbSet<Course> Courses => Set<Course>();
+    public DbSet<CourseEnrollment> CourseEnrollments => Set<CourseEnrollment>();
+    public DbSet<CourseSession> CourseSessions => Set<CourseSession>();
+    public DbSet<Criterion> Criteria => Set<Criterion>();
     public DbSet<DocType> DocTypes => Set<DocType>();
     public DbSet<Grade> Grades => Set<Grade>();
     public DbSet<Guardian> Guardians => Set<Guardian>();
-    public DbSet<Instructor> Instructors => Set<Instructor>();
     public DbSet<NoteType> NoteTypes => Set<NoteType>();
-    public DbSet<Rating> Ratings => Set<Rating>();
     public DbSet<School> Schools => Set<School>();
+    public DbSet<Staff> StaffMembers => Set<Staff>();
     public DbSet<Student> Students => Set<Student>();
     public DbSet<StudentDoc> StudentDocs => Set<StudentDoc>();
     public DbSet<StudentNote> StudentNotes => Set<StudentNote>();
+    public DbSet<Subject> Subjects => Set<Subject>();
     public DbSet<Term> Terms => Set<Term>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -8,24 +8,26 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Guardian
+    public class Criterion
     {
         #region Properties
-        public int GuardianId { get; set; }
+        public int CriterionId { get; set; }
 
         [Required]
-        public string FirstName { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         [Required]
-        public string LastName { get; set; } = string.Empty;
+        public float Weight { get; set; }
 
         [Required]
-        public string Relation { get; set; } = string.Empty;
+        public int Value { get; set; }
         #endregion
 
         #region Relationships
-        //One Guardian to many Students
-        public IEnumerable<Student> Students { get; set; }
+        //Many Criteria to one Student
+        [ForeignKey("StudentId")]
+        public Student Student { get; set; }
+        public int StudentId { get; set; }
         #endregion
     }
 }
