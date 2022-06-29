@@ -118,7 +118,7 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StaffStatus",
+                name: "StaffStatuses",
                 columns: table => new
                 {
                     StaffStatusId = table.Column<int>(type: "int", nullable: false)
@@ -130,7 +130,7 @@ namespace Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StaffStatus", x => x.StaffStatusId);
+                    table.PrimaryKey("PK_StaffStatuses", x => x.StaffStatusId);
                 });
 
             migrationBuilder.CreateTable(
@@ -305,9 +305,9 @@ namespace Data.Migrations
                 {
                     table.PrimaryKey("PK_StaffMembers", x => x.StaffMemberId);
                     table.ForeignKey(
-                        name: "FK_StaffMembers_StaffStatus_StaffStatusId",
+                        name: "FK_StaffMembers_StaffStatuses_StaffStatusId",
                         column: x => x.StaffStatusId,
-                        principalTable: "StaffStatus",
+                        principalTable: "StaffStatuses",
                         principalColumn: "StaffStatusId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -940,7 +940,7 @@ namespace Data.Migrations
                 name: "Schools");
 
             migrationBuilder.DropTable(
-                name: "StaffStatus");
+                name: "StaffStatuses");
         }
     }
 }

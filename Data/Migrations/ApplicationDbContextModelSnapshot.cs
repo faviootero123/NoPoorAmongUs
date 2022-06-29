@@ -422,7 +422,7 @@ namespace Data.Migrations
 
                     b.HasKey("StaffStatusId");
 
-                    b.ToTable("StaffStatus");
+                    b.ToTable("StaffStatuses");
                 });
 
             modelBuilder.Entity("Data.Student", b =>

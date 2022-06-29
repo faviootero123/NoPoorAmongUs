@@ -12,7 +12,7 @@ using SaucyCapstone.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220629205106_initial")]
+    [Migration("20220629211054_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -424,7 +424,7 @@ namespace Data.Migrations
 
                     b.HasKey("StaffStatusId");
 
-                    b.ToTable("StaffStatus");
+                    b.ToTable("StaffStatuses");
                 });
 
             modelBuilder.Entity("Data.Student", b =>

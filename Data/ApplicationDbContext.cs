@@ -28,6 +28,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Session> Sessions => Set<Session>();
     public DbSet<StaffMember> StaffMembers => Set<StaffMember>();
     public DbSet<StaffNote> StaffNotes => Set<StaffNote>();
+    public DbSet<StaffStatus> StaffStatuses => Set<StaffStatus>();
     public DbSet<Student> Students => Set<Student>();
     public DbSet<StudentDoc> StudentDocs => Set<StudentDoc>();
     public DbSet<StudentGuardian> StudentGuardians => Set<StudentGuardian>();
