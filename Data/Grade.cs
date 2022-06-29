@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,20 +10,12 @@ namespace Data
 {
     public class Grade
     {
-        #region Properties
         public int GradeId { get; set; }
-        #endregion
+        
+        public Enrollment Enrollment { get; set; }
 
-        #region Relationships
-        //Many Grades to one Assessment
-        [ForeignKey("AssessmentId")]
-        public Assessment? Assessment { get; set; }
-        public int? AssessmentId { get; set; }
-
-        //Many Grades to one CourseEnrollment
-        [ForeignKey("CourseEnrollmentId")]
-        public CourseEnrollment CourseEnrollment { get; set; }
-        public int CourseEnrollmentId { get; set; }
-        #endregion
+        [Required]
+        [Column(TypeName = "decimal(5, 2)")]
+        public decimal Score { get; set; }
     }
 }

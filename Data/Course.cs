@@ -10,17 +10,16 @@ namespace Data
 {
     public class Course
     {
-        #region Properties
         public int CourseId { get; set; }
+
+        public Subject Subject { get; set; }
+
+        public FacultyMember? FacultyMember { get; set; }
+
+        public Term Term { get; set; }
 
         [Required]
         public string CourseName { get; set; }
-        #endregion
-
-        #region Relationships       
-        //One Course to many Subjects
-        public IEnumerable<Subject> Subjects { get; set; }
-        #endregion
     }
 }
 

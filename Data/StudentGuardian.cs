@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Criterion
+    public class StudentGuardian
     {
-        public int CriterionId { get; set; }
+        public int StudentGuardianId { get; set; }
 
-        [Required]
-        public string Description { get; set; }
+        public Student Student { get; set; }
 
-        [Required]
-        public float Weight { get; set; }
+        public Guardian Guardian { get; set; }
     }
 }

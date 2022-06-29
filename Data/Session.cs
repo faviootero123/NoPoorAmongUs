@@ -8,17 +8,19 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Assessment
+    public class Session
     {
-        public int AssessmentId { get; set; }
+        public int SessionId { get; set; }
         
-        public Session Session { get; set; }
+        public Course Course { get; set; }
 
         [Required]
-        public DateTime DueDate { get; set; }
+        public string DayOfWeek { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(5, 2)")]
-        public decimal MaxScore { get; set; }
+        public string StartTime { get; set; }
+
+        [Required]
+        public string EndTime { get; set; }
     }
 }

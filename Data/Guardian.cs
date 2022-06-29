@@ -10,22 +10,18 @@ namespace Data
 {
     public class Guardian
     {
-        #region Properties
         public int GuardianId { get; set; }
 
         [Required]
-        public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; }
 
         [Required]
-        public string LastName { get; set; } = string.Empty;
+        public string LastName { get; set; }  
+        
+        [Required]
+        public string Relation { get; set; }
 
         [Required]
-        public string Relation { get; set; } = string.Empty;
-        #endregion
-
-        #region Relationships
-        //One Guardian to many Students
-        public IEnumerable<Student> Students { get; set; }
-        #endregion
+        public string ContactInfo { get; set; }        
     }
 }

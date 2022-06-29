@@ -9,7 +9,6 @@ namespace Data
 {
     public class Term
     {
-        #region Properties
         public int TermId { get; set; }
 
         [Required]
@@ -19,15 +18,9 @@ namespace Data
         public DateTime EndDate { get; set; }
 
         [Required]
-        public string TermName { get; set; } = string.Empty;
+        public string TermName { get; set; }
 
         [Required]
         public bool IsActive { get; set; }
-        #endregion
-
-        #region Relationships
-        //One Term to many Subjects
-        public IEnumerable<Subject> Subjects { get; set; }
-        #endregion
     }
 }
