@@ -14,7 +14,8 @@ namespace Data
         {
             OnTime,
             Late,
-            NoShow
+            NoShow,
+            Excused
         }
 
         public int AttendanceId { get; set; }

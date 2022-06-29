@@ -12,7 +12,7 @@ using SaucyCapstone.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220629042908_initial")]
+    [Migration("20220629205106_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,10 +56,10 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssessmentGradeId"), 1L, 1);
 
-                    b.Property<int?>("AssessmentId")
+                    b.Property<int>("AssessmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GradeId")
+                    b.Property<int?>("GradeId")
                         .HasColumnType("int");
 
                     b.HasKey("AssessmentGradeId");
@@ -107,7 +107,7 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FacultyMemberId")
+                    b.Property<int>("FacultyMemberId")
                         .HasColumnType("int");
 
                     b.Property<int>("SubjectId")
@@ -139,8 +139,8 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Weight")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(3,2)");
 
                     b.HasKey("CriterionId");
 
@@ -155,7 +155,7 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocTypeId"), 1L, 1);
 
-                    b.Property<string>("Type")
+                    b.Property<string>("Extension")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -369,7 +369,12 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("StaffStatusId")
+                        .HasColumnType("int");
+
                     b.HasKey("StaffMemberId");
+
+                    b.HasIndex("StaffStatusId");
 
                     b.ToTable("StaffMembers");
                 });
@@ -397,6 +402,31 @@ namespace Data.Migrations
                     b.ToTable("StaffNotes");
                 });
 
+            modelBuilder.Entity("Data.StaffStatus", b =>
+                {
+                    b.Property<int>("StaffStatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffStatusId"), 1L, 1);
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsInstructor")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRater")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSocialWorker")
+                        .HasColumnType("bit");
+
+                    b.HasKey("StaffStatusId");
+
+                    b.ToTable("StaffStatus");
+                });
+
             modelBuilder.Entity("Data.Student", b =>
                 {
                     b.Property<int>("StudentId")
@@ -420,8 +450,8 @@ namespace Data.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Determination")
-                        .HasColumnType("bit");
+                    b.Property<int>("DeterminationLevel")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -840,13 +870,13 @@ namespace Data.Migrations
                 {
                     b.HasOne("Data.Assessment", "Assessment")
                         .WithMany()
-                        .HasForeignKey("AssessmentId");
+                        .HasForeignKey("AssessmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Data.Grade", "Grade")
                         .WithMany()
-                        .HasForeignKey("GradeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GradeId");
 
                     b.Navigation("Assessment");
 
@@ -868,7 +898,9 @@ namespace Data.Migrations
                 {
                     b.HasOne("Data.FacultyMember", "FacultyMember")
                         .WithMany()
-                        .HasForeignKey("FacultyMemberId");
+                        .HasForeignKey("FacultyMemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Data.Subject", "Subject")
                         .WithMany()
@@ -964,6 +996,17 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("Data.StaffMember", b =>
+                {
+                    b.HasOne("Data.StaffStatus", "StaffStatus")
+                        .WithMany()
+                        .HasForeignKey("StaffStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StaffStatus");
                 });
 
             modelBuilder.Entity("Data.StaffNote", b =>

@@ -10,6 +10,7 @@ namespace Data
     {
         public int FacultyMemberId { get; set; }
 
+        //School may not have facultymembers, but a facultymember must have a school (needs to be discussed)
         public School? School { get; set; }
 
         public StaffMember StaffMember { get; set; }

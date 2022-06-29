@@ -16,6 +16,7 @@ namespace Data
         public string Description { get; set; }
 
         [Required]
-        public float Weight { get; set; }
+        [Column(TypeName = "decimal(3, 2)")]
+        public decimal Weight { get; set; }
     }
 }

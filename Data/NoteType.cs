@@ -11,6 +11,7 @@ namespace Data
     {
         public int NoteTypeId { get; set; }
 
+        //Type refers to the type of faculty member that created the note
         [Required]
         public string Type { get; set; }
     }

@@ -17,5 +17,7 @@ namespace Data
 
         [Required]
         public string LastName { get; set; }
+
+        public StaffStatus StaffStatus { get; set; }
     }
 }

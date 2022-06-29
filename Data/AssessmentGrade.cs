@@ -10,8 +10,8 @@ namespace Data
     {
         public int AssessmentGradeId { get; set; }
 
-        public Grade Grade { get; set; }
+        public Grade? Grade { get; set; }
 
-        public Assessment? Assessment { get; set; }
+        public Assessment Assessment { get; set; }
     }
 }

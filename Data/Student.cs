@@ -10,6 +10,15 @@ namespace Data
 {
     public class Student
     {
+        public enum Determination
+        {
+            Low,
+            AboveLow,
+            Middle,
+            BelowHigh,
+            High
+        }
+
         public int StudentId { get; set; }
 
         public string? Picture { get; set; }
@@ -53,7 +62,7 @@ namespace Data
 
         public bool ChappaAssistance { get; set; }
 
-        public bool Determination { get; set; }
+        public Determination DeterminationLevel { get; set; }
 
         public string? NotesAndAbout { get; set; }
     }

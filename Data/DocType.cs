@@ -12,6 +12,6 @@ namespace Data
         public int DocTypeId { get; set; }
 
         [Required]
-        public string Type { get; set; }    
+        public string Extension { get; set; }    
     }
 }
