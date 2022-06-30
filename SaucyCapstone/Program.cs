@@ -9,15 +9,13 @@ using SaucyCapstone.Services;
 using Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+
 var config = builder.Configuration;
 var services = builder.Services;
 
-// Add services to the container.
-services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-});
-
+services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 {
     options.SignIn.RequireConfirmedEmail = true;
@@ -31,7 +29,6 @@ services.AddDatabaseDeveloperPageExceptionFilter();
 services.AddRazorPages()
     .AddRazorRuntimeCompilation();
 
-services.AddControllersWithViews();
 services.Configure<EmailConfiguration>(config.GetSection("EmailConfiguration"));
 
 services.AddScoped<IEmailSender, EmailSender>();

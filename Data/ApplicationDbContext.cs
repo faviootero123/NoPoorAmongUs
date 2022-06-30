@@ -11,7 +11,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
         : base(options)
     {
     }
-
     public DbSet<Applicant> Applicants => Set<Applicant>();
     public DbSet<Assesment> Assements => Set<Assesment>();
     public DbSet<Attendance> Attendances => Set<Attendance>();
@@ -34,7 +33,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<ApplicationUser>().Property(x => x.Id).HasMaxLength(225);
+        modelBuilder.Entity<IdentityUser>().Property(x => x.Id).HasMaxLength(225);
         modelBuilder.Entity<ApplicationRole>().Property(x => x.Id).HasMaxLength(225);
         modelBuilder.Entity<IdentityUserLogin<string>>().Property(x => x.ProviderKey).HasMaxLength(225);
         modelBuilder.Entity<IdentityUserLogin<string>>().Property(x => x.LoginProvider).HasMaxLength(225);

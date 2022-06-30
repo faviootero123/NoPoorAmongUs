@@ -14,7 +14,7 @@ namespace SaucyCapstone.Static
             //Seed Roles
             string[] roleNames = { Roles.Admin, Roles.Student, Roles.Instructor, Roles.SocialWorker };
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             // Ensure the database is there and the current migrations are applied
             await db.Database.EnsureCreatedAsync();
