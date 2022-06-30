@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,18 @@ namespace Data
     {
         public int FacultyMemberId { get; set; }
 
-        //School may not have facultymembers, but a facultymember must have a school (needs to be discussed)
-        public School? School { get; set; }
+        [Required]
+        public string FirstName { get; set; }
 
-        public StaffMember StaffMember { get; set; }
+        [Required]
+        public string LastName { get; set; }
+
+        public bool IsRater { get; set; }
+
+        public bool IsInstructor { get; set; }
+
+        public bool IsSocialWorker { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

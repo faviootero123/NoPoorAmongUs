@@ -14,10 +14,6 @@ namespace Data
 
         public Subject Subject { get; set; }
 
-        public FacultyMember FacultyMember { get; set; }
-
-        public Term Term { get; set; }
-
         [Required]
         public string CourseName { get; set; }
     }

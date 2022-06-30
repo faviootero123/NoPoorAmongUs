@@ -12,9 +12,9 @@ namespace Data
     {
         public int StudentNoteId { get; set; }
 
-        public NoteType NoteType { get; set; }
-        
         public Student Student { get; set; }
+        
+        public FacultyMember FacultyMember { get; set; }
 
         [Required]
         public string Content { get; set; }

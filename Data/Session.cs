@@ -13,6 +13,10 @@ namespace Data
         public int SessionId { get; set; }
         
         public Course Course { get; set; }
+        
+        public Employee? Employee { get; set; }
+
+        public Term Term { get; set; }
 
         [Required]
         public string DayOfWeek { get; set; }

@@ -10,7 +10,7 @@ namespace Data
 {
     public class Attendance
     {
-        public enum Status
+        public enum AttendanceStatus
         {
             OnTime,
             Late,
@@ -22,7 +22,7 @@ namespace Data
 
         public Enrollment Enrollment { get; set; }
 
-        public Status AttendanceStatus { get; set; }
+        public AttendanceStatus Status { get; set; }
 
         [Required]
         public DateTime Date { get; set; }

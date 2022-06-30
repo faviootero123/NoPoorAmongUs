@@ -12,13 +12,10 @@ namespace Data
     {
         public int AssessmentId { get; set; }
         
-        public Session Session { get; set; }
-
-        [Required]
-        public DateTime DueDate { get; set; }
+        public Course Course { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(5, 2)")]
-        public decimal MaxScore { get; set; }
+        public decimal Score { get; set; }
     }
 }

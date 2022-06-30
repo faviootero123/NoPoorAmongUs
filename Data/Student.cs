@@ -10,13 +10,20 @@ namespace Data
 {
     public class Student
     {
-        public enum Determination
+        public enum DeterminationLevel
         {
             Low,
             AboveLow,
             Middle,
             BelowHigh,
             High
+        }
+        public enum StudentStatus
+        {
+            IsApplicant,
+            IsWaitlisted,
+            IsActiveStudent,
+            IsGraduated
         }
 
         public int StudentId { get; set; }
@@ -43,7 +50,8 @@ namespace Data
         [Required]
         public bool IsActive { get; set; }
 
-        public StudentStatus StudentStatus { get; set; }
+        [Required]
+        public StudentStatus Status { get; set; }
 
         public string? Address { get; set; }
 
@@ -56,13 +64,17 @@ namespace Data
         [Column(TypeName = "smallmoney")]
         public decimal AnnualIncome { get; set; }
 
+        [Required]
         public char SchoolLevel { get; set; }
 
+        [Required]
         public bool FoodAssistance { get; set; }
 
+        [Required]
         public bool ChappaAssistance { get; set; }
 
-        public Determination DeterminationLevel { get; set; }
+        [Required]
+        public DeterminationLevel Determination { get; set; }
 
         public string? NotesAndAbout { get; set; }
     }

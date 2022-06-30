@@ -18,22 +18,18 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<Criterion> Criteria => Set<Criterion>();
     public DbSet<DocType> DocTypes => Set<DocType>();
+    public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Enrollment> Enrollments => Set<Enrollment>();
     public DbSet<FacultyMember> FacultyMembers => Set<FacultyMember>();
-    public DbSet<Grade> Grades => Set<Grade>();
     public DbSet<Guardian> Guardians => Set<Guardian>();
-    public DbSet<NoteType> NoteTypes => Set<NoteType>();
     public DbSet<Rating> Ratings => Set<Rating>();
     public DbSet<School> Schools => Set<School>();
     public DbSet<Session> Sessions => Set<Session>();
-    public DbSet<StaffMember> StaffMembers => Set<StaffMember>();
-    public DbSet<StaffNote> StaffNotes => Set<StaffNote>();
-    public DbSet<StaffStatus> StaffStatuses => Set<StaffStatus>();
+    public DbSet<SessionAssessment> SessionAssessments => Set<SessionAssessment>();
     public DbSet<Student> Students => Set<Student>();
     public DbSet<StudentDoc> StudentDocs => Set<StudentDoc>();
     public DbSet<StudentGuardian> StudentGuardians => Set<StudentGuardian>();
     public DbSet<StudentNote> StudentNotes => Set<StudentNote>();
-    public DbSet<StudentStatus> StudentStatuses => Set<StudentStatus>();
     public DbSet<Subject> Subjects => Set<Subject>();
     public DbSet<Term> Terms => Set<Term>();
 
