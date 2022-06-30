@@ -61,9 +61,9 @@ else
     app.UseHsts();
 }
 
-
 app.UseStaticFiles();
 app.UseRouting();
+app.UseSession();
 
 //Handles headers forwarded from nginx
 app.UseForwardedHeaders(new ForwardedHeadersOptions
