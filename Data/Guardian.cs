@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Guardian
 {
-    public class Guardian
-    {
-        //Properties
-        public int GuardianId { get; set; }
-        //Relationships
-        public Applicant Applicant { get; set; }
-    }
+    //Properties
+    public int GuardianId { get; set; }
+    //Relationships
+    public Applicant Applicant { get; set; }
 }

@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Grade
 {
-    public class Grade
-    {
-        //Properties 
-        public int GradeId { get; set; }
-        //Relationships 
-        public ClassEnrollment ClassEnrollment { get; set; }
-        public Assesment Assement { get; set; }
-    }
+    //Properties 
+    public int GradeId { get; set; }
+    //Relationships 
+    public ClassEnrollment ClassEnrollment { get; set; }
+    public Assesment Assement { get; set; }
 }

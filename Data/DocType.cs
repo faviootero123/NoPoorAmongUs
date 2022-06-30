@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
-{
-    public class DocType
-    {
-        //Properties 
-        public int DocTypeId { get; set; }
-        //public string Name { get; set; }
+namespace Data;
 
-        //Relationships 
-        public IEnumerable<StudentDoc> StudentDocs { get; set; }
-    }
+public class DocType
+{
+    //Properties 
+    public int DocTypeId { get; set; }
+    //public string Name { get; set; }
+
+    //Relationships 
+    public IEnumerable<StudentDoc> StudentDocs { get; set; }
 }

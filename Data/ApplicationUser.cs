@@ -4,10 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace Data
-{
-    public class ApplicationUser : IdentityUser
-    {
+namespace Data;
 
-    }
+public class ApplicationUser : IdentityUser
+{
+
 }

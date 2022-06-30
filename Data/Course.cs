@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Course
 {
-    public class Course
-    {
-        //Properties
-        public int CourseId { get; set; }
-        
-        //Relationships
-        public IEnumerable<Class> Classes { get; set; }
-    }
+    //Properties
+    public int CourseId { get; set; }
+    
+    //Relationships
+    public IEnumerable<Class> Classes { get; set; }
 }

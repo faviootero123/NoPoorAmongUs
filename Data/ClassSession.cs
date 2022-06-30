@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class ClassSession
 {
-    public class ClassSession
-    {
-        //Properties
-        public int ClassSessionId { get; set; }
-        
-        //RelationShips
-        public Class Class { get; set; }
-        public IEnumerable<ClassEnrollment> ClassEnrollments { get; set; }
-    }
+    //Properties
+    public int ClassSessionId { get; set; }
+    
+    //RelationShips
+    public Class Class { get; set; }
+    public IEnumerable<ClassEnrollment> ClassEnrollments { get; set; }
 }

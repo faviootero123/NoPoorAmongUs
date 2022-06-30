@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Attendance
 {
-    public class Attendance
-    {
-        public int AttendanceId { get; set; }
-        public ClassEnrollment ClassEnrollment { get; set; }
-    }
+    public int AttendanceId { get; set; }
+    public ClassEnrollment ClassEnrollment { get; set; }
 }
