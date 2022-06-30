@@ -3,18 +3,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Static;
 using SaucyCapstone.Data;
+using System.Configuration;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SaucyCapstone.Services;
+using Data;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 var services = builder.Services;
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Add services to the container.
 services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
 });
 
-services.AddDefaultIdentity<IdentityUser>(options =>
+services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 {
     options.SignIn.RequireConfirmedEmail = true;
     options.User.RequireUniqueEmail = true;
@@ -28,16 +32,21 @@ services.AddRazorPages()
     .AddRazorRuntimeCompilation();
 
 services.AddControllersWithViews();
+services.Configure<EmailConfiguration>(config.GetSection("EmailConfiguration"));
 
+services.AddScoped<IEmailSender, EmailSender>();
+services.AddSession();
 
 var app = builder.Build();
 
 //Seed the data to the database
-if (app.Configuration.GetValue<bool>("SeedData")) {
+if (app.Configuration.GetValue<bool>("SeedData"))
+{
     await app.Services.SeedDataAsync();
 }
 var mvcBuilder = builder.Services.AddRazorPages();
 // Configure the HTTP request pipeline. AKA middleware
+
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -54,7 +63,6 @@ else
 
 
 app.UseStaticFiles();
-
 app.UseRouting();
 
 //Handles headers forwarded from nginx
@@ -66,7 +74,6 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapDefaultControllerRoute();
 app.MapRazorPages();
 
 app.Run();
