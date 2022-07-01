@@ -19,8 +19,11 @@ public class EmailSender : IEmailSender
         emailToSend.To.Add(MailboxAddress.Parse(email));
         emailToSend.Subject = subject;
         emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = htmlMessage };
-
-        Task result;
         //send email with G-mail
+
+        using var emailClient = new SmtpClient();
+        await emailClient.ConnectAsync(_emailConfig.SmtpServer, _emailConfig.Port, false);
+        await emailClient.AuthenticateAsync(_emailConfig.UserName, _emailConfig.Password);
+        _ = await emailClient.SendAsync(emailToSend);
     }
 }
