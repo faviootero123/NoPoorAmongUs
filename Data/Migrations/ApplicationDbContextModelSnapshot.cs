@@ -260,6 +260,58 @@ namespace Data.Migrations
                     b.ToTable("Guardians");
                 });
 
+            modelBuilder.Entity("Data.Note", b =>
+                {
+                    b.Property<int>("NoteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NoteId"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FacultyMemberId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoteTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("NoteId");
+
+                    b.HasIndex("FacultyMemberId");
+
+                    b.HasIndex("NoteTypeId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("Data.NoteType", b =>
+                {
+                    b.Property<int>("NoteTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NoteTypeId"), 1L, 1);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NoteTypeId");
+
+                    b.ToTable("NoteTypes");
+                });
+
             modelBuilder.Entity("Data.Rating", b =>
                 {
                     b.Property<int>("RatingId")
@@ -489,36 +541,6 @@ namespace Data.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("StudentGuardians");
-                });
-
-            modelBuilder.Entity("Data.StudentNote", b =>
-                {
-                    b.Property<int>("StudentNoteId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentNoteId"), 1L, 1);
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FacultyMemberId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentNoteId");
-
-                    b.HasIndex("FacultyMemberId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("StudentNotes");
                 });
 
             modelBuilder.Entity("Data.Subject", b =>
@@ -861,6 +883,33 @@ namespace Data.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("Data.Note", b =>
+                {
+                    b.HasOne("Data.FacultyMember", "FacultyMember")
+                        .WithMany()
+                        .HasForeignKey("FacultyMemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.NoteType", "NoteType")
+                        .WithMany()
+                        .HasForeignKey("NoteTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FacultyMember");
+
+                    b.Navigation("NoteType");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("Data.Rating", b =>
                 {
                     b.HasOne("Data.Criterion", "Criterion")
@@ -956,25 +1005,6 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Guardian");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("Data.StudentNote", b =>
-                {
-                    b.HasOne("Data.FacultyMember", "FacultyMember")
-                        .WithMany()
-                        .HasForeignKey("FacultyMemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FacultyMember");
 
                     b.Navigation("Student");
                 });
