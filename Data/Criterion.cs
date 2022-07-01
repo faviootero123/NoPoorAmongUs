@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Course
+    public class Criterion
     {
-        public int CourseId { get; set; }
-
-        public Subject Subject { get; set; }
+        public int CriterionId { get; set; }
 
         [Required]
-        public string CourseName { get; set; }
+        public string Description { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(3, 2)")]
+        public decimal Weight { get; set; }
     }
 }
-

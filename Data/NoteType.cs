@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,10 +9,9 @@ namespace Data
 {
     public class NoteType
     {
-        //Properties
         public int NoteTypeId { get; set; }
-        
-        //Relationships
-        public IEnumerable<StudentNote> StudentNotes { get; set; }
+
+        [Required]
+        public string Type { get; set; }
     }
 }

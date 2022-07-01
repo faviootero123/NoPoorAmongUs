@@ -8,12 +8,16 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class StudentDoc
+    public class AssessmentGrade
     {
-        public int StudentDocId { get; set; }
-
-        public DocType DocType { get; set; }
+        public int AssessmentGradeId { get; set; }
 
         public Student Student { get; set; }
+
+        public SessionAssessment? SessionAssessment { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(5, 2)")]
+        public decimal Grade { get; set; }
     }
 }
