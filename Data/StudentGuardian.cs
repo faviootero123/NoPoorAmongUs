@@ -6,14 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class StudentGuardian
 {
-    public class StudentGuardian
-    {
-        public int StudentGuardianId { get; set; }
+    public int StudentGuardianId { get; set; }
 
-        public Student Student { get; set; }
+    public Student Student { get; set; }
 
-        public Guardian Guardian { get; set; }
-    }
+    public Guardian Guardian { get; set; }
 }
