@@ -1,5 +1,6 @@
 ﻿using Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
 
@@ -12,12 +13,15 @@ public static class ConfigurationStaticMethods
         // Allows us to access scoped services from the DI Container such as DbContext
         using var scope = provider.CreateAsyncScope();
         //Seed Roles
-        string[] roleNames = { Roles.Admin, Roles.Student, Roles.Instructor, Roles.SocialWorker };
+        string[] roleNames = { Roles.Admin, Roles.Instructor, Roles.SocialWorker };
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         // Ensure the database is there and the current migrations are applied
         await db.Database.EnsureCreatedAsync();
+        // Remove Existing roles
+        var currentRoles = await roleManager.Roles.ToListAsync();
+        currentRoles.ForEach( async r => { await roleManager.DeleteAsync(r); });    
         // Add the roles 
         foreach (var roleName in roleNames)
         {
