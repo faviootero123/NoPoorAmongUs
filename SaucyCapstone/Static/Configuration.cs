@@ -14,7 +14,7 @@ public static class ConfigurationStaticMethods
         //Seed Roles
         string[] roleNames = { Roles.Admin, Roles.Student, Roles.Instructor, Roles.SocialWorker };
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         // Ensure the database is there and the current migrations are applied
         await db.Database.EnsureCreatedAsync();
@@ -29,33 +29,45 @@ public static class ConfigurationStaticMethods
             }
         }
 
-        /// Add Users 
+        /// Add Users That you want to seed
         var users = new Dictionary<ApplicationUser, string>()
         {
            {
-            new ApplicationUser
-                {
-                    Email = "Admin@odetopeaches.com",
-                },
-                "SuperUserDo@!"
-            }
+              new ApplicationUser
+              {
+                UserName ="AdminUser@odetopeaches.com",
+                Email = "AdminUser@odetopeaches.com" ,
+                EmailConfirmed = true,
+              },
+              "SuperUserDo@123!"
+           },
+           {
+               new ApplicationUser
+               {
+                    UserName ="InstructorUser@odetopeaches.com",
+                    Email = "InstructorUser@odetopeaches.com" ,
+                    EmailConfirmed = true,
+               },
+               "InstructorUserDo@123!"
+           }
         };
 
         IdentityResult userResult;
         foreach (var user in users)
         {
             var userExists = await userManager.FindByEmailAsync(user.Key.Email);
-            if (userExists is null)
-            {
-                userResult = await userManager.CreateAsync(user.Key, user.Value);
-            }
-
+            if (userExists is not null) await userManager.DeleteAsync(userExists);
+            userResult = await userManager.CreateAsync(user.Key, user.Value);
         }
-        IdentityResult addToRoleResult;
-        // Apply role to user 
-        var _user = await userManager.FindByNameAsync("Admin@odetopeaches.com");
-        if (_user is not null) addToRoleResult = await userManager.AddToRoleAsync(_user, Roles.Admin);
 
+        // Apply role to user 
+        await userManager.AddUserToRole("AdminUser@odetopeaches.com", Roles.Admin);
+        await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
         //Seed data for other tables 
+    }
+    private static async Task AddUserToRole(this UserManager<ApplicationUser> userManager, string username, string role)
+    {
+        var _user = await userManager.FindByNameAsync(username);
+        if (_user is not null) await userManager.AddToRoleAsync(_user, Roles.Admin);
     }
 }

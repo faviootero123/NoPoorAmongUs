@@ -8,13 +8,13 @@ namespace SaucyCapstone.Helpers;
 [HtmlTargetElement(Attributes = "asp-authorize,asp-policy")]
 [HtmlTargetElement(Attributes = "asp-authorize,asp-roles")]
 [HtmlTargetElement(Attributes = "asp-authorize,asp-authentication-schemes")]
-public class AuthorizedTagHelper : TagHelper, IAuthorizeData
+public class AuthorizatioinTagHelper : TagHelper, IAuthorizeData
 {
     private readonly IAuthorizationPolicyProvider _policyProvider;
     private readonly IPolicyEvaluator _policyEvaluator;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AuthorizedTagHelper(IHttpContextAccessor httpContextAccessor, IAuthorizationPolicyProvider policyProvider, IPolicyEvaluator policyEvaluator)
+    public AuthorizatioinTagHelper(IHttpContextAccessor httpContextAccessor, IAuthorizationPolicyProvider policyProvider, IPolicyEvaluator policyEvaluator)
     {
         _httpContextAccessor = httpContextAccessor;
         _policyProvider = policyProvider;
