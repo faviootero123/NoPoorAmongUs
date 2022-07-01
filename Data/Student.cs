@@ -20,10 +20,10 @@ namespace Data
         }
         public enum StudentStatus
         {
-            IsApplicant,
-            IsWaitlisted,
-            IsActiveStudent,
-            IsGraduated
+            OpenApplication,
+            Denied,
+            Active,
+            Graduated
         }
 
         public int StudentId { get; set; }

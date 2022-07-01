@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class StudentNote
+    public class Note
     {
-        public int StudentNoteId { get; set; }
+        public int NoteId { get; set; }
 
         public Student Student { get; set; }
         
         public FacultyMember FacultyMember { get; set; }
+
+        public NoteType NoteType { get; set; }
 
         [Required]
         public string Content { get; set; }
