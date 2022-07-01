@@ -6,13 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data;
-
-public class StudentDoc
+namespace Data
 {
-    public int StudentDocId { get; set; }
+    public class Subject
+    {   
+        public int SubjectId { get; set; }
+        
+        public School School { get; set; }
 
-    public DocType DocType { get; set; }
-
-    public Student Student { get; set; }
+        [Required]
+        public string SubjectName { get; set; }
+    }
 }
