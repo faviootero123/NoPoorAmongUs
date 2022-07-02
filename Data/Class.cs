@@ -11,7 +11,7 @@ public class Class
     //Properties
     public int ClassId { get; set; }
     //Relationships
-    public IEnumerable<ClassSession> Sessions { get; set; }
+    public IList<ClassSession> Sessions { get; set; }
     public Term Term { get; set; }
     public School School { get; set; }
     public Course Course { get; set; }
