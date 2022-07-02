@@ -1,0 +1,143 @@
+﻿@page
+@model SaucyCapstone.Pages.Sessions.UpsertModel
+@{
+}
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row px-2 mx-2 backgroundWhite border">
+            @* All for Model validation and HTML validation *@
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="col-12 px-3" style="border-bottom:1px solid #325d88">
+                <h2 class="text-primary">@(Model.Sessions.SessionId != 0 ? "Update" : "Create") Session</h2>
+
+            </div>
+            <div class="col-8 pt-3">
+                <div class="form-group row">
+
+                    @if (Model.Sessions.SessionId != 0)
+                    {
+                        <input type="hidden" asp-for="Sessions.SessionId" />
+                    }
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="Sessions.Course.CourseId"></label>
+                    </div>
+                    <div class="col-9">
+                        @Html.DropDownListFor(m => m.Sessions.Course.CourseId,
+                        Model.CourseList,
+                        " - Please select a Course - ",
+                        new { @class = "form-control", @id = "ddlCourseModel" })
+                        <span class="text-danger" asp-validation-for="Sessions.Course.CourseId"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="Sessions.Term.TermId"></label>
+                    </div>
+                    <div class="col-9">
+                        @Html.DropDownListFor(m => m.Sessions.Term.TermId,
+                        Model.TermList,
+                        " - Please select a Term - ",
+                        new { @class = "form-control", @id = "ddlTermModel" })
+                        <span class="text-danger" asp-validation-for="Sessions.Term.TermId"></span>
+                    </div>
+                </div>
+                @*   This isn't going to woork*@
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="Sessions.DayOfWeek"></label>
+                    </div>
+                    <div class="col-9">
+                        <input id="name" class="form-control" asp-for="Sessions.DayOfWeek" />
+                        <span class="text-danger" asp-validation-for="Sessions.DayOfWeek"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="Sessions.StartTime"></label>
+                    </div>
+                    <div class="col-9">
+                        <input id="starttimepicker" value="" asp-for="Sessions.StartTime" type="text" class="form-control" />
+                        <span asp-validation-for="Sessions.StartTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="Sessions.EndTime"></label>
+                    </div>
+                    <div class="col-9">
+                        <input id="endtimepicker" value="" asp-for="Sessions.EndTime" type="text" class="form-control" />
+                        <span asp-validation-for="Sessions.EndTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-9 offset-3">
+                        <div class="row">
+                            <div class="col-6">
+                                @if (Model.Sessions.SessionId != 0)
+                                {
+                                    <button type="submit" class="btn btn-primary form-control" onclick="return validateInput()">Update</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary form-control" onclick="return validateInput()">Create</button>
+                                }
+
+                            </div>
+                            <div class="col-6">
+                                <a asp-page="./Index" class="btn btn-success form-control">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</form>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function() {
+            $("#datepicker").datepicker({ minDate: 1, maxDate: "+1M" });
+            $("#starttimepicker").timepicker({ 'minTime': '10:00 AM', 'maxTime': '9:00 PM', step: '30' });
+            $("#endtimepicker").timepicker({ 'minTime': '10:00 AM', 'maxTime': '9:00 PM', step: '30' });
+        });
+
+        function validateInput() {
+            var starttime = document.getElementById("starttimepicker").value;
+            var endtime = document.getElementById("endtimepicker").value;
+            var dt = document.getElementById("datepicker").value;
+            var name = document.getElementById("name").value;
+
+            if (name == '') {
+                swal("Enter all fields");
+                return false;
+            }
+            if (dt.toString() == '') {
+                swal("Error", "Please select Event Date", "error");
+                return false;
+            }
+            if (starttime.toString() == '') {
+                swal("Error", "Please select Start Time", "error");
+                return false;
+            }
+            if (name.toString() == '') {
+                swal("Error", "Please enter a Name", "error");
+                return false;
+            }
+            if (endtime.toString() == '') {
+                swal("Error", "Please enter an end time", "error");
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

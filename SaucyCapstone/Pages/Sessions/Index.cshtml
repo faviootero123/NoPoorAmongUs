@@ -1,0 +1,25 @@
+﻿@page
+@model SaucyCapstone.Pages.Sessions.IndexModel
+@{
+}
+<h2>Sessions</h2>
+<p>
+    <a asp-page="Upsert" id="CreateBtn">Create New</a>
+</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Days</th>
+    <th>Time</th>
+    <th>Term</th>
+  </tr>
+  @foreach(var session in Model.Sessions)
+  {
+  <tr>
+    <td>@Html.DisplayFor(modelItem => session.Course.CourseName)</td>
+    <td>@Html.DisplayFor(modelItem => session.DayOfWeek)</td>
+    <td>@Html.DisplayFor(modelItem => session.StartTime) - @Html.DisplayFor(modelItem => session.EndTime)</td>
+    <td>@Html.DisplayFor(modelItem => session.Term.TermName)</td>
+  </tr>
+  }
+</table>
