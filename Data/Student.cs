@@ -77,4 +77,5 @@ public class Student
     public DeterminationLevel Determination { get; set; }
 
     public string? NotesAndAbout { get; set; }
+    public IList<Enrollment> Enrollments {get; set;}
 }

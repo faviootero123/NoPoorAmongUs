@@ -41,4 +41,5 @@ public class Session
 
     [Required]
     public string EndTime { get; set; }
+    public IList<Enrollment> Enrollments {get; set;}
 }
