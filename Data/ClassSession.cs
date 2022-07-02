@@ -13,5 +13,5 @@ public class ClassSession
     
     //RelationShips
     public Class Class { get; set; }
-    public IEnumerable<ClassEnrollment> ClassEnrollments { get; set; }
+    public IList<ClassEnrollment> ClassEnrollments { get; set; }
 }
