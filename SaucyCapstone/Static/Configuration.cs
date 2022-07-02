@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
+using System.Text.Json;
 
 namespace SaucyCapstone.Static;
 
@@ -21,7 +22,11 @@ public static class ConfigurationStaticMethods
         await db.Database.EnsureCreatedAsync();
         // Remove Existing roles
         var currentRoles = await roleManager.Roles.ToListAsync();
-        currentRoles.ForEach( async r => { await roleManager.DeleteAsync(r); });    
+
+        foreach (var role in currentRoles)
+        {
+            await roleManager.DeleteAsync(role);
+        }
         // Add the roles 
         foreach (var roleName in roleNames)
         {
@@ -68,10 +73,50 @@ public static class ConfigurationStaticMethods
         await userManager.AddUserToRole("AdminUser@odetopeaches.com", Roles.Admin);
         await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
         //Seed data for other tables 
+        await db.SeedDataNeededForSession();
     }
     private static async Task AddUserToRole(this UserManager<ApplicationUser> userManager, string username, string role)
     {
         var _user = await userManager.FindByNameAsync(username);
         if (_user is not null) await userManager.AddToRoleAsync(_user, Roles.Admin);
+    }
+
+    private static async Task SeedDataNeededForSession(this ApplicationDbContext db)
+    {
+        var alreadyExists = await db.Schools.Where(s => s.SchoolName == "Test School").FirstOrDefaultAsync() == null;
+        if (alreadyExists)
+        {
+            var school = new School
+            {
+                SchoolName = "Test School"
+            };
+
+            await db.AddAsync(school);
+
+            var subject = new Subject
+            {
+                School = school,
+                SubjectName = "Maths"
+            };
+
+            await db.AddAsync(subject);
+
+            await db.AddAsync(new Term
+            {
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(3),
+                TermName = "Test Term",
+                IsActive = true
+            });
+
+            var course = new Course
+            {
+                Subject = subject,
+                CourseName = "Test Course"
+            };
+
+            await db.AddAsync(course);
+            await db.SaveChangesAsync();
+        }
     }
 }

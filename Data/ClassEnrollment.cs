@@ -13,7 +13,7 @@ public class ClassEnrollment
     //Relationships
     public ClassSession ClassSession { get; set; }
     public Student Student { get; set; }
-    public IEnumerable<Attendance> Attendances { get; set; }
-    public IEnumerable<Grade> Grades { get; set; }
+    public IList<Attendance> Attendances { get; set; }
+    public IList<Grade> Grades { get; set; }
 
 }
