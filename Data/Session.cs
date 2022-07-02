@@ -10,16 +10,31 @@ namespace Data;
 
 public class Session
 {
+    [Key]
     public int SessionId { get; set; }
-    
+
+    [Required]
+    public int CourseId { get; set; }
+
+    [Required]
+    public int TermId { get; set; }
+
+  
+
+    [ForeignKey("CourseId")]
     public Course Course { get; set; }
+
     
     public Employee? Employee { get; set; }
 
+    [ForeignKey("TermId")]
     public Term Term { get; set; }
 
-    [Required]
-    public string DayOfWeek { get; set; }
+    public bool Monday { get; set; }
+    public bool Tuesday { get; set; }
+    public bool Wednesday { get; set; }
+    public bool Thursday { get; set; }
+    public bool Friday { get; set; }
 
     [Required]
     public string StartTime { get; set; }

@@ -28,7 +28,7 @@
                         <label asp-for="Sessions.Course.CourseId"></label>
                     </div>
                     <div class="col-9">
-                        @Html.DropDownListFor(m => m.Sessions.Course.CourseId,
+                        @Html.DropDownListFor(m => m.Sessions.CourseId,
                         Model.CourseList,
                         " - Please select a Course - ",
                         new { @class = "form-control", @id = "ddlCourseModel" })
@@ -41,23 +41,37 @@
                         <label asp-for="Sessions.Term.TermId"></label>
                     </div>
                     <div class="col-9">
-                        @Html.DropDownListFor(m => m.Sessions.Term.TermId,
+                        @Html.DropDownListFor(m => m.Sessions.TermId,
                         Model.TermList,
                         " - Please select a Term - ",
                         new { @class = "form-control", @id = "ddlTermModel" })
                         <span class="text-danger" asp-validation-for="Sessions.Term.TermId"></span>
                     </div>
                 </div>
-                @*   This isn't going to woork*@
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label asp-for="Sessions.DayOfWeek"></label>
+                 <div class="form-group row">
+                      <div class="col-3">
+                        <label> Days of Week</label>
                     </div>
-                    <div class="col-9">
-                        <input id="name" class="form-control" asp-for="Sessions.DayOfWeek" />
-                        <span class="text-danger" asp-validation-for="Sessions.DayOfWeek"></span>
-                    </div>
+                     <div class="col-3">
+                <input type="checkbox" asp-for="Sessions.Monday" value="true" />
+                <label asp-for="Sessions.Monday" class="control-label"></label>
+
+                </br>
+                <input type="checkbox" asp-for="Sessions.Tuesday" value="true" />
+                <label asp-for="Sessions.Tuesday" class="control-label"></label>
+
+                </br>
+                <input type="checkbox" asp-for="Sessions.Wednesday" value="true" />
+                <label asp-for="Sessions.Wednesday" class="control-label"></label>
+
+                </br>
+                 <input type="checkbox" asp-for="Sessions.Thursday" value="true" />
+                <label asp-for="Sessions.Thursday" class="control-label"></label>
+                    </br>
+                 <input type="checkbox" asp-for="Sessions.Friday" value="true" />
+                <label asp-for="Sessions.Friday" class="control-label"></label>
                 </div>
+            </div>
                 <div class="form-group row">
                     <div class="col-3">
                         <label asp-for="Sessions.StartTime"></label>

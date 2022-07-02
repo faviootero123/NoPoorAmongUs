@@ -6,20 +6,52 @@
 <p>
     <a asp-page="Upsert" id="CreateBtn">Create New</a>
 </p>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Days</th>
-    <th>Time</th>
-    <th>Term</th>
-  </tr>
-  @foreach(var session in Model.Sessions)
-  {
-  <tr>
-    <td>@Html.DisplayFor(modelItem => session.Course.CourseName)</td>
-    <td>@Html.DisplayFor(modelItem => session.DayOfWeek)</td>
-    <td>@Html.DisplayFor(modelItem => session.StartTime) - @Html.DisplayFor(modelItem => session.EndTime)</td>
-    <td>@Html.DisplayFor(modelItem => session.Term.TermName)</td>
-  </tr>
-  }
-</table>
+
+@foreach (var session in Model.Sessions)
+{
+    <div class="d-inline-flex p-2 bd-highlight">
+        <div class="card-border bg-info text-white" style="width: 18rem;">
+            <div class="card-header">
+                <h5 class="text-center mb-0">@Html.DisplayFor(modelItem => session.Course.Subject.SubjectName) - @Html.DisplayFor(modelItem => session.Course.CourseName)</h5>
+            </div>
+            <div class="card-body text-white">
+                 <p class="text-center"><b>Days: </b></p>
+                @if (session.Monday)
+                {
+                    <p class="text-center">Monday</p>
+                }
+                @if (session.Tuesday)
+                {
+                    <p class="text-center">Tuesday</p>
+                }
+                @if (session.Wednesday)
+                {
+                    <p class="text-center">Wednesday</p>
+                }
+                @if (session.Thursday)
+                {
+                    <p class="text-center">Thursday</p>
+                }
+                @if (session.Friday)
+                {
+                    <p class="text-center">Friday</p>
+                }
+                <p class="text-center"><b>Time:</b> @Html.DisplayFor(modelItem => session.StartTime) - @Html.DisplayFor(modelItem => session.EndTime)</p>
+
+
+
+                <p class="text-center"><b>Term:</b> @Html.DisplayFor(modelItem => session.Term.TermName)</p>
+
+                <div class="d-flex justify-content-around">
+                     <p>
+                                <a class="btn btn-success" asp-page="" asp-route-id="@session.SessionId">View</a>
+                            </p>
+                              <p>
+                                <a class="btn btn-success" asp-page="" asp-route-id="@session.SessionId">Archive</a>
+                            </p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

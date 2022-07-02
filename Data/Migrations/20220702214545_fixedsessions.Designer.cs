@@ -12,8 +12,8 @@ using SaucyCapstone.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220702203134_NewBaseLine")]
-    partial class NewBaseLine
+    [Migration("20220702214545_fixedsessions")]
+    partial class fixedsessions
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -460,10 +460,6 @@ namespace Data.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("DayOfWeek")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
@@ -471,12 +467,27 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Friday")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Monday")
+                        .HasColumnType("bit");
+
                     b.Property<string>("StartTime")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TermId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Thursday")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Tuesday")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Wednesday")
+                        .HasColumnType("bit");
 
                     b.HasKey("SessionId");
 
@@ -887,7 +898,7 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.Course", b =>
                 {
                     b.HasOne("Data.Subject", "Subject")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1129,6 +1140,11 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.School", b =>
                 {
                     b.Navigation("Subjects");
+                });
+
+            modelBuilder.Entity("Data.Subject", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }
