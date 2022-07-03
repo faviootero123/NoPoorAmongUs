@@ -41,7 +41,6 @@ public class Student
 
     public string? Phone { get; set; }
 
-    [Required]
     public DateTime AcceptedDate { get; set; }
 
     [Required]
