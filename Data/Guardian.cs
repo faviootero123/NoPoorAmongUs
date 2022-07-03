@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Guardian
 {
-    public class Guardian
-    {
         public int GuardianId { get; set; }
 
         [Required]
@@ -23,5 +23,4 @@ namespace Data
 
         [Required]
         public string ContactInfo { get; set; }        
-    }
 }

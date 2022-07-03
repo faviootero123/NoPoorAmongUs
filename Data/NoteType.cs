@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
-{
-    public class NoteType
-    {
-        public int NoteTypeId { get; set; }
+namespace Data;
 
-        [Required]
-        public string Type { get; set; }
-    }
+public class NoteType
+{
+    public int NoteTypeId { get; set; }
+
+    [Required]
+    public string Type { get; set; }
 }

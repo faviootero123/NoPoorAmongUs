@@ -5,17 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class SessionAssessment
 {
-    public class SessionAssessment
-    {
-        public int SessionAssessmentId { get; set; }
+    public int SessionAssessmentId { get; set; }
 
-        public Assessment? Assessment { get; set; }
+    public Assessment? Assessment { get; set; }
 
-        public Session Session { get; set; }
+    public Session Session { get; set; }
 
-        [Required]
-        public DateTime DueDate { get; set; }
-    }
+    [Required]
+    public DateTime DueDate { get; set; }
 }

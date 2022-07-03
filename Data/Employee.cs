@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Employee
 {
-    public class Employee
-    {
-        public int EmployeeId { get; set; }
+    public int EmployeeId { get; set; }
 
-        public School School { get; set; }
+    public School School { get; set; }
 
-        public FacultyMember FacultyMember { get; set; }
-    }
+    public FacultyMember FacultyMember { get; set; }
 }

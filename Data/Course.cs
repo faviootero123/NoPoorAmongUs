@@ -6,16 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Course
 {
-    public class Course
-    {
-        public int CourseId { get; set; }
+    public int CourseId { get; set; }
 
-        public Subject Subject { get; set; }
+    public Subject Subject { get; set; }
 
-        [Required]
-        public string CourseName { get; set; }
-    }
+    [Required]
+    public string CourseName { get; set; }
 }
 

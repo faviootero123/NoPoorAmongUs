@@ -6,17 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Criterion
 {
-    public class Criterion
-    {
-        public int CriterionId { get; set; }
+    public int CriterionId { get; set; }
 
-        [Required]
-        public string Description { get; set; }
+    [Required]
+    public string Description { get; set; }
 
-        [Required]
-        [Column(TypeName = "decimal(3, 2)")]
-        public decimal Weight { get; set; }
-    }
+    [Required]
+    [Column(TypeName = "decimal(3, 2)")]
+    public decimal Weight { get; set; }
 }

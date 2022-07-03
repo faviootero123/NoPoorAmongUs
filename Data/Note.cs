@@ -6,22 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Note
 {
-    public class Note
-    {
-        public int NoteId { get; set; }
+    public int NoteId { get; set; }
 
-        public Student Student { get; set; }
-        
-        public FacultyMember FacultyMember { get; set; }
+    public Student Student { get; set; }
+    
+    public FacultyMember FacultyMember { get; set; }
 
-        public NoteType NoteType { get; set; }
+    public NoteType NoteType { get; set; }
 
-        [Required]
-        public string Content { get; set; }
+    [Required]
+    public string Content { get; set; }
 
-        [Required]
-        public DateTime CreatedDate { get; set; }
-    }
+    [Required]
+    public DateTime CreatedDate { get; set; }
 }

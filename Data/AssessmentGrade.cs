@@ -6,18 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class AssessmentGrade
 {
-    public class AssessmentGrade
-    {
-        public int AssessmentGradeId { get; set; }
+    public int AssessmentGradeId { get; set; }
 
-        public Student Student { get; set; }
+    public Student Student { get; set; }
 
-        public SessionAssessment? SessionAssessment { get; set; }
+    public SessionAssessment? SessionAssessment { get; set; }
 
-        [Required]
-        [Column(TypeName = "decimal(5, 2)")]
-        public decimal Grade { get; set; }
-    }
+    [Required]
+    [Column(TypeName = "decimal(5, 2)")]
+    public decimal Grade { get; set; }
 }

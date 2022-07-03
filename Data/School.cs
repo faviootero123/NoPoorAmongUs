@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
-{
-    public class School
-    {
-        public int SchoolId { get; set; }
+namespace Data;
 
-        [Required]
-        public string SchoolName { get; set; }        
-    }
+public class School
+{
+    public int SchoolId { get; set; }
+
+    public IList<Subject> Subjects { get; set; }
+
+    [Required]
+    public string SchoolName { get; set; }
 }

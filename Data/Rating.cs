@@ -5,19 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Rating
 {
-    public class Rating
-    {
-        public int RatingId { get; set; }
+    public int RatingId { get; set; }
 
-        public Criterion Criterion { get; set; }
+    public Criterion Criterion { get; set; }
 
-        public Student Student { get; set; }
+    public Student Student { get; set; }
 
-        [Required]
-        public int Value { get; set; }
+    [Required]
+    public int Value { get; set; }
 
-        public string? Comments { get; set; }
-    }
+    public string? Comments { get; set; }
 }

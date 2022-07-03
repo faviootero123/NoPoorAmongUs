@@ -6,25 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
+namespace Data;
+
+public class Attendance
 {
-    public class Attendance
+    public enum AttendanceStatus
     {
-        public enum AttendanceStatus
-        {
-            OnTime,
-            Late,
-            NoShow,
-            Excused
-        }
-
-        public int AttendanceId { get; set; }
-
-        public Enrollment Enrollment { get; set; }
-
-        public AttendanceStatus Status { get; set; }
-
-        [Required]
-        public DateTime Date { get; set; }
+        OnTime,
+        Late,
+        NoShow,
+        Excused
     }
+
+    public int AttendanceId { get; set; }
+
+    public Enrollment Enrollment { get; set; }
+
+    public AttendanceStatus Status { get; set; }
+
+    [Required]
+    public DateTime Date { get; set; }
 }

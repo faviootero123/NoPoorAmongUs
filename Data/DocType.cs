@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data
-{
-    public class DocType
-    {
-        public int DocTypeId { get; set; }
+namespace Data;
 
-        [Required]
-        public string Extension { get; set; }    
-    }
+public class DocType
+{
+    //Properties 
+    public int DocTypeId { get; set; }
+    //public string Name { get; set; }
+
+    //Relationships 
+    public IList<StudentDoc> StudentDocs { get; set; }
 }
