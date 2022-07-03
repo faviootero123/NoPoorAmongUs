@@ -13,5 +13,4 @@ public class Assesment
     
     //Relationships
     public IList<Grade> Grades { get; set; }
-    public Class Class { get; set; }
 }
