@@ -13,8 +13,8 @@ public class SessionVM
 
     public IEnumerable<Enrollment> Enrollments { get; set; }
 
-    public IEnumerable<Term> Term { get; set; }
+    public Term Term { get; set; }
 
-    public IEnumerable<Course> Course { get; set; }
+    public Course Course { get; set; }
 
 }

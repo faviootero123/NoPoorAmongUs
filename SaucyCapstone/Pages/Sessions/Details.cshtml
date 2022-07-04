@@ -2,9 +2,33 @@
 @model SaucyCapstone.Pages.Sessions.DetailsModel
 @{
 }
-<div>
+@*<div>
   @foreach(var student in Model.Students)
     {
-        
+        <p>@student.FirstName @student.LastName</p>
     }
+</div>*@
+<div class="row">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                
+                <th scope="col">Student Name</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> John Doe</td>
+                <td> <a class="btn btn-success" asp-page="" asp-route-id="">Details</a></td>
+                <td> <a class="btn btn-success" asp-page="" asp-route-id="">Assessment</a></td>
+            </tr>
+               <tr>
+                <td> Jane Smith</td>
+                <td> <a class="btn btn-success" asp-page="" asp-route-id="">Details</a></td>
+                <td> <a class="btn btn-success" asp-page="" asp-route-id="">Assessment</a></td>
+            </tr>
+        </tbody>
+    </table>
 </div>

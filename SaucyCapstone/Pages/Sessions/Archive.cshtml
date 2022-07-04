@@ -1,0 +1,12 @@
+﻿@page
+@model SaucyCapstone.Pages.Sessions.ArchiveModel
+@{
+}
+<form method="post">
+<div>
+    <h3>Are you sure you want to archive this course?</h3>
+    <input type="hidden" asp-for="Session.SessionId" />
+      <button type="submit" class="btn btn-success" asp-page="./Index">Yes, Archive</button>
+      <a class="btn btn-success" asp-page="./Index">No</a>
+</div>
+</form>

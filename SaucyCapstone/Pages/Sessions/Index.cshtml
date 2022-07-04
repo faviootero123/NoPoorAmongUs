@@ -6,7 +6,12 @@
 <p>
     <a asp-page="Upsert" id="CreateBtn">Create New</a>
 </p>
-
+@if(Model.Sessions == null)
+{
+    <div> No Available Sessions</div>
+}
+@if(Model.Sessions != null)
+{
 @foreach (var session in Model.Sessions)
 {
     <div class="d-inline-flex p-2 bd-highlight">
@@ -44,14 +49,14 @@
 
                 <div class="d-flex justify-content-around">
                      <p>
-                                <a class="btn btn-success" asp-page="" asp-route-id="@session.SessionId">View</a>
+                                <a class="btn btn-success" asp-page="./Details" asp-route-id="@session.SessionId">View</a>
                             </p>
                               <p>
-                                <a class="btn btn-success" asp-page="" asp-route-id="@session.SessionId">Archive</a>
+                                <a class="btn btn-success" asp-page="./Archive" asp-route-id="@session.SessionId">Archive</a>
                             </p>
                 </div>
             </div>
         </div>
     </div>
-}
+}}
 
