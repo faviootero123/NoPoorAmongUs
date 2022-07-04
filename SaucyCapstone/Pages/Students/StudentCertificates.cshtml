@@ -1,0 +1,44 @@
+﻿@page
+@model SaucyCapstone.Pages.Students.StudentCertificatesModel
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Certificate</h2>
+        </div>
+    </div>
+    <br />
+<div class="container d-flex align-items-center justify-content-center">
+<table class="table table-bordered table-striped " style="width:60%">
+    <thead>
+        <tr>
+            <th>
+                Course
+            </th>
+            <th>
+                Level
+            </th>
+            <th>
+                Download
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td width="30%">
+                    English
+                </td>
+                <td width="30%">
+                    1
+                </td>
+                <td width="60%" >
+                    <a class="btn btn-success mx-2 al" ><i class="bi bi-file-earmark-arrow-down-fill"></i></a>
+                </td>
+            </tr>
+    </tbody>
+</table>
+</div>
+ <a class="btn btn-primary" asp-page="/Students/Index" >Go Back</a>
+
+
+</div>
