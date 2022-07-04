@@ -11,5 +11,6 @@ public class StudentNote
     public Student Student { get; set; }
     public FacultyMember FacultyMember {get; set; }
     public string Content { get; set; }
+    public string Topic { get; set; }
     public DateTime CreatedDate { get; set; }
 }

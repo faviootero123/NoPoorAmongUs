@@ -13,4 +13,6 @@ public class DocType
     public int DocTypeId { get; set; }
     public string Extension { get; set; }
 
+    public string File { get; set; }
+
 }

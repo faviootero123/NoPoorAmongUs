@@ -11,8 +11,9 @@ namespace Data;
 public class StudentDoc
 {
     public int StudentDocId { get; set; }
-
     public DocType DocType { get; set; }
-
     public Student Student { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+
 }
