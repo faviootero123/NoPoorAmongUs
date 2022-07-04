@@ -11,10 +11,9 @@ public class SessionVM
     [Required]
     public Session Session { get; set; }
 
-    public IEnumerable<Enrollment> Enrollments { get; set; }
+    public Enrollment Enrollment { get; set; }
+    public IList<Student> Students { get; set; }
+  
 
-    public Term Term { get; set; }
-
-    public Course Course { get; set; }
-
+      
 }
