@@ -65,7 +65,7 @@ public class Student
     public decimal AnnualIncome { get; set; }
 
     [Required]
-    public char SchoolLevel { get; set; }
+    public int SchoolLevel { get; set; }
 
     [Required]
     public bool FoodAssistance { get; set; }
