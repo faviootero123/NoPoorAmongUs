@@ -30,11 +30,8 @@ public class Session
     [ForeignKey("TermId")]
     public Term Term { get; set; }
 
-    public bool Monday { get; set; }
-    public bool Tuesday { get; set; }
-    public bool Wednesday { get; set; }
-    public bool Thursday { get; set; }
-    public bool Friday { get; set; }
+  public string DayofWeek { get; set; }
+    public bool isActive { get; set; } = true;
 
     [Required]
     public string StartTime { get; set; }

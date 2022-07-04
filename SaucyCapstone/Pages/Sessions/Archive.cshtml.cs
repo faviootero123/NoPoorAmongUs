@@ -30,7 +30,7 @@ namespace SaucyCapstone.Pages.Sessions
             Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
             if(Session != null)
             {
-                _context.Sessions.Remove(Session);
+                Session.isActive = false;
                 _context.SaveChanges();
             }
 

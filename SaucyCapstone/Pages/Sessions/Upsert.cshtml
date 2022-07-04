@@ -53,23 +53,13 @@
                         <label> Days of Week</label>
                     </div>
                      <div class="col-3">
-                <input type="checkbox" asp-for="Sessions.Monday" value="true" />
-                <label asp-for="Sessions.Monday" class="control-label"></label>
-
-                </br>
-                <input type="checkbox" asp-for="Sessions.Tuesday" value="true" />
-                <label asp-for="Sessions.Tuesday" class="control-label"></label>
-
-                </br>
-                <input type="checkbox" asp-for="Sessions.Wednesday" value="true" />
-                <label asp-for="Sessions.Wednesday" class="control-label"></label>
-
-                </br>
-                 <input type="checkbox" asp-for="Sessions.Thursday" value="true" />
-                <label asp-for="Sessions.Thursday" class="control-label"></label>
-                    </br>
-                 <input type="checkbox" asp-for="Sessions.Friday" value="true" />
-                <label asp-for="Sessions.Friday" class="control-label"></label>
+                          <div class="col-9">
+                        @Html.DropDownListFor(m => m.Sessions.DayofWeek,
+                        Model.DayOfWeekList,
+                        " - Please select a Day - ",
+                        new { @class = "form-control", @id = "ddlDayModel" })
+                     
+                    </div>
                 </div>
             </div>
                 <div class="form-group row">
