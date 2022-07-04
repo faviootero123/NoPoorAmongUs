@@ -12,6 +12,6 @@ public class Instructor
     public int InstructorId { get; set; }
 
     //Relationships
-    public IEnumerable<Class> Classes { get; set; }
+
 
 }

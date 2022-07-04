@@ -12,6 +12,5 @@ public class Assesment
     public int AssesmentId { get; set; }
     
     //Relationships
-    public IEnumerable<Grade> Grades { get; set; }
-    public Class Class { get; set; }
+    public IList<Grade> Grades { get; set; }
 }

@@ -14,5 +14,5 @@ public class DocType
     //public string Name { get; set; }
 
     //Relationships 
-    public IEnumerable<StudentDoc> StudentDocs { get; set; }
+    public IList<StudentDoc> StudentDocs { get; set; }
 }

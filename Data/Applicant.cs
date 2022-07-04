@@ -17,6 +17,6 @@ public class Applicant
     
     //RelationShips
     public Student? Student { get; set; }
-    public IEnumerable<Rating> Ratings { get; set; }
-    public IEnumerable<Guardian> Guardians { get; set; }
+    public IList<Rating> Ratings { get; set; }
+    public IList<Guardian> Guardians { get; set; }
 }

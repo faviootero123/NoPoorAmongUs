@@ -11,6 +11,5 @@ public class Grade
     //Properties 
     public int GradeId { get; set; }
     //Relationships 
-    public ClassEnrollment ClassEnrollment { get; set; }
     public Assesment Assement { get; set; }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaucyCapstone.Data;
 
@@ -11,9 +12,10 @@ using SaucyCapstone.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220702203134_NewBaseLine")]
+    partial class NewBaseLine
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,19 +115,6 @@ namespace Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("Data.Assesment", b =>
-                {
-                    b.Property<int>("AssesmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssesmentId"), 1L, 1);
-
-                    b.HasKey("AssesmentId");
-
-                    b.ToTable("Assesment");
                 });
 
             modelBuilder.Entity("Data.Assessment", b =>
@@ -331,24 +320,6 @@ namespace Data.Migrations
                     b.HasKey("FacultyMemberId");
 
                     b.ToTable("FacultyMembers");
-                });
-
-            modelBuilder.Entity("Data.Grade", b =>
-                {
-                    b.Property<int>("GradeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradeId"), 1L, 1);
-
-                    b.Property<int>("AssementAssesmentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GradeId");
-
-                    b.HasIndex("AssementAssesmentId");
-
-                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("Data.Guardian", b =>
@@ -916,7 +887,7 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.Course", b =>
                 {
                     b.HasOne("Data.Subject", "Subject")
-                        .WithMany("Courses")
+                        .WithMany()
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -960,17 +931,6 @@ namespace Data.Migrations
                     b.Navigation("Session");
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("Data.Grade", b =>
-                {
-                    b.HasOne("Data.Assesment", "Assement")
-                        .WithMany("Grades")
-                        .HasForeignKey("AssementAssesmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Assement");
                 });
 
             modelBuilder.Entity("Data.Note", b =>
@@ -1161,11 +1121,6 @@ namespace Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Data.Assesment", b =>
-                {
-                    b.Navigation("Grades");
-                });
-
             modelBuilder.Entity("Data.DocType", b =>
                 {
                     b.Navigation("StudentDocs");
@@ -1174,11 +1129,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.School", b =>
                 {
                     b.Navigation("Subjects");
-                });
-
-            modelBuilder.Entity("Data.Subject", b =>
-                {
-                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }
