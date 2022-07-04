@@ -14,7 +14,7 @@ public class Session
     
     public Course Course { get; set; }
     
-    public Employee? Employee { get; set; }
+    public Employee Employee { get; set; }
 
     public Term Term { get; set; }
 

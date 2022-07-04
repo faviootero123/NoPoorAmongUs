@@ -2,8 +2,8 @@
 @model SaucyCapstone.Pages.Students.addNotesModel
 
 
-@*<form method="post" enctype="multipart/form-data">
-    <input asp-for="studentNote.StudentNoteId" hidden />
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="studentNote." hidden />
     <input asp-for="studentNote.Student.StudentId" hidden />
     <input asp-for="studentNote." hidden />
     <div class="container">
@@ -160,7 +160,7 @@
                         <div class="mb-3">
                             <input asp-for="StudentDetails.Picture" type="file" id="uploadBox" name="file" class="form-control" />
                         </div>
-                            @*<div class="row">
+                            <div class="row">
                                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                                     <span>Guardian Details:</span>
                                 </h4>
@@ -215,4 +215,4 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
-}*@
+}

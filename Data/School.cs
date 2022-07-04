@@ -11,8 +11,6 @@ public class School
 {
     public int SchoolId { get; set; }
 
-    public IList<Subject> Subjects { get; set; }
-
     [Required]
     public string SchoolName { get; set; }
 }

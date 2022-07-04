@@ -11,8 +11,6 @@ public class DocType
 {
     //Properties 
     public int DocTypeId { get; set; }
-    //public string Name { get; set; }
+    public string Extension { get; set; }
 
-    //Relationships 
-    public IList<StudentDoc> StudentDocs { get; set; }
 }

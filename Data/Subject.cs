@@ -16,5 +16,4 @@ public class Subject
 
     [Required]
     public string SubjectName { get; set; }
-    public IList<Course> Courses { get; set; }
 }

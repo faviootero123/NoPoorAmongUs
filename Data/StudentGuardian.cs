@@ -13,4 +13,5 @@ public class StudentGuardian
     public int StudentGuardianId { get; set; }
     public Student Student { get; set; }
     public Guardian Guardian { get; set; }
+
 }
