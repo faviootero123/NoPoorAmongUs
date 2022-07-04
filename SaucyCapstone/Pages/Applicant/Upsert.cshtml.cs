@@ -1,6 +1,7 @@
 using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
 using SaucyCapstone.Data;
 
@@ -23,12 +24,28 @@ public class CreateModel : PageModel
         if (id.HasValue)
         {
             Applicant.StudentDetails = _db.Students.Where(u => u.StudentId == id).First();
-            Applicant.GuardianDetails = _db.StudentGuardians.Where(u => u.Student.StudentId == id).First().Guardian;
+            var studentGuardians = _db.StudentGuardians.Where(u => u.Student.StudentId == id).Include(u => u.Guardian);
+
+            Applicant.GuardianDetails = new List<Guardian>();
+
+            foreach (var guardian in studentGuardians)
+            {
+                Applicant.GuardianDetails.Add(guardian.Guardian);
+
+            }
+
         }
         else
         {
             Applicant.StudentDetails = new Student();
-            Applicant.GuardianDetails = new Guardian();
+            Applicant.GuardianDetails = new List<Guardian>();
+            Applicant.GuardianDetails.Add(new Guardian
+            {
+                FirstName = "",
+                LastName = "",
+                ContactInfo = "",
+                Relation = ""
+            });
         }
     }
 
@@ -36,9 +53,15 @@ public class CreateModel : PageModel
     {
         if (ModelState.IsValid)
         {
-            if (_db.Students.FirstOrDefault(u => u.StudentId == applicant.StudentDetails.StudentId) != null)
+            if (await _db.Students.FirstOrDefaultAsync(u => u.StudentId == applicant.StudentDetails.StudentId) != null)
             {
-                Student temp = _db.Students.Where(u => u.StudentId == applicant.StudentDetails.StudentId).First();
+                //update the student
+                var temp = await _db.Students.Where(u => u.StudentId == applicant.StudentDetails.StudentId).FirstOrDefaultAsync();
+                if (temp is null)
+                {
+                    Console.WriteLine("something went wrong finding student");
+                    return Page();
+                }
 
                 temp.FirstName = applicant.StudentDetails.FirstName;
                 temp.LastName = applicant.StudentDetails.LastName;
@@ -59,56 +82,89 @@ public class CreateModel : PageModel
                 temp.FoodAssistance = applicant.StudentDetails.FoodAssistance;
                 temp.ChappaAssistance = applicant.StudentDetails.ChappaAssistance;
 
-                await _db.SaveChangesAsync();
+                //update the guardian(s)
+                for (int i = 0; i < applicant.GuardianDetails.Count(); i++)
+                {
+                    var tempGuardian = await _db.Guardians.Where(u => u.GuardianId == applicant.GuardianDetails[i].GuardianId).FirstOrDefaultAsync();
+                    if (tempGuardian is null)
+                    {
+                        Console.WriteLine("something went wrong finding guardian");
+                        return Page();
+                    }
 
+                    tempGuardian.FirstName = applicant.GuardianDetails[i].FirstName;
+                    tempGuardian.LastName = applicant.GuardianDetails[i].LastName;
+                    tempGuardian.ContactInfo = applicant.GuardianDetails[i].ContactInfo;
+                    tempGuardian.Relation = applicant.GuardianDetails[i].Relation;
+                }
+
+
+                await _db.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
             else
-                _db.Students.Add(
-                            new Student
-                            {
-                                FirstName = applicant.StudentDetails.FirstName,
-                                LastName = applicant.StudentDetails.LastName,
-                                Phone = applicant.StudentDetails.Phone,
-                                Picture = applicant.StudentDetails.Picture,
-                                Determination = applicant.StudentDetails.Determination,
-                                Status = Student.StudentStatus.OpenApplication,
-                                DateOfBirth = applicant.StudentDetails.DateOfBirth,
-                                AcceptedDate = DateTime.MinValue,
-                                LastModifiedDate = DateTime.Now,
-                                IsActive = false,
-                                Address = applicant.StudentDetails.Address,
-                                Village = applicant.StudentDetails.Village,
-                                Latitude = applicant.StudentDetails.Latitude,
-                                Longitude = applicant.StudentDetails.Longitude,
-                                AnnualIncome = applicant.StudentDetails.AnnualIncome,
-                                SchoolLevel = applicant.StudentDetails.SchoolLevel,
-                                FoodAssistance = applicant.StudentDetails.FoodAssistance,
-                                ChappaAssistance = applicant.StudentDetails.ChappaAssistance,
-                            });
-
-            _db.Guardians.Add(
-                new Guardian
+            {
+                var student = new Student
                 {
-                    FirstName = applicant.GuardianDetails.FirstName,
-                    LastName = applicant.GuardianDetails.LastName,
-                    ContactInfo = applicant.GuardianDetails.ContactInfo,
-                    Relation = applicant.GuardianDetails.Relation,
-                });
+                    FirstName = applicant.StudentDetails.FirstName,
+                    LastName = applicant.StudentDetails.LastName,
+                    Phone = applicant.StudentDetails.Phone,
+                    Picture = applicant.StudentDetails.Picture,
+                    Determination = applicant.StudentDetails.Determination,
+                    Status = Student.StudentStatus.OpenApplication,
+                    DateOfBirth = applicant.StudentDetails.DateOfBirth,
+                    AcceptedDate = DateTime.MinValue,
+                    LastModifiedDate = DateTime.Now,
+                    IsActive = false,
+                    Address = applicant.StudentDetails.Address,
+                    Village = applicant.StudentDetails.Village,
+                    Latitude = applicant.StudentDetails.Latitude,
+                    Longitude = applicant.StudentDetails.Longitude,
+                    AnnualIncome = applicant.StudentDetails.AnnualIncome,
+                    SchoolLevel = applicant.StudentDetails.SchoolLevel,
+                    FoodAssistance = applicant.StudentDetails.FoodAssistance,
+                    ChappaAssistance = applicant.StudentDetails.ChappaAssistance,
+                };
 
-            await _db.SaveChangesAsync();
+                await _db.Students.AddAsync(student);
 
-            _db.StudentGuardians.Add(
-                new StudentGuardian
+                foreach (var guardian in applicant.GuardianDetails)
                 {
-                    Student = _db.Students.OrderBy(u => u.LastModifiedDate).Last(),
-                    Guardian = _db.Guardians.Where(u => u.ContactInfo == applicant.GuardianDetails.ContactInfo).OrderBy(u => u.FirstName).Last()
-                });
+                    var newGuardian = new Guardian
+                    {
+                        FirstName = guardian.FirstName,
+                        LastName = guardian.LastName,
+                        ContactInfo = guardian.ContactInfo,
+                        Relation = guardian.Relation,
+                    };
 
-            await _db.SaveChangesAsync();
+                    await _db.Guardians.AddAsync(guardian);
 
-            return RedirectToPage("./Index");
+                    await _db.StudentGuardians.AddAsync(
+                        new StudentGuardian
+                        {
+                            Student = student,
+                            Guardian = guardian
+                        });
+                }
+
+                await _db.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
         }
+        return Page();
+    }
+
+
+    public IActionResult OnPostAddGuardian(int? studentId)
+    {
+        Applicant.GuardianDetails.Add(new Guardian
+        {
+            FirstName = "",
+            LastName = "",
+            ContactInfo = "",
+            Relation = ""
+        });
         return Page();
     }
 }
