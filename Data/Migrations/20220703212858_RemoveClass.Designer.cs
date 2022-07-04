@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaucyCapstone.Data;
 
@@ -11,9 +12,10 @@ using SaucyCapstone.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220703212858_RemoveClass")]
+    partial class RemoveClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -489,6 +491,10 @@ namespace Data.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
+                    b.Property<string>("DayOfWeek")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
@@ -496,27 +502,12 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Friday")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Monday")
-                        .HasColumnType("bit");
-
                     b.Property<string>("StartTime")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TermId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Thursday")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Tuesday")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Wednesday")
-                        .HasColumnType("bit");
 
                     b.HasKey("SessionId");
 
