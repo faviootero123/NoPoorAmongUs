@@ -14,29 +14,42 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Rating[0].Value)
+                @*@Html.DisplayNameFor(model => model.Rating[0].Value)*@
+                @Html.DisplayNameFor(model => model.Student[0].FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rating[0].Comments)
+                @*@Html.DisplayNameFor(model => model.Rating[0].Comments)*@
+                @Html.DisplayNameFor(model => model.Student[0].LastName)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Rating) {
+        @foreach (var student in Model.Student)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => student.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => student.LastName)
+                </td>
+            </tr>
+        }
+        @*@foreach (var item in Model.Rating) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.RatingId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.RatingId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.RatingId">Delete</a>
-            </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+        <td>
+        <a asp-page="./Edit" asp-route-id="@item.RatingId">Edit</a> |
+        <a asp-page="./Details" asp-route-id="@item.RatingId">Details</a> |
+        <a asp-page="./Delete" asp-route-id="@item.RatingId">Delete</a>
+        </td>
         </tr>
-}
+        }*@
     </tbody>
 </table>
