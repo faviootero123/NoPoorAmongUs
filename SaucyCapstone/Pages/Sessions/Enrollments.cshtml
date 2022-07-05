@@ -1,0 +1,41 @@
+﻿@page
+@model SaucyCapstone.Pages.Sessions.EnrollmentsModel
+@{
+}
+@*<div>
+  @foreach(var student in Model.Students)
+    {
+        <p>@student.FirstName @student.LastName</p>
+    }
+</div>*@
+<h2>@Model.session.Course.Subject.SubjectName @Model.session.Course.CourseName </h2>
+<h5>Day: @Model.session.DayofWeek <br/>
+    Time: @Model.session.StartTime - @Model.session.EndTime</h5>
+<form>
+    
+<div class="row">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+
+                <th scope="col">Student Name</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var student in Model.Students)
+            {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)</td>
+                <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a></td>
+                <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-clipboard-data-fill"></i>&nbsp;Assessment</a></td>
+                <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-arrow-left-right"></i>&nbsp; Transfer Sessions</a></td>
+                <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-x-square-fill"></i>&nbsp;Remove</a></td>
+            </tr>
+          
+            }
+        </tbody>
+    </table>
+</div>
+</form>

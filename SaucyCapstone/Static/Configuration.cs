@@ -74,6 +74,7 @@ public static class ConfigurationStaticMethods
         await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
         //Seed data for other tables 
         await db.SeedDataNeededForSession();
+        await db.SeedDataNeededForEnrollments();
     }
     private static async Task AddUserToRole(this UserManager<ApplicationUser> userManager, string username, string role)
     {
@@ -204,5 +205,80 @@ public static class ConfigurationStaticMethods
 
             await db.SaveChangesAsync();
         }
-    }
+    } 
+        private static async Task SeedDataNeededForEnrollments(this ApplicationDbContext db)
+        {
+            var alreadyExists = await db.Enrollments.Where(s => s.EnrollmentId == 1).FirstOrDefaultAsync() == null;
+            if (alreadyExists)
+            {
+            var school = new School
+            {
+                SchoolName = "Bowani"
+            };
+
+            await db.AddAsync(school);
+
+            var subject = new Subject
+            {
+                School = school,
+                SubjectName = "Computer"
+            };
+
+            await db.AddAsync(subject);
+            var term = new Term
+            {
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(3),
+                TermName = "Summer",
+                IsActive = true
+            };
+
+            await db.AddAsync(term);
+          
+
+            var course = new Course
+            {
+                Subject = subject,
+                CourseName = "2"
+            };
+
+            await db.AddAsync(course);
+            var session = new Session
+            {
+                Course = course,
+                Term = term,
+                DayofWeek = "Monday",
+                isActive = true,
+                StartTime = "10:00AM",
+                EndTime = "12:00PM"
+            };
+            await db.AddAsync(session);
+            var student = new Student
+            {
+                FirstName = "Bob",
+                LastName = "Doe",
+                Phone = "555-555-5555",
+                DateOfBirth = DateTime.Now,
+                AcceptedDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now,
+                IsActive = true,
+                Status = Student.StudentStatus.Active,
+                SchoolLevel = '8',
+                FoodAssistance = false,
+                ChappaAssistance = true,
+                Determination = Student.DeterminationLevel.High,
+                AnnualIncome = 1333,
+                Picture = "~/StudentPictures/obama.jpg",
+                NotesAndAbout = "Notes about Bob"
+            };
+            await db.AddAsync(student);
+            var Enrollment = new Enrollment
+            {
+                Student = student,
+                Session = session
+            };
+            await db.AddAsync(Enrollment);
+            await db.SaveChangesAsync();
+        }
+        }
 }
