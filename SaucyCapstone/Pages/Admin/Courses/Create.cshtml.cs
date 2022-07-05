@@ -1,45 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Data;
 using SaucyCapstone.Data;
+using Models.ViewModels;
 
-namespace SaucyCapstone.Pages.Admin.Courses
+namespace SaucyCapstone.Pages.Admin.Courses;
+
+public class CreateModel : PageModel
 {
-    public class CreateModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public CreateModel(ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public CreateModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public Course Course { get; set; }
+
+    public School School { get; set; }
+
+    [BindProperty]
+    public CourseVM CourseVM { get; set; }
+
+    [BindProperty]
+    public IEnumerable<SelectListItem> SchoolList { get; set; }
+
+    public IActionResult OnGet()
+    {
+        SchoolList = _context.Schools.Select(i => new SelectListItem
         {
-            _context = context;
-        }
+            Text = i.SchoolName,
+            Value = i.SchoolId.ToString()
+        });
 
-        public IActionResult OnGet()
+        return Page();
+    }
+
+    // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+    public async Task<IActionResult> OnPostAsync(CourseVM courseVM)
+    {
+        if (ModelState.IsValid)
         {
-            return Page();
-        }
-
-        [BindProperty]
-        public Course Course { get; set; } = default!;
-        
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-          if (!ModelState.IsValid || _context.Courses == null || Course == null)
+            Course Course = new()
             {
-                return Page();
-            }
-
+                School = _context.Schools.Where(s => s.SchoolId == courseVM.School).FirstOrDefault(),
+                CourseName = courseVM.Course,
+                SubjectName = courseVM.Subject
+            };
             _context.Courses.Add(Course);
             await _context.SaveChangesAsync();
-
             return RedirectToPage("./Index");
         }
+
+        return Page();
     }
 }

@@ -1,43 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
+using Models.ViewModels;
 
-namespace SaucyCapstone.Pages.Admin.Courses
+namespace SaucyCapstone.Pages.Admin.Courses;
+
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public DetailsModel(ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DetailsModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public Course Course { get; set; }
+
+    public School School { get; set; }
+
+    [BindProperty]
+    public CourseVM CourseVM { get; set; }
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Courses == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-      public Course Course { get; set; } = default!; 
+        var course = await _context.Courses.FindAsync(id);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var school = _context.Schools.Where(s => s.Courses.Contains(course)).First();
+
+        Course = course;
+
+        School = school;
+
+        if (course == null || school == null)
         {
-            if (id == null || _context.Courses == null)
-            {
-                return NotFound();
-            }
-
-            var course = await _context.Courses.FirstOrDefaultAsync(m => m.CourseId == id);
-            if (course == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Course = course;
-            }
-            return Page();
+            return NotFound();
         }
+        else
+        {
+            CourseVM = new()
+            {
+                School = school.SchoolId,
+                SchoolName = school.SchoolName,
+                Course = course.CourseName,
+                Subject = course.SubjectName
+            };
+        }
+
+        return Page();
     }
 }
