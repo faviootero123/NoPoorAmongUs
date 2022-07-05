@@ -18,6 +18,5 @@ public class Criterion
     [Required]
     [Column(TypeName = "decimal(3, 2)")]
     public decimal Weight { get; set; }
-
-    public IList<Rating> Ratings { get; set; }
+    public IList<Rating> Rating { get; set; }
 }

@@ -31,6 +31,7 @@ public class Student
     public string? Picture { get; set; }
 
     [Required]
+    [Display(Name = "Student Name")]
     public string FirstName { get; set; }
 
     [Required]

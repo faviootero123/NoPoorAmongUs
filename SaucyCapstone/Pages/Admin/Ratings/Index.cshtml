@@ -5,38 +5,43 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Rating Dashboard</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating[0].Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating[0].Comments)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Rating) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.RatingId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.RatingId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.RatingId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].FirstName)
+                </th>
+                @foreach (var item in Model.Criterion)
+                {
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </th>
+                }
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.Student)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
+                    </td>
+                    @foreach (var item in student.Ratings)
+                    {
+                        <td>
+                            <div class="slidecontainer">
+                                <input type="range" min="1" max="5" value="1" class="slider" id="@item.Criterion.Description" oninput="updateSlider(this)">
+                                <p><span id="demo @item.Criterion.Description">--</span></p>
+                            </div>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+@*    <button type="submint" class="btn btn-primary" style="width:150px">Update</button>*@
+</form>
