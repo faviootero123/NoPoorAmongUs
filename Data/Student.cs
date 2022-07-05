@@ -42,7 +42,6 @@ public class Student
 
     public string? Phone { get; set; }
 
-    [Required]
     public DateTime AcceptedDate { get; set; }
 
     [Required]
@@ -79,5 +78,9 @@ public class Student
     public DeterminationLevel Determination { get; set; }
 
     public string? NotesAndAbout { get; set; }
+
+    public IList<Enrollment> Enrollments {get; set;}
+
     public IList<Rating> Ratings { get; set; }    
+
 }
