@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaucyCapstone.Data;
 
@@ -11,9 +12,10 @@ using SaucyCapstone.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220704194729_ChangeStudentSchoolLevelInt")]
+    partial class ChangeStudentSchoolLevelInt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,6 +117,19 @@ namespace Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Data.Assesment", b =>
+                {
+                    b.Property<int>("AssesmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssesmentId"), 1L, 1);
+
+                    b.HasKey("AssesmentId");
+
+                    b.ToTable("Assesment");
+                });
+
             modelBuilder.Entity("Data.Assessment", b =>
                 {
                     b.Property<int>("AssessmentId")
@@ -198,16 +213,12 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SchoolId")
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
-
-                    b.Property<string>("SubjectName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CourseId");
 
-                    b.HasIndex("SchoolId");
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("Courses");
                 });
@@ -322,6 +333,24 @@ namespace Data.Migrations
                     b.HasKey("FacultyMemberId");
 
                     b.ToTable("FacultyMembers");
+                });
+
+            modelBuilder.Entity("Data.Grade", b =>
+                {
+                    b.Property<int>("GradeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradeId"), 1L, 1);
+
+                    b.Property<int>("AssementAssesmentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GradeId");
+
+                    b.HasIndex("AssementAssesmentId");
+
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("Data.Guardian", b =>
@@ -635,6 +664,28 @@ namespace Data.Migrations
                     b.ToTable("StudentGuardians");
                 });
 
+            modelBuilder.Entity("Data.Subject", b =>
+                {
+                    b.Property<int>("SubjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubjectId"), 1L, 1);
+
+                    b.Property<int>("SchoolId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SubjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SubjectId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("Subjects");
+                });
+
             modelBuilder.Entity("Data.Term", b =>
                 {
                     b.Property<int>("TermId")
@@ -865,13 +916,13 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Course", b =>
                 {
-                    b.HasOne("Data.School", "School")
+                    b.HasOne("Data.Subject", "Subject")
                         .WithMany("Courses")
-                        .HasForeignKey("SchoolId")
+                        .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("School");
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("Data.Employee", b =>
@@ -910,6 +961,17 @@ namespace Data.Migrations
                     b.Navigation("Session");
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Data.Grade", b =>
+                {
+                    b.HasOne("Data.Assesment", "Assement")
+                        .WithMany("Grades")
+                        .HasForeignKey("AssementAssesmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Assement");
                 });
 
             modelBuilder.Entity("Data.Note", b =>
@@ -1038,6 +1100,17 @@ namespace Data.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("Data.Subject", b =>
+                {
+                    b.HasOne("Data.School", "School")
+                        .WithMany("Subjects")
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("School");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Data.ApplicationRole", null)
@@ -1089,12 +1162,22 @@ namespace Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Data.Assesment", b =>
+                {
+                    b.Navigation("Grades");
+                });
+
             modelBuilder.Entity("Data.DocType", b =>
                 {
                     b.Navigation("StudentDocs");
                 });
 
             modelBuilder.Entity("Data.School", b =>
+                {
+                    b.Navigation("Subjects");
+                });
+
+            modelBuilder.Entity("Data.Subject", b =>
                 {
                     b.Navigation("Courses");
                 });
