@@ -116,6 +116,92 @@ public static class ConfigurationStaticMethods
             };
 
             await db.AddAsync(course);
+
+
+            //guardians
+            var guardian1 = new Guardian
+            {
+                FirstName = "guardian1",
+                LastName = "guardian1",
+                ContactInfo = "555-555-5555",
+                Relation = "father"
+            };
+            await db.AddAsync(guardian1);
+            var guardian2 = new Guardian
+            {
+                FirstName = "guardian2",
+                LastName = "guardian2",
+                ContactInfo = "777-777-777",
+                Relation = "mother"
+            };
+            await db.AddAsync(guardian2);
+
+            //students
+            var student1 = new Student
+            {
+                FirstName = "student1",
+                LastName = "student1",
+                Phone = "123-123-1234",
+                Picture = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.High,
+                Status = Student.StudentStatus.OpenApplication,
+                DateOfBirth = DateTime.MinValue,
+                AcceptedDate = DateTime.MinValue,
+                LastModifiedDate = DateTime.Now,
+                IsActive = false,
+                Address = "86 Shadow Brook Street",
+                Village = "Plattsburgh",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 12345,
+                SchoolLevel = 10,
+                FoodAssistance = true,
+                ChappaAssistance = false,
+            };
+            await db.AddAsync(student1);
+            var student2 = new Student
+            {
+                FirstName = "student2",
+                LastName = "student2",
+                Phone = "456-456-4567",
+                Picture = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.Low,
+                Status = Student.StudentStatus.OpenApplication,
+                DateOfBirth = DateTime.MinValue,
+                AcceptedDate = DateTime.MinValue,
+                LastModifiedDate = DateTime.Now,
+                IsActive = false,
+                Address = "265 Lawrence St.",
+                Village = "Barberton",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 12345,
+                SchoolLevel = 7,
+                FoodAssistance = false,
+                ChappaAssistance = true,
+            };
+            await db.AddAsync(student2);
+
+            //student-guardians
+            var studentguardian1 = new StudentGuardian
+            {
+                Student = student1,
+                Guardian = guardian1,
+            };
+            await db.AddAsync(studentguardian1);
+            var studentguardian2 = new StudentGuardian
+            {
+                Student = student1,
+                Guardian = guardian2,
+            };
+            await db.AddAsync(studentguardian2);
+            var studentguardian3 = new StudentGuardian
+            {
+                Student = student2,
+                Guardian = guardian1,
+            };
+            await db.AddAsync(studentguardian3);
+
             await db.SaveChangesAsync();
         }
     }

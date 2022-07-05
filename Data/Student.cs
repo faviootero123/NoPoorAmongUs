@@ -66,7 +66,7 @@ public class Student
     public decimal AnnualIncome { get; set; }
 
     [Required]
-    public char SchoolLevel { get; set; }
+    public int SchoolLevel { get; set; }
 
     [Required]
     public bool FoodAssistance { get; set; }
@@ -75,6 +75,7 @@ public class Student
     public bool ChappaAssistance { get; set; }
 
     [Required]
+    [EnumDataType(typeof(DeterminationLevel))]
     public DeterminationLevel Determination { get; set; }
 
     public string? NotesAndAbout { get; set; }
