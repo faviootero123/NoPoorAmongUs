@@ -218,13 +218,8 @@ public static class ConfigurationStaticMethods
 
             await db.AddAsync(school);
 
-            var subject = new Subject
-            {
-                School = school,
-                SubjectName = "Computer"
-            };
+          
 
-            await db.AddAsync(subject);
             var term = new Term
             {
                 StartDate = DateTime.Now,
@@ -238,7 +233,7 @@ public static class ConfigurationStaticMethods
 
             var course = new Course
             {
-                Subject = subject,
+                SubjectName = "Computer",
                 CourseName = "2"
             };
 
