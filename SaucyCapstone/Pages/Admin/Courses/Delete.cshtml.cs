@@ -1,63 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
+using Models.ViewModels;
 
-namespace SaucyCapstone.Pages.Admin.Courses
+namespace SaucyCapstone.Pages.Admin.Courses;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public DeleteModel(ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public Course Course { get; set; }
+
+    public School School { get; set; }
+
+    [BindProperty]
+    public CourseVM CourseVM { get; set; }
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Courses == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-      public Course Course { get; set; } = default!;
+        var course = await _context.Courses.FindAsync(id);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var school = _context.Schools.Where(s => s.Courses.Contains(course)).First();
+
+        if (course == null || school == null)
         {
-            if (id == null || _context.Courses == null)
+            return NotFound();
+        }
+        else
+        {
+            CourseVM = new()
             {
-                return NotFound();
-            }
+                School = school.SchoolId,
+                SchoolName = school.SchoolName,
+                Course = course.CourseName,
+                Subject = course.SubjectName
+            };
+        }
+        return Page();
+    }
 
-            var course = await _context.Courses.FirstOrDefaultAsync(m => m.CourseId == id);
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null || _context.Courses == null)
+        {
+            return NotFound();
+        }
+        var course = await _context.Courses.FindAsync(id);
 
-            if (course == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Course = course;
-            }
-            return Page();
+        if (course != null)
+        {
+            Course = course;
+            _context.Courses.Remove(Course);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null || _context.Courses == null)
-            {
-                return NotFound();
-            }
-            var course = await _context.Courses.FindAsync(id);
-
-            if (course != null)
-            {
-                Course = course;
-                _context.Courses.Remove(Course);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

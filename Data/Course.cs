@@ -14,9 +14,12 @@ public class Course
     [DisplayName("Course Title")]
     public int CourseId { get; set; }
 
-    public Subject Subject { get; set; }
+    public School School { get; set; }
 
     [Required]
     public string CourseName { get; set; }
+
+    [Required]
+    public string SubjectName { get; set; }
 }
 

@@ -1,0 +1,41 @@
+﻿@page
+@model SaucyCapstone.Pages.Criteria.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Criterion[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Criterion[0].Weight)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Criterion) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CriterionId">Edit</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CriterionId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

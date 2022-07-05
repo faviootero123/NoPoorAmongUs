@@ -31,6 +31,7 @@ public class Student
     public string? Picture { get; set; }
 
     [Required]
+    [Display(Name = "Student Name")]
     public string FirstName { get; set; }
 
     [Required]
@@ -77,5 +78,9 @@ public class Student
     public DeterminationLevel Determination { get; set; }
 
     public string? NotesAndAbout { get; set; }
+
     public IList<Enrollment> Enrollments {get; set;}
+
+    public IList<Rating> Ratings { get; set; }    
+
 }

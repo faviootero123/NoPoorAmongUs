@@ -31,3 +31,8 @@ window.onload = function () {
     });
     console.log("xD lmao");
 };
+
+function updateSlider(obj) {
+    var myDemo = "demo " + obj.id;
+    document.getElementById(myDemo).innerHTML = obj.value
+}
