@@ -23,13 +23,14 @@ namespace SaucyCapstone.Pages.Applicant
                 if (temp.Status == Student.StudentStatus.OpenApplication)
                 {
                     temp.Status = Student.StudentStatus.Denied;
-                    await _db.SaveChangesAsync();
                 }
                 else if (temp.Status == Student.StudentStatus.Denied)
                 {
                     temp.Status = Student.StudentStatus.OpenApplication;
-                    await _db.SaveChangesAsync();
                 }
+
+                temp.LastModifiedDate = DateTime.Now;
+                await _db.SaveChangesAsync();
             }
 
             return RedirectToPage("./Index");
