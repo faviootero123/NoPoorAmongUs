@@ -10,7 +10,7 @@ namespace Models.ViewModels
     public class StudentVM
     {
         public Student Students { get; set; }
-        public IEnumerable<Guardian> Guardians { get; set; }
+        public IList<Guardian> Guardians { get; set; }
         //public IEnumerable<StudentNote> Notes { get; set; }
         //public IEnumerable<StudentDoc> Documents { get; set; }
 
