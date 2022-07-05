@@ -141,43 +141,43 @@ public static class ConfigurationStaticMethods
             {
                 FirstName = "student1",
                 LastName = "student1",
-                Phone = "",
-                Picture = "",
+                Phone = "123-123-1234",
+                Picture = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.High,
                 Status = Student.StudentStatus.OpenApplication,
                 DateOfBirth = DateTime.MinValue,
                 AcceptedDate = DateTime.MinValue,
                 LastModifiedDate = DateTime.Now,
                 IsActive = false,
-                Address = "",
-                Village = "",
+                Address = "86 Shadow Brook Street",
+                Village = "Plattsburgh",
                 Latitude = "",
                 Longitude = "",
                 AnnualIncome = 12345,
-                SchoolLevel = 8,
+                SchoolLevel = 10,
                 FoodAssistance = true,
-                ChappaAssistance = true,
+                ChappaAssistance = false,
             };
             await db.AddAsync(student1);
             var student2 = new Student
             {
                 FirstName = "student2",
                 LastName = "student2",
-                Phone = "",
-                Picture = "",
+                Phone = "456-456-4567",
+                Picture = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.Low,
                 Status = Student.StudentStatus.OpenApplication,
                 DateOfBirth = DateTime.MinValue,
                 AcceptedDate = DateTime.MinValue,
                 LastModifiedDate = DateTime.Now,
                 IsActive = false,
-                Address = "",
-                Village = "",
+                Address = "265 Lawrence St.",
+                Village = "Barberton",
                 Latitude = "",
                 Longitude = "",
                 AnnualIncome = 12345,
-                SchoolLevel = 8,
-                FoodAssistance = true,
+                SchoolLevel = 7,
+                FoodAssistance = false,
                 ChappaAssistance = true,
             };
             await db.AddAsync(student2);
@@ -201,7 +201,6 @@ public static class ConfigurationStaticMethods
                 Guardian = guardian1,
             };
             await db.AddAsync(studentguardian3);
-
 
             await db.SaveChangesAsync();
         }

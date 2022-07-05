@@ -21,7 +21,6 @@ public class CreateModel : PageModel
 
     [BindProperty(SupportsGet = true)]
     public ApplicantVM Applicant { get; set; }
-    public Guardian Guardian { get; set; }
 
     public void OnGet(int? id)
     {
@@ -64,16 +63,6 @@ public class CreateModel : PageModel
         }
     }
 
-    //public async Task<IActionResult> OnPostAsync(int? id, Guardian guardian)
-    //{
-    //    if (ModelState.IsValid)
-    //    {
-    //        applicant.GuardianDetails.AddAsync(guardian);
-    //    }
-    //    return Page();
-    //}
-
-
     public async Task<IActionResult> OnPostAsync(ApplicantVM applicant, IFormFile? file)
     {
         if (ModelState.IsValid)
@@ -83,7 +72,6 @@ public class CreateModel : PageModel
             if (file != null)
             {
                 string fileName = Guid.NewGuid().ToString();
-                //Don't forget to physically create these folders in wwwroot
                 var uploads = Path.Combine(wwwRootPath, @"images\students");
                 var extension = Path.GetExtension(file.FileName);
                 if (applicant.StudentDetails.Picture != null)
