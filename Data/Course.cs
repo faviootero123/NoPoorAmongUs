@@ -16,5 +16,7 @@ public class Course
 
     [Required]
     public string CourseName { get; set; }
+
+    IList<Assessment> Assessments { get; set; }
 }
 

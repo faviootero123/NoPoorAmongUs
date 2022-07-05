@@ -8,12 +8,12 @@ namespace SaucyCapstone.Pages.Students
     public class addNotesModel : PageModel
     {
         private readonly ApplicationDbContext _db;
-        public StudentNote studentNote;
+        public Note studentNote;
 
         public addNotesModel(ApplicationDbContext db)
         {
             _db = db;
-            studentNote = new StudentNote();
+            studentNote = new Note();
         }
 
 

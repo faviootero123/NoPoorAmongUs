@@ -13,8 +13,10 @@ public class SessionAssessment
 
     public Assessment? Assessment { get; set; }
 
-    public Session Session { get; set; }
-
     [Required]
     public DateTime DueDate { get; set; }
+
+    public IList<Session> Sessions { get; set; }
+
+    public IList<AssessmentGrade> AssessmentGrades  { get; set; }
 }

@@ -22,5 +22,7 @@ public class Guardian
         public string Relation { get; set; }
 
         [Required]
-        public string ContactInfo { get; set; }        
+        public string ContactInfo { get; set; }   
+        
+        public IList<StudentGuardian> Guardians { get; set; }
 }

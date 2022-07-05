@@ -13,4 +13,6 @@ public class Employee
     public School School { get; set; }
 
     public FacultyMember FacultyMember { get; set; }
+
+    public IList<Session> Sessions { get; set; }
 }

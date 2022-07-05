@@ -14,4 +14,6 @@ public class Enrollment
     public Student Student { get; set; }
 
     public Session Session { get; set; }        
+
+    public IList<Attendance> Attendances { get; set; }
 }

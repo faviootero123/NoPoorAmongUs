@@ -24,6 +24,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
         }
     }
 
+    public DbSet<ApplicationUser> ApplicationUsers => Set<ApplicationUser>();
     public DbSet<Assessment> Assessments => Set<Assessment>();
     public DbSet<AssessmentGrade> AssessmentGrades => Set<AssessmentGrade>();
     public DbSet<Attendance> Attendances => Set<Attendance>();

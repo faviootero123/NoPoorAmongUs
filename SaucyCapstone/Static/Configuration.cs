@@ -78,7 +78,7 @@ public static class ConfigurationStaticMethods
     private static async Task AddUserToRole(this UserManager<ApplicationUser> userManager, string username, string role)
     {
         var _user = await userManager.FindByNameAsync(username);
-        if (_user is not null) await userManager.AddToRoleAsync(_user, Roles.Admin);
+        if (_user is not null) await userManager.AddToRoleAsync(_user, role);
     }
 
     private static async Task SeedDataNeededForSession(this ApplicationDbContext db)
@@ -95,7 +95,6 @@ public static class ConfigurationStaticMethods
 
             var subject = new Subject
             {
-                School = school,
                 SubjectName = "Maths"
             };
 

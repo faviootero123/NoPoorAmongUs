@@ -17,4 +17,6 @@ public class Assessment
     [Required]
     [Column(TypeName = "decimal(5, 2)")]
     public decimal Score { get; set; }
+
+    public IList<SessionAssessment> SessionAssessments { get; set; }
 }

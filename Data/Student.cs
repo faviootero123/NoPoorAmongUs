@@ -76,4 +76,13 @@ public class Student
     public DeterminationLevel Determination { get; set; }
 
     public string? NotesAndAbout { get; set; }
+
+    public IList<Enrollment> Enrollments { get; set; }
+    public IList<AssessmentGrade> AssessmentGrades { get; set; }
+    public IList<StudentGuardian> StudentGuardians { get; set; }
+
+    public IList<StudentDoc> StudentDocs { get; set; }
+    public IList<Rating> Ratings { get; set; }
+    public IList<Note> Notes { get; set; }
+
 }

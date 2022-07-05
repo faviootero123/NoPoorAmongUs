@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 
 namespace Data;
 
-public class DocType
+public class NoteType
 {
-    public int DocTypeId { get; set; }
-    public string Extension { get; set; }
-    public IList<StudentDoc> StudentDocs { get; set; }
+    public int NoteTypeId { get; set; }
+
+    public IList<Note> Notes { get; set; }
+
+    [Required]
+    public string Type { get; set; }
+
 
 }

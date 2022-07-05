@@ -1,8 +1,13 @@
 using Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Models.ViewModels;
+using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace SaucyCapstone.Pages.Students
 {
@@ -11,16 +16,14 @@ namespace SaucyCapstone.Pages.Students
         private readonly ApplicationDbContext _db;
         public StudentVM StudentVM { get; set; }
 
+        public List<Student> Students { get; set; }
+        
         public IndexModel(ApplicationDbContext db)
         {
             _db = db;
 
-            //GetStudentGuardian = _db.StudentGuardians.Where(u => u.Student.StudentId == studentId).FirstOrDefault();
-
             StudentVM = new StudentVM()
             {
-                //Students = _db.Students.Where(u => u.StudentId == studentId).FirstOrDefault(),
-                //Guardians = _db.Guardians.Where(u => u.GuardianId == GetStudentGuardian.Guardian.GuardianId).ToList()
                 Students = new Student()
                 {
                     FirstName = "Alex",
@@ -56,8 +59,32 @@ namespace SaucyCapstone.Pages.Students
                         Relation = "Father"
                     }
                  }
-
             };
         }
+
+        public async Task OnGetAsync()
+        {
+            var claim = User as ClaimsPrincipal;
+            var claimIdentity = claim?.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (claim.IsInRole(Roles.Instructor))
+            {
+                var students = await _db.Students
+                    .Include(f => f.Enrollments)
+                    .ThenInclude(f=> f.Session)
+                    .ThenInclude(f => f.Employee)
+                    .ThenInclude(f => f.FacultyMember)
+                    //.Select(s => s.Employees.Select(s=>s.Sessions.Select(s=>s.Enrollments.Select(s=>s.Student))))   
+                    .ToListAsync();
+                
+            }
+
+            
+        }
+
+
+
+
     }
 }
+

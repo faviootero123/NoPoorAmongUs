@@ -22,4 +22,6 @@ public class Term
 
     [Required]
     public bool IsActive { get; set; }
+
+    public IList<Session> Sessions { get; set; }
 }
