@@ -12,10 +12,13 @@ public class Course
 {
     public int CourseId { get; set; }
 
-    public Subject Subject { get; set; }
+    public School School { get; set; }
 
     [Required]
     public string CourseName { get; set; }
+
+    [Required]
+    public string SubjectName { get; set; }
 
     IList<Assessment> Assessments { get; set; }
 }

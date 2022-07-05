@@ -93,12 +93,13 @@ public static class ConfigurationStaticMethods
 
             await db.AddAsync(school);
 
-            var subject = new Subject
-            {
-                SubjectName = "Maths"
-            };
+            //var subject = new Subject
+            //{
+            //    School = school,
+            //    SubjectName = "Maths"
+            //};
 
-            await db.AddAsync(subject);
+            //await db.AddAsync(subject);
 
             await db.AddAsync(new Term
             {
@@ -110,7 +111,7 @@ public static class ConfigurationStaticMethods
 
             var course = new Course
             {
-                Subject = subject,
+                //Subject = subject,
                 CourseName = "Test Course"
             };
 
