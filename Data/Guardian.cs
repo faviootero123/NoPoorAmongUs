@@ -10,17 +10,17 @@ namespace Data;
 
 public class Guardian
 {
-        public int GuardianId { get; set; }
+    public int GuardianId { get; set; }
 
-        [Required]
-        public string FirstName { get; set; }
+    [Required]
+    public string FirstName { get; set; } = string.Empty;
 
-        [Required]
-        public string LastName { get; set; }  
-        
-        [Required]
-        public string Relation { get; set; }
+    [Required]
+    public string LastName { get; set; } = string.Empty;
 
-        [Required]
-        public string ContactInfo { get; set; }        
+    [Required]
+    public string Relation { get; set; } = string.Empty;
+
+    [Required]
+    public string ContactInfo { get; set; } = string.Empty;
 }

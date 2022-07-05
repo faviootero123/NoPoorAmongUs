@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +12,11 @@ public class SessionAssessment
 {
     public int SessionAssessmentId { get; set; }
 
-    public Assessment? Assessment { get; set; }
-
-    public Session Session { get; set; }
-
+    //relationships
     [Required]
-    public DateTime DueDate { get; set; }
+    [ForeignKey("AssessmentId")]
+    public Assessment Assessment { get; set; }
+    [Required]
+    [ForeignKey("SessionId")]
+    public Session Session { get; set; }
 }

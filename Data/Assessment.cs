@@ -11,10 +11,11 @@ namespace Data;
 public class Assessment
 {
     public int AssessmentId { get; set; }
-    
-    public Course Course { get; set; }
-
     [Required]
     [Column(TypeName = "decimal(5, 2)")]
     public decimal Score { get; set; }
+    public DateTime? DueDate { get; set; }
+    [Required]
+    [Column(TypeName = "decimal(5, 2)")]
+    public decimal MaxScore { get; set; }
 }

@@ -13,13 +13,20 @@ public class Course
 {
     [DisplayName("Course Title")]
     public int CourseId { get; set; }
-
-    public School School { get; set; }
-
     [Required]
-    public string CourseName { get; set; }
-
+    public string CourseName { get; set; } = string.Empty;
     [Required]
-    public string SubjectName { get; set; }
+    public string SchoolName { get; set; } = string.Empty;
+    [Required]
+    public string Subject { get; set; } = string.Empty;
+
+    //relationships
+    [Required]
+    [ForeignKey("TermId")]
+    public Term Term { get; set; }
+    [Required]
+    [ForeignKey("FacultyMemberId")]
+    public FacultyMember Instructor { get; set; }
+    public IList<Session> Sessions { get; set; }
 }
 

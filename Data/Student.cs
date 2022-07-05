@@ -28,7 +28,7 @@ public class Student
 
     public int StudentId { get; set; }
 
-    public string? Picture { get; set; }
+    public string? ImageUrl { get; set; }
 
     [Required]
     [Display(Name = "Student Name")]
@@ -61,7 +61,7 @@ public class Student
 
     public string? Longitude { get; set; }
 
-    [Column(TypeName = "smallmoney")]
+    [Column(TypeName = "money")]
     public decimal AnnualIncome { get; set; }
 
     [Required]
@@ -79,8 +79,10 @@ public class Student
 
     public string? NotesAndAbout { get; set; }
 
-    public IList<Enrollment> Enrollments {get; set;}
 
-    public IList<Rating> Ratings { get; set; }    
-
+    //relationships
+    public IList<StudentDoc>? Documents { get; set; }
+    public IList<Note>? Notes { get; set; }
+    public IList<Rating>? Ratings { get; set; }
+    public IList<Enrollment>? Enrollments {get; set;}
 }

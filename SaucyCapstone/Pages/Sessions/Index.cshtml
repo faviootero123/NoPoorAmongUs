@@ -34,11 +34,11 @@
         </tr>
     </thead>
     <tbody>
-         @foreach (var session in Model.Sessions.Where(c => c.isActive == true)) 
+         @foreach (var session in Model.Sessions.Where(c => c.IsActive == true)) 
     { 
             <tr>
                 <td width="25%">
-                   @Html.DisplayFor(modelItem => session.Course.SubjectName) - @Html.DisplayFor(modelItem => session.Course.CourseName)
+                   @Html.DisplayFor(modelItem => session.Course.Subject) - @Html.DisplayFor(modelItem => session.Course.CourseName)
                 </td>
                 <td width="15%">
                     @Html.DisplayFor(modelItem => session.DayofWeek)
@@ -47,7 +47,7 @@
                     @Html.DisplayFor(modelItem => session.StartTime) - @Html.DisplayFor(modelItem => session.EndTime)
                 </td>
                 <td width="15%">
-                @Html.DisplayFor(modelItem => session.Term.TermName)
+                @Html.DisplayFor(modelItem => session.Course.Term.TermName)
                 </td>
                 <td>
                     <div class="w-25 btn-group" role="group" style="margin-left: 2rem;">

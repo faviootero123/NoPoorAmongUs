@@ -21,8 +21,9 @@ namespace SaucyCapstone.Pages.Sessions
         public async Task OnGetAsync(int? id)
         {
             //This just gets the first enrollment. I need all of them
-            Students = await _context.Students.Where( s=> s.Enrollments.Where( e=> e.Session.SessionId == id).Any()).ToListAsync();
-            session = _context.Sessions.Include(a => a.Course).Include(a => a.Term).Where(x => x.SessionId == id).FirstOrDefault();
+
+            //Students = await _context.Students.Where( s=> s.Enrollments.Where( e=> e.Session.SessionId == id).Any()).ToListAsync();
+            //session = _context.Sessions.Include(a => a.Course).Include(a => a.Term).Where(x => x.SessionId == id).FirstOrDefault();
         }
     }
 }

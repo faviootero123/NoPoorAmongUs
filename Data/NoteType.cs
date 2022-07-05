@@ -10,7 +10,6 @@ namespace Data;
 public class NoteType
 {
     public int NoteTypeId { get; set; }
-
     [Required]
-    public string Type { get; set; }
+    public string Type { get; set; } = string.Empty;
 }

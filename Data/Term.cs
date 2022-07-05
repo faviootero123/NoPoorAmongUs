@@ -20,7 +20,7 @@ public class Term
     public DateTime EndDate { get; set; }
 
     [Required]
-    public string TermName { get; set; }
+    public string TermName { get; set; } = string.Empty;
 
     [Required]
     public bool IsActive { get; set; }

@@ -36,7 +36,7 @@ namespace SaucyCapstone.Pages.Students
                     ChappaAssistance = true,
                     Determination = Student.DeterminationLevel.High,
                     AnnualIncome = 1333,
-                    Picture = "~/StudentPictures/obama.jpg",
+                    ImageUrl = "~/StudentPictures/obama.jpg",
                     NotesAndAbout = "obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama "
                 },
                 Guardians = new List<Guardian>()
