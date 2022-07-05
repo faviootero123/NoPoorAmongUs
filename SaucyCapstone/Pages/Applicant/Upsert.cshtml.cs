@@ -2,6 +2,7 @@ using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Models.ViewModels;
 using SaucyCapstone.Data;
 
@@ -10,14 +11,17 @@ namespace SaucyCapstone.Pages.Applicant;
 public class CreateModel : PageModel
 {
     private readonly ApplicationDbContext _db;
+    private readonly IWebHostEnvironment _hostEnvironment;
 
-    public CreateModel(ApplicationDbContext db)
+    public CreateModel(ApplicationDbContext db, IWebHostEnvironment hostEnvironment)
     {
         _db = db;
+        _hostEnvironment = hostEnvironment;
     }
 
     [BindProperty(SupportsGet = true)]
     public ApplicantVM Applicant { get; set; }
+    public Guardian Guardian { get; set; }
 
     public void OnGet(int? id)
     {
@@ -25,15 +29,12 @@ public class CreateModel : PageModel
         {
             Applicant.StudentDetails = _db.Students.Where(u => u.StudentId == id).First();
             var studentGuardians = _db.StudentGuardians.Where(u => u.Student.StudentId == id).Include(u => u.Guardian);
-
             Applicant.GuardianDetails = new List<Guardian>();
 
             foreach (var guardian in studentGuardians)
             {
                 Applicant.GuardianDetails.Add(guardian.Guardian);
-
             }
-
         }
         else
         {
@@ -46,13 +47,63 @@ public class CreateModel : PageModel
                 ContactInfo = "",
                 Relation = ""
             });
+            Applicant.GuardianDetails.Add(new Guardian
+            {
+                FirstName = "n/a",
+                LastName = "n/a",
+                ContactInfo = "n/a",
+                Relation = "n/a"
+            });
+            Applicant.GuardianDetails.Add(new Guardian
+            {
+                FirstName = "n/a",
+                LastName = "n/a",
+                ContactInfo = "n/a",
+                Relation = "n/a"
+            });
         }
     }
 
-    public async Task<IActionResult> OnPostAsync(ApplicantVM applicant)
+    //public async Task<IActionResult> OnPostAsync(int? id, Guardian guardian)
+    //{
+    //    if (ModelState.IsValid)
+    //    {
+    //        applicant.GuardianDetails.AddAsync(guardian);
+    //    }
+    //    return Page();
+    //}
+
+
+    public async Task<IActionResult> OnPostAsync(ApplicantVM applicant, IFormFile? file)
     {
         if (ModelState.IsValid)
         {
+            //code to handle the picture
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            if (file != null)
+            {
+                string fileName = Guid.NewGuid().ToString();
+                //Don't forget to physically create these folders in wwwroot
+                var uploads = Path.Combine(wwwRootPath, @"images\students");
+                var extension = Path.GetExtension(file.FileName);
+                if (applicant.StudentDetails.Picture != null)
+                {
+                    var oldImagePath = Path.Combine(wwwRootPath, applicant.StudentDetails.Picture.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    file.CopyTo(fileStreams);
+                }
+                applicant.StudentDetails.Picture = @"\images\students\" + fileName + extension;
+            }
+
+
+
+            //update student/guardian
             if (await _db.Students.FirstOrDefaultAsync(u => u.StudentId == applicant.StudentDetails.StudentId) != null)
             {
                 //update the student
@@ -102,7 +153,7 @@ public class CreateModel : PageModel
                 await _db.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
-            else
+            else //create and save new student/guardian
             {
                 var student = new Student
                 {
@@ -152,19 +203,6 @@ public class CreateModel : PageModel
                 return RedirectToPage("./Index");
             }
         }
-        return Page();
-    }
-
-
-    public IActionResult OnPostAddGuardian(int? studentId)
-    {
-        Applicant.GuardianDetails.Add(new Guardian
-        {
-            FirstName = "",
-            LastName = "",
-            ContactInfo = "",
-            Relation = ""
-        });
         return Page();
     }
 }

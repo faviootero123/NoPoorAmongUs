@@ -66,10 +66,6 @@
                                 <div class="row my-1">
                                     <div class="col-3">School Level</div>
                                     <div class="col-9">
-                                        @*
-                                        <input asp-for="Applicant.StudentDetails.SchoolLevel" type="text" class="form-control" />
-                                        <span asp-validation-for="Applicant.StudentDetails.SchoolLevel" class="text-danger"></span>
-                                        *@
                                         <div class="form-group">
                                             <select asp-for="Applicant.StudentDetails.SchoolLevel" class="form-select">
                                                 <option>7</option>
@@ -85,18 +81,9 @@
                                 <div class="row my-1">
                                     <div class="col-3">Determination</div>
                                     <div class="col-9">
-                                        @*
-                                        <input asp-for="Applicant.StudentDetails.Determination" type="text" class="form-control" />
-                                        <span asp-validation-for="Applicant.StudentDetails.Determination" class="text-danger"></span>
-                                        *@
                                         <div class="form-group">
-                                            <select asp-for="Applicant.StudentDetails.SchoolLevel" class="form-select">
-                                                <option>Low</option>
-                                                <option>AboveLow</option>
-                                                <option>Middle</option>
-                                                <option>BelowHigh</option>
-                                                <option>High</option>
-                                            </select>
+                                            <select asp-for="Applicant.StudentDetails.Determination" class="form-select" asp-items="Html.GetEnumSelectList<Student.DeterminationLevel>()"></select>
+                                            <span asp-validation-for="Applicant.StudentDetails.Determination" class="text-danger" />
                                         </div>
                                     </div>
                                 </div>
@@ -186,7 +173,7 @@
                                 </div>
                             </div>
                             <div class="col-12 col-lg-5 offset-lg-1 pb-6">
-                                <img src="StudentDetails.Picture"
+                                <img src="@Model.Applicant.StudentDetails.Picture"
                                      width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
                                 <div class="mb-3">
                                     <input asp-for="Applicant.StudentDetails.Picture" type="file" id="uploadBox" name="file" class="form-control" />
@@ -201,11 +188,9 @@
                             <div class="row">
                                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                                     <span>Guardian Details</span>
-                                    <input id="guardianButton" disabled class="btn btn-primary" value='Add Additional Guardian' >
+                                        <input id="guardianButton" disabled class="btn btn-primary" value='Add Additional Guardian' type="submit" >
                                 </h4>
                             </div>
-
-
 
                             @for (var i = 0; i < Model.Applicant.GuardianDetails.Count(); i++)
                             {
@@ -358,6 +343,7 @@
         //onclick="AddGuardian('guardianTable');"
         //$("#guardianButton").click(function(e) {
         //    e.preventDefault();
+        //    var formData = new FormData();
         //    var newGuardian = $("#guardianTable").clone();
         //    newGuardian.attr("id", "guardianTable-" + $(".row").length);
         //    newGuardian.insertAfter("#guardianTable:last");
