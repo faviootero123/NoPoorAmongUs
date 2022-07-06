@@ -24,6 +24,6 @@ public class FacultyMember
     public bool IsAdmin { get; set; }
 
     //relationships
-    public IList<Note> Notes { get; set; }
-    public IList<Course> Courses { get; set; }
+    public IList<Note>? Notes { get; set; }
+    public IList<Course>? Courses { get; set; }
 }

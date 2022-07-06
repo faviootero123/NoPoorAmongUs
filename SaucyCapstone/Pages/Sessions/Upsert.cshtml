@@ -37,16 +37,16 @@
                 </div>
 
                 <div class="form-group row">
-                   @* <div class="col-3">
-                        <label asp-for="Sessions.Term.TermId"></label>
+                    <div class="col-3">
+                        <label asp-for="Sessions.Course.Term.TermId"></label>
                     </div>
                     <div class="col-9">
-                        @Html.DropDownListFor(m => m.Sessions.TermId,
+                        @Html.DropDownListFor(m => m.Sessions.Course.Term.TermId,
                         Model.TermList,
                         " - Please select a Term - ",
                         new { @class = "form-control", @id = "ddlTermModel" })
-                        <span class="text-danger" asp-validation-for="Sessions.Term.TermId"></span>
-                    </div>*@
+                        <span class="text-danger" asp-validation-for="Sessions.Course.Term.TermId"></span>
+                    </div>
                 </div>
                  <div class="form-group row">
                       <div class="col-3">

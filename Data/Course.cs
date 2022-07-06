@@ -27,6 +27,6 @@ public class Course
     [Required]
     [ForeignKey("FacultyMemberId")]
     public FacultyMember Instructor { get; set; }
-    public IList<Session> Sessions { get; set; }
+    public IList<Session>? Sessions { get; set; }
 }
 
