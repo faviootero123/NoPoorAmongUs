@@ -11,6 +11,7 @@ public class IndexModel : PageModel
 
     public IList<Course> CourseList { get;set; }
     public IList<School> SchoolList { get;set; }
+    public IList<FacultyMember> FacultyMembersList { get; set; }
 
     public IndexModel(ApplicationDbContext context)
     {
@@ -21,8 +22,9 @@ public class IndexModel : PageModel
     {
         if (_context.Courses != null)
         {
-            CourseList = await _context.Courses.ToListAsync();
+            CourseList = await _context.Courses.Include(u => u.Subject).ToListAsync();
             SchoolList = await _context.Schools.ToListAsync();
+            FacultyMembersList = await _context.FacultyMembers.Where(u => u.IsInstructor == true).ToListAsync();
         }
     }
 }

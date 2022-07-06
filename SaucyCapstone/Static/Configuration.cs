@@ -103,11 +103,11 @@ public static class ConfigurationStaticMethods
             //subject
             var subject = new Subject
             {
-                SubjectName = "History"
+                SubjectName = "History 101"
             };
             var subject2 = new Subject
             {
-                SubjectName = "Computers"
+                SubjectName = "Computers 101"
             };
             await db.AddAsync(subject);
             await db.AddAsync(subject2);
