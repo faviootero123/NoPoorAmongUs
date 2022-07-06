@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Admin\" />
+	 <Folder Include="wwwroot\images\students\" />
   </ItemGroup>
 
 </Project>
