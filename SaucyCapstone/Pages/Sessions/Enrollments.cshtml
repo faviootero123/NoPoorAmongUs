@@ -28,7 +28,7 @@
             {
             <tr>
                 <td> @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)</td>
-                <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a></td>
+                <td> <a class="btn btn-success" asp-page="../Students/StudentDetails" asp-route-id="@student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a></td>
                 <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-clipboard-data-fill"></i>&nbsp;Assessment</a></td>
                 <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-arrow-left-right"></i>&nbsp; Transfer Sessions</a></td>
                 <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-x-square-fill"></i>&nbsp;Remove</a></td>

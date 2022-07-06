@@ -19,8 +19,8 @@ namespace SaucyCapstone.Pages.Admin.Ratings
         {
             _context = context;
         }
-
-        // public IList<Rating> Rating { get;set; } = default!;
+        [BindProperty]
+        public Rating Rating { get;set; }
         public IList<Student> Student { get; set; } = default!;
         public IList<Criterion> Criterion { get; set; } = default!;
 

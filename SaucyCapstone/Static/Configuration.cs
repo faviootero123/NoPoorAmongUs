@@ -112,7 +112,8 @@ public static class ConfigurationStaticMethods
 
             var course = new Course
             {
-                //Subject = subject,
+                SubjectName = "English",
+                School = school,
                 CourseName = "Test Course"
             };
 
@@ -234,6 +235,7 @@ public static class ConfigurationStaticMethods
             var course = new Course
             {
                 SubjectName = "Computer",
+                School = school,
                 CourseName = "2"
             };
 
