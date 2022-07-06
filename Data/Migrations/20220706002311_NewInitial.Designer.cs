@@ -12,7 +12,7 @@ using SaucyCapstone.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220706001531_NewInitial")]
+    [Migration("20220706002311_NewInitial")]
     partial class NewInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
