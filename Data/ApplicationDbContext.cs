@@ -28,7 +28,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<ApplicationRole> ApplicationRoles => Set<ApplicationRole>();
     public DbSet<ApplicationUser> ApplicationUsers => Set<ApplicationUser>();
     public DbSet<Assessment> Assessments => Set<Assessment>();
-    public DbSet<AssessmentGrade> AssessmentGrades => Set<AssessmentGrade>();
     public DbSet<Attendance> Attendances => Set<Attendance>();
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<Criterion> Criteria => Set<Criterion>();
@@ -38,9 +37,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<Guardian> Guardians => Set<Guardian>();
     public DbSet<Note> Notes => Set<Note>();
     public DbSet<Rating> Ratings => Set<Rating>();
-    public DbSet<School> Schools => Set<School>();
     public DbSet<Session> Sessions => Set<Session>();
-    public DbSet<SessionAssessment> SessionAssessments => Set<SessionAssessment>();
     public DbSet<Student> Students => Set<Student>();
     public DbSet<StudentDoc> StudentDocs => Set<StudentDoc>();
     public DbSet<StudentGuardian> StudentGuardians => Set<StudentGuardian>();

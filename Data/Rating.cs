@@ -11,15 +11,15 @@ namespace Data;
 public class Rating
 {
     public int RatingId { get; set; }
-
-    [ForeignKey("CriterionId")]
-    public Criterion Criterion { get; set; }
-
-    [ForeignKey("StudentId")]
-    public Student Student { get; set; }
-
     [Required]
     public int Value { get; set; }
-
     public string? Comments { get; set; }
+
+    //relationships
+    [Required]
+    [ForeignKey("StudentId")]
+    public Student Student { get; set; }
+    [Required]
+    [ForeignKey("CriterionId")]
+    public Criterion Criterion { get; set; }
 }

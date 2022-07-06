@@ -11,10 +11,12 @@ namespace Data;
 public class StudentGuardian
 {
     public int StudentGuardianId { get; set; }
-
+    
+    //relationships
+    [Required]
     [ForeignKey("StudentId")]
     public Student Student { get; set; }
-
+    [Required]
     [ForeignKey("GuardianId")]
     public Guardian Guardian { get; set; }
 

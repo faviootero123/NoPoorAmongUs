@@ -9,10 +9,7 @@ namespace Data;
 public class Subject
 {
     public int SubjectId { get; set; }
-
-    [Required]
-    public string SubjectName { get; set; }
-
+    public string SubjectName { get; set; } = string.Empty;
     public IList<Course> Courses { get; set; }
-
 }
+

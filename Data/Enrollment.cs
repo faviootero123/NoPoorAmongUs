@@ -11,24 +11,27 @@ namespace Data;
 public class Enrollment
 {
     public int EnrollmentId { get; set; }
+    [Required]
+    public decimal FinalGrade { get; set; }
+    [Required]
+    public EnrollmentStatusType EnrollmentStatus { get; set; }
 
+    //Relationships
+    [Required]
     [ForeignKey("StudentId")]
     public Student Student { get; set; }
-
+    [Required]
     [ForeignKey("CourseId")]
     public Course Course { get; set; }
-
+    [Required]
     [ForeignKey("GradeId")]
     public Grade Grade { get; set; }
 
-    [Required]
-    public Status EnrollmentStatus { get; set; }
-
-    public decimal? FinalGrade { get; set; }
-
-    public enum Status
+    //enums
+    public enum EnrollmentStatusType
     {
-        InProgress,
-        Done
+        Registered,
+        Ongoing,
+        Completed,
     }
 }

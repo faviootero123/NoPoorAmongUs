@@ -12,14 +12,14 @@ public class Student
 {
     public int StudentId { get; set; }
 
-    public string? Picture { get; set; }
+    public string? ImageUrl { get; set; }
 
     [Required]
     [Display(Name = "Student Name")]
-    public string FirstName { get; set; }
+    public string FirstName { get; set; } = string.Empty;
 
     [Required]
-    public string LastName { get; set; }
+    public string LastName { get; set; } = string.Empty;
 
     [Required]
     public DateTime DateOfBirth { get; set; }
@@ -45,7 +45,7 @@ public class Student
 
     public string? Longitude { get; set; }
 
-    [Column(TypeName = "smallmoney")]
+    [Column(TypeName = "money")]
     public decimal AnnualIncome { get; set; }
 
     [Required]
@@ -63,12 +63,15 @@ public class Student
 
     public string? NotesAndAbout { get; set; }
 
-    public IList<Enrollment>? Enrollments { get; set; }
-    public IList<StudentGuardian>? StudentGuardians { get; set; }
-    public IList<StudentDoc>? StudentDocs { get; set; }
-    public IList<Rating>? Ratings { get; set; }
-    public IList<Note>? Notes { get; set; }
 
+    //relationships
+    public IList<StudentDoc>? Documents { get; set; }
+    public IList<Note>? Notes { get; set; }
+    public IList<Rating>? Ratings { get; set; }
+    public IList<Enrollment>? Enrollments {get; set;}
+    public IList<StudentGuardian> StudentGuardians { get; set; }
+
+    //enums
     public enum DeterminationLevel
     {
         Low,
@@ -84,4 +87,5 @@ public class Student
         Active,
         Graduated
     }
+
 }
