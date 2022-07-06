@@ -11,11 +11,22 @@ namespace Data;
 public class StudentDoc
 {
     public int StudentDocId { get; set; }
-    public DocType DocType { get; set; }
+
+    [ForeignKey("StudentId")]
     public Student Student { get; set; }
-    public string Name { get; set; }
+
+    [ForeignKey("AccessTypeId")]
+    public AccessType AccessType { get; set; }
+
+    [Required]
+    public string Topic { get; set; }
+
+    [Required]
     public string Description { get; set; }
 
+    [Required]
     public string Path { get; set; }
+
+    public string? Extension { get; set; }
 
 }

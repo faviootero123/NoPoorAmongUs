@@ -14,14 +14,15 @@ public class Course
     [DisplayName("Course Title")]
     public int CourseId { get; set; }
 
+    [ForeignKey("TermId")]
+    public Term Term { get; set; }
+    [ForeignKey("FacultyMemberId")]
+    public FacultyMember FacultyMember { get; set; }
+    [ForeignKey("SchoolId")]
     public School School { get; set; }
-
-    [Required]
-    public string CourseName { get; set; }
-
-    [Required]
-    public string SubjectName { get; set; }
-
-    IList<Assessment> Assessments { get; set; }
+    [ForeignKey("SubjectId")]
+    public Subject Subject { get; set; }
+    public IList<Enrollment> Enrollments { get; set; }
+    public IList<Session> Sessions { get; set; }
 }
 

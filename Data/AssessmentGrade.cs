@@ -12,8 +12,10 @@ public class AssessmentGrade
 {
     public int AssessmentGradeId { get; set; }
 
+    [ForeignKey("StudentId")]
     public Student Student { get; set; }
 
+    [ForeignKey("SessionAssessmentId")]
     public SessionAssessment? SessionAssessment { get; set; }
 
     [Required]

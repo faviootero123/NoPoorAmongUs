@@ -12,16 +12,20 @@ public class Note
 {
     public int NoteId { get; set; }
 
+    [ForeignKey("StudentId")]
     public Student Student { get; set; }
 
+    [ForeignKey("FaclutyMemberId")]
     public FacultyMember FacultyMember { get; set; }
 
-    public NoteType NoteType { get; set; }
+    [ForeignKey("AccessTypeId")]
+    public AccessType AccessType { get; set; }
+
+    [Required]
+    public string Topic { get; set; }
 
     [Required]
     public string Content { get; set; }
-
-    public string Topic { get; set; }
 
     [Required]
     public DateTime CreatedDate { get; set; }

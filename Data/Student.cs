@@ -10,22 +10,6 @@ namespace Data;
 
 public class Student
 {
-    public enum DeterminationLevel
-    {
-        Low,
-        AboveLow,
-        Middle,
-        BelowHigh,
-        High
-    }
-    public enum StudentStatus
-    {
-        OpenApplication,
-        Denied,
-        Active,
-        Graduated
-    }
-
     public int StudentId { get; set; }
 
     public string? Picture { get; set; }
@@ -42,7 +26,7 @@ public class Student
 
     public string? Phone { get; set; }
 
-    public DateTime AcceptedDate { get; set; }
+    public DateTime? AcceptedDate { get; set; }
 
     [Required]
     public DateTime LastModifiedDate { get; set; }
@@ -79,12 +63,25 @@ public class Student
 
     public string? NotesAndAbout { get; set; }
 
-    public IList<Enrollment> Enrollments { get; set; }
-    public IList<AssessmentGrade> AssessmentGrades { get; set; }
-    public IList<StudentGuardian> StudentGuardians { get; set; }
+    public IList<Enrollment>? Enrollments { get; set; }
+    public IList<StudentGuardian>? StudentGuardians { get; set; }
+    public IList<StudentDoc>? StudentDocs { get; set; }
+    public IList<Rating>? Ratings { get; set; }
+    public IList<Note>? Notes { get; set; }
 
-    public IList<StudentDoc> StudentDocs { get; set; }
-    public IList<Rating> Ratings { get; set; }
-    public IList<Note> Notes { get; set; }
-
+    public enum DeterminationLevel
+    {
+        Low,
+        AboveLow,
+        Middle,
+        BelowHigh,
+        High
+    }
+    public enum StudentStatus
+    {
+        OpenApplication,
+        Denied,
+        Active,
+        Graduated
+    }
 }

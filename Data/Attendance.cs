@@ -10,6 +10,12 @@ namespace Data;
 
 public class Attendance
 {
+    public int AttendanceId { get; set; }
+    public AttendanceStatus Status { get; set; }
+
+    [Required]
+    public DateTime Date { get; set; }
+
     public enum AttendanceStatus
     {
         OnTime,
@@ -17,13 +23,4 @@ public class Attendance
         NoShow,
         Excused
     }
-
-    public int AttendanceId { get; set; }
-
-    public Enrollment Enrollment { get; set; }
-
-    public AttendanceStatus Status { get; set; }
-
-    [Required]
-    public DateTime Date { get; set; }
 }

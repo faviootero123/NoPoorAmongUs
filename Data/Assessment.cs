@@ -11,12 +11,18 @@ namespace Data;
 public class Assessment
 {
     public int AssessmentId { get; set; }
-    
-    public Course Course { get; set; }
+
+    [ForeignKey("GradeId")]
+    public Grade Grade { get; set; }
 
     [Required]
     [Column(TypeName = "decimal(5, 2)")]
     public decimal Score { get; set; }
 
-    public IList<SessionAssessment> SessionAssessments { get; set; }
+    [Required]
+    public DateTime DueDate { get; set; }
+
+    [Required]
+    [Column(TypeName = "decimal(5, 2)")]
+    public decimal MaxScore { get; set; }
 }

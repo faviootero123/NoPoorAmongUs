@@ -18,18 +18,22 @@ public class FacultyMember
     [Required]
     public string LastName { get; set; }
 
+    [Required]
     public bool IsRater { get; set; }
 
+    [Required]
     public bool IsInstructor { get; set; }
 
+    [Required]
     public bool IsSocialWorker { get; set; }
 
+    [Required]
     public bool IsAdmin { get; set; }
 
     [ForeignKey("Id")]
     public string ApplicationUserId { get; set; }
 
     public ApplicationUser ApplicationUser { get; set; }
-    public IList<Employee> Employees { get; set; }
+    public IList<Course> Courses { get; set; }
     public IList<Note> Notes { get; set; }
 }

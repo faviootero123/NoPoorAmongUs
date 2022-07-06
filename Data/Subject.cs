@@ -6,15 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Data;
-
-public class NoteType
+public class Subject
 {
-    public int NoteTypeId { get; set; }
-
-    public IList<Note> Notes { get; set; }
+    public int SubjectId { get; set; }
 
     [Required]
-    public string Type { get; set; }
+    public string SubjectName { get; set; }
 
+    public IList<Course> Courses { get; set; }
 
 }
