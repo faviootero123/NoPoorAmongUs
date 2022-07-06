@@ -35,7 +35,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<NoteType> NoteTypes => Set<NoteType>();
     public DbSet<Rating> Ratings => Set<Rating>();
     public DbSet<Session> Sessions => Set<Session>();
-    public DbSet<SessionAssessment> SessionAssessments => Set<SessionAssessment>();
     public DbSet<Student> Students => Set<Student>();
     public DbSet<StudentDoc> StudentDocs => Set<StudentDoc>();
     public DbSet<StudentGuardian> StudentGuardians => Set<StudentGuardian>();
