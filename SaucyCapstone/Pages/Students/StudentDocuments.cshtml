@@ -28,21 +28,30 @@
                 Document Type
             </th>
             <th>
+                Upload Date
+            </th>
+            <th>
                 Manage
             </th>
-
         </tr>
     </thead>
     <tbody>
+            
+            @if(Model.Documents != null)
+            {
+            @foreach (var obj in Model.Documents){
             <tr>
                 <td width="20%">
-                    Assignment Doc
+                    @obj.Name
                 </td>
                 <td width="30%">
-                    Assignment Doc
+                    @obj.Description
                 </td>
                 <td width="10%">
-                    pdf
+                    @obj.AccessType.Accesss
+                </td>
+                <td width="10%">
+                    @obj.UploadDate
                 </td>
                 <td width="10%">
                     <div class="btn-group" role="group">
@@ -51,6 +60,8 @@
                     </div>
                 </td>
             </tr>
+            }
+            }
     </tbody>
 </table>
 

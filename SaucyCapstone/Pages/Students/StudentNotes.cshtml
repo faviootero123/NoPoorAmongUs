@@ -8,7 +8,7 @@
     </div>
     <br />
         <div class="float-end">             
-        <a asp-page="/Students/addNotes" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Note</a>         
+        <a asp-route-id="@Model.StudentId" asp-page="/Students/addNotes" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Note</a>         
      </div>
     
     <br />
@@ -36,16 +36,18 @@
         </tr>
     </thead>
     <tbody>
+            @if(Model.Notes != null)
+            {
             @foreach (var obj in Model.Notes){
             <tr>
                 <td width="10">
                     @obj.Topic
                 </td>
-                <td width="40%">          
+                <td width="30%">          
                     @obj.Content
                 </td>
-                <td width="10%">
-                    @obj.FacultyMember.FirstName @obj.FacultyMember.LastName
+                <td width="20%">
+                    @obj.FacultyMember?.FirstName @obj.FacultyMember?.LastName
                 </td>
                 <td width="10%">
                     @obj.CreatedDate
@@ -60,6 +62,7 @@
                     </div>
                 </td>
             </tr>
+            }
             }
     </tbody>
 </table>
