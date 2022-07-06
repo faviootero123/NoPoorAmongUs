@@ -20,7 +20,7 @@ namespace SaucyCapstone.Pages.Admin.Ratings
             _context = context;
         }
 
-        // public IList<Rating> Rating { get;set; } = default!;
+        public IList<Rating> Rating { get;set; } = default!;
         public IList<Student> Student { get; set; } = default!;
         public IList<Criterion> Criterion { get; set; } = default!;
 
@@ -28,7 +28,7 @@ namespace SaucyCapstone.Pages.Admin.Ratings
         {
             if (_context.Ratings != null)
             {
-                //Rating = await _context.Ratings.ToListAsync();
+                Rating = await _context.Ratings.ToListAsync();
                 Student = await _context.Students.Include(x => x.Ratings).ThenInclude(x => x.Criterion).ToListAsync();
                 Criterion = await _context.Criteria.ToListAsync();
             }

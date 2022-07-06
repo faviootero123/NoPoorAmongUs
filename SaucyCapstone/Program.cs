@@ -37,10 +37,10 @@ services.AddSession();
 var app = builder.Build();
 
 //Seed the data to the database
-if (app.Configuration.GetValue<bool>("SeedData"))
-{
-    await app.Services.SeedDataAsync();
-}
+//if (app.Configuration.GetValue<bool>("SeedData"))
+//{
+//    await app.Services.SeedDataAsync();
+//}
 var mvcBuilder = builder.Services.AddRazorPages();
 // Configure the HTTP request pipeline. AKA middleware
 
