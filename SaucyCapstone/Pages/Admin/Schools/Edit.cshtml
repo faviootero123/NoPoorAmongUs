@@ -14,6 +14,8 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="School.SchoolId" />
+            <input type="hidden" asp-for="School.Courses" />
+
             <div class="form-group">
                 <label asp-for="School.SchoolName" class="control-label"></label>
                 <input asp-for="School.SchoolName" class="form-control" />

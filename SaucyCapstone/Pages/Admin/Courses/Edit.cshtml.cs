@@ -47,7 +47,7 @@ public class EditModel : PageModel
 
         CourseVM = new()
         {
-            School = course,
+            //School = course,
             //Course = course.CourseName,
             //Subject = course.SubjectName
         };
