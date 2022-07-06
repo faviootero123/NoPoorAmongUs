@@ -22,7 +22,7 @@ public class EditModel : PageModel
     }
 
     public Course Course { get; set; }
-
+    public FacultyMember FacultyMember { get; set; }
     public School School { get; set; }
 
     [BindProperty]
@@ -38,22 +38,16 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var course = await _context.Courses.FindAsync(id);
+        var course = await _context.Courses.Where(u => u.CourseId == id).Include(u => u.School).Include(u => u.Instructor).Include(u => u.Subject).ToListAsync();
 
-        var school = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault();
-
-        Course = course;
-
-        School = school;
-
-        if (Course == null || School == null)
+        if (course == null)
         {
             return NotFound();
         }
 
         CourseVM = new()
         {
-            School = school.SchoolId,
+            //School = course,
             //Course = course.CourseName,
             //Subject = course.SubjectName
         };
@@ -83,7 +77,7 @@ public class EditModel : PageModel
                 return NotFound();
             }
 
-            courseToUpdate.School = _context.Schools.Where(s => s.SchoolId == courseVM.School).FirstOrDefault();
+            //courseToUpdate.School = _context.Schools.Where(s => s.SchoolId == courseVM.School).FirstOrDefault();
             //courseToUpdate.CourseName = courseVM.Course;
             //courseToUpdate.SubjectName = courseVM.Subject;
             _context.Courses.Update(courseToUpdate);

@@ -44,7 +44,7 @@ public class CreateModel : PageModel
         {
             Course Course = new()
             {
-                School = _context.Schools.Where(s => s.SchoolId == courseVM.School).FirstOrDefault(),
+                //School = _context.Schools.Where(s => s.SchoolId == courseVM.School).FirstOrDefault(),
                 //CourseName = courseVM.Course,
                 //SubjectName = courseVM.Subject
             };

@@ -41,8 +41,8 @@ public class DeleteModel : PageModel
         {
             CourseVM = new()
             {
-                School = school.SchoolId,
-                SchoolName = school.SchoolName,
+                //School = school.SchoolId,
+                //SchoolName = school.SchoolName,
                 //Course = course.CourseName,
                 //Subject = course.SubjectName
             };

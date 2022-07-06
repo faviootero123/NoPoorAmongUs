@@ -20,34 +20,37 @@
             </th>
             <th>
                 @*@Html.DisplayNameFor(model => model.CourseList[0].CourseName)*@
-                Course
+                Subject
             </th>
             <th>
                 @*@Html.DisplayNameFor(model => model.CourseList[0].SubjectName)*@
-                Subject
+                Instructor
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.CourseList) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.SchoolList[Model.SchoolList.IndexOf(item.School)].SchoolName)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.CourseName)*@
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.SubjectName)*@
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.CourseId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CourseId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CourseId">Delete</a>
-                <input type="hidden" asp-for="@item.School" />
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.CourseList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.SchoolList[Model.SchoolList.IndexOf(item.School)].SchoolName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Instructor.FirstName) @Html.DisplayFor(modelItem => item.Instructor.LastName)
+
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.CourseId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CourseId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.CourseId">Delete</a>
+                    <input type="hidden" asp-for="@item.School" />
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

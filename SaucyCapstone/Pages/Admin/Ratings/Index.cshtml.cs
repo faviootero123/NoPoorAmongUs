@@ -29,7 +29,7 @@ namespace SaucyCapstone.Pages.Admin.Ratings
             if (_context.Ratings != null)
             {
                 //Rating = await _context.Ratings.ToListAsync();
-                Student = await _context.Students.Include(x => x.Ratings).ThenInclude(x => x.Criterion).ToListAsync();
+                //Student = await _context.Students.Include(x => x.Ratings).ThenInclude(x => x.Criterion).ToListAsync();
                 Criterion = await _context.Criteria.ToListAsync();
             }
             if (!_context.Students.Any())
