@@ -16,8 +16,8 @@ public class Rating
     public string? Comments { get; set; }
 
     //relationships
-    public IList<Criterion> Criterias { get; set; }
     [Required]
     [ForeignKey("StudentId")]
     public Student Student { get; set; }
+    public Criterion Criteria { get; set; }
 }
