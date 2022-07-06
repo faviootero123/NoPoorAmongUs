@@ -74,8 +74,7 @@ public static class ConfigurationStaticMethods
         await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
         //Seed data for other tables 
 
-        await db.SeedDataNeededForSession();
-        await db.SeedDataNeededForEnrollments();
+        await db.SeedData();
     }
     private static async Task AddUserToRole(this UserManager<ApplicationUser> userManager, string username, string role)
     {
@@ -89,9 +88,6 @@ public static class ConfigurationStaticMethods
         var alreadyExists = await db.Terms.Where(s => s.TermId == 1).FirstOrDefaultAsync() == null;
         if (alreadyExists)
         {
-
-
-
             //faculty-member
             var faculty = new FacultyMember
             {
@@ -229,24 +225,24 @@ public static class ConfigurationStaticMethods
             await db.AddAsync(student2);
 
             //student-guardians
-            var studentguardian1 = new StudentGuardian
-            {
-                Student = student1,
-                Guardian = guardian1,
+            var studentGuardians = new List<StudentGuardian>{
+                new StudentGuardian
+                {
+                    Student = student1,
+                    Guardian = guardian1,
+                },
+                new StudentGuardian
+                {
+                    Student = student1,
+                    Guardian = guardian2,
+                },
+                new StudentGuardian
+                {
+                    Student = student2,
+                    Guardian = guardian1,
+                }
             };
-            var studentguardian2 = new StudentGuardian
-            {
-                Student = student1,
-                Guardian = guardian2,
-            };
-            var studentguardian3 = new StudentGuardian
-            {
-                Student = student2,
-                Guardian = guardian1,
-            };
-            await db.AddAsync(studentguardian1);
-            await db.AddAsync(studentguardian2);
-            await db.AddAsync(studentguardian3);
+            await db.AddRangeAsync(studentGuardians);
             await db.SaveChangesAsync();
 
             //sessions
@@ -377,16 +373,6 @@ public static class ConfigurationStaticMethods
 
 
             await db.SaveChangesAsync();
-
-        }
-    }
-
-    private static async Task SeedDataNeededForEnrollments(this ApplicationDbContext db)
-    {
-        var alreadyExists = await db.Enrollments.Where(s => s.EnrollmentId == 1).FirstOrDefaultAsync() == null;
-        if (alreadyExists)
-        {
-            
 
         }
     }
