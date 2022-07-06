@@ -10,7 +10,6 @@ namespace Data;
 
 public class Session
 {
-    [Key]
     public int SessionId { get; set; }
     public string DayofWeek { get; set; } = string.Empty;
     [Required]

@@ -12,8 +12,10 @@ public class Note
 {
     public int NoteId { get; set; }
 
+    public string? Topic { get; set; }
+
     [Required]
-    public string Content { get; set; }
+    public string Content { get; set; } = string.Empty;
 
     [Required]
     public DateTime CreatedDate { get; set; }
@@ -27,5 +29,5 @@ public class Note
     public FacultyMember FacultyMember { get; set; }
     [Required]
     [ForeignKey("NoteTypeId")]
-    public NoteType NoteType { get; set; }
+    public AccessType NoteType { get; set; }
 }

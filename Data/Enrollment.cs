@@ -12,7 +12,7 @@ public class Enrollment
 {
     public int EnrollmentId { get; set; }
     [Required]
-    public int FinalGrade { get; set; }
+    public decimal FinalGrade { get; set; }
     [Required]
     public EnrollmentStatusType EnrollmentStatus { get; set; }
 
@@ -23,6 +23,9 @@ public class Enrollment
     [Required]
     [ForeignKey("CourseId")]
     public Course Course { get; set; }
+    [Required]
+    [ForeignKey("GradeId")]
+    public Grade Grade { get; set; }
 
     //enums
     public enum EnrollmentStatusType

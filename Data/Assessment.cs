@@ -18,4 +18,9 @@ public class Assessment
     [Required]
     [Column(TypeName = "decimal(5, 2)")]
     public decimal MaxScore { get; set; }
+
+    //relationships
+    [Required]
+    [ForeignKey("GradeId")]
+    public Grade Grade { get; set; }
 }

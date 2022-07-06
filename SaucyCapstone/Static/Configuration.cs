@@ -82,7 +82,7 @@ public static class ConfigurationStaticMethods
         if (_user is not null) await userManager.AddToRoleAsync(_user, Roles.Admin);
     }
 
-    private static async Task SeedDataNeededForSession(this ApplicationDbContext db)
+    private static async Task SeedData(this ApplicationDbContext db)
     {
 
         var alreadyExists = await db.Terms.Where(s => s.TermId == 1).FirstOrDefaultAsync() == null;
@@ -129,36 +129,36 @@ public static class ConfigurationStaticMethods
             await db.AddAsync(term2);
 
             //course
-            var course = new Course
-            {
-                CourseName = "E101",
-                SchoolName = "Bowani",
-                Subject = "English",
-                Term = term,
-                Instructor = faculty2,
-                Sessions = new List<Session>()
-            };
-            var course2 = new Course
-            {
-                CourseName = "C101",
-                SchoolName = "Bowani",
-                Subject = "Computer",
-                Term = term,
-                Instructor = faculty2,
-                Sessions = new List<Session>()
-            };
-            var course3 = new Course
-            {
-                CourseName = "History-10th",
-                SchoolName = "Public",
-                Subject = "History",
-                Term = term2,
-                Instructor = faculty,
-                Sessions = new List<Session>()
-            };
-            await db.AddAsync(course);
-            await db.AddAsync(course2);
-            await db.AddAsync(course3);
+            //var course = new Course
+            //{
+            //    CourseName = "E101",
+            //    SchoolName = "Bowani",
+            //    Subject = "English",
+            //    Term = term,
+            //    Instructor = faculty2,
+            //    Sessions = new List<Session>()
+            //};
+            //var course2 = new Course
+            //{
+            //    CourseName = "C101",
+            //    SchoolName = "Bowani",
+            //    Subject = "Computer",
+            //    Term = term,
+            //    Instructor = faculty2,
+            //    Sessions = new List<Session>()
+            //};
+            //var course3 = new Course
+            //{
+            //    CourseName = "History-10th",
+            //    SchoolName = "Public",
+            //    Subject = "History",
+            //    Term = term2,
+            //    Instructor = faculty,
+            //    Sessions = new List<Session>()
+            //};
+            //await db.AddAsync(course);
+            //await db.AddAsync(course2);
+            //await db.AddAsync(course3);
 
             //guardians
             var guardian1 = new Guardian
@@ -246,73 +246,73 @@ public static class ConfigurationStaticMethods
             await db.SaveChangesAsync();
 
             //sessions
-            var session = new Session
-            {
-                DayofWeek = "Monday",
-                StartTime = "10:00 AM",
-                EndTime = "11:00 AM",
-                IsActive = true,
-                Course = course
-            };
-            var session2 = new Session
-            {
-                DayofWeek = "Tuesday",
-                StartTime = "9:30 AM",
-                EndTime = "10:30 AM",
-                IsActive = true,
-                Course = course
-            };
-            var session3 = new Session
-            {
-                DayofWeek = "Thursday",
-                StartTime = "10:00 AM",
-                EndTime = "11:00 AM",
-                IsActive = true,
-                Course = course2
-            };
-            await db.AddAsync(session);
-            await db.AddAsync(session2);
-            await db.AddAsync(session3);
+            //var session = new Session
+            //{
+            //    DayofWeek = "Monday",
+            //    StartTime = "10:00 AM",
+            //    EndTime = "11:00 AM",
+            //    IsActive = true,
+            //    Course = course
+            //};
+            //var session2 = new Session
+            //{
+            //    DayofWeek = "Tuesday",
+            //    StartTime = "9:30 AM",
+            //    EndTime = "10:30 AM",
+            //    IsActive = true,
+            //    Course = course
+            //};
+            //var session3 = new Session
+            //{
+            //    DayofWeek = "Thursday",
+            //    StartTime = "10:00 AM",
+            //    EndTime = "11:00 AM",
+            //    IsActive = true,
+            //    Course = course2
+            //};
+            //await db.AddAsync(session);
+            //await db.AddAsync(session2);
+            //await db.AddAsync(session3);
 
-            var enrollment = new Enrollment
-            {
-                Student = student1,
-                Course = course,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
-                FinalGrade = 0
-            };
-            var enrollment2 = new Enrollment
-            {
-                Student = student1,
-                Course = course2,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 85
-            };
-            await db.AddAsync(enrollment);
-            await db.AddAsync(enrollment2);
+            //var enrollment = new Enrollment
+            //{
+            //    Student = student1,
+            //    Course = course,
+            //    EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+            //    FinalGrade = 0
+            //};
+            //var enrollment2 = new Enrollment
+            //{
+            //    Student = student1,
+            //    Course = course2,
+            //    EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+            //    FinalGrade = 85
+            //};
+            //await db.AddAsync(enrollment);
+            //await db.AddAsync(enrollment2);
 
             //attendance
-            var attendance = new Attendance
-            {
-                Status = Attendance.AttendanceStatus.OnTime,
-                Date = DateTime.Now,
-                Session = session
-            };
-            var attendance2 = new Attendance
-            {
-                Status = Attendance.AttendanceStatus.OnTime,
-                Date = DateTime.Now,
-                Session = session
-            };
-            var attendance3 = new Attendance
-            {
-                Status = Attendance.AttendanceStatus.OnTime,
-                Date = DateTime.Now,
-                Session = session2
-            };
-            await db.AddAsync(attendance);
-            await db.AddAsync(attendance2);
-            await db.AddAsync(attendance3);
+            //var attendance = new Attendance
+            //{
+            //    Status = Attendance.AttendanceStatus.OnTime,
+            //    Date = DateTime.Now,
+            //    Session = session
+            //};
+            //var attendance2 = new Attendance
+            //{
+            //    Status = Attendance.AttendanceStatus.OnTime,
+            //    Date = DateTime.Now,
+            //    Session = session
+            //};
+            //var attendance3 = new Attendance
+            //{
+            //    Status = Attendance.AttendanceStatus.OnTime,
+            //    Date = DateTime.Now,
+            //    Session = session2
+            //};
+            //await db.AddAsync(attendance);
+            //await db.AddAsync(attendance2);
+            //await db.AddAsync(attendance3);
 
             //assessment (homework)
             var assessment = new Assessment
@@ -339,36 +339,36 @@ public static class ConfigurationStaticMethods
 
 
             //sessionAssessment
-            var sessionassessment = new SessionAssessment
-            {
-                Assessment = assessment,
-                Session = session
-            };
-            var sessionassessment2 = new SessionAssessment
-            {
-                Assessment = assessment2,
-                Session = session
-            };
-            var sessionassessment3 = new SessionAssessment
-            {
-                Assessment = assessment3,
-                Session = session
-            };
-            var sessionassessment4 = new SessionAssessment
-            {
-                Assessment = assessment3,
-                Session = session2
-            };
-            var sessionassessment5 = new SessionAssessment
-            {
-                Assessment = assessment3,
-                Session = session2
-            };
-            await db.AddAsync(sessionassessment);
-            await db.AddAsync(sessionassessment2);
-            await db.AddAsync(sessionassessment3);
-            await db.AddAsync(sessionassessment4);
-            await db.AddAsync(sessionassessment5);
+            //var sessionassessment = new SessionAssessment
+            //{
+            //    Assessment = assessment,
+            //    Session = session
+            //};
+            //var sessionassessment2 = new SessionAssessment
+            //{
+            //    Assessment = assessment2,
+            //    Session = session
+            //};
+            //var sessionassessment3 = new SessionAssessment
+            //{
+            //    Assessment = assessment3,
+            //    Session = session
+            //};
+            //var sessionassessment4 = new SessionAssessment
+            //{
+            //    Assessment = assessment3,
+            //    Session = session2
+            //};
+            //var sessionassessment5 = new SessionAssessment
+            //{
+            //    Assessment = assessment3,
+            //    Session = session2
+            //};
+            //await db.AddAsync(sessionassessment);
+            //await db.AddAsync(sessionassessment2);
+            //await db.AddAsync(sessionassessment3);
+            //await db.AddAsync(sessionassessment4);
+            //await db.AddAsync(sessionassessment5);
 
 
 

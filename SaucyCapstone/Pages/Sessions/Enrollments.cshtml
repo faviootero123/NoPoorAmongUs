@@ -1,4 +1,4 @@
-﻿@page
+﻿@*@page
 @model SaucyCapstone.Pages.Sessions.EnrollmentsModel
 @{
 }
@@ -7,7 +7,7 @@
     {
         <p>@student.FirstName @student.LastName</p>
     }
-</div>*@
+</div>
 <h2>@Model.session.Course.Subject @Model.session.Course.CourseName </h2>
 <h5>Day: @Model.session.DayofWeek <br/>
     Time: @Model.session.StartTime - @Model.session.EndTime</h5>
@@ -39,3 +39,4 @@
     </table>
 </div>
 </form>
+*@

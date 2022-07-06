@@ -10,7 +10,6 @@ namespace Data;
 
 public class Term
 {
-    [DisplayName("Term Name")]
     public int TermId { get; set; }
 
     [Required]

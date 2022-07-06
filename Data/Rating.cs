@@ -19,5 +19,7 @@ public class Rating
     [Required]
     [ForeignKey("StudentId")]
     public Student Student { get; set; }
-    public Criterion Criteria { get; set; }
+    [Required]
+    [ForeignKey("CriterionId")]
+    public Criterion Criterion { get; set; }
 }

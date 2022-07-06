@@ -25,4 +25,7 @@ public class StudentDoc
     [Required]
     [ForeignKey("StudentId")]
     public Student Student { get; set; }
+    [Required]
+    [ForeignKey("TypeId")]
+    public AccessType AccessType { get; set; }
 }

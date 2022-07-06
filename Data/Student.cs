@@ -10,32 +10,16 @@ namespace Data;
 
 public class Student
 {
-    public enum DeterminationLevel
-    {
-        Low,
-        AboveLow,
-        Middle,
-        BelowHigh,
-        High
-    }
-    public enum StudentStatus
-    {
-        OpenApplication,
-        Denied,
-        Active,
-        Graduated
-    }
-
     public int StudentId { get; set; }
 
     public string? ImageUrl { get; set; }
 
     [Required]
     [Display(Name = "Student Name")]
-    public string FirstName { get; set; }
+    public string FirstName { get; set; } = string.Empty;
 
     [Required]
-    public string LastName { get; set; }
+    public string LastName { get; set; } = string.Empty;
 
     [Required]
     public DateTime DateOfBirth { get; set; }
@@ -85,4 +69,22 @@ public class Student
     public IList<Note>? Notes { get; set; }
     public IList<Rating>? Ratings { get; set; }
     public IList<Enrollment>? Enrollments {get; set;}
+
+    //enums
+    public enum DeterminationLevel
+    {
+        Low,
+        AboveLow,
+        Middle,
+        BelowHigh,
+        High
+    }
+    public enum StudentStatus
+    {
+        OpenApplication,
+        Denied,
+        Active,
+        Graduated
+    }
+
 }

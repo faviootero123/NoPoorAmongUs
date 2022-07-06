@@ -37,7 +37,7 @@ namespace SaucyCapstone.Pages.Sessions
                 var Courses = _context.Courses.ToList();
                 var Terms = _context.Terms.ToList();
 
-                CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.CourseName });
+                //CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.CourseName });
                 TermList = Terms.Select(c => new SelectListItem { Value = c.TermId.ToString(), Text = c.TermName });
 
             }
@@ -47,7 +47,7 @@ namespace SaucyCapstone.Pages.Sessions
                 var Courses = _context.Courses.ToList();
                 var Terms = _context.Terms.ToList();
                 //these are to populate the drop down lists
-                CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.CourseName });
+                //CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.CourseName });
                 TermList = Terms.Select(c => new SelectListItem { Value = c.TermId.ToString(), Text = c.TermName });
                 Sessions = new();
             }
