@@ -61,7 +61,7 @@ public class Student
     [EnumDataType(typeof(DeterminationLevel))]
     public DeterminationLevel Determination { get; set; }
 
-    public string? NotesAndAbout { get; set; }
+    public string? NotesAndAbout { get; set; } = string.Empty;
 
 
     //relationships

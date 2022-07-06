@@ -20,6 +20,8 @@ public class Note
     [Required]
     public DateTime CreatedDate { get; set; }
 
+    public DateTime? EditedDate { get; set; }
+
     //relationships
     [Required]
     [ForeignKey("StudentId")]

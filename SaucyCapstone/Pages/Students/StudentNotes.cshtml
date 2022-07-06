@@ -36,21 +36,22 @@
         </tr>
     </thead>
     <tbody>
+            @foreach (var obj in Model.Notes){
             <tr>
                 <td width="10">
-                    Advice
+                    @obj.Topic
                 </td>
                 <td width="40%">          
-                    I wanna die
+                    @obj.Content
                 </td>
                 <td width="10%">
-                    Someone
+                    @obj.FacultyMember.FirstName @obj.FacultyMember.LastName
                 </td>
                 <td width="10%">
-                    4/20/6969
+                    @obj.CreatedDate
                 </td>
                 <td width="10%">
-                    4/20/6969
+                    @obj.EditedDate
                 </td>
                 <td width="10%">
                     <div class="btn-group" role="group">
@@ -59,6 +60,7 @@
                     </div>
                 </td>
             </tr>
+            }
     </tbody>
 </table>
 

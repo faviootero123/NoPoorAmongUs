@@ -11,10 +11,5 @@ namespace Models.ViewModels
     {
         public Student Students { get; set; }
         public IList<Guardian> Guardians { get; set; }
-        //public IEnumerable<StudentNote> Notes { get; set; }
-        //public IEnumerable<StudentDoc> Documents { get; set; }
-
-        //public IEnumerable<Rating> Ratings { get; set; }
-        //public IEnumerable<Enrollment> Enrollments { get; set; }
     }
 }
