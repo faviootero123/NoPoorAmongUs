@@ -54,8 +54,8 @@ public class EditModel : PageModel
         CourseVM = new()
         {
             School = school.SchoolId,
-            Course = course.CourseName,
-            Subject = course.SubjectName
+            //Course = course.CourseName,
+            //Subject = course.SubjectName
         };
 
 
@@ -84,8 +84,8 @@ public class EditModel : PageModel
             }
 
             courseToUpdate.School = _context.Schools.Where(s => s.SchoolId == courseVM.School).FirstOrDefault();
-            courseToUpdate.CourseName = courseVM.Course;
-            courseToUpdate.SubjectName = courseVM.Subject;
+            //courseToUpdate.CourseName = courseVM.Course;
+            //courseToUpdate.SubjectName = courseVM.Subject;
             _context.Courses.Update(courseToUpdate);
             await _context.SaveChangesAsync();
             return RedirectToPage("./Index");

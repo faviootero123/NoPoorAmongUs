@@ -17,6 +17,7 @@ public class Session
     public string StartTime { get; set; } = string.Empty;
     [Required]
     public string EndTime { get; set; } = string.Empty;
+    [Required]
     public bool IsActive { get; set; }
 
     [ForeignKey("AttendanceId")]

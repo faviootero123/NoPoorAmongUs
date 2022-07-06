@@ -261,15 +261,15 @@ public static class ConfigurationStaticMethods
             IsActive = true
         });
 
-        var course = new Course
-        {
-            //Subject = subject,
-            SchoolName = "School Course",
-            CourseName = "Course Course",
-            SubjectName = "Subject Course"
-        };
+        //var course = new Course
+        //{
+        //    //Subject = subject,
+        //    SchoolName = "School Course",
+        //    CourseName = "Course Course",
+        //    SubjectName = "Subject Course"
+        //};
 
-    await db.AddAsync(course);
+    //await db.AddAsync(course);
 
 
         //guardians
@@ -296,7 +296,7 @@ public static class ConfigurationStaticMethods
             FirstName = "student1",
             LastName = "student1",
             Phone = "123-123-1234",
-            Picture = "\\images\\stock-profile-pic.jpg",
+            ImageUrl = "\\images\\stock-profile-pic.jpg",
             Determination = Student.DeterminationLevel.High,
             Status = Student.StudentStatus.OpenApplication,
             DateOfBirth = DateTime.MinValue,
@@ -318,7 +318,7 @@ public static class ConfigurationStaticMethods
             FirstName = "student2",
             LastName = "student2",
             Phone = "456-456-4567",
-            Picture = "\\images\\stock-profile-pic.jpg",
+            ImageUrl = "\\images\\stock-profile-pic.jpg",
             Determination = Student.DeterminationLevel.Low,
             Status = Student.StudentStatus.OpenApplication,
             DateOfBirth = DateTime.MinValue,
@@ -342,7 +342,7 @@ public static class ConfigurationStaticMethods
             FirstName = "student3",
             LastName = "student1",
             Phone = "123-123-1234",
-            Picture = "\\images\\stock-profile-pic.jpg",
+            ImageUrl = "\\images\\stock-profile-pic.jpg",
             Determination = Student.DeterminationLevel.High,
             Status = Student.StudentStatus.Active,
             DateOfBirth = DateTime.MinValue,
@@ -364,7 +364,7 @@ public static class ConfigurationStaticMethods
             FirstName = "student2",
             LastName = "student2",
             Phone = "456-456-4567",
-            Picture = "\\images\\stock-profile-pic.jpg",
+            ImageUrl = "\\images\\stock-profile-pic.jpg",
             Determination = Student.DeterminationLevel.Low,
             Status = Student.StudentStatus.Active,
             DateOfBirth = DateTime.MinValue,
@@ -413,8 +413,7 @@ public static class ConfigurationStaticMethods
             {
                 SchoolName = "Bowani"
             };
-            await db.AddRangeAsync(studentGuardians);
-            await db.SaveChangesAsync();
+            //await db.AddRangeAsync(studentGuardians);
 
             //sessions
             //var session = new Session

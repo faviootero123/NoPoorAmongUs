@@ -18,7 +18,7 @@ public class Assessment
     [Required]
     [Column(TypeName = "decimal(5, 2)")]
     public decimal Score { get; set; }
-    public DateTime DueDate? { get; set; }
+    public DateTime? DueDate { get; set; }
 
     [Required]
     [Column(TypeName = "decimal(5, 2)")]

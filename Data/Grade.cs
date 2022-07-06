@@ -13,7 +13,11 @@ public class Grade
     
     [Column(TypeName = "char(2)")]
     public string AssessmentGrade{get; set;}
+    [Required]
+    [Column(TypeName = "decimal(5, 2)")]
     public decimal BeginningRange { get; set; }
+    [Required]
+    [Column(TypeName = "decimal(5, 2)")]
     public decimal EndingRange { get; set; }    
 
     public IList<Assessment> Assessment { get; set; }

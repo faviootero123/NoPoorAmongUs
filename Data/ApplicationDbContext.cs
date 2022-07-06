@@ -43,6 +43,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<StudentGuardian> StudentGuardians => Set<StudentGuardian>();
     public DbSet<Subject> Subjects => Set<Subject>();
     public DbSet<Term> Terms => Set<Term>();
+    public DbSet<School> Schools => Set<School>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

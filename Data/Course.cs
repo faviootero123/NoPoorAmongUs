@@ -32,6 +32,6 @@ public class Course
     public School School { get; set; }
 
     public IList<Session>? Sessions { get; set; }
-    public IList<Enrollments> Enrollments { get; set; }
+    public IList<Enrollment> Enrollments { get; set; }
 }
 

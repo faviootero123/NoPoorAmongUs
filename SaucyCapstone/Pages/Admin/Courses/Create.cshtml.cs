@@ -45,8 +45,8 @@ public class CreateModel : PageModel
             Course Course = new()
             {
                 School = _context.Schools.Where(s => s.SchoolId == courseVM.School).FirstOrDefault(),
-                CourseName = courseVM.Course,
-                SubjectName = courseVM.Subject
+                //CourseName = courseVM.Course,
+                //SubjectName = courseVM.Subject
             };
             _context.Courses.Add(Course);
             await _context.SaveChangesAsync();

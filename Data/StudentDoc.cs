@@ -13,7 +13,7 @@ public class StudentDoc
     public int StudentDocId { get; set; }
     [Required]
     public string Name { get; set; } = string.Empty;
-    public string? Decription { get; set; }
+    public string? Description { get; set; }
     [Required]
     public string Path { get; set; } = string.Empty;
     [Required]

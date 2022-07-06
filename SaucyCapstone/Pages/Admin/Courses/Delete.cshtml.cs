@@ -43,8 +43,8 @@ public class DeleteModel : PageModel
             {
                 School = school.SchoolId,
                 SchoolName = school.SchoolName,
-                Course = course.CourseName,
-                Subject = course.SubjectName
+                //Course = course.CourseName,
+                //Subject = course.SubjectName
             };
         }
         return Page();
