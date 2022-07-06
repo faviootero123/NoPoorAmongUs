@@ -30,21 +30,23 @@
                 Student Name
             </th>
             <th>
-                Overall GPA
+                Student Status
             </th>
         </tr>
     </thead>
     <tbody>
+        @foreach(var student in Model.Student)
+        {
             <tr>
                 <td width="50%">
-                    Bill
+                    @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
                 </td>
                 <td width="30%">
-                    90.6%
+                    @Html.DisplayFor(modelItem => student.Status)
                 </td>
                 <td>
                     <div class="w-25 btn-group" role="group">
-                        <a class="btn btn-success mx-2" asp-page="/Students/StudentDetails" ><i class="bi bi-clipboard2-fill"></i> Details</a>
+                        <a class="btn btn-success mx-2" asp-page="/Students/StudentDetails" asp-route-id="@student.StudentId"><i class="bi bi-clipboard2-fill"></i> Details</a>
                         <a class="btn btn-primary mx-2" asp-page="/Students/StudentNotes"><i class="bi bi-pencil-square"></i> Notes</a>
                         <a class="btn btn-info mx-2"  asp-page="/Students/StudentDocuments"> <i class="bi bi-file-earmark-text-fill"></i> Documents</a>
                         <a class="btn btn-warning mx-2" asp-page="/Students/StudentCertificates"> <i class="bi bi-file-earmark-person"></i> Certifications</a>
@@ -52,6 +54,7 @@
                     </div>
                 </td>
             </tr>
+            }
     </tbody>
 </table>
 </div>
