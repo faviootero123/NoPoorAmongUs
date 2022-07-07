@@ -2,6 +2,7 @@ using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
 
 namespace SaucyCapstone.Pages.Sessions
@@ -15,7 +16,7 @@ namespace SaucyCapstone.Pages.Sessions
             _context = context;
         }
         [BindProperty]
-        public Session Sessions { get; set; }
+        public Session Session { get; set; }
         public IEnumerable<SelectListItem> CourseList { get; set; }
         public IEnumerable<SelectListItem> TermList { get; set; }
         public List<SelectListItem> DayOfWeekList { get; set; }
@@ -33,35 +34,39 @@ namespace SaucyCapstone.Pages.Sessions
             };
             if (id != null)
             {
-                Sessions = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
-                var Courses = _context.Courses.ToList();
+                Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
+                var Courses = _context.Courses.Include(d=>d.Subject).ToList();
                 var Terms = _context.Terms.ToList();
 
-                //CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.CourseName });
+                CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.Subject.SubjectName });
                 TermList = Terms.Select(c => new SelectListItem { Value = c.TermId.ToString(), Text = c.TermName });
 
             }
 
-            if (Sessions == null)
+            if (Session == null)
             {
-                var Courses = _context.Courses.ToList();
+                var Courses = _context.Courses.Include(d => d.Subject).ToList();
                 var Terms = _context.Terms.ToList();
                 //these are to populate the drop down lists
-                //CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.CourseName });
+                CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.Subject.SubjectName });
                 TermList = Terms.Select(c => new SelectListItem { Value = c.TermId.ToString(), Text = c.TermName });
-                Sessions = new();
+                Session = new();
             }
         }
         public IActionResult OnPost(int? id)
         {
+            var term = _context.Terms.Where(d => d.TermId == Session.Course.Term.TermId).FirstOrDefault();
+            var course = _context.Courses.Where(d => d.CourseId == Session.Course.CourseId).FirstOrDefault();
+            Session.Course = course;
+            Session.Course.Term = term; 
 
-            if (Sessions.SessionId == 0)
+            if (id is null)
             {
-                _context.Sessions.Add(Sessions);
+                _context.Sessions.Add(Session);
             }
             else
             {
-                _context.Sessions.Update(Sessions);
+                _context.Sessions.Update(Session);
             }
             _context.SaveChanges();
             return RedirectToPage("/Sessions/Index");

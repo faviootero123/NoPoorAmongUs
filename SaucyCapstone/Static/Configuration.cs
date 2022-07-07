@@ -84,7 +84,7 @@ public static class ConfigurationStaticMethods
     }
 
     private static async Task SeedData(this ApplicationDbContext db)
-    {
+    { 
 
         var alreadyExists = await db.Terms.Where(s => s.TermId == 1).FirstOrDefaultAsync() == null;
         if (alreadyExists)
@@ -339,24 +339,24 @@ public static class ConfigurationStaticMethods
             var session = new Session
             {
                 DayofWeek = "Monday",
-                StartTime = "10:00 AM",
-                EndTime = "11:00 AM",
+                StartTime = DateTime.MinValue,
+                EndTime = DateTime.MinValue.AddHours(9),
                 IsActive = true,
                 Course = course
             };
             var session2 = new Session
             {
                 DayofWeek = "Tuesday",
-                StartTime = "9:30 AM",
-                EndTime = "10:30 AM",
+                StartTime = DateTime.MinValue,
+                EndTime = DateTime.MinValue.AddHours(9),
                 IsActive = true,
                 Course = course
             };
             var session3 = new Session
             {
                 DayofWeek = "Thursday",
-                StartTime = "10:00 AM",
-                EndTime = "11:00 AM",
+                StartTime = DateTime.MinValue,
+                EndTime = DateTime.MinValue.AddHours(9),
                 IsActive = true,
                 Course = course2
             };
