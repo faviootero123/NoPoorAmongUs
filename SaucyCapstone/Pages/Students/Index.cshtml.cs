@@ -6,7 +6,6 @@ using Models.ViewModels;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
 using System.Security.Claims;
-using Microsoft.AspNet.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace SaucyCapstone.Pages.Students

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
 using System.Text.Json;
+using static Data.Student;
 
 namespace SaucyCapstone.Static;
 
@@ -201,6 +202,27 @@ public static class ConfigurationStaticMethods
             await db.AddAsync(guardian2);
 
             //applicant
+
+            var students = new List<Student>
+            {
+                new Student
+                {
+                    FirstName = "Karl",
+                    LastName = "Guy",
+                    DateOfBirth = new DateTime(1990, 7, 7),
+                    AcceptedDate = DateTime.Now,
+                    LastModifiedDate = DateTime.Now,
+                    IsActive = true,
+                    Status = StudentStatus.OpenApplication,
+                    SchoolLevel = '1',
+                    FoodAssistance = false,
+                    ChappaAssistance = true,
+                    Determination = DeterminationLevel.Middle
+                },
+            };
+            db.AddRange(students);
+            db.SaveChanges();
+
             var student1 = new Student
             {
                 FirstName = "student1",
@@ -249,8 +271,8 @@ public static class ConfigurationStaticMethods
             //students
             var student3 = new Student
             {
-                FirstName = "student1",
-                LastName = "student1",
+                FirstName = "first",
+                LastName = "last name",
                 Phone = "123-123-1234",
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.High,
@@ -270,8 +292,8 @@ public static class ConfigurationStaticMethods
             };
             var student4 = new Student
             {
-                FirstName = "student2",
-                LastName = "student2",
+                FirstName = "student2 firstname",
+                LastName = "student2 lastname",
                 Phone = "456-456-4567",
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.Low,
@@ -426,36 +448,40 @@ public static class ConfigurationStaticMethods
             await db.AddAsync(assessment3);
 
             //criterion
-            var criteria = new Criterion
-            {
-                Description = "criterion1",
-                Weight = 1
+            var criteria = new List<Criterion> {
+                new Criterion
+                {
+                    Description = "Academics",
+                    Weight = .25m
+                },
+                new Criterion
+                {
+                    Description = "Age",
+                    Weight = .05m
+                },
+                new Criterion
+                {
+                    Description = "Distance",
+                    Weight = .05m
+                },
+                new Criterion
+                {
+                    Description = "Family support and interest",
+                    Weight = .4m
+                },
+                new Criterion
+                {
+                    Description = "Finanaces",
+                    Weight = .25m
+                }
             };
-            var criteria2 = new Criterion
-            {
-                Description = "criterion1",
-                Weight = 1
-            };
-            await db.AddAsync(criteria);
-            await db.AddAsync(criteria2);
+            await db.AddRangeAsync(criteria);
+            await db.SaveChangesAsync();
+
+
 
             //rating
-            var rating = new Rating
-            {
-                Criterion = criteria,
-                Student = student1,
-                Value = 3,
-                Comments = "This is a comment lmao"
-            };
-            var rating2 = new Rating
-            {
-                Criterion = criteria2,
-                Student = student1,
-                Value = 5,
-                Comments = "This is another comment lmao"
-            };
-            await db.AddAsync(rating);
-            await db.AddAsync(rating2);
+
 
             //accesstype
             var accesstype = new AccessType
@@ -463,8 +489,6 @@ public static class ConfigurationStaticMethods
                 Accesss = AccessType.Type.Rater
             };
             await db.AddAsync(accesstype);
-
-
 
             //note
             var note = new Note
