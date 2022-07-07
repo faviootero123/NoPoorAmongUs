@@ -24,7 +24,6 @@ namespace SaucyCapstone.Pages.Students
 
         public async Task OnGetAsync()
         {
-
             Students = await _db.Students.Where(u => u.Status == Student.StudentStatus.Active && u.IsActive == true).ToListAsync();
         }
 
