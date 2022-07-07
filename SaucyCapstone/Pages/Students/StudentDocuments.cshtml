@@ -58,7 +58,6 @@
                         <form>
                         <a class="btn btn-success mx-2 al" download="@(obj.Name + obj.Extension)" href="@(obj.Path)"><i class="bi bi-file-earmark-arrow-down-fill"></i></a>
                         </form>
-                        <a class="btn btn-success mx-2" asp-page="./Edit/editDocuments" asp-route-id="@obj.StudentDocId" >Edit</a>
                         <a class="btn btn-danger mx-2" asp-page="./Delete/deleteDocuments" asp-route-id="@obj.StudentDocId">Delete</a>
                     </div>
                 </td>

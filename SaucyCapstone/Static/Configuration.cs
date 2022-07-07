@@ -445,14 +445,14 @@ public static class ConfigurationStaticMethods
                 Criterion = criteria,
                 Student = student1,
                 Value = 3,
-                Comments = "This is a comment lmao"
+                Comments = "This is a comment"
             };
             var rating2 = new Rating
             {
                 Criterion = criteria2,
                 Student = student1,
                 Value = 5,
-                Comments = "This is another comment lmao"
+                Comments = "This is another comment"
             };
             await db.AddAsync(rating);
             await db.AddAsync(rating2);
