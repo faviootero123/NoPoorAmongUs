@@ -22,5 +22,7 @@ namespace SaucyCapstone.Pages.Students
             StudentId = id;
             Documents = await _db.StudentDocs.Include(d => d.Student).Include(x => x.AccessType).Where(s => s.Student.StudentId == id).ToListAsync();
         }
+
+       
     }
 }

@@ -1,5 +1,5 @@
 ﻿@page
-@model SaucyCapstone.Pages.Students.addNotesModel
+@model SaucyCapstone.Pages.Students.Add.addNotesModel
 
 
 <form method="post" enctype="multipart/form-data">
@@ -18,19 +18,19 @@
                             <div class="row my-1">
                                 <div class="col-3">Topic</div>
                                 <div class="col-9">
-                                    <input asp-for="studentNote.Topic" type="text" class="form-control" />
-                                    <span asp-validation-for="studentNote.Topic" class="text-danger"></span>
+                                    <input asp-for="@Model.studentNote.Topic" type="text" class="form-control" />
+                                    <span asp-validation-for="@Model.studentNote.Topic" class="text-danger"></span>
                                 </div>
                             </div>
                              <div class="row my-1">
                                 <div class="col-3">Content</div>
                                 <div class="col-9">
-                                    <textarea asp-for="studentNote.Content" class="form-control" ></textarea>
-                                    <span asp-validation-for="studentNote.Content" class="text-danger"></span>
+                                    <textarea asp-for="@Model.studentNote.Content" class="form-control" ></textarea>
+                                    <span asp-validation-for="@Model.studentNote.Content" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success">Create</button>
+                        <button asp-route-id="@Model.StudentId" type="submit" class="btn btn-success">Create</button>
                         <a class="btn btn-primary" asp-route-id="@Model.StudentId" asp-page="/Students/StudentNotes" >Cancel</a>
                     </div>
                 </div>

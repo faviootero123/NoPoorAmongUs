@@ -19,6 +19,9 @@ public class StudentDoc
     [Required]
     public string Extension { get; set; } = string.Empty;
     [Required]
+    public string FileGUID { get; set; } = string.Empty;
+
+    [Required]
     public DateTime UploadDate { get; set; }
 
     //relationships

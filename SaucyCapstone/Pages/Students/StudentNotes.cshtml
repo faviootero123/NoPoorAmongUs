@@ -8,12 +8,13 @@
     </div>
     <br />
         <div class="float-end">             
-        <a asp-route-id="@Model.StudentId" asp-page="/Students/addNotes" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Note</a>         
+        <a asp-route-id="@Model.StudentId" asp-page="./Add/addNotes" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Note</a>         
      </div>
     
     <br />
     <br />
 
+<form >
 <table class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
@@ -57,8 +58,8 @@
                 </td>
                 <td width="10%">
                     <div class="btn-group" role="group">
-                        <a class="btn btn-success mx-2" >Edit</a>
-                        <a class="btn btn-danger mx-2" >Delete</a>
+                        <a class="btn btn-success mx-2" asp-page="./Edit/editNotes" asp-route-id="@obj.NoteId" >Edit</a>
+                        <a class="btn btn-danger mx-2" asp-page="./Delete/deleteNotes" asp-route-id="@obj.NoteId">Delete</a>
                     </div>
                 </td>
             </tr>
@@ -66,7 +67,7 @@
             }
     </tbody>
 </table>
-
+</form>
  <a class="btn btn-primary" asp-page="/Students/Index" >Go Back</a>
 
 
