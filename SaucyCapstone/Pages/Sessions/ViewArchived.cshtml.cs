@@ -19,7 +19,7 @@ namespace SaucyCapstone.Pages.Sessions
         public IEnumerable<Session> Sessions { get; set; }
         public async Task OnGetAsync()
         {
-            Sessions = await _context.Sessions.Include(a => a.Course).Include(a => a.Term).ToListAsync();
+            Sessions = await _context.Sessions.Include(a => a.Course).ThenInclude(a => a.Term).ToListAsync();
         }
     }
 }

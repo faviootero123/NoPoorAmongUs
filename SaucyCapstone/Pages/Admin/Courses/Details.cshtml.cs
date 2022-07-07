@@ -15,10 +15,6 @@ public class DetailsModel : PageModel
         _context = context;
     }
 
-    public Course Course { get; set; }
-
-    public School School { get; set; }
-
     [BindProperty]
     public CourseVM CourseVM { get; set; }
 
@@ -30,14 +26,12 @@ public class DetailsModel : PageModel
         }
 
         var course = await _context.Courses.FindAsync(id);
+        course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault();
+        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault();
+        course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault();
+        course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault();
 
-        var school = _context.Schools.Where(s => s.Courses.Contains(course)).First();
-
-        Course = course;
-
-        School = school;
-
-        if (course == null || school == null)
+        if (course == null)
         {
             return NotFound();
         }
@@ -45,10 +39,12 @@ public class DetailsModel : PageModel
         {
             CourseVM = new()
             {
-                School = school.SchoolId,
-                SchoolName = school.SchoolName,
-                Course = course.CourseName,
-                Subject = course.SubjectName
+                Course = course,
+                CourseId = course.CourseId,
+                TermId = course.Term.TermId,
+                FacultyMemberId = course.Instructor.FacultyMemberId,
+                SubjectId = course.Subject.SubjectId,
+                SchoolId = course.School.SchoolId
             };
         }
 

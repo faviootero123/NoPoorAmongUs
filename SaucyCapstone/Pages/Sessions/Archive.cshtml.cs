@@ -28,14 +28,14 @@ namespace SaucyCapstone.Pages.Sessions
                 return NotFound();
             }
             Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
-            if(Session != null && Session.isActive == true)
+            if(Session != null && Session.IsActive == true)
             {
-                Session.isActive = false;
+                Session.IsActive = false;
                 _context.SaveChanges();
             }
-            else if (Session != null && Session.isActive == false)
+            else if (Session != null && Session.IsActive == false)
             {
-                Session.isActive = true;
+                Session.IsActive = true;
                 _context.SaveChanges();
             }
             return RedirectToPage("./Index");

@@ -13,34 +13,38 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @*@Html.DisplayNameFor(model => model.School.SchoolName)*@
-            School
+            Term
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CourseVM.SchoolName)
+            @Html.DisplayFor(model => model.CourseVM.Course.Term.TermName)
         </dd>
     </dl>
     <dl class="row">
         <dt class="col-sm-2">
-            @*@Html.DisplayNameFor(model => model.Course.CourseName)*@
-            Course
+            Instructor
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CourseVM.Course)
+            @Html.DisplayFor(model => model.CourseVM.Course.Instructor.FirstName) @Html.DisplayFor(model => model.CourseVM.Course.Instructor.LastName)
         </dd>
     </dl>
     <dl class="row">
         <dt class="col-sm-2">
-            @*@Html.DisplayNameFor(model => model.Course.SubjectName)*@
             Subject
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CourseVM.Subject)
+            @Html.DisplayFor(model => model.CourseVM.Course.Subject.SubjectName)
         </dd>
     </dl>
-    
+    <dl class="row">
+        <dt class="col-sm-2">
+            School
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CourseVM.Course.School.SchoolName)
+        </dd>
+    </dl>    
     <form method="post">
-        <input type="hidden" asp-for="Course.CourseId" />
+        <input type="hidden" asp-for="CourseVM.Course.CourseId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-page="./Index">Back to List</a>
     </form>

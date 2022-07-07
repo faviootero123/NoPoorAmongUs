@@ -4,109 +4,100 @@
 }
 <h2>Sessions</h2>
 <p>
-    <a asp-page="Upsert" id="CreateBtn">Create New</a>
-    </p>
-    <p> <a asp-page="ViewArchived" id="CreateBtn">View Archived Sessions</a></p>
- 
-   
-@if(Model.Sessions == null)
+	<a asp-page="./Upsert" id="CreateBtn">Create New</a>
+</p>
+<p> <a asp-page="./ViewArchived" id="CreateBtn">View Archived Sessions</a></p>
+
+
+@if (Model.Sessions == null)
 {
-    <div> No Available Sessions</div>
+	<div> No Available Sessions</div>
 }
-@if(Model.Sessions != null)
+@if (Model.Sessions != null)
 {
-   
-    <table class="table table-bordered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                Course Name
-            </th>
-            <th>
-                Day of Week
-            </th>
-             <th>
-                Time
-            </th>
-             <th>
-                Term
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-         @foreach (var session in Model.Sessions.Where(c => c.isActive == true)) 
-    { 
-            <tr>
-                <td width="25%">
-                   @Html.DisplayFor(modelItem => session.Course.SubjectName) - @Html.DisplayFor(modelItem => session.Course.CourseName)
-                </td>
-                <td width="15%">
-                    @Html.DisplayFor(modelItem => session.DayofWeek)
-                </td>
-                <td width="15%">
-                    @Html.DisplayFor(modelItem => session.StartTime) - @Html.DisplayFor(modelItem => session.EndTime)
-                </td>
-                <td width="15%">
-                @Html.DisplayFor(modelItem => session.Term.TermName)
-                </td>
-                <td>
-                    <div class="w-25 btn-group" role="group" style="margin-left: 2rem;">
-                        
-                       <a class="btn btn-success" asp-page="./Enrollments" asp-route-id="@session.SessionId"><i class="bi bi-people-fill"></i>Enrollments</a>&nbsp;
-                        <a class="btn btn-success" asp-page="./Upsert" asp-route-id="@session.SessionId" ><i class="bi bi-pen-fill"></i>&nbsp;Edit&nbsp;</a> &nbsp;
-                      
-                       
-                        
-                       
-                    </div>
-                     <div class="w-25 btn-group" role="group" style="float: right;">
-                      <a class="btn btn-danger" asp-page="./Archive" asp-route-id="@session.SessionId" style="float:right"><i class="bi bi-archive-fill"></i>Archive</a> 
-                      </div>
-                </td>
-            </tr>
-            }
-    </tbody>
-</table>  
+
+	<table class="table table-bordered table-striped" style="width:100%">
+		<thead>
+			<tr>
+				<th>
+					Course Name
+				</th>
+				<th>
+					Day of Week
+				</th>
+				<th>
+					Time
+				</th>
+				<th>
+					Term
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var session in Model.Sessions.Where(c => c.IsActive == true))
+			{
+				<tr>
+					<td width="25%">
+						@Html.DisplayFor(modelItem => session.Course.Subject.SubjectName)
+					</td>
+					<td width="15%">
+						@Html.DisplayFor(modelItem => session.DayofWeek)
+					</td>
+					<td width="15%">
+						 @session.StartTime.ToShortTimeString() - @session.EndTime.ToShortTimeString()
+					</td>
+					<td width="15%">
+						@Html.DisplayFor(modelItem => session.Course.Term.TermName)
+					</td>
+					<td>
+						<div class="w-25 btn-group" role="group" style="margin-left: 2rem;">
+							<a class="btn btn-success" asp-page="./Enrollments" asp-route-id="@session"><i class="bi bi-people-fill"></i>Enrollments</a>&nbsp;
+							<a class="btn btn-success" asp-page="./Upsert" asp-route-id="@session.SessionId"><i class="bi bi-pen-fill"></i>&nbsp;Edit&nbsp;</a> &nbsp;
+						</div>
+						<div class="w-25 btn-group" role="group" style="float: right;">
+							<a class="btn btn-danger" asp-page="./Archive" asp-route-id="@session.SessionId" style="float:right"><i class="bi bi-archive-fill"></i>Archive</a>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 }
 
-@*@if(Model.Sessions == null)
+@if (Model.Sessions == null)
 {
-    <div> No Available Sessions</div>
+	<div> No Available Sessions</div>
 }
-@if(Model.Sessions != null)
+@if (Model.Sessions != null)
 {
-    @foreach (var session in Model.Sessions.Where(c => c.isActive == true)) 
-    {
-    <div class="d-inline-flex p-2 bd-highlight">
-        <div class="card-border bg-info text-white" style="width: 18rem;">
-            <div class="card-header">
-                <h5 class="text-center mb-0">@Html.DisplayFor(modelItem => session.Course.Subject.SubjectName) - @Html.DisplayFor(modelItem => session.Course.CourseName)</h5>
-            </div>
-            <div class="card-body text-white">
-                 <p class="text-center"><b>Days: </b>@session.DayofWeek</p>
-                        
-                <p class="text-center"><b>Time:</b> @Html.DisplayFor(modelItem => session.StartTime) - @Html.DisplayFor(modelItem => session.EndTime)</p>
+	@foreach (var session in Model.Sessions.Where(c => c.IsActive == true))
+	{
+		<div class="d-inline-flex p-2 bd-highlight">
+			<div class="card-border bg-info text-white" style="width: 18rem;">
+				<div class="card-header">
+					<h5 class="text-center mb-0">@Html.DisplayFor(modelItem => session.Course.Subject.SubjectName)</h5>
+				</div>
+				<div class="card-body text-white">
+					<p class="text-center"><b>Days: </b>@session.DayofWeek</p>
+
+					<p class="text-center"><b>Time:</b> @session.StartTime.ToShortTimeString() - @session.EndTime.ToShortTimeString()</p>
 
 
 
-                <p class="text-center"><b>Term:</b> @Html.DisplayFor(modelItem => session.Term.TermName)</p>
+					<p class="text-center"><b>Term:</b> @Html.DisplayFor(modelItem => session.Course.Term.TermName)</p>
 
-                <div class="d-flex justify-content-around">
-                
-                                  <p>
-                                <a class="btn btn-success" asp-page="./Details" asp-route-id="@session.SessionId">View</a>
-                            </p>
-                                 <p>
-                                <a class="btn btn-success" asp-page="./Details" asp-route-id="@session.SessionId">View</a>
-                            </p>
-                              <p>
-                                <a class="btn btn-success" asp-page="./Archive" asp-route-id="@session.SessionId">Archive</a>
-                            </p>
-                </div>
-                </div>
-            </div>
-        </div>
-  
-}}
+					<div class="d-flex justify-content-around">
 
-*@
+						<p>
+							<a class="btn btn-success" asp-page="./Details" asp-route-id="@session.SessionId">View</a>
+						</p>
+						<p>
+							<a class="btn btn-success" asp-page="./Archive" asp-route-id="@session.SessionId">Archive</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	}}
+

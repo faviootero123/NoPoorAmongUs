@@ -6,24 +6,29 @@ using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Students
 {
-
     public class StudentDetailsModel : PageModel
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
-
-        public StudentDetailsModel(SaucyCapstone.Data.ApplicationDbContext context)
+        private readonly ApplicationDbContext _db;
+        public StudentVM StudentVM;
+        private Student Student;
+        private List<Guardian> Guardian;
+        public StudentDetailsModel(ApplicationDbContext db)
         {
-            _context = context;
+            _db = db;
+            Student = new Student();
+            StudentVM = new StudentVM();
+            Guardian = new List<Guardian>();
         }
-        public Student Student { get; set; }
-        public void OnGet(int? id)
+
+        public async Task OnGetAsync(int? id)
         {
-            if (id != null)
+            Student = _db.Students.Where(s => s.StudentId == id).FirstOrDefault();
+
+            StudentVM = new StudentVM()
             {
-                Student = _context.Students.Where(a => a.StudentId == id).FirstOrDefault();
-
-            }
-
+                Students = Student,
+                Guardians = Guardian
+            };
         }
     }
 }
