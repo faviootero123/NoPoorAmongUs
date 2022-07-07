@@ -1,11 +1,6 @@
 using Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Models.ViewModels;
-using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
-using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 
 namespace SaucyCapstone.Pages.Students
@@ -15,7 +10,7 @@ namespace SaucyCapstone.Pages.Students
         private readonly ApplicationDbContext _db;
         public List<Student> Students { get; set; }
 
-        public IndexModel(SaucyCapstone.Data.ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext db)
         {
             _db = db;
             Students = new List<Student>();
