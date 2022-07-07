@@ -12,11 +12,11 @@ public class Session
 {
     public int SessionId { get; set; }
     [Required]
-    public string DayofWeek { get; set; } = string.Empty;
+    public string DayofWeek { get; set; } 
     [Required]
-    public string StartTime { get; set; } = string.Empty;
+    public DateTime StartTime { get; set; } 
     [Required]
-    public string EndTime { get; set; } = string.Empty;
+    public DateTime EndTime { get; set; }
     [Required]
     public bool IsActive { get; set; }
 

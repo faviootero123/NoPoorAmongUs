@@ -28,8 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Admin\" />
+	 <Folder Include="Pages\Admin\Subjects\" />
 	 <Folder Include="wwwroot\images\students\" />
+	 <Folder Include="wwwroot\documents\" />
   </ItemGroup>
 
 </Project>

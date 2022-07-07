@@ -1,4 +1,4 @@
-﻿@*@page
+﻿@page
 @model SaucyCapstone.Pages.Sessions.ViewArchivedModel
 @{
 }
@@ -18,7 +18,7 @@
          <div class="d-inline-flex p-2 bd-highlight">
         <div class="card-border bg-info text-white" style="width: 18rem;">
             <div class="card-header">
-                <h5 class="text-center mb-0">@Html.DisplayFor(modelItem => session.Course.Subject) - @Html.DisplayFor(modelItem => session.Course.CourseName)</h5>
+                <h5 class="text-center mb-0">@Html.DisplayFor(modelItem => session.Course.Subject)</h5>
             </div>
             <div class="card-body text-white">
                  <p class="text-center"><b>Days: </b>@session.DayofWeek</p>
@@ -44,4 +44,3 @@
 
    
 
-*@

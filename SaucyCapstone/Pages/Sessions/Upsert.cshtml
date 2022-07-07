@@ -10,42 +10,42 @@
             <div asp-validation-summary="All" class="text-danger"></div>
 
             <div class="col-12 px-3" style="border-bottom:1px solid #325d88">
-                <h2 class="text-primary">@(Model.Sessions.SessionId != 0 ? "Update" : "Create") Session</h2>
+                <h2 class="text-primary">@(Model.Session.SessionId != 0 ? "Update" : "Create") Session</h2>
 
             </div>
             <div class="col-8 pt-3">
                 <div class="form-group row">
 
-                    @if (Model.Sessions.SessionId != 0)
+                    @if (Model.Session.SessionId != 0)
                     {
-                        <input type="hidden" asp-for="Sessions.SessionId" />
+                        <input type="hidden" asp-for="Session.SessionId" />
                     }
                 </div>
 
 
                 <div class="form-group row">
                     <div class="col-3">
-                        <label asp-for="Sessions.Course.CourseId"></label>
+                        <label asp-for="Session.Course.CourseId"></label>
                     </div>
                     <div class="col-9">
-                        @Html.DropDownListFor(m => m.Sessions.Course.CourseId,
+                        @Html.DropDownListFor(m => m.Session.Course.CourseId,
                         Model.CourseList,
                         " - Please select a Course - ",
                         new { @class = "form-control", @id = "ddlCourseModel" })
-                        <span class="text-danger" asp-validation-for="Sessions.Course.CourseId"></span>
+                        <span class="text-danger" asp-validation-for="Session.Course.CourseId"></span>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-3">
-                        <label asp-for="Sessions.Course.Term.TermId"></label>
+                        <label asp-for="Session.Course.Term.TermId"></label>
                     </div>
                     <div class="col-9">
-                        @Html.DropDownListFor(m => m.Sessions.Course.Term.TermId,
+                        @Html.DropDownListFor(m => m.Session.Course.Term.TermId,
                         Model.TermList,
                         " - Please select a Term - ",
                         new { @class = "form-control", @id = "ddlTermModel" })
-                        <span class="text-danger" asp-validation-for="Sessions.Course.Term.TermId"></span>
+                        <span class="text-danger" asp-validation-for="Session.Course.Term.TermId"></span>
                     </div>
                 </div>
                  <div class="form-group row">
@@ -54,37 +54,37 @@
                     </div>
                      <div class="col-3">
                           <div class="col-9">
-                        @Html.DropDownListFor(m => m.Sessions.DayofWeek,
+                        @Html.DropDownListFor(m => m.Session.DayofWeek,
                         Model.DayOfWeekList,
                         " - Please select a Day - ",
                         new { @class = "form-control", @id = "ddlDayModel" })
-                     
+                        
                     </div>
                 </div>
             </div>
                 <div class="form-group row">
                     <div class="col-3">
-                        <label asp-for="Sessions.StartTime"></label>
+                        <label asp-for="Session.StartTime"></label>
                     </div>
                     <div class="col-9">
-                        <input id="starttimepicker" value="" asp-for="Sessions.StartTime" type="text" class="form-control" />
-                        <span asp-validation-for="Sessions.StartTime" class="text-danger"></span>
+                        <input id="starttimepicker" value="" asp-for="Session.StartTime" type="text" class="form-control" />
+                        <span asp-validation-for="Session.StartTime" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-3">
-                        <label asp-for="Sessions.EndTime"></label>
+                        <label asp-for="Session.EndTime"></label>
                     </div>
                     <div class="col-9">
-                        <input id="endtimepicker" value="" asp-for="Sessions.EndTime" type="text" class="form-control" />
-                        <span asp-validation-for="Sessions.EndTime" class="text-danger"></span>
+                        <input id="endtimepicker" value="" asp-for="Session.EndTime" type="text" class="form-control" />
+                        <span asp-validation-for="Session.EndTime" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-9 offset-3">
                         <div class="row">
                             <div class="col-6">
-                                @if (Model.Sessions.SessionId != 0)
+                                @if (Model.Session.SessionId != 0)
                                 {
                                     <button type="submit" class="btn btn-primary form-control" onclick="return validateInput()">Update</button>
                                 }
