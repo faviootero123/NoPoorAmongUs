@@ -22,12 +22,14 @@ public class EditModel : PageModel
     }
 
     public Course Course { get; set; }
-    public FacultyMember FacultyMember { get; set; }
-    public School School { get; set; }
-
     [BindProperty]
     public CourseVM CourseVM { get; set; }
-
+    [BindProperty]
+    public IEnumerable<SelectListItem> TermList { get; set; }
+    [BindProperty]
+    public IEnumerable<SelectListItem> InstructorList { get; set; }
+    [BindProperty]
+    public IEnumerable<SelectListItem> SubjectList { get; set; }
     [BindProperty]
     public IEnumerable<SelectListItem> SchoolList { get; set; }
 
@@ -38,28 +40,24 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var course = await _context.Courses.Where(u => u.CourseId == id).Include(u => u.School).Include(u => u.Instructor).Include(u => u.Subject).ToListAsync();
+        var course = await _context.Courses.FindAsync(id);
 
-        if (course == null)
-        {
-            return NotFound();
-        }
+        course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault();
+        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault();
+        course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault();
+        course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault();
 
         CourseVM = new()
         {
-            //School = course,
-            //Course = course.CourseName,
-            //Subject = course.SubjectName
+            Course = course,
+            CourseId = course.CourseId,
+            TermId = course.Term.TermId,
+            FacultyMemberId = course.Instructor.FacultyMemberId,
+            SubjectId = course.Subject.SubjectId,
+            SchoolId = course.School.SchoolId
         };
 
-
-
-        SchoolList = _context.Schools.Select(i => new SelectListItem
-        {
-            Text = i.SchoolName,
-            Value = i.SchoolId.ToString(),
-            Selected = i.SchoolId == School.SchoolId
-        });
+        CourseVM.DropdownHelperAsync(_context, course);
 
         return Page();
     }
@@ -68,7 +66,7 @@ public class EditModel : PageModel
     // For more details, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync(int id, CourseVM courseVM)
     {
-        if (ModelState.IsValid)
+        if (ModelState.IsValid && _context.Courses != null)
         {
             var courseToUpdate = await _context.Courses.FindAsync(id);
 
@@ -77,23 +75,15 @@ public class EditModel : PageModel
                 return NotFound();
             }
 
-            //courseToUpdate.School = _context.Schools.Where(s => s.SchoolId == courseVM.School).FirstOrDefault();
-            //courseToUpdate.CourseName = courseVM.Course;
-            //courseToUpdate.SubjectName = courseVM.Subject;
+            courseToUpdate.Term = _context.Terms.Where(s => s.TermId == courseVM.Term.TermId).First();
+            courseToUpdate.Instructor = _context.FacultyMembers.Where(s => s.FacultyMemberId == courseVM.Instructor.FacultyMemberId).First();
+            courseToUpdate.Subject = _context.Subjects.Where(s => s.SubjectId == courseVM.Subject.SubjectId).First();
+            courseToUpdate.School = _context.Schools.Where(s => s.SchoolId == courseVM.School.SchoolId).First();
             _context.Courses.Update(courseToUpdate);
             await _context.SaveChangesAsync();
+
             return RedirectToPage("./Index");
         }
-
-
-        School school = _context.Schools.Where(s => s.Courses.Contains(Course)).FirstOrDefault();
-
-        SchoolList = _context.Schools.Select(i => new SelectListItem
-        {
-            Text = i.SchoolName,
-            Value = i.SchoolId.ToString(),
-            Selected = i.SchoolId == school.SchoolId
-        });
 
         return Page();
     }

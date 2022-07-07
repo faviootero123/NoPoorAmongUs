@@ -15,40 +15,41 @@
     <thead>
         <tr>
             <th>
-                @*@Html.DisplayNameFor(model => model.CourseList[0].School.SchoolName)*@
-                School
+                Term
             </th>
             <th>
-                @*@Html.DisplayNameFor(model => model.CourseList[0].CourseName)*@
+                Instructor
+            </th>
+            <th>
                 Subject
             </th>
             <th>
-                @*@Html.DisplayNameFor(model => model.CourseList[0].SubjectName)*@
-                Instructor
+                School
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.CourseList)
+        @foreach (var item in Model.CourseVM.CourseList)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.SchoolList[Model.SchoolList.IndexOf(item.School)].SchoolName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subject.SubjectName)
-
+                    @Html.DisplayFor(modelItem => item.Term.TermName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Instructor.FirstName) @Html.DisplayFor(modelItem => item.Instructor.LastName)
-
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.School.SchoolName)
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.CourseId">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.CourseId">Details</a> |
                     <a asp-page="./Delete" asp-route-id="@item.CourseId">Delete</a>
-                    <input type="hidden" asp-for="@item.School" />
+                    @*<input type="hidden" asp-for="@item.CourseId" />*@
                 </td>
             </tr>
         }

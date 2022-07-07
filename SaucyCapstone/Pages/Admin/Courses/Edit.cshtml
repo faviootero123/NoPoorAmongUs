@@ -13,23 +13,34 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Course.CourseId" />
+            <input type="hidden" asp-for="CourseVM.Course.CourseId" />
             <div class="form-group mb-2">
-                <label asp-for="CourseVM.School" class="control-label"></label>
-                <select asp-for="CourseVM.School" asp-items="@Model.SchoolList" class="form-select">
+                <label asp-for="CourseVM.Course.Term.TermId" class="control-label"></label>
+                <select asp-for="CourseVM.Term.TermId" asp-items="@Model.CourseVM.TermList" class="form-select">
+                    <option disabled>---Select Term---</option>
+                </select>
+                <span asp-validation-for="CourseVM.Term.TermId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="CourseVM.Course.Instructor.FacultyMemberId" class="control-label"></label>
+                <select asp-for="CourseVM.Instructor.FacultyMemberId" asp-items="@Model.CourseVM.InstructorList" class="form-select">
+                    <option disabled>---Select Instructor---</option>
+                </select>
+                <span asp-validation-for="CourseVM.Instructor.FacultyMemberId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="CourseVM.Course.Subject.SubjectId" class="control-label"></label>
+                <select asp-for="CourseVM.Subject.SubjectId" asp-items="@Model.CourseVM.SubjectList" class="form-select">
+                    <option disabled>---Select Subject---</option>
+                </select>
+                <span asp-validation-for="CourseVM.Subject.SubjectId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="CourseVM.Course.School.SchoolId" class="control-label"></label>
+                <select asp-for="CourseVM.School.SchoolId" asp-items="@Model.CourseVM.SchoolList" class="form-select">
                     <option disabled>---Select School---</option>
                 </select>
-                <span asp-validation-for="CourseVM.School" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-2">
-                <label asp-for="CourseVM.Instructor" class="control-label"></label>
-                <input asp-for="CourseVM.Instructor" class="form-control" />
-                <span asp-validation-for="CourseVM.Instructor" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-2">
-                <label asp-for="CourseVM.Subject" class="control-label"></label>
-                <input asp-for="CourseVM.Subject" class="form-control" />
-                <span asp-validation-for="CourseVM.Subject" class="text-danger"></span>
+                <span asp-validation-for="CourseVM.School.SchoolId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" /> |
