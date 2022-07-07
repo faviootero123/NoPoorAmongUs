@@ -13,10 +13,11 @@ public class Criterion
     public int CriterionId { get; set; }
 
     [Required]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     [Required]
     [Column(TypeName = "decimal(3, 2)")]
     public decimal Weight { get; set; }
-    public IList<Rating> Rating { get; set; }
+
+    public IList<Rating> Ratings { get; set; }
 }
