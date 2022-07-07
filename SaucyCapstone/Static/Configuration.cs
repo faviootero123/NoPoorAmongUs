@@ -73,8 +73,8 @@ public static class ConfigurationStaticMethods
         await userManager.AddUserToRole("AdminUser@odetopeaches.com", Roles.Admin);
         await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
         //Seed data for other tables 
-
         await db.SeedData();
+
     }
     private static async Task AddUserToRole(this UserManager<ApplicationUser> userManager, string username, string role)
     {
@@ -200,7 +200,7 @@ public static class ConfigurationStaticMethods
             await db.AddAsync(guardian1);
             await db.AddAsync(guardian2);
 
-            //students
+            //applicant
             var student1 = new Student
             {
                 FirstName = "student1",
@@ -245,6 +245,52 @@ public static class ConfigurationStaticMethods
             };
             await db.AddAsync(student1);
             await db.AddAsync(student2);
+
+            //students
+            var student3 = new Student
+            {
+                FirstName = "student1",
+                LastName = "student1",
+                Phone = "123-123-1234",
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.High,
+                Status = Student.StudentStatus.Active,
+                DateOfBirth = DateTime.MinValue,
+                AcceptedDate = DateTime.MinValue,
+                LastModifiedDate = DateTime.Now,
+                IsActive = true,
+                Address = "86 Shadow Brook Street",
+                Village = "Plattsburgh",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 12345,
+                SchoolLevel = 10,
+                FoodAssistance = true,
+                ChappaAssistance = false,
+            };
+            var student4 = new Student
+            {
+                FirstName = "student2",
+                LastName = "student2",
+                Phone = "456-456-4567",
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.Low,
+                Status = Student.StudentStatus.Active,
+                DateOfBirth = DateTime.MinValue,
+                AcceptedDate = DateTime.MinValue,
+                LastModifiedDate = DateTime.Now,
+                IsActive = true,
+                Address = "265 Lawrence St.",
+                Village = "Barberton",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 12345,
+                SchoolLevel = 7,
+                FoodAssistance = false,
+                ChappaAssistance = true,
+            };
+            await db.AddAsync(student3);
+            await db.AddAsync(student4);
 
             //student-guardians
             var studentGuardians = new List<StudentGuardian>{
@@ -451,9 +497,22 @@ public static class ConfigurationStaticMethods
                 Description = "document description",
                 Path = "path goes here",
                 Extension = "extension goes here",
+                FileGUID = "",
                 UploadDate = DateTime.Now
             };
             await db.AddAsync(studentdoc);
+            var studentdoc2 = new StudentDoc
+            {
+                Student = student3,
+                AccessType = accesstype,
+                Name = "document name",
+                Description = "document description",
+                Path = "path goes here",
+                FileGUID = "",
+                Extension = "extension goes here",
+                UploadDate = DateTime.Now
+            };
+            await db.AddAsync(studentdoc2);
 
 
             await db.SaveChangesAsync();
