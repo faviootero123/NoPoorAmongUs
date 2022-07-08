@@ -2,15 +2,16 @@ using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Sessions
 {
     public class IndexModel : PageModel
     {
 
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(SaucyCapstone.Data.ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }

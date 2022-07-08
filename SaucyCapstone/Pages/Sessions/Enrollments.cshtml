@@ -1,14 +1,14 @@
-﻿@*@page
+﻿@page
 @model SaucyCapstone.Pages.Sessions.EnrollmentsModel
 @{
 }
-@*<div>
-  @foreach(var student in Model.Students)
+<div>
+  @foreach(var student in Model.session.Students)
     {
         <p>@student.FirstName @student.LastName</p>
     }
 </div>
-<h2>@Model.session.Course.Subject @Model.session.Course.CourseName </h2>
+<h2>@Model.session.SubjectName @Model.session.SubjectName</h2>
 <h5>Day: @Model.session.DayofWeek <br/>
     Time: @Model.session.StartTime - @Model.session.EndTime</h5>
 <form>
@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var student in Model.Students)
+            @foreach(var student in Model.session.Students)
             {
             <tr>
                 <td> @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)</td>
@@ -39,4 +39,3 @@
     </table>
 </div>
 </form>
-*@
