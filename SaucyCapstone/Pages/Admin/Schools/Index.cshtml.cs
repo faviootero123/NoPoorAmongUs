@@ -8,25 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Schools
+namespace SaucyCapstone.Pages.Admin.Schools;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+
+    public IndexModel(SaucyCapstone.Data.ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public IndexModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public IList<School> School { get;set; } = default!;
+
+    public async Task OnGetAsync()
+    {
+        if (_context.Schools != null)
         {
-            _context = context;
-        }
-
-        public IList<School> School { get;set; } = default!;
-
-        public async Task OnGetAsync()
-        {
-            if (_context.Schools != null)
-            {
-                School = await _context.Schools.ToListAsync();
-            }
+            School = await _context.Schools.ToListAsync();
         }
     }
 }

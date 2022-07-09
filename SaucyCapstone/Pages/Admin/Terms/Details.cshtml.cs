@@ -8,36 +8,35 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Terms
+namespace SaucyCapstone.Pages.Admin.Terms;
+
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+
+    public DetailsModel(SaucyCapstone.Data.ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DetailsModel(SaucyCapstone.Data.ApplicationDbContext context)
+  public Term Term { get; set; } = default!; 
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Terms == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-      public Term Term { get; set; } = default!; 
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var term = await _context.Terms.FirstOrDefaultAsync(m => m.TermId == id);
+        if (term == null)
         {
-            if (id == null || _context.Terms == null)
-            {
-                return NotFound();
-            }
-
-            var term = await _context.Terms.FirstOrDefaultAsync(m => m.TermId == id);
-            if (term == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Term = term;
-            }
-            return Page();
+            return NotFound();
         }
+        else 
+        {
+            Term = term;
+        }
+        return Page();
     }
 }

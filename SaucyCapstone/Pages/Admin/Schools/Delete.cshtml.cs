@@ -8,56 +8,55 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Schools
+namespace SaucyCapstone.Pages.Admin.Schools;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+
+    public DeleteModel(SaucyCapstone.Data.ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(SaucyCapstone.Data.ApplicationDbContext context)
+    [BindProperty]
+  public School School { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Schools == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-      public School School { get; set; } = default!;
+        var school = await _context.Schools.FirstOrDefaultAsync(m => m.SchoolId == id);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        if (school == null)
         {
-            if (id == null || _context.Schools == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        else 
+        {
+            School = school;
+        }
+        return Page();
+    }
 
-            var school = await _context.Schools.FirstOrDefaultAsync(m => m.SchoolId == id);
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null || _context.Schools == null)
+        {
+            return NotFound();
+        }
+        var school = await _context.Schools.FindAsync(id);
 
-            if (school == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                School = school;
-            }
-            return Page();
+        if (school != null)
+        {
+            School = school;
+            _context.Schools.Remove(School);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null || _context.Schools == null)
-            {
-                return NotFound();
-            }
-            var school = await _context.Schools.FindAsync(id);
-
-            if (school != null)
-            {
-                School = school;
-                _context.Schools.Remove(School);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

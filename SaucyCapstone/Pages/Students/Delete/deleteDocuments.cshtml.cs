@@ -6,68 +6,67 @@ using SaucyCapstone.Data;
 using System;
 using System.IO;
 
-namespace SaucyCapstone.Pages.Students.Delete
+namespace SaucyCapstone.Pages.Students.Delete;
+
+public class deleteDocumentsModel : PageModel
 {
-    public class deleteDocumentsModel : PageModel
+    private readonly ApplicationDbContext _db;
+    private readonly IWebHostEnvironment _hostEnvironment;
+    [BindProperty]
+    public StudentDoc Doc { get; set; }
+
+    public deleteDocumentsModel(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
     {
-        private readonly ApplicationDbContext _db;
-        private readonly IWebHostEnvironment _hostEnvironment;
-        [BindProperty]
-        public StudentDoc Doc { get; set; }
+        _db = db;
+        _hostEnvironment = webHostEnvironment;
+    }
 
-        public deleteDocumentsModel(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _db.StudentDocs == null)
         {
-            _db = db;
-            _hostEnvironment = webHostEnvironment;
+            return NotFound();
         }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var doc = await _db.StudentDocs.Include(d => d.Student).FirstOrDefaultAsync(m => m.StudentDocId == id);
+
+        if (doc == null)
         {
-            if (id == null || _db.StudentDocs == null)
-            {
-                return NotFound();
-            }
-
-            var doc = await _db.StudentDocs.Include(d => d.Student).FirstOrDefaultAsync(m => m.StudentDocId == id);
-
-            if (doc == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                Doc = doc;
-            }
-
-            return Page();
+            return NotFound();
+        }
+        else
+        {
+            Doc = doc;
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        return Page();
+    }
+
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null || _db.StudentDocs == null)
         {
-            if (id == null || _db.StudentDocs == null)
-            {
-                return NotFound();
-            }
-            string wwwRootPath = _hostEnvironment.WebRootPath;
-            var getStudentId = await _db.StudentDocs.Include(d => d.Student).FirstOrDefaultAsync(m => m.StudentDocId == id);
-            var doc = await _db.StudentDocs.FindAsync(id);
-
-            if (doc != null)
-            {
-                Doc = doc;
-                _db.StudentDocs.Remove(Doc);
-                await _db.SaveChangesAsync();
-
-                var path = Path.Combine(wwwRootPath, doc.Path.TrimStart('\\'));
-
-                if (System.IO.File.Exists(path))
-                {
-                    System.IO.File.Delete(path);
-                }
-
-            }
-
-            return RedirectToPage("../StudentDocuments", new { id = getStudentId.Student.StudentId });
+            return NotFound();
         }
+        string wwwRootPath = _hostEnvironment.WebRootPath;
+        var getStudentId = await _db.StudentDocs.Include(d => d.Student).FirstOrDefaultAsync(m => m.StudentDocId == id);
+        var doc = await _db.StudentDocs.FindAsync(id);
+
+        if (doc != null)
+        {
+            Doc = doc;
+            _db.StudentDocs.Remove(Doc);
+            await _db.SaveChangesAsync();
+
+            var path = Path.Combine(wwwRootPath, doc.Path.TrimStart('\\'));
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+
+        }
+
+        return RedirectToPage("../StudentDocuments", new { id = getStudentId.Student.StudentId });
     }
 }

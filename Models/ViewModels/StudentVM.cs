@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.ViewModels
+namespace Models.ViewModels;
+
+public class StudentVM
 {
-    public class StudentVM
-    {
-        public Student Students { get; set; }
-        public IList<Guardian> Guardians { get; set; }
-    }
+    public Student Students { get; set; }
+    public IList<Guardian> Guardians { get; set; }
 }

@@ -9,69 +9,68 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Criteria
-{
-    public class EditModel : PageModel
-    {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+namespace SaucyCapstone.Pages.Criteria;
 
-        public EditModel(SaucyCapstone.Data.ApplicationDbContext context)
+public class EditModel : PageModel
+{
+    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+
+    public EditModel(SaucyCapstone.Data.ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    [BindProperty]
+    public Criterion Criterion { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Criteria == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public Criterion Criterion { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var criterion =  await _context.Criteria.FirstOrDefaultAsync(m => m.CriterionId == id);
+        if (criterion == null)
         {
-            if (id == null || _context.Criteria == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        Criterion = criterion;
+        return Page();
+    }
 
-            var criterion =  await _context.Criteria.FirstOrDefaultAsync(m => m.CriterionId == id);
-            if (criterion == null)
-            {
-                return NotFound();
-            }
-            Criterion = criterion;
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        _context.Attach(Criterion).State = EntityState.Modified;
+
+        try
         {
-            if (!ModelState.IsValid)
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!CriterionExists(Criterion.CriterionId))
             {
-                return Page();
+                return NotFound();
             }
-
-            _context.Attach(Criterion).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                throw;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CriterionExists(Criterion.CriterionId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
         }
 
-        private bool CriterionExists(int id)
-        {
-          return (_context.Criteria?.Any(e => e.CriterionId == id)).GetValueOrDefault();
-        }
+        return RedirectToPage("./Index");
+    }
+
+    private bool CriterionExists(int id)
+    {
+      return (_context.Criteria?.Any(e => e.CriterionId == id)).GetValueOrDefault();
     }
 }

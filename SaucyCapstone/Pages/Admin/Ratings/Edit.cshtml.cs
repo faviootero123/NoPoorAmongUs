@@ -9,69 +9,68 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Ratings
-{
-    public class EditModel : PageModel
-    {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+namespace SaucyCapstone.Pages.Admin.Ratings;
 
-        public EditModel(SaucyCapstone.Data.ApplicationDbContext context)
+public class EditModel : PageModel
+{
+    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+
+    public EditModel(SaucyCapstone.Data.ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    [BindProperty]
+    public Rating Rating { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Ratings == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public Rating Rating { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var rating =  await _context.Ratings.FirstOrDefaultAsync(m => m.RatingId == id);
+        if (rating == null)
         {
-            if (id == null || _context.Ratings == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        Rating = rating;
+        return Page();
+    }
 
-            var rating =  await _context.Ratings.FirstOrDefaultAsync(m => m.RatingId == id);
-            if (rating == null)
-            {
-                return NotFound();
-            }
-            Rating = rating;
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        _context.Attach(Rating).State = EntityState.Modified;
+
+        try
         {
-            if (!ModelState.IsValid)
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!RatingExists(Rating.RatingId))
             {
-                return Page();
+                return NotFound();
             }
-
-            _context.Attach(Rating).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                throw;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RatingExists(Rating.RatingId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
         }
 
-        private bool RatingExists(int id)
-        {
-          return (_context.Ratings?.Any(e => e.RatingId == id)).GetValueOrDefault();
-        }
+        return RedirectToPage("./Index");
+    }
+
+    private bool RatingExists(int id)
+    {
+      return (_context.Ratings?.Any(e => e.RatingId == id)).GetValueOrDefault();
     }
 }

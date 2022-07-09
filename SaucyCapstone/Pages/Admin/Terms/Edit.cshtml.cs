@@ -9,69 +9,68 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Terms
-{
-    public class EditModel : PageModel
-    {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+namespace SaucyCapstone.Pages.Admin.Terms;
 
-        public EditModel(SaucyCapstone.Data.ApplicationDbContext context)
+public class EditModel : PageModel
+{
+    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+
+    public EditModel(SaucyCapstone.Data.ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    [BindProperty]
+    public Term Term { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Terms == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public Term Term { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var term =  await _context.Terms.FirstOrDefaultAsync(m => m.TermId == id);
+        if (term == null)
         {
-            if (id == null || _context.Terms == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        Term = term;
+        return Page();
+    }
 
-            var term =  await _context.Terms.FirstOrDefaultAsync(m => m.TermId == id);
-            if (term == null)
-            {
-                return NotFound();
-            }
-            Term = term;
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        _context.Attach(Term).State = EntityState.Modified;
+
+        try
         {
-            if (!ModelState.IsValid)
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!TermExists(Term.TermId))
             {
-                return Page();
+                return NotFound();
             }
-
-            _context.Attach(Term).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                throw;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TermExists(Term.TermId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
         }
 
-        private bool TermExists(int id)
-        {
-          return (_context.Terms?.Any(e => e.TermId == id)).GetValueOrDefault();
-        }
+        return RedirectToPage("./Index");
+    }
+
+    private bool TermExists(int id)
+    {
+      return (_context.Terms?.Any(e => e.TermId == id)).GetValueOrDefault();
     }
 }

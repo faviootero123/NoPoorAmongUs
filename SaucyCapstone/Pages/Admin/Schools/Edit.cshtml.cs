@@ -9,69 +9,68 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Schools
-{
-    public class EditModel : PageModel
-    {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+namespace SaucyCapstone.Pages.Admin.Schools;
 
-        public EditModel(SaucyCapstone.Data.ApplicationDbContext context)
+public class EditModel : PageModel
+{
+    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+
+    public EditModel(SaucyCapstone.Data.ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    [BindProperty]
+    public School School { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Schools == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-        public School School { get; set; } = default!;
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var school =  await _context.Schools.FirstOrDefaultAsync(m => m.SchoolId == id);
+        if (school == null)
         {
-            if (id == null || _context.Schools == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        School = school;
+        return Page();
+    }
 
-            var school =  await _context.Schools.FirstOrDefaultAsync(m => m.SchoolId == id);
-            if (school == null)
-            {
-                return NotFound();
-            }
-            School = school;
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+        {
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        _context.Attach(School).State = EntityState.Modified;
+
+        try
         {
-            if (!ModelState.IsValid)
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!SchoolExists(School.SchoolId))
             {
-                return Page();
+                return NotFound();
             }
-
-            _context.Attach(School).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
+                throw;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SchoolExists(School.SchoolId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
         }
 
-        private bool SchoolExists(int id)
-        {
-          return (_context.Schools?.Any(e => e.SchoolId == id)).GetValueOrDefault();
-        }
+        return RedirectToPage("./Index");
+    }
+
+    private bool SchoolExists(int id)
+    {
+      return (_context.Schools?.Any(e => e.SchoolId == id)).GetValueOrDefault();
     }
 }

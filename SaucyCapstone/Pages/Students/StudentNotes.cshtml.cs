@@ -4,27 +4,26 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Students
+namespace SaucyCapstone.Pages.Students;
+
+public class StudentNotesModel : PageModel
 {
-    public class StudentNotesModel : PageModel
+    private readonly ApplicationDbContext _db;
+    public int StudentId { get; set; }
+    public List<Note> Notes { get; set; }
+    public StudentNotesModel(ApplicationDbContext db)
     {
-        private readonly ApplicationDbContext _db;
-        public int StudentId { get; set; }
-        public List<Note> Notes { get; set; }
-        public StudentNotesModel(ApplicationDbContext db)
-        {
-            _db = db;
-            Notes = new List<Note>();
-        }
+        _db = db;
+        Notes = new List<Note>();
+    }
 
-        public async Task OnGetAsync(int id)
-        {
-            StudentId = id;
-            Notes = await _db.Notes.Include(d=>d.Student).Include(f=>f.FacultyMember).Include(x=>x.NoteType).Where(s => s.Student.StudentId == id).ToListAsync();
-        }       
+    public async Task OnGetAsync(int id)
+    {
+        StudentId = id;
+        Notes = await _db.Notes.Include(d=>d.Student).Include(f=>f.FacultyMember).Include(x=>x.NoteType).Where(s => s.Student.StudentId == id).ToListAsync();
+    }       
 
-    }   
-}
+}   
 
 //var AccessTypes = new AccessType
 //{

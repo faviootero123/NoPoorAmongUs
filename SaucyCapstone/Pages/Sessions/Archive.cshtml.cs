@@ -3,42 +3,41 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Sessions
+namespace SaucyCapstone.Pages.Sessions;
+
+public class ArchiveModel : PageModel
 {
-    public class ArchiveModel : PageModel
+
+    private readonly ApplicationDbContext _context;
+
+    public ArchiveModel(ApplicationDbContext context)
     {
+        _context = context;
+    }
+    [BindProperty]
+    public Session Session { get; set; }
+    public void OnGet(int? id)
+    {
+        Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
+    }
 
-        private readonly ApplicationDbContext _context;
-
-        public ArchiveModel(ApplicationDbContext context)
+    public IActionResult OnPostAsync(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
-        [BindProperty]
-        public Session Session { get; set; }
-        public void OnGet(int? id)
+        Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
+        if(Session != null && Session.IsActive == true)
         {
-            Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
+            Session.IsActive = false;
+            _context.SaveChanges();
         }
-
-        public IActionResult OnPostAsync(int? id)
+        else if (Session != null && Session.IsActive == false)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
-            if(Session != null && Session.IsActive == true)
-            {
-                Session.IsActive = false;
-                _context.SaveChanges();
-            }
-            else if (Session != null && Session.IsActive == false)
-            {
-                Session.IsActive = true;
-                _context.SaveChanges();
-            }
-            return RedirectToPage("./Index");
+            Session.IsActive = true;
+            _context.SaveChanges();
         }
+        return RedirectToPage("./Index");
     }
 }

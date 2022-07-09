@@ -8,36 +8,35 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Schools
+namespace SaucyCapstone.Pages.Admin.Schools;
+
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+
+    public DetailsModel(SaucyCapstone.Data.ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DetailsModel(SaucyCapstone.Data.ApplicationDbContext context)
+  public School School { get; set; } = default!; 
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Schools == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-      public School School { get; set; } = default!; 
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var school = await _context.Schools.FirstOrDefaultAsync(m => m.SchoolId == id);
+        if (school == null)
         {
-            if (id == null || _context.Schools == null)
-            {
-                return NotFound();
-            }
-
-            var school = await _context.Schools.FirstOrDefaultAsync(m => m.SchoolId == id);
-            if (school == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                School = school;
-            }
-            return Page();
+            return NotFound();
         }
+        else 
+        {
+            School = school;
+        }
+        return Page();
     }
 }
