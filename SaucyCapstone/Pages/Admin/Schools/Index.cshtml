@@ -10,13 +10,13 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
+<table id="dataTable" class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.School[0].SchoolName)
             </th>
-            <th></th>
+            <th>Options</th>
         </tr>
     </thead>
     <tbody>
@@ -34,3 +34,11 @@
 }
     </tbody>
 </table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+}

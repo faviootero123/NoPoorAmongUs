@@ -10,21 +10,21 @@
 
     <br />
     <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle float-end" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        Select Class
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">English 100</a></li>
-        <li><a class="dropdown-item" href="#">English 200</a></li>
-        <li><a class="dropdown-item" href="#">English 300</a></li>
-      </ul>
+        <button class="btn btn-secondary dropdown-toggle float-end" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Select Class
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">English 100</a></li>
+            <li><a class="dropdown-item" href="#">English 200</a></li>
+            <li><a class="dropdown-item" href="#">English 300</a></li>
+        </ul>
     </div>
     <br />
     <br />
 
 
-<table class="table table-bordered table-striped" style="width:100%">
-       
+    <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+
         <thead>
             <tr>
                 <th>
@@ -37,8 +37,8 @@
             </tr>
         </thead>
         <tbody>
-                @foreach (var student in Model.Students)
-                {
+            @foreach (var student in Model.Students)
+            {
                 <tr>
                     <td width="50%">
                         @student.FirstName
@@ -48,15 +48,23 @@
                     </td>
                     <td>
                         <div class="w-25 btn-group" role="group">
-                            <a class="btn btn-success mx-2" asp-route-id="@student.StudentId" asp-page="/Students/StudentDetails" ><i class="bi bi-clipboard2-fill"></i> Details</a>
+                            <a class="btn btn-success mx-2" asp-route-id="@student.StudentId" asp-page="/Students/StudentDetails"><i class="bi bi-clipboard2-fill"></i> Details</a>
                             <a class="btn btn-primary mx-2" asp-route-id="@student.StudentId" asp-page="/Students/StudentNotes"><i class="bi bi-pencil-square"></i> Notes</a>
-                            <a class="btn btn-info mx-2" asp-route-id="@student.StudentId"  asp-page="/Students/StudentDocuments"> <i class="bi bi-file-earmark-text-fill"></i> Documents</a>
+                            <a class="btn btn-info mx-2" asp-route-id="@student.StudentId" asp-page="/Students/StudentDocuments"> <i class="bi bi-file-earmark-text-fill"></i> Documents</a>
                             <a class="btn btn-warning mx-2" asp-route-id="@student.StudentId" asp-page="/Students/StudentCertificates"> <i class="bi bi-file-earmark-person"></i> Certifications</a>
                             <a class="btn btn-dark mx-2"> <i class="bi bi-calendar"></i>Schedule</a>
                         </div>
                     </td>
                 </tr>
-                }
+            }
         </tbody>
     </table>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+}

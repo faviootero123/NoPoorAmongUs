@@ -10,7 +10,7 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
+<table id="dataTable" class="table">
     <thead>
         <tr>
             <th>
@@ -29,26 +29,35 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Term) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TermName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.TermId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.TermId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.TermId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Term)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TermName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.TermId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.TermId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.TermId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+}

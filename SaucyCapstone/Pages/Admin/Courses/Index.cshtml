@@ -11,7 +11,7 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
+<table id="dataTable" class="table">
     <thead>
         <tr>
             <th>
@@ -55,3 +55,11 @@
         }
     </tbody>
 </table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+}
