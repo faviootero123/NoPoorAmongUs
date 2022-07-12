@@ -16,20 +16,21 @@ public class IndexModel : PageModel
         _context = context;
     }
 
-    public IEnumerable<SessionViewModel> Sessions { get; set; }
+    public IList<Session> Sessions { get; set; }
     public async Task OnGetAsync()
     {
-        Sessions = await _context.Sessions.Select(d=> new SessionViewModel
-         { 
-            DayofWeek = d.DayofWeek,
-            StartTime = d.StartTime,
-            EndTime = d.EndTime,
-            IsActive = d.IsActive,
-            Course = d.Course,
-            Term = d.Course.Term,
-            Subject = d.Course.Subject,
-            SessionId = d.SessionId
-        } ).ToListAsync();
+        //Sessions = await _context.Sessions.Select(d=> new SessionViewModel
+        // { 
+        //    DayofWeek = d.DayofWeek,
+        //    StartTime = d.StartTime,
+        //    EndTime = d.EndTime,
+        //    IsActive = d.IsActive,
+        //    Course = d.Course,
+        //    Term = d.Course.Term,
+        //    Subject = d.Course.Subject,
+        //    SessionId = d.SessionId
+        //} ).ToListAsync();
+        Sessions = await _context.Sessions.Include(c=> c.Course).Include(c=> c.Course.Term).Include(c=>c.Course.Subject).Where(e=>e.IsActive ==true).ToListAsync();
     }
 }
 

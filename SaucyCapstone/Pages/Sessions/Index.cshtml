@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var session in Model.Sessions.Where(c => c.IsActive == true))
+            @foreach (var session in Model.Sessions)
             {
                 <tr>
                     <td width="25%">

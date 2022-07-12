@@ -388,7 +388,7 @@ public static class ConfigurationStaticMethods
             var enrollment = new Enrollment
             {
                 Student = student1,
-                Course = course,
+                Session = session,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
                 FinalGrade = 0,
                 Grade = grade
@@ -396,7 +396,7 @@ public static class ConfigurationStaticMethods
             var enrollment2 = new Enrollment
             {
                 Student = student1,
-                Course = course2,
+                Session = session,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 85,
                 Grade = grade2
