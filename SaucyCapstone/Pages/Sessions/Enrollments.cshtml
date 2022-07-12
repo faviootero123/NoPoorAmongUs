@@ -2,17 +2,12 @@
 @model SaucyCapstone.Pages.Sessions.EnrollmentsModel
 @{
 }
-@*<div>
-    @foreach (var student in Model.session.Enrollments)
-    {
-        <p>@student.Student.FirstName @student.Student.LastName</p>
-    }
-</div>*@
-@*<h2>@Model.session.Session.DayofWeek @Model.session.Session.Course.Subject.SubjectName</h2>
+
+<h2>@Model.session.Session.DayofWeek @Model.session.Session.Course.Subject.SubjectName</h2>
 <h5>
     Day: @Model.session.Session.DayofWeek <br />
     Time: @Model.session.Session.StartTime.ToShortTimeString() - @Model.session.Session.EndTime.ToShortTimeString()
-</h5>*@
+</h5>
 <form method="post">
     <h2>Enrolled Students</h2>
     
@@ -25,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var student in Model.session.Enrollments)
+            @foreach (var student in Model.session.Enrollments) //all students enrolled in this session
             {
                 <tr>
                     <td width="25%">
@@ -58,9 +53,10 @@
         <tbody>
             @foreach (var student in Model.studentList)
             {
-               
-                <tr>
-                    <td width="25%">
+                if (!Model.isEnrolled(Model.session.Session.SessionId, student.StudentId))//only show students not enrolled already
+                {
+                    <tr>
+                        <td width="25%">
                         @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
                     </td>
                     <td>
@@ -71,6 +67,7 @@
                         </div>
                     </td>
                 </tr>
+                }
             }
         </tbody>
     </table>

@@ -24,20 +24,7 @@ public class EnrollmentsModel : PageModel
     public async Task<IActionResult> OnGetAsync(int? id)
     {
 
-        //session = await _context.Sessions
-        //    .Where(x => x.SessionId == id)
-        //    .Select(s => new SessionVM
-        //    {
-        //        StartTime = s.StartTime,
-        //        EndTime = s.EndTime,
-        //        DayofWeek = s.DayofWeek,
-        //        SubjectName = s.Course.Subject.SubjectName,
-        //        //Temporalily SubjectName until the model has course name 
-        //        CourseName = s.Course.Subject.SubjectName,
-        //        Students = s.Course.Enrollments.Select(e => e.Student).ToList()
-        //    }
-        //    )
-        //    .FirstOrDefaultAsync();
+     
         if(id == null)
         {
             return NotFound();
@@ -48,7 +35,16 @@ public class EnrollmentsModel : PageModel
             Enrollments = await _context.Enrollments.Include(c=>c.Student).Where(e=>e.Session.SessionId == id).ToListAsync(),
         };
         int sessionLevel = session.Session.Course.CourseLevel;
-        studentList = await _context.Students.Where(c => c.EnglishLevel == sessionLevel).ToListAsync();
+        if (session.Session.Course.Subject.SubjectName == "English")
+        {
+            studentList = await _context.Students.Where(c => c.EnglishLevel == sessionLevel).ToListAsync();
+        }
+        else if (session.Session.Course.Subject.SubjectName == "IT")
+        {
+
+            studentList = await _context.Students.Where(c => c.ITLevel == sessionLevel).ToListAsync();
+        }
+      
         return Page();
     }
     public IActionResult OnPostEnroll(int id)
@@ -80,15 +76,20 @@ public class EnrollmentsModel : PageModel
         return RedirectToPage("./Index");
         // return RedirectToPage("./Enrollments", enrollment.SessionId);
     }
+    public bool isEnrolled(int SessionId, int StudentId)
+    {
+       
+        var Enrollments = _context.Enrollments.Include(c => c.Student).Where(e => e.Session.SessionId == SessionId).ToList().AsEnumerable();
+        foreach(var enrollment in Enrollments)
+        {
+            if(enrollment.StudentId == StudentId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     }
 
 
-//public class SessionVM
-//{
-//    public DateTime StartTime { get; set; }
-//    public DateTime EndTime { get; set; }
-//    public string DayofWeek { get; set; }
-//    public string SubjectName { get; set; }
-//    public string CourseName { get; set; }
-//    public List<Student> Students { get; set; }
-//}
+

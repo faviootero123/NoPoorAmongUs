@@ -34,5 +34,7 @@ public class Course
 
     public IList<Session>? Sessions { get; set; }
     public IList<Enrollment> Enrollments { get; set; }
+
+   
 }
 

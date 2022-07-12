@@ -141,14 +141,14 @@ public static class ConfigurationStaticMethods
             {
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddMonths(3),
-                TermName = "Test Term",
+                TermName = "Summer",
                 IsActive = true
             };
             var term2 = new Term
             {
                 StartDate = DateTime.Now.AddMonths(3),
                 EndDate = DateTime.Now.AddMonths(6),
-                TermName = "Test Term2",
+                TermName = "Spring",
                 IsActive = false
             };
             await db.AddAsync(term);
@@ -164,10 +164,37 @@ public static class ConfigurationStaticMethods
                 Instructor = faculty2,
                 Sessions = new List<Session>()
             };
+            var course4 = new Course
+            {
+                School = school,
+                CourseLevel = 2,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course5 = new Course
+            {
+                School = school,
+                CourseLevel = 3,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
             var course2 = new Course
             {
                 School = school,
                 CourseLevel = 2,
+                Subject = subject2,
+                Term = term2,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course6 = new Course
+            {
+                School = school,
+                CourseLevel = 3,
                 Subject = subject2,
                 Term = term2,
                 Instructor = faculty2,
@@ -231,8 +258,8 @@ public static class ConfigurationStaticMethods
 
             var student1 = new Student
             {
-                FirstName = "student1",
-                LastName = "student1",
+                FirstName = "Jane",
+                LastName = "Doe",
                 Phone = "123-123-1234",
                 EnglishLevel = 1,
                 ITLevel = 1,
@@ -255,8 +282,8 @@ public static class ConfigurationStaticMethods
             };
             var student2 = new Student
             {
-                FirstName = "student2",
-                LastName = "student2",
+                FirstName = "Ashley",
+                LastName = "Smith",
                 Phone = "456-456-4567",
                 EnglishLevel = 3,
                 ITLevel = 3,
@@ -283,8 +310,8 @@ public static class ConfigurationStaticMethods
             //students
             var student3 = new Student
             {
-                FirstName = "first",
-                LastName = "last name",
+                FirstName = "Hailey",
+                LastName = "Jones",
                 Phone = "123-123-1234",
                 EnglishLevel = 2,
                 ITLevel = 2,
@@ -306,8 +333,8 @@ public static class ConfigurationStaticMethods
             };
             var student4 = new Student
             {
-                FirstName = "student2 firstname",
-                LastName = "student2 lastname",
+                FirstName = "Tiffany",
+                LastName = "Bates",
                 EnglishLevel = 1,
                 ITLevel = 1,
                 Phone = "456-456-4567",
