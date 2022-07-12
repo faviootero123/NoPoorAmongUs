@@ -28,14 +28,19 @@
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-area="" asp-page="/Admin/Courses/Index">Courses</a>
                                 <a class="dropdown-item" asp-area="" asp-page="/Admin/Ratings/Index">Ratings</a>
                                 <a class="dropdown-item" asp-area="" asp-page="/Admin/Schools/Index">Schools</a>
                                 <a class="dropdown-item" asp-area="" asp-page="/Admin/Terms/Index">Terms</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-page="/Admin/Reports">Reports</a>
 
                             </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Applicant/Index">Applicant</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-page="/Students/Index">Student</a>
@@ -44,10 +49,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" asp-page="/Sessions/Index">Session</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Applicant/Index">Applicant</a>
-                        </li>
+                        </li>                 
                         <li class="nav-item">
                             <a class="nav-link" asp-page="">Judge</a>
                         </li>
@@ -57,11 +59,6 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-page="">About</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Report">Reports</a>
-
-                        </li>
-
                     </ul>
                     <div class="form-check form-switch text-success">
                         <label class="custom-control-label" for="themeSwitch"><i id="themeIcon" class="bi bi-moon"></i></label>
@@ -79,8 +76,8 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container" style="margin-top:auto">
-            &copy; 2022 - SaucyCapstone
+        <div class="container">
+            <div>&copy; 2022 - SaucyCapstone</div>
         </div>
     </footer>
 
