@@ -37,6 +37,7 @@
                             <a class="btn btn-info mx-2" asp-page="" asp-route-id=""><i class="bi bi-clipboard-data-fill"></i>&nbsp;Assessment</a>
                             
                             <button class="btn btn-danger mx-2" asp-page-handler="Remove" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Remove</button>
+                             <button class="btn btn-success mx-2" asp-page-handler="Pass" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Pass</button>
                         </div>
                     </td>
                 </tr>
@@ -57,6 +58,7 @@
         <tbody>
             @foreach (var student in Model.studentList)
             {
+               
                 <tr>
                     <td width="25%">
                         @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)

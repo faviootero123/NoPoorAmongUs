@@ -47,7 +47,8 @@ public class EnrollmentsModel : PageModel
             Session = await _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c=>c.Course.Subject).FirstOrDefaultAsync(u => u.SessionId == id),
             Enrollments = await _context.Enrollments.Include(c=>c.Student).Where(e=>e.Session.SessionId == id).ToListAsync(),
         };
-        studentList = await _context.Students.ToListAsync();
+        int sessionLevel = session.Session.Course.CourseLevel;
+        studentList = await _context.Students.Where(c => c.EnglishLevel == sessionLevel).ToListAsync();
         return Page();
     }
     public IActionResult OnPostEnroll(int id)

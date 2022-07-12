@@ -104,11 +104,11 @@ public static class ConfigurationStaticMethods
             //subject
             var subject = new Subject
             {
-                SubjectName = "History 101"
+                SubjectName = "English"
             };
             var subject2 = new Subject
             {
-                SubjectName = "Computers 101"
+                SubjectName = "IT"
             };
             await db.AddAsync(subject);
             await db.AddAsync(subject2);
@@ -158,6 +158,7 @@ public static class ConfigurationStaticMethods
             var course = new Course
             {
                 School = school,
+                CourseLevel = 1,
                 Subject = subject,
                 Term = term,
                 Instructor = faculty2,
@@ -166,6 +167,7 @@ public static class ConfigurationStaticMethods
             var course2 = new Course
             {
                 School = school,
+                CourseLevel = 2,
                 Subject = subject2,
                 Term = term2,
                 Instructor = faculty2,
@@ -174,6 +176,7 @@ public static class ConfigurationStaticMethods
             var course3 = new Course
             {
                 School = school2,
+                CourseLevel = 1,
                 Subject = subject2,
                 Term = term2,
                 Instructor = faculty,
@@ -209,6 +212,8 @@ public static class ConfigurationStaticMethods
                 {
                     FirstName = "Karl",
                     LastName = "Guy",
+                     EnglishLevel = 1,
+                ITLevel = 1,
                     DateOfBirth = new DateTime(1990, 7, 7),
                     AcceptedDate = DateTime.Now,
                     LastModifiedDate = DateTime.Now,
@@ -229,6 +234,8 @@ public static class ConfigurationStaticMethods
                 FirstName = "student1",
                 LastName = "student1",
                 Phone = "123-123-1234",
+                EnglishLevel = 1,
+                ITLevel = 1,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.High,
                 AppStatus = Student.ApplicationStatus.Open,
@@ -251,6 +258,8 @@ public static class ConfigurationStaticMethods
                 FirstName = "student2",
                 LastName = "student2",
                 Phone = "456-456-4567",
+                EnglishLevel = 3,
+                ITLevel = 3,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.Low,
                 AppStatus = Student.ApplicationStatus.Approved,
@@ -277,6 +286,8 @@ public static class ConfigurationStaticMethods
                 FirstName = "first",
                 LastName = "last name",
                 Phone = "123-123-1234",
+                EnglishLevel = 2,
+                ITLevel = 2,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.High,
                 Status = Student.StudentStatus.Active,
@@ -297,6 +308,8 @@ public static class ConfigurationStaticMethods
             {
                 FirstName = "student2 firstname",
                 LastName = "student2 lastname",
+                EnglishLevel = 1,
+                ITLevel = 1,
                 Phone = "456-456-4567",
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.Low,

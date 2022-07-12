@@ -13,7 +13,8 @@ public class Course
 {
     [DisplayName("Course Title")]
     public int CourseId { get; set; }
-
+    [Required]
+    public int CourseLevel { get; set; }
     //relationships
     [Required]
     [ForeignKey("TermId")]
