@@ -7,6 +7,7 @@ using System.Configuration;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using SaucyCapstone.Services;
 using Data;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
 var services = builder.Services;
+if (builder.Environment.IsProduction())
+{
+    builder.Host.UseSerilog();
+}
 
 services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
