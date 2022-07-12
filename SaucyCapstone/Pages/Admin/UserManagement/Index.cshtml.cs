@@ -7,7 +7,7 @@ using SaucyCapstone.Constants;
 
 namespace SaucyCapstone.Pages.Admin.UserManagement;
 
-[Authorize(Roles = Roles.Admin)]
+
 public class IndexModel : PageModel
 {
     private readonly UserManager<ApplicationUser> _userManager;
@@ -18,7 +18,7 @@ public class IndexModel : PageModel
     }
 
     public List<UsersVM> UsersVM { get; private set; }
-
+    [Authorize(Roles = Roles.Admin)]
     public void OnGetAsync()
     {
         UsersVM = _userManager.Users.Select(u => new UsersVM

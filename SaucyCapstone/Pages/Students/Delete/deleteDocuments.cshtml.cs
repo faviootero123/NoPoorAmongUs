@@ -49,8 +49,14 @@ public class deleteDocumentsModel : PageModel
             return NotFound();
         }
         string wwwRootPath = _hostEnvironment.WebRootPath;
-        var getStudentId = await _db.StudentDocs.Include(d => d.Student).FirstOrDefaultAsync(m => m.StudentDocId == id);
-        var doc = await _db.StudentDocs.FindAsync(id);
+        
+        var studentId = await _db.StudentDocs
+            .Where(m => m.StudentDocId == id)
+            .Select(d => d.Student.StudentId)
+            .FirstOrDefaultAsync();
+        
+        var doc = await _db.StudentDocs
+            .FindAsync(id);
 
         if (doc != null)
         {
@@ -67,6 +73,6 @@ public class deleteDocumentsModel : PageModel
 
         }
 
-        return RedirectToPage("../StudentDocuments", new { id = getStudentId.Student.StudentId });
+        return RedirectToPage("../StudentDocuments", new { id = studentId });
     }
 }
