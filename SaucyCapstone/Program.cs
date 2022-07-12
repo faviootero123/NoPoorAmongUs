@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using SaucyCapstone.Services;
 using Data;
 using Serilog;
+using Serilog.Sinks.Grafana.Loki;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +16,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
 var services = builder.Services;
-if (builder.Environment.IsProduction())
+
+builder.Host.UseSerilog((ctx, lc) =>
 {
-    builder.Host.UseSerilog();
-}
+    var logctx = lc.Enrich.WithProperty("Application", ctx.HostingEnvironment.ApplicationName)
+    .Enrich.WithProperty("Environment", ctx.HostingEnvironment.EnvironmentName)
+    .WriteTo.Console();
+    if (builder.Environment.IsProduction())
+    {
+        logctx.WriteTo.GrafanaLoki("http://waifu:3100");
+    }
+});
+
 
 services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -33,13 +42,14 @@ services.AddAuthorization();
 services.AddDatabaseDeveloperPageExceptionFilter();
 services.AddRazorPages()
     .AddRazorRuntimeCompilation();
-services.AddHttpContextAccessor();  
+services.AddHttpContextAccessor();
 services.Configure<EmailConfiguration>(config.GetSection("EmailConfiguration"));
 
 services.AddScoped<IEmailSender, EmailSender>();
 services.AddSession();
 
 var app = builder.Build();
+app.UseSerilogRequestLogging();
 
 //Seed the data to the database
 if (app.Configuration.GetValue<bool>("SeedData"))
