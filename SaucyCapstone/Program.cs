@@ -9,6 +9,7 @@ using SaucyCapstone.Services;
 using Data;
 using Serilog;
 using Serilog.Sinks.Grafana.Loki;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,15 +66,23 @@ if (app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
     app.UseDeveloperExceptionPage();
     mvcBuilder.AddRazorRuntimeCompilation();
+    app.UseStaticFiles();
 }
 else
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+    app.UseStaticFiles(new StaticFileOptions{
+    OnPrepareResponse = ctx => {
+        const int durationInSeconds = 60 * 60 * 24;
+        ctx.Context.Request.Headers[HeaderNames.CacheControl] = $"public,max-age={durationInSeconds}";
+    }
+});
 }
 
-app.UseStaticFiles();
+
+
 app.UseRouting();
 app.UseSession();
 
