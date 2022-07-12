@@ -1,39 +1,48 @@
 ﻿@page
 @model SaucyCapstone.Pages.Admin.Schools.IndexModel
 
-@{
-    ViewData["Title"] = "Schools";
-}
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">School Overveiw</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-page="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; New School
+            </a>
+        </div>
+    </div>
+    <br />
 
-<h1>Schools</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table id="dataTable" class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.School[0].SchoolName)
-            </th>
-            <th>Options</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.School) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SchoolName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.SchoolId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.SchoolId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.SchoolId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    School Name
+                </th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.School)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SchoolName)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" style="justify-content:end">
+                            <a asp-page="Edit" asp-route-id="@item.SchoolId"
+                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                            <a asp-page="Delete" asp-route-id="@item.SchoolId"
+                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section Scripts{
     <script>
@@ -41,4 +50,4 @@
             $('#dataTable').dataTable();
         });
     </script>
-}
+    }
