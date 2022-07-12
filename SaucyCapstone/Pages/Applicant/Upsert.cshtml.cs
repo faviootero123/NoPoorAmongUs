@@ -107,7 +107,7 @@ public class CreateModel : PageModel
                 temp.Phone = applicant.StudentDetails.Phone;
                 temp.ImageUrl = applicant.StudentDetails.ImageUrl;
                 temp.Determination = applicant.StudentDetails.Determination;
-                temp.Status = Student.StudentStatus.OpenApplication;
+                temp.AppStatus = Student.ApplicationStatus.Open;
                 temp.DateOfBirth = applicant.StudentDetails.DateOfBirth;
                 temp.AcceptedDate = DateTime.MinValue;
                 temp.LastModifiedDate = DateTime.Now;
@@ -150,7 +150,7 @@ public class CreateModel : PageModel
                     Phone = applicant.StudentDetails.Phone,
                     ImageUrl = applicant.StudentDetails.ImageUrl,
                     Determination = applicant.StudentDetails.Determination,
-                    Status = Student.StudentStatus.OpenApplication,
+                    AppStatus = Student.ApplicationStatus.Open,
                     DateOfBirth = applicant.StudentDetails.DateOfBirth,
                     AcceptedDate = DateTime.MinValue,
                     LastModifiedDate = DateTime.Now,

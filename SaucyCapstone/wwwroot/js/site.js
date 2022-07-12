@@ -10,14 +10,14 @@ window.onload = function () {
     if (theme == "dark") {
         document.getElementById("theme").href = "/css/themes/darkly.min.css";
         let icon = document.getElementById("themeIcon");
-        icon.classList.remove("bi-moon");
+        icon.classList.remove("bi-sun-fill");
         icon.classList.add("bi-moon-fill");
         themeSwitch.checked = true;
     } else {
         document.getElementById("theme").href = "/css/themes/flatly.min.css";
         let icon = document.getElementById("themeIcon");
         icon.classList.remove("bi-moon-fill");
-        icon.classList.add("bi-moon");
+        icon.classList.add("bi-sun-fill");
     }
 
     themeSwitch.addEventListener('change', (e) => {

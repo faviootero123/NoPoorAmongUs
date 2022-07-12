@@ -34,8 +34,9 @@ public class Student
     [Required]
     public bool IsActive { get; set; }
 
-    [Required]
     public StudentStatus Status { get; set; }
+
+    public ApplicationStatus AppStatus { get; set; }
 
     public string? Address { get; set; }
 
@@ -82,10 +83,16 @@ public class Student
     }
     public enum StudentStatus
     {
-        OpenApplication,
-        Denied,
+        Applicant,
         Active,
+        Inactive,
         Graduated
     }
-
+    public enum ApplicationStatus
+    {
+        Archived,
+        Open,
+        Judged,
+        Approved
+    }
 }
