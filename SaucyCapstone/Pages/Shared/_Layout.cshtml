@@ -26,44 +26,62 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="" asp-page="/Admin/Courses/Index">Courses</a>
-                                <a class="dropdown-item" asp-area="" asp-page="/Admin/Ratings/Index">Ratings</a>
-                                <a class="dropdown-item" asp-area="" asp-page="/Admin/Schools/Index">Schools</a>
-                                <a class="dropdown-item" asp-area="" asp-page="/Admin/Terms/Index">Terms</a>
+                                <a class="dropdown-item" asp-page="/Admin/Courses/Index">Courses</a>
+                                <a class="dropdown-item" asp-page="/Admin/Criteria/Index">Criteria</a>
+                                <a class="dropdown-item" asp-page="/Admin/Schools/Index">Schools</a>
+                                <a class="dropdown-item" asp-page="/Admin/Terms/Index">Terms</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-area="" asp-page="/Admin/Reports">Reports</a>
-
+                                <a class="dropdown-item" asp-page="/Admin/Role">Manage Staff</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Applicant/Index">Applicant</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Applicant</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-page="/Applicant/Index">Overview</a>
+                                <a class="dropdown-item" asp-page="/Admin/Ratings/Index">Ratings</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-page="/Students/Index">Student</a>
                         </li>
-                        <li class="nav-item">
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Sessions/Index">Session</a>
-                        </li>                 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="">Judge</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Instructor</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-page="/Sessions/Index">Session</a>
+                                <a class="dropdown-item" asp-page="">Class</a>
+                            </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="">Class</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="">About</a>
+                            <a class="nav-link" asp-page="/Admin/Reports/Index">Reports</a>
                         </li>
                     </ul>
-                    <div class="form-check form-switch text-success">
-                        <label class="custom-control-label" for="themeSwitch"><i id="themeIcon" class="bi bi-moon"></i></label>
-                        <input class="form-check-input" type="checkbox" role="switch" id="themeSwitch">
-                    </div>
+
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-gear"></i></a>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-item">
+                                    <div>Dark Mode:</div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="themeSwitch">
+                                        <div class="custom-control-label" for="themeSwitch"><i id="themeIcon" class="bi bi-sun-fill"></i></div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-item">
+                                    <div>Language:</div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="langSwitch">
+                                        <div class="custom-control-label" for="langSwitch"><i id="langIcon" class="bi bi-flag-fill"></i></div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            </div>
+                        </li>
+                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>

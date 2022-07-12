@@ -20,13 +20,13 @@ public class ArchiveModel : PageModel
         if (id.HasValue)
         {
             Student temp = _db.Students.Where(u => u.StudentId == id).First();
-            if (temp.Status == Student.StudentStatus.OpenApplication)
+            if (temp.AppStatus == Student.ApplicationStatus.Open)
             {
-                temp.Status = Student.StudentStatus.Denied;
+                temp.AppStatus = Student.ApplicationStatus.Archived;
             }
-            else if (temp.Status == Student.StudentStatus.Denied)
+            else if (temp.AppStatus == Student.ApplicationStatus.Archived)
             {
-                temp.Status = Student.StudentStatus.OpenApplication;
+                temp.AppStatus = Student.ApplicationStatus.Open;
             }
 
             temp.LastModifiedDate = DateTime.Now;
