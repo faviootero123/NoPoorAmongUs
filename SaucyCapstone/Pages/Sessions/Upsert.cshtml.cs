@@ -4,14 +4,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
+using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Sessions;
 
 public class UpsertModel : PageModel
 {
-    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public UpsertModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public UpsertModel(ApplicationDbContext context)
     {
         _context = context;
     }

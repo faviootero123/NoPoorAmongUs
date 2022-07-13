@@ -12,9 +12,9 @@ namespace SaucyCapstone.Pages.Admin.Terms;
 
 public class CreateModel : PageModel
 {
-    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public CreateModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public CreateModel(ApplicationDbContext context)
     {
         _context = context;
     }

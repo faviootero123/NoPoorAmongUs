@@ -12,9 +12,9 @@ namespace SaucyCapstone.Pages.Criteria;
 
 public class DeleteModel : PageModel
 {
-    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public DeleteModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public DeleteModel(ApplicationDbContext context)
     {
         _context = context;
     }

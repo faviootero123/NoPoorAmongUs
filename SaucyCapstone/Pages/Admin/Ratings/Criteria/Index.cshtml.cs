@@ -12,9 +12,9 @@ namespace SaucyCapstone.Pages.Criteria;
 
 public class IndexModel : PageModel
 {
-    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public IndexModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public IndexModel(ApplicationDbContext context)
     {
         _context = context;
     }
