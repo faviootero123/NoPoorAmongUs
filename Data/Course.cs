@@ -14,6 +14,8 @@ public class Course
     [DisplayName("Course Title")]
     public int CourseId { get; set; }
 
+    public int CourseLevel { get; set; }
+
     //relationships
     [Required]
     [ForeignKey("TermId")]

@@ -1,6 +1,7 @@
 using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
 using SaucyCapstone.Data;
 
@@ -9,25 +10,32 @@ namespace SaucyCapstone.Pages.Students;
 public class StudentDetailsModel : PageModel
 {
     private readonly ApplicationDbContext _db;
-    public StudentVM StudentVM;
-    private Student Student;
-    private List<Guardian> Guardian;
+
+    [BindProperty(SupportsGet = true)]
+    public ApplicantVM Applicant { get; set; }
+
     public StudentDetailsModel(ApplicationDbContext db)
     {
         _db = db;
-        Student = new Student();
-        StudentVM = new StudentVM();
-        Guardian = new List<Guardian>();
     }
 
-    public async Task OnGetAsync(int? id)
+    public async Task<IActionResult> OnGetAsync(int? id)
     {
-        Student = _db.Students.Where(s => s.StudentId == id).FirstOrDefault();
-
-        StudentVM = new StudentVM()
+        if (id.HasValue)
         {
-            Students = Student,
-            Guardians = Guardian
-        };
+            Applicant.StudentDetails = await _db.Students.Where(u => u.StudentId == id).FirstAsync();
+            var studentGuardians = await _db.StudentGuardians.Where(u => u.Student.StudentId == id).Include(u => u.Guardian).ToListAsync();
+            Applicant.GuardianDetails = new List<Guardian>();
+
+            foreach (var guardian in studentGuardians)
+            {
+                Applicant.GuardianDetails.Add(guardian.Guardian);
+            }
+
+            return Page();
+        } else
+        {
+            return NotFound();
+        }
     }
 }
