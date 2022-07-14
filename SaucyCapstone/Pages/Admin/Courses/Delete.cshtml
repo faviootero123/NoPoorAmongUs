@@ -2,121 +2,53 @@
 @model SaucyCapstone.Pages.Admin.Courses.DeleteModel
 
 <form method="post">
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <div class="container rounded">
-                    <div class="row">
-                        <div class="col-12 col-lg-6 pb-2">
-                            <div class="row">
-                                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                    <span>Delete Course</span>
-                                </h4>
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="CourseVM.Course.CourseId" />
-                            </div>
-                            <div class="row my-1">
-                                <div class="col-3">Term</div>
-                                <div class="col-9">
-                                    <div class="form-group mb-2">
-                                        <select disabled asp-for="CourseVM.Course.Term.TermName" asp-items="@Model.CourseVM.TermList" class="form-select">
-                                            <option disabled>---Select Term---</option>
-                                        </select>
-                                        <span asp-validation-for="CourseVM.Term.TermId" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row my-1">
-                                <div class="col-3">Instructor</div>
-                                <div class="col-9">
-                                    <div class="form-group mb-2">
-                                        <select disabled asp-for="CourseVM.Instructor.FacultyMemberId" asp-items="@Model.CourseVM.InstructorList" class="form-select">
-                                            <option disabled>---Select Instructor---</option>
-                                        </select>
-                                        <span asp-validation-for="CourseVM.Instructor.FacultyMemberId" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row my-1">
-                                <div class="col-3">Subject</div>
-                                <div class="col-9">
-                                    <div class="form-group mb-2">
-                                        <select disabled asp-for="CourseVM.Subject.SubjectId" asp-items="@Model.CourseVM.SubjectList" class="form-select">
-                                            <option disabled>---Select Subject---</option>
-                                        </select>
-                                        <span asp-validation-for="CourseVM.Subject.SubjectId" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row my-1">
-                                <div class="col-3">School</div>
-                                <div class="col-9">
-                                    <div class="form-group mb-2">
-                                        <select disabled asp-for="CourseVM.School.SchoolId" asp-items="@Model.CourseVM.SchoolList" class="form-select">
-                                            <option disabled>---Select School---</option>
-                                        </select>
-                                        <span asp-validation-for="CourseVM.School.SchoolId" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                   <div class="row">
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-danger" style="width:100%">Delete</button>
-                        </div>
-                        <div class="col-6">
-                            <a asp-page="Index" class="btn btn-primary" style="width:100%">
-                                Back to Course Overview
-                            </a>
-                        </div>
-                    </div>
+    <div class="card">
+        <h4 class="card-header">Delete Course</h4>
+        <div class="card-body rounded pb-2">
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Term
+                </div>
+                <div class="col-9">
+                    @Html.DisplayFor(model => model.CourseVM.Course.Term.TermName)
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Instructor
+                </div>
+                <div class="col-9">
+                    @Html.DisplayFor(model => model.CourseVM.Course.Instructor.FirstName) @Html.DisplayFor(model => model.CourseVM.Course.Instructor.LastName)
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Subject
+                </div>
+                <div class="col-9">
+                    @Html.DisplayFor(model => model.CourseVM.Course.Subject.SubjectName)
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    School
+                </div>
+                <div class="col-9">
+                    @Html.DisplayFor(model => model.CourseVM.Course.School.SchoolName)
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row d-flex justify-content-center">
+                <div class="col-3">
+                    <button type="submit" class="btn btn-danger" style="width:100%">Delete</button>
+                </div>
+                <div class="col-3">
+                    <a asp-page="Index" class="btn btn-primary" style="width:100%">
+                        Back to Course Overview
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </form>
-
-
-
-
-    <hr />    <hr />    <hr />    <hr />    <hr />
-
-<div>
-    <h4>Course</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            Term
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CourseVM.Course.Term.TermName)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            Instructor
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CourseVM.Course.Instructor.FirstName) @Html.DisplayFor(model => model.CourseVM.Course.Instructor.LastName)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            Subject
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CourseVM.Course.Subject.SubjectName)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class="col-sm-2">
-            School
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CourseVM.Course.School.SchoolName)
-        </dd>
-    </dl>
-
-</div>
