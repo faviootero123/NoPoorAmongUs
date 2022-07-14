@@ -29,14 +29,14 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
-                        <input asp-for="Ratings.Student" hidden/>
+                        <input asp-for="@student.Ratings" hidden/>
                     </td>
                     @foreach (var item in Model.Criterion)
                     {
                         <td>
-                            <input asp-for="Ratings.Criterion" hidden />
+                            <input asp-for="@student.Ratings" hidden />
                             <div class="slidecontainer">
-                                <input  asp-for="" type="range" min="1" max="5" value="1" class="slider" id="@item.Description" oninput="updateSlider(this)">
+                                <input  type="range" min="1" max="5" value="1" class="slider" id="@item.Description" oninput="updateSlider(this)">
                                 <p><span id="demo @item.Description">--</span></p>
                             </div>
                         </td>
