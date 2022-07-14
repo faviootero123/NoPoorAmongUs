@@ -8,12 +8,13 @@ using Data;
 namespace Models.ViewModels;
 public class SessionVM
 {
-    [Required]
+    //public DateTime StartTime { get; set; }
+    //public DateTime EndTime { get; set; }
+    //public string DayofWeek { get; set; }
+    //public string SubjectName { get; set; }
+    //public string CourseName { get; set; }
+    public List<Enrollment> Enrollments { get; set; }
     public Session Session { get; set; }
 
-    public Enrollment Enrollment { get; set; }
-    public IList<Student> Students { get; set; }
-  
 
-      
 }

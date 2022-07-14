@@ -13,9 +13,8 @@ public class Course
 {
     [DisplayName("Course Title")]
     public int CourseId { get; set; }
-
+    [Required]
     public int CourseLevel { get; set; }
-
     //relationships
     [Required]
     [ForeignKey("TermId")]
@@ -35,5 +34,7 @@ public class Course
 
     public IList<Session>? Sessions { get; set; }
     public IList<Enrollment> Enrollments { get; set; }
+
+   
 }
 

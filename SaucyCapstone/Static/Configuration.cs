@@ -104,11 +104,11 @@ public static class ConfigurationStaticMethods
             //subject
             var subject = new Subject
             {
-                SubjectName = "History 101"
+                SubjectName = "English"
             };
             var subject2 = new Subject
             {
-                SubjectName = "Computers 101"
+                SubjectName = "IT"
             };
             await db.AddAsync(subject);
             await db.AddAsync(subject2);
@@ -141,14 +141,14 @@ public static class ConfigurationStaticMethods
             {
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddMonths(3),
-                TermName = "Test Term",
+                TermName = "Summer",
                 IsActive = true
             };
             var term2 = new Term
             {
                 StartDate = DateTime.Now.AddMonths(3),
                 EndDate = DateTime.Now.AddMonths(6),
-                TermName = "Test Term2",
+                TermName = "Spring",
                 IsActive = false
             };
             await db.AddAsync(term);
@@ -158,6 +158,25 @@ public static class ConfigurationStaticMethods
             var course = new Course
             {
                 School = school,
+                CourseLevel = 1,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course4 = new Course
+            {
+                School = school,
+                CourseLevel = 2,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course5 = new Course
+            {
+                School = school,
+                CourseLevel = 3,
                 Subject = subject,
                 Term = term,
                 Instructor = faculty2,
@@ -166,6 +185,16 @@ public static class ConfigurationStaticMethods
             var course2 = new Course
             {
                 School = school,
+                CourseLevel = 2,
+                Subject = subject2,
+                Term = term2,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course6 = new Course
+            {
+                School = school,
+                CourseLevel = 3,
                 Subject = subject2,
                 Term = term2,
                 Instructor = faculty2,
@@ -174,6 +203,7 @@ public static class ConfigurationStaticMethods
             var course3 = new Course
             {
                 School = school2,
+                CourseLevel = 1,
                 Subject = subject2,
                 Term = term2,
                 Instructor = faculty,
@@ -209,6 +239,8 @@ public static class ConfigurationStaticMethods
                 {
                     FirstName = "Karl",
                     LastName = "Guy",
+                     EnglishLevel = 1,
+                ITLevel = 1,
                     DateOfBirth = new DateTime(1990, 7, 7),
                     AcceptedDate = DateTime.Now,
                     LastModifiedDate = DateTime.Now,
@@ -226,9 +258,11 @@ public static class ConfigurationStaticMethods
 
             var student1 = new Student
             {
-                FirstName = "student1",
-                LastName = "student1",
+                FirstName = "Jane",
+                LastName = "Doe",
                 Phone = "123-123-1234",
+                EnglishLevel = 1,
+                ITLevel = 1,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.High,
                 AppStatus = Student.ApplicationStatus.Open,
@@ -248,9 +282,11 @@ public static class ConfigurationStaticMethods
             };
             var student2 = new Student
             {
-                FirstName = "student2",
-                LastName = "student2",
+                FirstName = "Ashley",
+                LastName = "Smith",
                 Phone = "456-456-4567",
+                EnglishLevel = 3,
+                ITLevel = 3,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.Low,
                 AppStatus = Student.ApplicationStatus.Approved,
@@ -274,9 +310,11 @@ public static class ConfigurationStaticMethods
             //students
             var student3 = new Student
             {
-                FirstName = "first",
-                LastName = "last name",
+                FirstName = "Hailey",
+                LastName = "Jones",
                 Phone = "123-123-1234",
+                EnglishLevel = 2,
+                ITLevel = 2,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.High,
                 Status = Student.StudentStatus.Active,
@@ -295,8 +333,10 @@ public static class ConfigurationStaticMethods
             };
             var student4 = new Student
             {
-                FirstName = "student2 firstname",
-                LastName = "student2 lastname",
+                FirstName = "Tiffany",
+                LastName = "Bates",
+                EnglishLevel = 1,
+                ITLevel = 1,
                 Phone = "456-456-4567",
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.Low,
@@ -388,7 +428,7 @@ public static class ConfigurationStaticMethods
             var enrollment = new Enrollment
             {
                 Student = student1,
-                Course = course,
+                Session = session,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
                 FinalGrade = 0,
                 Grade = grade
@@ -396,7 +436,7 @@ public static class ConfigurationStaticMethods
             var enrollment2 = new Enrollment
             {
                 Student = student1,
-                Course = course2,
+                Session = session,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 85,
                 Grade = grade2

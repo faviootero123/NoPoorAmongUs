@@ -13,9 +13,9 @@ namespace SaucyCapstone.Pages.Admin.Ratings;
 
 public class EditModel : PageModel
 {
-    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public EditModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public EditModel(ApplicationDbContext context)
     {
         _context = context;
     }

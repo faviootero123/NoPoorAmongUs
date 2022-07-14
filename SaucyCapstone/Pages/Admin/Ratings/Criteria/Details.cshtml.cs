@@ -12,9 +12,9 @@ namespace SaucyCapstone.Pages.Criteria;
 
 public class DetailsModel : PageModel
 {
-    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public DetailsModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public DetailsModel(ApplicationDbContext context)
     {
         _context = context;
     }

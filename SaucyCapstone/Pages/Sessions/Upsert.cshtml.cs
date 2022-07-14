@@ -4,14 +4,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
+using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Sessions;
 
 public class UpsertModel : PageModel
 {
-    private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public UpsertModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public UpsertModel(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -20,6 +21,7 @@ public class UpsertModel : PageModel
     public IEnumerable<SelectListItem> CourseList { get; set; }
     public IEnumerable<SelectListItem> TermList { get; set; }
     public List<SelectListItem> DayOfWeekList { get; set; }
+ 
 
     public void OnGet(int? id)
     {
@@ -32,13 +34,14 @@ public class UpsertModel : PageModel
              new SelectListItem() { Text="Thursday", Value="Thursday"},
              new SelectListItem() { Text="Friday", Value="Friday"},
         };
+   
         if (id != null)
         {
             Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
             var Courses = _context.Courses.Include(d=>d.Subject).ToList();
             var Terms = _context.Terms.ToList();
 
-            CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.Subject.SubjectName });
+            CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.Subject.SubjectName +" " + c.CourseLevel});
             TermList = Terms.Select(c => new SelectListItem { Value = c.TermId.ToString(), Text = c.TermName });
 
         }
@@ -52,7 +55,7 @@ public class UpsertModel : PageModel
                 .Select(c => new SelectListItem
                 {
                     Value = c.CourseId.ToString(),
-                    Text = c.Subject.SubjectName
+                    Text = c.Subject.SubjectName + " " + c.CourseLevel
                 });
             TermList = Terms
                 .Select(c => new SelectListItem

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaucyCapstone.Data;
 
@@ -11,9 +12,10 @@ using SaucyCapstone.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220712170522_updateenrollment")]
+    partial class updateenrollment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,9 +191,6 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"), 1L, 1);
-
-                    b.Property<int>("CourseLevel")
-                        .HasColumnType("int");
 
                     b.Property<int>("FacultyMemberId")
                         .HasColumnType("int");
@@ -509,18 +508,12 @@ namespace Data.Migrations
                     b.Property<int>("Determination")
                         .HasColumnType("int");
 
-                    b.Property<int>("EnglishLevel")
-                        .HasColumnType("int");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("FoodAssistance")
                         .HasColumnType("bit");
-
-                    b.Property<int>("ITLevel")
-                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");

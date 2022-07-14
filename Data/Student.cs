@@ -23,7 +23,9 @@ public class Student
 
     [Required]
     public DateTime DateOfBirth { get; set; }
+    public int EnglishLevel { get; set; }
 
+    public int ITLevel { get; set; }
     public string? Phone { get; set; }
 
     public DateTime? AcceptedDate { get; set; }
