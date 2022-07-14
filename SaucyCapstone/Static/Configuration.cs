@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
 using System.Text.Json;
+using static Data.Student;
 
 namespace SaucyCapstone.Static;
 
@@ -73,8 +74,8 @@ public static class ConfigurationStaticMethods
         await userManager.AddUserToRole("AdminUser@odetopeaches.com", Roles.Admin);
         await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
         //Seed data for other tables 
-        await db.SeedDataNeededForSession();
-        await db.SeedDataNeededForEnrollments();
+        await db.SeedData();
+
     }
     private static async Task AddUserToRole(this UserManager<ApplicationUser> userManager, string username, string role)
     {
@@ -82,42 +83,135 @@ public static class ConfigurationStaticMethods
         if (_user is not null) await userManager.AddToRoleAsync(_user, Roles.Admin);
     }
 
-    private static async Task SeedDataNeededForSession(this ApplicationDbContext db)
-    {
-        var alreadyExists = await db.Schools.Where(s => s.SchoolName == "Test School").FirstOrDefaultAsync() == null;
+    private static async Task SeedData(this ApplicationDbContext db)
+    { 
+
+        var alreadyExists = await db.Terms.Where(s => s.TermId == 1).FirstOrDefaultAsync() == null;
         if (alreadyExists)
         {
+            //school
             var school = new School
             {
-                SchoolName = "Test School"
+                SchoolName = "Bowani"
             };
-
+            var school2 = new School
+            {
+                SchoolName = "Weber"
+            };
             await db.AddAsync(school);
+            await db.AddAsync(school2);
 
-            //var subject = new Subject
-            //{
-            //    School = school,
-            //    SubjectName = "Maths"
-            //};
+            //subject
+            var subject = new Subject
+            {
+                SubjectName = "English"
+            };
+            var subject2 = new Subject
+            {
+                SubjectName = "IT"
+            };
+            await db.AddAsync(subject);
+            await db.AddAsync(subject2);
 
-            //await db.AddAsync(subject);
 
-            await db.AddAsync(new Term
+            //faculty-member
+            var faculty = new FacultyMember
+            {
+                FirstName = "Jo",
+                LastName = "Mama",
+                IsAdmin = true,
+                IsInstructor = true,
+                IsRater = true,
+                IsSocialWorker = true
+            };
+            var faculty2 = new FacultyMember
+            {
+                FirstName = "Jimmy",
+                LastName = "Mama",
+                IsAdmin = false,
+                IsInstructor = true,
+                IsRater = false,
+                IsSocialWorker = false,
+            };
+            await db.AddAsync(faculty);
+            await db.AddAsync(faculty2);
+
+            //terms
+            var term = new Term
             {
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddMonths(3),
-                TermName = "Test Term",
+                TermName = "Summer",
                 IsActive = true
-            });
+            };
+            var term2 = new Term
+            {
+                StartDate = DateTime.Now.AddMonths(3),
+                EndDate = DateTime.Now.AddMonths(6),
+                TermName = "Spring",
+                IsActive = false
+            };
+            await db.AddAsync(term);
+            await db.AddAsync(term2);
 
+            //course
             var course = new Course
             {
-                //Subject = subject,
-                CourseName = "Test Course"
+                School = school,
+                CourseLevel = 1,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
             };
-
+            var course4 = new Course
+            {
+                School = school,
+                CourseLevel = 2,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course5 = new Course
+            {
+                School = school,
+                CourseLevel = 3,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course2 = new Course
+            {
+                School = school,
+                CourseLevel = 2,
+                Subject = subject2,
+                Term = term2,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course6 = new Course
+            {
+                School = school,
+                CourseLevel = 3,
+                Subject = subject2,
+                Term = term2,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course3 = new Course
+            {
+                School = school2,
+                CourseLevel = 1,
+                Subject = subject2,
+                Term = term2,
+                Instructor = faculty,
+                Sessions = new List<Session>()
+            };
             await db.AddAsync(course);
-
+            await db.AddAsync(course2);
+            await db.AddAsync(course3);
 
             //guardians
             var guardian1 = new Guardian
@@ -127,7 +221,6 @@ public static class ConfigurationStaticMethods
                 ContactInfo = "555-555-5555",
                 Relation = "father"
             };
-            await db.AddAsync(guardian1);
             var guardian2 = new Guardian
             {
                 FirstName = "guardian2",
@@ -135,17 +228,45 @@ public static class ConfigurationStaticMethods
                 ContactInfo = "777-777-777",
                 Relation = "mother"
             };
+            await db.AddAsync(guardian1);
             await db.AddAsync(guardian2);
 
-            //students
+            //applicant
+
+            var students = new List<Student>
+            {
+                new Student
+                {
+                    FirstName = "Karl",
+                    LastName = "Guy",
+                     EnglishLevel = 1,
+                ITLevel = 1,
+                    DateOfBirth = new DateTime(1990, 7, 7),
+                    AcceptedDate = DateTime.Now,
+                    LastModifiedDate = DateTime.Now,
+                    IsActive = false,
+                    Status = StudentStatus.Applicant,
+                    AppStatus = ApplicationStatus.Open,
+                    SchoolLevel = '1',
+                    FoodAssistance = false,
+                    ChappaAssistance = true,
+                    Determination = DeterminationLevel.Middle
+                },
+            };
+            db.AddRange(students);
+            db.SaveChanges();
+
             var student1 = new Student
             {
-                FirstName = "student1",
-                LastName = "student1",
+                FirstName = "Jane",
+                LastName = "Doe",
                 Phone = "123-123-1234",
-                Picture = "\\images\\stock-profile-pic.jpg",
+                EnglishLevel = 1,
+                ITLevel = 1,
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.High,
-                Status = Student.StudentStatus.OpenApplication,
+                AppStatus = Student.ApplicationStatus.Open,
+                Status = Student.StudentStatus.Applicant,
                 DateOfBirth = DateTime.MinValue,
                 AcceptedDate = DateTime.MinValue,
                 LastModifiedDate = DateTime.Now,
@@ -159,19 +280,21 @@ public static class ConfigurationStaticMethods
                 FoodAssistance = true,
                 ChappaAssistance = false,
             };
-            await db.AddAsync(student1);
             var student2 = new Student
             {
-                FirstName = "student2",
-                LastName = "student2",
+                FirstName = "Ashley",
+                LastName = "Smith",
                 Phone = "456-456-4567",
-                Picture = "\\images\\stock-profile-pic.jpg",
+                EnglishLevel = 3,
+                ITLevel = 3,
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.Low,
-                Status = Student.StudentStatus.OpenApplication,
+                AppStatus = Student.ApplicationStatus.Approved,
+                Status = Student.StudentStatus.Active,
                 DateOfBirth = DateTime.MinValue,
                 AcceptedDate = DateTime.MinValue,
                 LastModifiedDate = DateTime.Now,
-                IsActive = false,
+                IsActive = true,
                 Address = "265 Lawrence St.",
                 Village = "Barberton",
                 Latitude = "",
@@ -181,99 +304,286 @@ public static class ConfigurationStaticMethods
                 FoodAssistance = false,
                 ChappaAssistance = true,
             };
+            await db.AddAsync(student1);
             await db.AddAsync(student2);
 
-            //student-guardians
-            var studentguardian1 = new StudentGuardian
+            //students
+            var student3 = new Student
             {
-                Student = student1,
-                Guardian = guardian1,
-            };
-            await db.AddAsync(studentguardian1);
-            var studentguardian2 = new StudentGuardian
-            {
-                Student = student1,
-                Guardian = guardian2,
-            };
-            await db.AddAsync(studentguardian2);
-            var studentguardian3 = new StudentGuardian
-            {
-                Student = student2,
-                Guardian = guardian1,
-            };
-            await db.AddAsync(studentguardian3);
-
-            await db.SaveChangesAsync();
-        }
-    } 
-        private static async Task SeedDataNeededForEnrollments(this ApplicationDbContext db)
-        {
-            var alreadyExists = await db.Enrollments.Where(s => s.EnrollmentId == 1).FirstOrDefaultAsync() == null;
-            if (alreadyExists)
-            {
-            var school = new School
-            {
-                SchoolName = "Bowani"
-            };
-
-            await db.AddAsync(school);
-
-          
-
-            var term = new Term
-            {
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddMonths(3),
-                TermName = "Summer",
-                IsActive = true
-            };
-
-            await db.AddAsync(term);
-          
-
-            var course = new Course
-            {
-                SubjectName = "Computer",
-                CourseName = "2"
-            };
-
-            await db.AddAsync(course);
-            var session = new Session
-            {
-                Course = course,
-                Term = term,
-                DayofWeek = "Monday",
-                isActive = true,
-                StartTime = "10:00AM",
-                EndTime = "12:00PM"
-            };
-            await db.AddAsync(session);
-            var student = new Student
-            {
-                FirstName = "Bob",
-                LastName = "Doe",
-                Phone = "555-555-5555",
-                DateOfBirth = DateTime.Now,
-                AcceptedDate = DateTime.Now,
+                FirstName = "Hailey",
+                LastName = "Jones",
+                Phone = "123-123-1234",
+                EnglishLevel = 2,
+                ITLevel = 2,
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.High,
+                Status = Student.StudentStatus.Active,
+                DateOfBirth = DateTime.MinValue,
+                AcceptedDate = DateTime.MinValue,
                 LastModifiedDate = DateTime.Now,
                 IsActive = true,
+                Address = "86 Shadow Brook Street",
+                Village = "Plattsburgh",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 12345,
+                SchoolLevel = 10,
+                FoodAssistance = true,
+                ChappaAssistance = false,
+            };
+            var student4 = new Student
+            {
+                FirstName = "Tiffany",
+                LastName = "Bates",
+                EnglishLevel = 1,
+                ITLevel = 1,
+                Phone = "456-456-4567",
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.Low,
                 Status = Student.StudentStatus.Active,
-                SchoolLevel = '8',
+                DateOfBirth = DateTime.MinValue,
+                AcceptedDate = DateTime.MinValue,
+                LastModifiedDate = DateTime.Now,
+                IsActive = true,
+                Address = "265 Lawrence St.",
+                Village = "Barberton",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 12345,
+                SchoolLevel = 7,
                 FoodAssistance = false,
                 ChappaAssistance = true,
-                Determination = Student.DeterminationLevel.High,
-                AnnualIncome = 1333,
-                Picture = "~/StudentPictures/obama.jpg",
-                NotesAndAbout = "Notes about Bob"
             };
-            await db.AddAsync(student);
-            var Enrollment = new Enrollment
-            {
-                Student = student,
-                Session = session
+            await db.AddAsync(student3);
+            await db.AddAsync(student4);
+
+            //student-guardians
+            var studentGuardians = new List<StudentGuardian>{
+                new StudentGuardian
+                {
+                    Student = student1,
+                    Guardian = guardian1,
+                },
+                new StudentGuardian
+                {
+                    Student = student1,
+                    Guardian = guardian2,
+                },
+                new StudentGuardian
+                {
+                    Student = student2,
+                    Guardian = guardian1,
+                }
             };
-            await db.AddAsync(Enrollment);
+            await db.AddRangeAsync(studentGuardians);
             await db.SaveChangesAsync();
+
+            //sessions
+            var session = new Session
+            {
+                DayofWeek = "Monday",
+                StartTime = DateTime.MinValue,
+                EndTime = DateTime.MinValue.AddHours(9),
+                IsActive = true,
+                Course = course
+            };
+            var session2 = new Session
+            {
+                DayofWeek = "Tuesday",
+                StartTime = DateTime.MinValue,
+                EndTime = DateTime.MinValue.AddHours(9),
+                IsActive = true,
+                Course = course
+            };
+            var session3 = new Session
+            {
+                DayofWeek = "Thursday",
+                StartTime = DateTime.MinValue,
+                EndTime = DateTime.MinValue.AddHours(9),
+                IsActive = true,
+                Course = course2
+            };
+            await db.AddAsync(session);
+            await db.AddAsync(session2);
+            await db.AddAsync(session3);
+
+            //grade
+            var grade = new Grade
+            {
+                AssessmentGrade = "A+",
+                BeginningRange = 1,
+                EndingRange = 1
+            };
+            var grade2 = new Grade
+            {
+                AssessmentGrade = "B+",
+                BeginningRange = 1,
+                EndingRange = 1
+            };
+            await db.AddAsync(grade);
+            await db.AddAsync(grade2);
+
+
+            //enrollment
+            var enrollment = new Enrollment
+            {
+                Student = student1,
+                Session = session,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment2 = new Enrollment
+            {
+                Student = student1,
+                Session = session,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 85,
+                Grade = grade2
+            };
+            await db.AddAsync(enrollment);
+            await db.AddAsync(enrollment2);
+
+            //attendance
+            var attendance = new Attendance
+            {
+                Status = Attendance.AttendanceStatus.OnTime,
+                Date = DateTime.Now
+            };
+            var attendance2 = new Attendance
+            {
+                Status = Attendance.AttendanceStatus.OnTime,
+                Date = DateTime.Now
+            };
+            var attendance3 = new Attendance
+            {
+                Status = Attendance.AttendanceStatus.OnTime,
+                Date = DateTime.Now
+            };
+            await db.AddAsync(attendance);
+            await db.AddAsync(attendance2);
+            await db.AddAsync(attendance3);
+
+            //assessment (homework)
+            var assessment = new Assessment
+            {
+                Score = 88,
+                DueDate = DateTime.Now.AddDays(14),
+                MaxScore = 100,
+                Grade = grade
+            };
+            var assessment2 = new Assessment
+            {
+                Score = 77,
+                DueDate = DateTime.Now.AddDays(7),
+                MaxScore = 100,
+                Grade = grade
+            };
+            var assessment3 = new Assessment
+            {
+                Score = 66,
+                DueDate = DateTime.Now.AddDays(3),
+                MaxScore = 100,
+                Grade = grade2
+            };
+            await db.AddAsync(assessment);
+            await db.AddAsync(assessment2);
+            await db.AddAsync(assessment3);
+
+            //criterion
+            var criteria = new List<Criterion> {
+                new Criterion
+                {
+                    Description = "Academics",
+                    Weight = .25m
+                },
+                new Criterion
+                {
+                    Description = "Age",
+                    Weight = .05m
+                },
+                new Criterion
+                {
+                    Description = "Distance",
+                    Weight = .05m
+                },
+                new Criterion
+                {
+                    Description = "Family support and interest",
+                    Weight = .4m
+                },
+                new Criterion
+                {
+                    Description = "Finanaces",
+                    Weight = .25m
+                }
+            };
+            await db.AddRangeAsync(criteria);
+            await db.SaveChangesAsync();
+
+
+
+            //rating
+
+
+            //accesstype
+            var accesstype = new AccessType
+            {
+                Accesss = AccessType.Type.Rater
+            };
+            await db.AddAsync(accesstype);
+
+            //note
+            var note = new Note
+            {
+                Student = student1,
+                FacultyMember = faculty,
+                Topic = "this is the note topic",
+                Content = "this is the note content",
+                CreatedDate = DateTime.Now,
+                NoteType = accesstype
+            };
+            var note2 = new Note
+            {
+                Student = student2,
+                FacultyMember = faculty,
+                Topic = "this is the note topic",
+                Content = "this is the note content",
+                CreatedDate = DateTime.Now,
+                NoteType = accesstype
+            };
+            await db.AddAsync(note);
+            await db.AddAsync(note2);
+
+            //student doc
+            var studentdoc = new StudentDoc
+            {
+                Student = student1,
+                AccessType = accesstype,
+                Name = "document name",
+                Description = "document description",
+                Path = "path goes here",
+                Extension = "extension goes here",
+                FileGUID = "",
+                UploadDate = DateTime.Now
+            };
+            await db.AddAsync(studentdoc);
+            var studentdoc2 = new StudentDoc
+            {
+                Student = student3,
+                AccessType = accesstype,
+                Name = "document name",
+                Description = "document description",
+                Path = "path goes here",
+                FileGUID = "",
+                Extension = "extension goes here",
+                UploadDate = DateTime.Now
+            };
+            await db.AddAsync(studentdoc2);
+
+
+            await db.SaveChangesAsync();
+
         }
-        }
+    }
 }

@@ -7,62 +7,77 @@
         </div>
     </div>
     <br />
-        <div class="float-end">             
-        <a class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Note</a>         
-     </div>
-    
+    <div class="float-end">
+        <a asp-route-id="@Model.StudentId" asp-page="./Add/addNotes" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Note</a>
+    </div>
+
     <br />
     <br />
 
-<table class="table table-bordered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                Note
-            </th>
-            <th>
-                Note Type
-            </th>
-            <th>
-                Creator
-            </th>
-            <th>
-                Created Date
-            </th>
-            <th>
-                Edited Date
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-            <tr>
-                <td width="40%">
-                    I wanna die
-                </td>
-                <td width="10%">
-                    Advice
-                </td>
-                <td width="10%">
-                    Someone
-                </td>
-                <td width="10%">
-                    4/20/6969
-                </td>
-                <td width="10%">
-                    4/20/6969
-                </td>
-                <td width="10%">
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-success mx-2" >Edit</a>
-                        <a class="btn btn-danger mx-2" >Delete</a>
-                    </div>
-                </td>
-            </tr>
-    </tbody>
-</table>
-
- <a class="btn btn-primary" asp-page="/Students/Index" >Go Back</a>
+    <form>
+        <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Topic
+                    </th>
+                    <th>
+                        Content
+                    </th>
+                    <th>
+                        Creator
+                    </th>
+                    <th>
+                        Created Date
+                    </th>
+                    <th>
+                        Edited Date
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Notes != null)
+                {
+                    @foreach (var obj in Model.Notes)
+                    {
+                        <tr>
+                            <td width="10">
+                                @obj.Topic
+                            </td>
+                            <td width="30%">
+                                @obj.Content
+                            </td>
+                            <td width="20%">
+                                @obj.FacultyMember?.FirstName @obj.FacultyMember?.LastName
+                            </td>
+                            <td width="10%">
+                                @obj.CreatedDate
+                            </td>
+                            <td width="10%">
+                                @obj.EditedDate
+                            </td>
+                            <td width="10%">
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-success mx-2" asp-page="./Edit/editNotes" asp-route-id="@obj.NoteId">Edit</a>
+                                    <a class="btn btn-danger mx-2" asp-page="./Delete/deleteNotes" asp-route-id="@obj.NoteId">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </form>
+    <a class="btn btn-primary" asp-page="/Students/Index">Go Back</a>
 
 
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+}

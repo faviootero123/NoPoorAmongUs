@@ -1,16 +1,10 @@
 ﻿@page
 @model SaucyCapstone.Pages.Applicant.IndexModel
-@{
-}
-
-@{
-    ViewData["Title"] = "Applicant";
-}
 
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Applicant Dashboard</h2>
+            <h2 class="text-primary">Applicant Overview</h2>
         </div>
         <div class="col-6 text-end">
             <a asp-page="Upsert" class="btn btn-primary">
@@ -18,19 +12,16 @@
             </a>
         </div>
     </div>
-    <br /><br />
+    <br />
 
-    <table class="table table-bordered table-striped" style="width:100%">
+    <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>
-                    First Name
+                    Name
                 </th>
                 <th>
-                    Last Name
-                </th>
-                <th>
-                    Status
+                    Application Status
                 </th>
                 <th>Application Options</th>
             </tr>
@@ -39,30 +30,26 @@
             @foreach (var obj in Model.Students)
             {
                 <tr>
-                    <td width="20%">
-                        @obj.FirstName
-                    </td>
-                    <td width="20%">
-                        @obj.LastName
-                    </td>
-                    <td width="25%">
-                        @obj.Status
+                    <td>
+                        @obj.FirstName @obj.LastName
                     </td>
                     <td>
-                        <div class="w-75 btn-group" role="group">
+                        @obj.AppStatus
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" style="justify-content:end">
                             <a asp-page="Upsert" asp-route-id="@obj.StudentId"
-                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Edit</a>
-                            @if (obj.Status == Data.Student.StudentStatus.OpenApplication)
+                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                            @if (obj.AppStatus == Data.Student.ApplicationStatus.Open)
                             {
                                 <a asp-page="Archive" asp-route-id="@obj.StudentId"
-                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i>Archive</a>
+                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Archive</a>
                             }
-                            else if (obj.Status == Data.Student.StudentStatus.Denied)
+                            else if (obj.AppStatus == Data.Student.ApplicationStatus.Archived)
                             {
                                 <a asp-page="Archive" asp-route-id="@obj.StudentId"
-                           class="btn btn-info mx-2"> <i class="bi bi-trash-fill"></i>Open</a>
+                           class="btn btn-info mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Open</a>
                             }
-
                         </div>
                     </td>
                 </tr>
@@ -70,3 +57,11 @@
         </tbody>
     </table>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+}

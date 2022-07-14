@@ -12,15 +12,24 @@ public class Note
 {
     public int NoteId { get; set; }
 
-    public Student Student { get; set; }
-    
-    public FacultyMember FacultyMember { get; set; }
-
-    public NoteType NoteType { get; set; }
+    public string? Topic { get; set; }
 
     [Required]
-    public string Content { get; set; }
+    public string Content { get; set; } = string.Empty;
 
     [Required]
     public DateTime CreatedDate { get; set; }
+
+    public DateTime? EditedDate { get; set; }
+
+    //relationships
+    [Required]
+    [ForeignKey("StudentId")]
+    public Student Student { get; set; }
+    [Required]
+    [ForeignKey("FacultyMemberId")]
+    public FacultyMember FacultyMember { get; set; }
+    [Required]
+    [ForeignKey("AccessTypeId")]
+    public AccessType NoteType { get; set; }
 }

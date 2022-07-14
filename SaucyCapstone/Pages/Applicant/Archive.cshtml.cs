@@ -3,37 +3,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Applicant
+namespace SaucyCapstone.Pages.Applicant;
+
+public class ArchiveModel : PageModel
 {
-    public class ArchiveModel : PageModel
+
+    private readonly ApplicationDbContext _db;
+
+    public ArchiveModel(ApplicationDbContext db)
     {
+        _db = db;
+    }
 
-        private readonly ApplicationDbContext _db;
-
-        public ArchiveModel(ApplicationDbContext db)
+    public async Task<IActionResult> OnGet(int? id)
+    {
+        if (id.HasValue)
         {
-            _db = db;
-        }
-
-        public async Task<IActionResult> OnGet(int? id)
-        {
-            if (id.HasValue)
+            Student temp = _db.Students.Where(u => u.StudentId == id).First();
+            if (temp.AppStatus == Student.ApplicationStatus.Open)
             {
-                Student temp = _db.Students.Where(u => u.StudentId == id).First();
-                if (temp.Status == Student.StudentStatus.OpenApplication)
-                {
-                    temp.Status = Student.StudentStatus.Denied;
-                }
-                else if (temp.Status == Student.StudentStatus.Denied)
-                {
-                    temp.Status = Student.StudentStatus.OpenApplication;
-                }
-
-                temp.LastModifiedDate = DateTime.Now;
-                await _db.SaveChangesAsync();
+                temp.AppStatus = Student.ApplicationStatus.Archived;
+            }
+            else if (temp.AppStatus == Student.ApplicationStatus.Archived)
+            {
+                temp.AppStatus = Student.ApplicationStatus.Open;
             }
 
-            return RedirectToPage("./Index");
+            temp.LastModifiedDate = DateTime.Now;
+            await _db.SaveChangesAsync();
         }
+
+        return RedirectToPage("./Index");
     }
 }

@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
+using Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SaucyCapstone.Pages.Admin.Courses;
 
@@ -9,8 +11,8 @@ public class IndexModel : PageModel
 {
     private readonly ApplicationDbContext _context;
 
-    public IList<Course> CourseList { get;set; }
-    public IList<School> SchoolList { get;set; }
+    [BindProperty]
+    public CourseVM CourseVM { get; set; }
 
     public IndexModel(ApplicationDbContext context)
     {
@@ -21,8 +23,10 @@ public class IndexModel : PageModel
     {
         if (_context.Courses != null)
         {
-            CourseList = await _context.Courses.ToListAsync();
-            SchoolList = await _context.Schools.ToListAsync();
+            CourseVM = new()
+            {
+                CourseList = await _context.Courses.Include(c => c.Term).Include(c => c.Instructor).Include(c => c.Subject).Include(c => c.School).ToListAsync()
+            };
         }
     }
 }

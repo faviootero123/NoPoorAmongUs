@@ -8,56 +8,55 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Terms
+namespace SaucyCapstone.Pages.Admin.Terms;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public DeleteModel(ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(SaucyCapstone.Data.ApplicationDbContext context)
+    [BindProperty]
+  public Term Term { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Terms == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-      public Term Term { get; set; } = default!;
+        var term = await _context.Terms.FirstOrDefaultAsync(m => m.TermId == id);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        if (term == null)
         {
-            if (id == null || _context.Terms == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        else 
+        {
+            Term = term;
+        }
+        return Page();
+    }
 
-            var term = await _context.Terms.FirstOrDefaultAsync(m => m.TermId == id);
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null || _context.Terms == null)
+        {
+            return NotFound();
+        }
+        var term = await _context.Terms.FindAsync(id);
 
-            if (term == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Term = term;
-            }
-            return Page();
+        if (term != null)
+        {
+            Term = term;
+            _context.Terms.Remove(Term);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null || _context.Terms == null)
-            {
-                return NotFound();
-            }
-            var term = await _context.Terms.FindAsync(id);
-
-            if (term != null)
-            {
-                Term = term;
-                _context.Terms.Remove(Term);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

@@ -8,25 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Terms
+namespace SaucyCapstone.Pages.Admin.Terms;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public IndexModel(ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public IndexModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public IList<Term> Term { get;set; } = default!;
+
+    public async Task OnGetAsync()
+    {
+        if (_context.Terms != null)
         {
-            _context = context;
-        }
-
-        public IList<Term> Term { get;set; } = default!;
-
-        public async Task OnGetAsync()
-        {
-            if (_context.Terms != null)
-            {
-                Term = await _context.Terms.ToListAsync();
-            }
+            Term = await _context.Terms.ToListAsync();
         }
     }
 }

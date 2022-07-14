@@ -1,0 +1,43 @@
+﻿@page
+@model SaucyCapstone.Pages.Admin.UserManagement.IndexModel
+@{
+
+}
+<h1>Users</h1>
+
+<p>
+    <a asp-page="Create">Add New User</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                User Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.UsersVM) {
+        <tr>
+            <td>
+                @item.UserName
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                Actions
+@*                <a asp-page="./Edit" asp-route-id="@item.TermId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.TermId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.TermId">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

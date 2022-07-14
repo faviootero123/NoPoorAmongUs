@@ -2,40 +2,81 @@
 @model SaucyCapstone.Pages.Sessions.EnrollmentsModel
 @{
 }
-@*<div>
-  @foreach(var student in Model.Students)
-    {
-        <p>@student.FirstName @student.LastName</p>
-    }
-</div>*@
-<h2>@Model.session.Course.SubjectName @Model.session.Course.CourseName </h2>
-<h5>Day: @Model.session.DayofWeek <br/>
-    Time: @Model.session.StartTime - @Model.session.EndTime</h5>
-<form>
-    
-<div class="row">
-    <table class="table">
-        <thead class="thead-light">
-            <tr>
 
+<h2>@Model.session.Session.DayofWeek @Model.session.Session.Course.Subject.SubjectName</h2>
+<h5>
+    Day: @Model.session.Session.DayofWeek <br />
+    Time: @Model.session.Session.StartTime.ToShortTimeString() - @Model.session.Session.EndTime.ToShortTimeString()
+</h5>
+<form method="post">
+    <h2>Enrolled Students</h2>
+    
+        
+    <table id="dataTable" class="table table-bordered table-striped" style="width:100%;">
+        <thead>
+            <tr>
                 <th scope="col">Student Name</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col">Student Options</th>
             </tr>
         </thead>
         <tbody>
-            @foreach(var student in Model.Students)
+            @foreach (var student in Model.session.Enrollments) //all students enrolled in this session
             {
-            <tr>
-                <td> @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)</td>
-                <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a></td>
-                <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-clipboard-data-fill"></i>&nbsp;Assessment</a></td>
-                <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-arrow-left-right"></i>&nbsp; Transfer Sessions</a></td>
-                <td> <a class="btn btn-success" asp-page="" asp-route-id=""><i class="bi bi-x-square-fill"></i>&nbsp;Remove</a></td>
-            </tr>
-          
+                <tr>
+                    <td width="25%">
+                        @Html.DisplayFor(modelItem => @student.Student.FirstName) @Html.DisplayFor(modelItem => @student.Student.LastName)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" style="justify-content:end;">
+                            <a class="btn btn-primary mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.Student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
+                            <a class="btn btn-info mx-2" asp-page="" asp-route-id=""><i class="bi bi-clipboard-data-fill"></i>&nbsp;Assessment</a>
+                            
+                            <button class="btn btn-danger mx-2" asp-page-handler="Remove" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Remove</button>
+                             <button class="btn btn-success mx-2" asp-page-handler="Pass" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Pass</button>
+                        </div>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
-</div>
+    
+    <h2>All Students</h2>
+         <input type="hidden" asp-for="session.Session.SessionId" />
+        
+    <table id="dataTable" class="table table-bordered table-striped" style="width:100%;">
+        <thead>
+            <tr>
+                <th scope="col">Student Name</th>
+                <th scope="col">Student Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.studentList)
+            {
+                if (!Model.isEnrolled(Model.session.Session.SessionId, student.StudentId))//only show students not enrolled already
+                {
+                    <tr>
+                        <td width="25%">
+                        @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" style="justify-content:end;">
+                            <a class="btn btn-primary mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
+                            <button type="submit" class="btn btn-info mx-2"  asp-page-handler="Enroll" asp-route-id="@student.StudentId"><i class="bi bi-clipboard-data-fill"></i>&nbsp;Enroll</button>
+                     
+                        </div>
+                    </td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
 </form>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+}

@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SaucyCapstone.styles.css" asp-append-version="true" />
     <link id="theme" rel="stylesheet" href="~/css/themes/flatly.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css" />
 </head>
 <body>
     <header>
@@ -25,52 +26,62 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link text-white dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-page="/Admin/Courses/Index">Courses</a>
-                                    <a class="dropdown-item" asp-area="" asp-page="/Admin/Ratings/Index">Ratings</a>
-                                    <a class="dropdown-item" asp-area="" asp-page="/Admin/Schools/Index">Schools</a>
-                                    <a class="dropdown-item" asp-area="" asp-page="/Admin/Terms/Index">Terms</a>
-                                   
-                                </div>
-                            </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Students/Index">Student</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-page="/Admin/Courses/Index">Courses</a>
+                                <a class="dropdown-item" asp-page="/Admin/Criteria/Index">Criteria</a>
+                                <a class="dropdown-item" asp-page="/Admin/Schools/Index">Schools</a>
+                                <a class="dropdown-item" asp-page="/Admin/Terms/Index">Terms</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-page="/Admin/UserManagement/Index">Manage Users</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Applicant</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-page="/Applicant/Index">Overview</a>
+                                <a class="dropdown-item" asp-page="/Admin/Ratings/Index">Ratings</a>
+                            </div>
                         </li>
                         <li class="nav-item">
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark"  asp-page="/Sessions/Index">Session</a>
+                            <a class="nav-link" asp-page="/Students/Index">Student</a>
                         </li>
- 
-                            <a class="nav-link" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Applicant/Index">Applicant</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Judge" asp-action="Index">Judge</a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Class" asp-action="Index">Class</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Instructor</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-page="/Sessions/Index">Session</a>
+                                <a class="dropdown-item" asp-page="">Class</a>
+                            </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            <a class="nav-link" asp-page="/Admin/Reports/Index">Reports</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Report">Reports</a>
-
-                        </li>
-
                     </ul>
-                    <div class="form-check form-switch text-success">
-                        <label class="custom-control-label" for="themeSwitch"><i id="themeIcon" class="bi bi-moon"></i></label>
-                        <input class="form-check-input" type="checkbox" role="switch" id="themeSwitch">
-                    </div>
+
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-gear"></i></a>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-item">
+                                    <div>Dark Mode:</div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="themeSwitch">
+                                        <div class="custom-control-label" for="themeSwitch"><i id="themeIcon" class="bi bi-sun-fill"></i></div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-item">
+                                    <div>Language:</div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="langSwitch">
+                                        <div class="custom-control-label" for="langSwitch"><i id="langIcon" class="bi bi-flag-fill"></i></div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            </div>
+                        </li>
+                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -84,7 +95,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - SaucyCapstone - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div>&copy; 2022 - SaucyCapstone</div>
         </div>
     </footer>
 
@@ -94,9 +105,14 @@
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -10,33 +10,18 @@ namespace Data;
 
 public class Session
 {
-    [Key]
     public int SessionId { get; set; }
+    [Required]
+    public string DayofWeek { get; set; } 
+    [Required]
+    public DateTime StartTime { get; set; } 
+    [Required]
+    public DateTime EndTime { get; set; }
+    [Required]
+    public bool IsActive { get; set; }
 
     [Required]
-    public int CourseId { get; set; }
-
-    [Required]
-    public int TermId { get; set; }
-
-  
-
     [ForeignKey("CourseId")]
     public Course Course { get; set; }
-
-    
-    public Employee? Employee { get; set; }
-
-    [ForeignKey("TermId")]
-    public Term Term { get; set; }
-
-  public string DayofWeek { get; set; }
-    public bool isActive { get; set; } = true;
-
-    [Required]
-    public string StartTime { get; set; }
-
-    [Required]
-    public string EndTime { get; set; }
-    public IList<Enrollment> Enrollments {get; set;}
+    public IList<Attendance>? Attendances {get; set;}
 }

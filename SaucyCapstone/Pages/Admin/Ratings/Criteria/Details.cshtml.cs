@@ -8,36 +8,35 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Criteria
+namespace SaucyCapstone.Pages.Criteria;
+
+public class DetailsModel : PageModel
 {
-    public class DetailsModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public DetailsModel(ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DetailsModel(SaucyCapstone.Data.ApplicationDbContext context)
+  public Criterion Criterion { get; set; } = default!; 
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Criteria == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-      public Criterion Criterion { get; set; } = default!; 
-
-        public async Task<IActionResult> OnGetAsync(int? id)
+        var criterion = await _context.Criteria.FirstOrDefaultAsync(m => m.CriterionId == id);
+        if (criterion == null)
         {
-            if (id == null || _context.Criteria == null)
-            {
-                return NotFound();
-            }
-
-            var criterion = await _context.Criteria.FirstOrDefaultAsync(m => m.CriterionId == id);
-            if (criterion == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Criterion = criterion;
-            }
-            return Page();
+            return NotFound();
         }
+        else 
+        {
+            Criterion = criterion;
+        }
+        return Page();
     }
 }

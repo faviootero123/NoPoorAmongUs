@@ -15,10 +15,6 @@ public class DeleteModel : PageModel
         _context = context;
     }
 
-    public Course Course { get; set; }
-
-    public School School { get; set; }
-
     [BindProperty]
     public CourseVM CourseVM { get; set; }
 
@@ -31,9 +27,13 @@ public class DeleteModel : PageModel
 
         var course = await _context.Courses.FindAsync(id);
 
-        var school = _context.Schools.Where(s => s.Courses.Contains(course)).First();
+        course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault();
+        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault();
+        course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault();
+        course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault();
 
-        if (course == null || school == null)
+
+        if (course == null)
         {
             return NotFound();
         }
@@ -41,12 +41,15 @@ public class DeleteModel : PageModel
         {
             CourseVM = new()
             {
-                School = school.SchoolId,
-                SchoolName = school.SchoolName,
-                Course = course.CourseName,
-                Subject = course.SubjectName
+                Course = course,
+                CourseId = course.CourseId,
+                TermId = course.Term.TermId,
+                FacultyMemberId = course.Instructor.FacultyMemberId,
+                SubjectId = course.Subject.SubjectId,
+                SchoolId = course.School.SchoolId
             };
         }
+
         return Page();
     }
 
@@ -56,12 +59,10 @@ public class DeleteModel : PageModel
         {
             return NotFound();
         }
-        var course = await _context.Courses.FindAsync(id);
 
-        if (course != null)
+        if (id != null)
         {
-            Course = course;
-            _context.Courses.Remove(Course);
+            _context.Courses.Remove(CourseVM.Course);
             await _context.SaveChangesAsync();
         }
 

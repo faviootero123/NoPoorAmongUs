@@ -8,56 +8,55 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Ratings
+namespace SaucyCapstone.Pages.Admin.Ratings;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public DeleteModel(ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(SaucyCapstone.Data.ApplicationDbContext context)
+    [BindProperty]
+  public Rating Rating { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null || _context.Ratings == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-      public Rating Rating { get; set; } = default!;
+        var rating = await _context.Ratings.FirstOrDefaultAsync(m => m.RatingId == id);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        if (rating == null)
         {
-            if (id == null || _context.Ratings == null)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        else 
+        {
+            Rating = rating;
+        }
+        return Page();
+    }
 
-            var rating = await _context.Ratings.FirstOrDefaultAsync(m => m.RatingId == id);
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null || _context.Ratings == null)
+        {
+            return NotFound();
+        }
+        var rating = await _context.Ratings.FindAsync(id);
 
-            if (rating == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Rating = rating;
-            }
-            return Page();
+        if (rating != null)
+        {
+            Rating = rating;
+            _context.Ratings.Remove(Rating);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null || _context.Ratings == null)
-            {
-                return NotFound();
-            }
-            var rating = await _context.Ratings.FindAsync(id);
-
-            if (rating != null)
-            {
-                Rating = rating;
-                _context.Ratings.Remove(Rating);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }

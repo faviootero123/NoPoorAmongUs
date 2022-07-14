@@ -74,9 +74,9 @@ public class CreateModel : PageModel
                 string fileName = Guid.NewGuid().ToString();
                 var uploads = Path.Combine(wwwRootPath, @"images\students");
                 var extension = Path.GetExtension(file.FileName);
-                if (applicant.StudentDetails.Picture != null)
+                if (applicant.StudentDetails.ImageUrl != null)
                 {
-                    var oldImagePath = Path.Combine(wwwRootPath, applicant.StudentDetails.Picture.TrimStart('\\'));
+                    var oldImagePath = Path.Combine(wwwRootPath, applicant.StudentDetails.ImageUrl.TrimStart('\\'));
                     if (System.IO.File.Exists(oldImagePath))
                     {
                         System.IO.File.Delete(oldImagePath);
@@ -86,7 +86,7 @@ public class CreateModel : PageModel
                 {
                     file.CopyTo(fileStreams);
                 }
-                applicant.StudentDetails.Picture = @"\images\students\" + fileName + extension;
+                applicant.StudentDetails.ImageUrl = @"\images\students\" + fileName + extension;
             }
 
 
@@ -105,9 +105,9 @@ public class CreateModel : PageModel
                 temp.FirstName = applicant.StudentDetails.FirstName;
                 temp.LastName = applicant.StudentDetails.LastName;
                 temp.Phone = applicant.StudentDetails.Phone;
-                temp.Picture = applicant.StudentDetails.Picture;
+                temp.ImageUrl = applicant.StudentDetails.ImageUrl;
                 temp.Determination = applicant.StudentDetails.Determination;
-                temp.Status = Student.StudentStatus.OpenApplication;
+                temp.AppStatus = Student.ApplicationStatus.Open;
                 temp.DateOfBirth = applicant.StudentDetails.DateOfBirth;
                 temp.AcceptedDate = DateTime.MinValue;
                 temp.LastModifiedDate = DateTime.Now;
@@ -148,9 +148,9 @@ public class CreateModel : PageModel
                     FirstName = applicant.StudentDetails.FirstName,
                     LastName = applicant.StudentDetails.LastName,
                     Phone = applicant.StudentDetails.Phone,
-                    Picture = applicant.StudentDetails.Picture,
+                    ImageUrl = applicant.StudentDetails.ImageUrl,
                     Determination = applicant.StudentDetails.Determination,
-                    Status = Student.StudentStatus.OpenApplication,
+                    AppStatus = Student.ApplicationStatus.Open,
                     DateOfBirth = applicant.StudentDetails.DateOfBirth,
                     AcceptedDate = DateTime.MinValue,
                     LastModifiedDate = DateTime.Now,

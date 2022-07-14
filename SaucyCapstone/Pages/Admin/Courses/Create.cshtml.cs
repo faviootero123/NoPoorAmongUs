@@ -16,23 +16,13 @@ public class CreateModel : PageModel
         _context = context;
     }
 
-    public Course Course { get; set; }
-
-    public School School { get; set; }
-
     [BindProperty]
     public CourseVM CourseVM { get; set; }
 
-    [BindProperty]
-    public IEnumerable<SelectListItem> SchoolList { get; set; }
-
     public IActionResult OnGet()
     {
-        SchoolList = _context.Schools.Select(i => new SelectListItem
-        {
-            Text = i.SchoolName,
-            Value = i.SchoolId.ToString()
-        });
+        CourseVM = new();
+        CourseVM.DropdownHelperAsync(_context, null);
 
         return Page();
     }
@@ -40,16 +30,18 @@ public class CreateModel : PageModel
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
     public async Task<IActionResult> OnPostAsync(CourseVM courseVM)
     {
-        if (ModelState.IsValid)
+        if (ModelState.IsValid && _context.Courses != null)
         {
-            Course Course = new()
+            CourseVM.Course = new()
             {
-                School = _context.Schools.Where(s => s.SchoolId == courseVM.School).FirstOrDefault(),
-                CourseName = courseVM.Course,
-                SubjectName = courseVM.Subject
+                Term = _context.Terms.Where(s => s.TermId == courseVM.TermId).First(),
+                Instructor = _context.FacultyMembers.Where(s => s.FacultyMemberId == courseVM.FacultyMemberId).First(),
+                Subject = _context.Subjects.Where(s => s.SubjectId == courseVM.SubjectId).First(),
+                School = _context.Schools.Where(s => s.SchoolId == courseVM.SchoolId).First()
             };
-            _context.Courses.Add(Course);
+            _context.Courses.Add(CourseVM.Course);
             await _context.SaveChangesAsync();
+
             return RedirectToPage("./Index");
         }
 

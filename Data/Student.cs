@@ -10,39 +10,25 @@ namespace Data;
 
 public class Student
 {
-    public enum DeterminationLevel
-    {
-        Low,
-        AboveLow,
-        Middle,
-        BelowHigh,
-        High
-    }
-    public enum StudentStatus
-    {
-        OpenApplication,
-        Denied,
-        Active,
-        Graduated
-    }
-
     public int StudentId { get; set; }
 
-    public string? Picture { get; set; }
+    public string? ImageUrl { get; set; }
 
     [Required]
     [Display(Name = "Student Name")]
-    public string FirstName { get; set; }
+    public string FirstName { get; set; } = string.Empty;
 
     [Required]
-    public string LastName { get; set; }
+    public string LastName { get; set; } = string.Empty;
 
     [Required]
     public DateTime DateOfBirth { get; set; }
+    public int EnglishLevel { get; set; }
 
+    public int ITLevel { get; set; }
     public string? Phone { get; set; }
 
-    public DateTime AcceptedDate { get; set; }
+    public DateTime? AcceptedDate { get; set; }
 
     [Required]
     public DateTime LastModifiedDate { get; set; }
@@ -50,8 +36,9 @@ public class Student
     [Required]
     public bool IsActive { get; set; }
 
-    [Required]
     public StudentStatus Status { get; set; }
+
+    public ApplicationStatus AppStatus { get; set; }
 
     public string? Address { get; set; }
 
@@ -61,7 +48,7 @@ public class Student
 
     public string? Longitude { get; set; }
 
-    [Column(TypeName = "smallmoney")]
+    [Column(TypeName = "money")]
     public decimal AnnualIncome { get; set; }
 
     [Required]
@@ -77,10 +64,37 @@ public class Student
     [EnumDataType(typeof(DeterminationLevel))]
     public DeterminationLevel Determination { get; set; }
 
-    public string? NotesAndAbout { get; set; }
+    public string? NotesAndAbout { get; set; } = string.Empty;
 
-    public IList<Enrollment> Enrollments {get; set;}
 
-    public IList<Rating> Ratings { get; set; }    
+    //relationships
+    public IList<StudentDoc>? Documents { get; set; }
+    public IList<Note>? Notes { get; set; }
+    public IList<Rating>? Ratings { get; set; }
+    public IList<Enrollment>? Enrollments {get; set;}
+    public IList<StudentGuardian> StudentGuardians { get; set; }
 
+    //enums
+    public enum DeterminationLevel
+    {
+        Low,
+        AboveLow,
+        Middle,
+        BelowHigh,
+        High
+    }
+    public enum StudentStatus
+    {
+        Applicant,
+        Active,
+        Inactive,
+        Graduated
+    }
+    public enum ApplicationStatus
+    {
+        Archived,
+        Open,
+        Judged,
+        Approved
+    }
 }

@@ -1,63 +1,28 @@
 using Data;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Models.ViewModels;
 using SaucyCapstone.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace SaucyCapstone.Pages.Students
+namespace SaucyCapstone.Pages.Students;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly ApplicationDbContext _db;
+    public List<Student> Students { get; set; }
+    private readonly ILogger<IndexModel> _logger;
+
+    public IndexModel(ApplicationDbContext db, ILogger<IndexModel> logger)
     {
-        private readonly ApplicationDbContext _db;
-        public StudentVM StudentVM { get; set; }
-
-        public IndexModel(ApplicationDbContext db)
-        {
-            _db = db;
-
-            //GetStudentGuardian = _db.StudentGuardians.Where(u => u.Student.StudentId == studentId).FirstOrDefault();
-
-            StudentVM = new StudentVM()
-            {
-                //Students = _db.Students.Where(u => u.StudentId == studentId).FirstOrDefault(),
-                //Guardians = _db.Guardians.Where(u => u.GuardianId == GetStudentGuardian.Guardian.GuardianId).ToList()
-                Students = new Student()
-                {
-                    FirstName = "Alex",
-                    LastName = "Junior",
-                    Phone = "555-555-5555",
-                    DateOfBirth = DateTime.Now,
-                    AcceptedDate = DateTime.Now,
-                    LastModifiedDate = DateTime.Now,
-                    IsActive = true,
-                    Status = Student.StudentStatus.Active,
-                    SchoolLevel = '8',
-                    FoodAssistance = false,
-                    ChappaAssistance = true,
-                    Determination = Student.DeterminationLevel.High,
-                    AnnualIncome = 1333,
-                    Picture = "~/StudentPictures/obama.jpg",
-                    NotesAndAbout = "obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama obama "
-                },
-                Guardians = new List<Guardian>()
-                 {
-                    new Guardian()
-                    {
-                        FirstName = "Mary",
-                        LastName = "Larry",
-                        ContactInfo = "555-555-5555",
-                        Relation = "Mother"
-                    },
-                    new Guardian()
-                    {
-                        FirstName = "Colt",
-                        LastName = "Bolt",
-                        ContactInfo = "555-555-5555",
-                        Relation = "Father"
-                    }
-                 }
-
-            };
-        }
+        _logger = logger;
+        _db = db;
+        Students = new List<Student>();
     }
+
+    public async Task OnGetAsync()
+    {
+        Students = await _db.Students.Where(u => u.Status == Student.StudentStatus.Active && u.IsActive == true).ToListAsync();
+        _logger.LogDebug("Testing serilog");
+    }
+
 }
+
