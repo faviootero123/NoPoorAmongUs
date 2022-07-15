@@ -7,11 +7,13 @@
 
 <h1>Create Term</h1>
 
-<h4>Term</h4>
+
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
+
+<form method="post">
+    <div class="card">
+        <h4 class="card-header">Create Term</h4>
+        <div class="card-body">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Term.StartDate" class="control-label"></label>
@@ -33,18 +35,25 @@
                     <input class="form-check-input" asp-for="Term.IsActive" /> @Html.DisplayNameFor(model => model.Term.IsActive)
                 </label>
             </div>
+        </div>
+        <div class="card-footer">
             <div class="form-group">
                 <input type="hidden" asp-for="Term.Courses" />
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
+        </div>
     </div>
-</div>
+
+
+</form>
+
 
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
