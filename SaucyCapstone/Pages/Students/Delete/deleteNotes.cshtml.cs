@@ -1,11 +1,16 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
+using SaucyCapstone.Static;
+using System.Security.Claims;
 
 namespace SaucyCapstone.Pages.Students.Delete;
 
+[Authorize]
 public class deleteNotesModel : PageModel
 {
     private readonly ApplicationDbContext _db;
@@ -17,14 +22,14 @@ public class deleteNotesModel : PageModel
         _db = db;
     }
 
-    public async Task<IActionResult> OnGetAsync(int? id)
+    public async Task<IActionResult> OnGetAsync(int? noteId)
     {
-        if (id == null || _db.Notes == null)
+        if (noteId == null || _db.Notes == null)
         {
             return NotFound();
         }
 
-        var note = await _db.Notes.Include(d => d.Student).FirstOrDefaultAsync(m => m.NoteId == id);
+        var note = await _db.Notes.Include(d => d.Student).FirstOrDefaultAsync(m => m.NoteId == noteId);
 
         if (note == null)
         {
@@ -38,15 +43,15 @@ public class deleteNotesModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(int? id)
+    public async Task<IActionResult> OnPostAsync(int? noteId)
     {
-        if (id == null || _db.Notes == null)
+        if (noteId == null || _db.Notes == null)
         {
             return NotFound();
         }
 
-        var getStudentId = await _db.Notes.Include(d => d.Student).FirstOrDefaultAsync(m => m.NoteId == id);
-        var note = await _db.Notes.FindAsync(id);
+        var getStudentId = await _db.Notes.Include(d => d.Student).FirstOrDefaultAsync(m => m.NoteId == noteId);
+        var note = await _db.Notes.FindAsync(noteId);
 
         if (note != null)
         {

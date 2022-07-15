@@ -1,13 +1,17 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
 using System;
 using System.IO;
+using System.Security.Claims;
 
 namespace SaucyCapstone.Pages.Students.Delete;
 
+[Authorize]
 public class deleteDocumentsModel : PageModel
 {
     private readonly ApplicationDbContext _db;

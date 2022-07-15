@@ -4,29 +4,32 @@
 }
 
 <h1>Edit Note</h1>
-
-<h4>Note</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" value="@Model.Note.Student.StudentId" asp-for="@Model.NoteEditVM.StudentId" />
-            <input type="hidden" value="@Model.Note.NoteId" asp-for="@Model.NoteEditVM.StudentNoteId" />
+            <input type="hidden" value="@Model.Note.Student.StudentId" asp-for="@Model.NoteVM.StudentId" />
+            <input type="hidden" value="@Model.Note.NoteId" asp-for="@Model.NoteVM.StudentNoteId" />
 
             <div class="form-group">
-                <label asp-for="@Model.NoteEditVM.Topic" class="control-label"></label>       
-                <input asp-for="@Model.NoteEditVM.Topic" value="@Model.Note.Topic"  class="form-control" />
-                <span asp-validation-for="@Model.NoteEditVM.Topic" class="text-danger"></span>
+                <label asp-for="@Model.NoteVM.Topic" class="control-label"></label>       
+                <input asp-for="@Model.NoteVM.Topic" value="@Model.Note.Topic"  class="form-control" />
+                <span asp-validation-for="@Model.NoteVM.Topic" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.NoteEditVM.Content" class="control-label"></label>
-                <input asp-for="@Model.NoteEditVM.Content" value="@Model.Note.Content" class="form-control" />
-                <span asp-validation-for="@Model.NoteEditVM.Content" class="text-danger"></span>
+                <label asp-for="@Model.NoteVM.Content" class="control-label"></label>
+                <textarea asp-for="@Model.NoteVM.Content" class="form-control" ></textarea>
+                <span asp-validation-for="@Model.NoteVM.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                
+                <label asp-for="@Model.NoteVM.isPrivate" class="control-label">Private Note</label>
+                <input asp-for="@Model.NoteVM.isPrivate" type="checkbox" class="form-check-input" >
+                <span asp-validation-for="@Model.NoteVM.isPrivate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Save" class="btn btn-success" />  
                 <a class="btn btn-primary" asp-route-id="@Model.Note.Student.StudentId" asp-page="/Students/StudentNotes" >Cancel</a>
             </div>
         </form>

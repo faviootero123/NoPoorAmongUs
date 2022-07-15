@@ -2,9 +2,14 @@ using Data;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SaucyCapstone.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using SaucyCapstone.Constants;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Students;
 
+[Authorize]
 public class IndexModel : PageModel
 {
     private readonly ApplicationDbContext _db;
@@ -17,11 +22,11 @@ public class IndexModel : PageModel
         _db = db;
         Students = new List<Student>();
     }
-
-    public async Task OnGetAsync()
+    public async Task<ActionResult> OnGetAsync()
     {
         Students = await _db.Students.Where(u => u.Status == Student.StudentStatus.Active && u.IsActive == true).ToListAsync();
         _logger.LogDebug("Testing serilog");
+        return Page();
     }
 
 }

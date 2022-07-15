@@ -1,40 +1,45 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
+using SaucyCapstone.Static;
+using System.Security.Claims;
 
 namespace SaucyCapstone.Pages.Students.Add;
 
+[Authorize]
 public class addNotesModel : PageModel
 {
     private readonly ApplicationDbContext _db;
     [BindProperty]
     public int StudentId { get; set; }
     [BindProperty]
-    public Note studentNote { get; set; }
+    public Note Note { get; set; }
 
     public addNotesModel(ApplicationDbContext db)
     {
         _db = db;
-        studentNote = new Note(); 
     }
-
-    public async Task OnGetAsync(int id)
+    public async Task<ActionResult> OnGetAsync(int studentId)
     {
-        StudentId = id;        
+        StudentId = studentId;
+        return Page();     
     }
 
     public async Task<IActionResult> OnPostAsync(int id)
     {
         var newNote = new Note()
         {
-        Topic = studentNote.Topic,
-        Content = studentNote.Content,
+        Topic = Note.Topic,
+        Content = Note.Content,
         CreatedDate = DateTime.Now,
         Student = _db.Students.Where(d=>d.StudentId == id).FirstOrDefault(),
         FacultyMember = _db.FacultyMembers.FirstOrDefault(),
         NoteType = _db.AccessTypes.FirstOrDefault(),
+        isPrivate = Note.isPrivate,
         EditedDate = DateTime.Now
         };
         await _db.AddAsync(newNote);

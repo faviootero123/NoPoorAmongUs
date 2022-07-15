@@ -540,7 +540,9 @@ public static class ConfigurationStaticMethods
                 FacultyMember = faculty,
                 Topic = "this is the note topic",
                 Content = "this is the note content",
+                isPrivate = false,
                 CreatedDate = DateTime.Now,
+                EditedDate = DateTime.Now,
                 NoteType = accesstype
             };
             var note2 = new Note
@@ -549,7 +551,9 @@ public static class ConfigurationStaticMethods
                 FacultyMember = faculty,
                 Topic = "this is the note topic",
                 Content = "this is the note content",
+                isPrivate = false,
                 CreatedDate = DateTime.Now,
+                EditedDate = DateTime.Now,
                 NoteType = accesstype
             };
             await db.AddAsync(note);
