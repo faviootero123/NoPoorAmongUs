@@ -1,12 +1,17 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
+using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
+using SaucyCapstone.Static;
+using System.Security.Claims;
 
 namespace SaucyCapstone.Pages.Students.Edit;
 
+[Authorize]
 public class editNotesModel : PageModel
 {
     public readonly ApplicationDbContext _db;
@@ -22,6 +27,7 @@ public class editNotesModel : PageModel
     }
 
     public async Task<IActionResult> OnGetAsync(int? noteId)
+
     {
         if (noteId == null || _db.Notes == null)
         {
@@ -37,6 +43,7 @@ public class editNotesModel : PageModel
 
         Note = note;
         NoteVM.Content = Note.Content;
+        NoteVM.isPrivate = Note.isPrivate;
 
         return Page();
     }
@@ -58,10 +65,10 @@ public class editNotesModel : PageModel
         note.EditedDate = DateTime.Now;
         note.Content = NoteEditVM.Content;
         note.Topic = NoteEditVM.Topic;
+        note.isPrivate = NoteEditVM.isPrivate;
 
         _db.Update(note);
         await _db.SaveChangesAsync();             
-
 
         return RedirectToPage("../StudentNotes", new { id = NoteEditVM.StudentId });
     }

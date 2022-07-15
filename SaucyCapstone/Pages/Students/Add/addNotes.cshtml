@@ -22,6 +22,11 @@
                 <span asp-validation-for="@Model.Note.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="@Model.Note.isPrivate" class="control-label">Private Note</label>
+                <input asp-for="@Model.Note.isPrivate" type="checkbox" class="form-check-input">
+                <span asp-validation-for="@Model.Note.isPrivate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <br />
                 <button asp-route-id="@Model.StudentId" type="submit" class="btn btn-success">Create</button>
                 <a class="btn btn-primary" asp-route-id="@Model.StudentId" asp-page="/Students/StudentNotes" >Cancel</a>

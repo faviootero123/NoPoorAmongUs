@@ -33,6 +33,9 @@
                 <th>
                     Edited Date
                 </th>
+                <th>
+                    Visible by 
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -48,7 +51,7 @@
                         <td width="30%">
                             @obj.Content
                         </td>
-                        <td width="20%">
+                        <td width="10%">
                             @obj.FacultyMember?.FirstName @obj.FacultyMember?.LastName
                         </td>
                         <td width="10%">
@@ -57,6 +60,19 @@
                         <td width="10%">
                             @obj.EditedDate
                         </td>
+                        @if(@obj.isPrivate == true)
+                        {
+                           <td width="10%">
+                               Only You
+                           </td>  
+                        }
+                        @if(@obj.isPrivate == false)
+                        {
+                           <td width="10%">
+                               Everyone
+                           </td>  
+                        }
+                        
                         <td width="10%">
                             <div class="btn-group" role="group">
                                 <a class="btn btn-success mx-2" asp-page="./Edit/editNotes" asp-route-noteId="@obj.NoteId">Edit</a>

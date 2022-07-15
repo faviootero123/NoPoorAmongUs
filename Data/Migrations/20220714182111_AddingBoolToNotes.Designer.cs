@@ -12,8 +12,8 @@ using SaucyCapstone.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220712182532_AddingCourseLevel")]
-    partial class AddingCourseLevel
+    [Migration("20220714182111_AddingBoolToNotes")]
+    partial class AddingBoolToNotes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -248,7 +248,7 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnrollmentId"), 1L, 1);
 
-                    b.Property<int>("CourseId")
+                    b.Property<int?>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<int>("EnrollmentStatus")
@@ -260,6 +260,9 @@ namespace Data.Migrations
                     b.Property<int>("GradeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
@@ -268,6 +271,8 @@ namespace Data.Migrations
                     b.HasIndex("CourseId");
 
                     b.HasIndex("GradeId");
+
+                    b.HasIndex("SessionId");
 
                     b.HasIndex("StudentId");
 
@@ -389,6 +394,9 @@ namespace Data.Migrations
                     b.Property<string>("Topic")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("isPrivate")
+                        .HasColumnType("bit");
+
                     b.HasKey("NoteId");
 
                     b.HasIndex("AccessTypeId");
@@ -506,12 +514,18 @@ namespace Data.Migrations
                     b.Property<int>("Determination")
                         .HasColumnType("int");
 
+                    b.Property<int>("EnglishLevel")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("FoodAssistance")
                         .HasColumnType("bit");
+
+                    b.Property<int>("ITLevel")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -881,15 +895,19 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Enrollment", b =>
                 {
-                    b.HasOne("Data.Course", "Course")
+                    b.HasOne("Data.Course", null)
                         .WithMany("Enrollments")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
 
                     b.HasOne("Data.Grade", "Grade")
                         .WithMany("Enrollments")
                         .HasForeignKey("GradeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.Session", "Session")
+                        .WithMany()
+                        .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -899,9 +917,9 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Course");
-
                     b.Navigation("Grade");
+
+                    b.Navigation("Session");
 
                     b.Navigation("Student");
                 });

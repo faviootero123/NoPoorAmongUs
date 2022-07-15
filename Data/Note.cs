@@ -14,6 +14,8 @@ public class Note
 
     public string? Topic { get; set; }
 
+    public bool isPrivate { get; set; } = false;
+
     [Required]
     public string Content { get; set; } = string.Empty;
 

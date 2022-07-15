@@ -4,23 +4,23 @@
 
 namespace Data.Migrations
 {
-    public partial class AddingCourseLevel : Migration
+    public partial class AddingBoolToNotes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "CourseLevel",
-                table: "Courses",
-                type: "int",
+            migrationBuilder.AddColumn<bool>(
+                name: "isPrivate",
+                table: "Notes",
+                type: "bit",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "CourseLevel",
-                table: "Courses");
+                name: "isPrivate",
+                table: "Notes");
         }
     }
 }

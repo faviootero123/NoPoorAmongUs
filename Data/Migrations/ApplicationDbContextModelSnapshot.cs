@@ -392,6 +392,9 @@ namespace Data.Migrations
                     b.Property<string>("Topic")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("isPrivate")
+                        .HasColumnType("bit");
+
                     b.HasKey("NoteId");
 
                     b.HasIndex("AccessTypeId");

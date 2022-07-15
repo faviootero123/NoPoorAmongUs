@@ -11,4 +11,6 @@ public class NoteVM
     public int StudentNoteId { get; set; }
     public string Content { get; set; }
     public string Topic { get; set; }
+
+    public bool isPrivate { get; set; }
 }
