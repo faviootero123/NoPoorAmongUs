@@ -36,7 +36,8 @@ services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     options.SignIn.RequireConfirmedEmail = true;
     options.User.RequireUniqueEmail = true;
     options.Stores.MaxLengthForKeys = 128;
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+}).AddDefaultTokenProviders()
+.AddEntityFrameworkStores<ApplicationDbContext>();
 
 services.AddAuthorization();
 
