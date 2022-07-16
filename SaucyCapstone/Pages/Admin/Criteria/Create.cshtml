@@ -2,7 +2,6 @@
 @model SaucyCapstone.Pages.Admin.Criteria.CreateModel
 
 <form method="post">
-    <input type="hidden" asp-for="Criterion.CriterionId" />
     <input type="hidden" asp-for="Criterion.Ratings" />
     <div class="card">
         <h4 class="card-header">Create Criteria</h4>
@@ -34,7 +33,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-6">
-                    <button type="submit" class="btn btn-success" style="width:100%">Update</button>
+                    <button type="submit" class="btn btn-success" style="width:100%">Create</button>
                 </div>
                 <div class="col-6">
                     <a asp-page="./Index" class="btn btn-primary" style="width:100%">

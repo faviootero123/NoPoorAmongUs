@@ -16,19 +16,19 @@
 <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
-            <th class="text-center">
+            <th>
                 Term
             </th>
-            <th class="text-center">
+            <th>
                 Instructor
             </th>
-            <th class="text-center">
+            <th>
                 Subject
             </th>
-            <th class="text-center">
+            <th>
                 School
             </th>
-            <th class="text-center">
+            <th>
                 Options
             </th>
         </tr>
@@ -37,19 +37,19 @@
         @foreach (var item in Model.CourseVM.CourseList)
         {
             <tr>
-                <td class="text-center">
+                <td>
                     @Html.DisplayFor(modelItem => item.Term.TermName)
                 </td>
-                <td class="text-center">
+                <td>
                     @Html.DisplayFor(modelItem => item.Instructor.FirstName) @Html.DisplayFor(modelItem => item.Instructor.LastName)
                 </td>
-                <td class="text-center">
+                <td>
                     @Html.DisplayFor(modelItem => item.Subject.SubjectName)
                 </td>
-                <td class="text-center">
+                <td>
                     @Html.DisplayFor(modelItem => item.School.SchoolName)
                 </td>
-                <td class="text-center">
+                <td>
                     <div class="btn-group" role="group">
                         <a asp-page="Edit" asp-route-id="@item.CourseId"
                        class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
