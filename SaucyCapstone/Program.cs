@@ -45,7 +45,6 @@ services.AddDatabaseDeveloperPageExceptionFilter();
 services.AddRazorPages()
     .AddRazorRuntimeCompilation();
 services.AddHttpContextAccessor();
-services.Configure<EmailConfiguration>(config.GetSection("EmailConfiguration"));
 
 services.AddScoped<IEmailSender, EmailSender>();
 
