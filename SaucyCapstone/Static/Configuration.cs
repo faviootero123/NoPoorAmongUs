@@ -435,7 +435,7 @@ public static class ConfigurationStaticMethods
             };
             var enrollment2 = new Enrollment
             {
-                Student = student1,
+                Student = student2,
                 Session = session,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 85,
@@ -448,17 +448,20 @@ public static class ConfigurationStaticMethods
             var attendance = new Attendance
             {
                 Status = Attendance.AttendanceStatus.OnTime,
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                Session = session
             };
             var attendance2 = new Attendance
             {
                 Status = Attendance.AttendanceStatus.OnTime,
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                Session = session
             };
             var attendance3 = new Attendance
             {
                 Status = Attendance.AttendanceStatus.OnTime,
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                Session = session
             };
             await db.AddAsync(attendance);
             await db.AddAsync(attendance2);
@@ -468,23 +471,32 @@ public static class ConfigurationStaticMethods
             var assessment = new Assessment
             {
                 Score = 88,
+                Session = session,
                 DueDate = DateTime.Now.AddDays(14),
                 MaxScore = 100,
-                Grade = grade
+                Grade = grade,
+                Title = "Homework 1",
+                Description = "Homework 1 Description"
             };
             var assessment2 = new Assessment
             {
                 Score = 77,
+                Session = session,
                 DueDate = DateTime.Now.AddDays(7),
                 MaxScore = 100,
-                Grade = grade
+                Grade = grade,
+                Title = "Homework 2",
+                Description = "Homework 2 Description"
             };
             var assessment3 = new Assessment
             {
                 Score = 66,
+                Session = session,
                 DueDate = DateTime.Now.AddDays(3),
                 MaxScore = 100,
-                Grade = grade2
+                Grade = grade2,
+                Title = "Homework 3",
+                Description = "Homework 3 Description"
             };
             await db.AddAsync(assessment);
             await db.AddAsync(assessment2);

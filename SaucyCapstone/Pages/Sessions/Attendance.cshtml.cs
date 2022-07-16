@@ -2,24 +2,41 @@ using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Models.ViewModels;
 using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Sessions
 {
     public class AttendanceModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
-        public List<Session> Sessions { get; set; }
-        public List<Student> Students { get; set; }
+        //private readonly ApplicationDbContext _db;
+        //public Session Session;
+        //public List<string> StudentNames;
+        //public AttendanceModel(ApplicationDbContext db)
+        //{
+        //    _db = db;
+        //    StudentNames = new List<string>();
+        //}
+        //public async Task<ActionResult> OnGetAsync(int? id)
+        //{
+        //    if (id != null)
+        //    {
+        //        Session = await _db.Sessions.Include(d=>d.Course).Where(d => d.SessionId == id).FirstAsync();
+        //        var enrollments = await _db.Enrollments.Include(d=>d.Student).Where(d => d.SessionId == id).ToListAsync();
+        //        if (enrollments != null)
+        //        {
+        //            foreach (var enroll in enrollments)
+        //            {
+        //                StudentNames.Add(enroll.Student.FirstName + " " + enroll.Student.LastName);
+        //            }
+        //        }
 
-        public AttendanceModel(ApplicationDbContext db)
-        {
-            _db = db;
-        }
-
-        public async Task OnGetAsync(int? id)
-        {
-            //Sessions = await _db.Sessions.Where(d=>d.Course.CourseId == id).Select(s => new {s. }).ToListAsync();
-        }
+        //        //AttendanceVM = new AttendanceVM { StudentsName = StudentNames };
+        //        return Page();
+        //    } else
+        //    {
+        //        return NotFound();
+        //    }  
+        //}    
     }
 }
