@@ -33,6 +33,6 @@ window.onload = function () {
 };
 
 function updateSlider(obj) {
-    var myDemo = "demo " + obj.id;
-    document.getElementById(myDemo).innerHTML = obj.value
+    var slider = "slider " + obj.id;
+    document.getElementById(slider).innerHTML = obj.value
 }

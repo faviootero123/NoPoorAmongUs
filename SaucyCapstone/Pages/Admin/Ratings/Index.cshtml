@@ -36,8 +36,8 @@
                         <td>
                             <input asp-for="@student.Ratings" hidden />
                             <div class="slidecontainer">
-                                <input  type="range" min="1" max="5" value="1" class="slider" id="@item.Description" oninput="updateSlider(this)">
-                                <p><span id="demo @item.Description">--</span></p>
+                                <input type="range" min="1" max="5" value="1" class="slider" id="@student.StudentId @item.CriterionId" oninput="updateSlider(this)">
+                                <p><span id="slider @student.StudentId @item.CriterionId">--</span></p>
                             </div>
                         </td>
                     }
