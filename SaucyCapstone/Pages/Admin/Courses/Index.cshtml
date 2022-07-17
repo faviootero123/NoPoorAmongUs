@@ -5,7 +5,7 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Course Overveiw</h2>
+            <h2 class="text-primary">Course Overview</h2>
         </div>
         <div class="col-6 text-end">
             <a asp-page="Create" class="btn btn-primary">
@@ -14,7 +14,6 @@
         </div>
     </div>
     <br />
-
 
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
@@ -31,7 +30,9 @@
                 <th>
                     School
                 </th>
-                <th>Options</th>
+                <th>
+                    Options
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -51,10 +52,10 @@
                         @Html.DisplayFor(modelItem => item.School.SchoolName)
                     </td>
                     <td>
-                        <div class="btn-group" role="group" style="justify-content:end">
+                        <div class="btn-group" role="group">
                             <a asp-page="Edit" asp-route-id="@item.CourseId"
                            class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
-                           <a asp-page="Delete" asp-route-id="@item.CourseId"
+                            <a asp-page="Delete" asp-route-id="@item.CourseId"
                            class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
                         </div>
                     </td>
@@ -70,4 +71,4 @@
             $('#dataTable').dataTable();
         });
     </script>
-}
+    }

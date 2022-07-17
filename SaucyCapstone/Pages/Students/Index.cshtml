@@ -5,22 +5,11 @@
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">Student Overview</h2>
-        </div>
-        <div class="dropdown col-6">
-            <button class="btn btn-secondary dropdown-toggle float-end" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Select Class
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">English 100</a></li>
-                <li><a class="dropdown-item" href="#">English 200</a></li>
-                <li><a class="dropdown-item" href="#">English 300</a></li>
-            </ul>
-        </div>
+        </div>     
     </div>
     <br />
 
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
-
         <thead>
             <tr>
                 <th>
@@ -29,6 +18,12 @@
                 <th>
                     School Level
                 </th>
+                <th>
+                    IT Level
+                </th>
+                <th>
+                    English Level 
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -36,11 +31,17 @@
             @foreach (var student in Model.Students)
             {
                 <tr>
-                    <td width="50%">
-                        @student.FirstName
+                    <td width="40%">
+                        @(student.FirstName + " " + student.LastName)
                     </td>
-                    <td width="30%">
+                    <td width="15%">
                         @student.SchoolLevel
+                    </td>
+                    <td width="15%">
+                        @student.ITLevel
+                    </td>
+                    <td width="15%">
+                        @student.EnglishLevel
                     </td>
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end">

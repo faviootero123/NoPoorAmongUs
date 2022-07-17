@@ -1,10 +1,15 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
+using SaucyCapstone.Static;
+using System.Security.Claims;
 
 namespace SaucyCapstone.Pages.Students.Add;
 
+[Authorize]
 public class addDocumentsModel : PageModel
 {
     private readonly ApplicationDbContext _db;
@@ -21,10 +26,10 @@ public class addDocumentsModel : PageModel
         StudentDocs = new StudentDoc();
         _hostEnvironment = hostEnvironment;
     }
-
-    public async Task OnGetAsync(int id)
+    public async Task<ActionResult> OnGetAsync(int id)
     {
         StudentId = id;
+        return Page(); 
     }
 
     public async Task<IActionResult> OnPostAsync(int id, IFormFile? file)

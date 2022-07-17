@@ -23,5 +23,9 @@ public class Session
     [Required]
     [ForeignKey("CourseId")]
     public Course Course { get; set; }
-    public IList<Attendance>? Attendances {get; set;}
+    public IList<Attendance>? Attendances { get; set; }
+
+    //Added this
+    public IList<Enrollment>? Enrollments { get; set; }
+    public IList<Assessment>? Assessments { get; set; }
 }

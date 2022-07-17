@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 window.onload = function () {
-    console.log("xD lol");
+
     let theme = window.localStorage.getItem("theme");
     let themeSwitch = document.getElementById("themeSwitch");
 
@@ -29,7 +29,7 @@ window.onload = function () {
             location.reload();
         }
     });
-    console.log("xD lmao");
+
 };
 
 function updateSlider(obj) {

@@ -139,6 +139,9 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssessmentId"), 1L, 1);
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("datetime2");
 
@@ -151,9 +154,18 @@ namespace Data.Migrations
                     b.Property<decimal>("Score")
                         .HasColumnType("decimal(5,2)");
 
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("AssessmentId");
 
                     b.HasIndex("GradeId");
+
+                    b.HasIndex("SessionId");
 
                     b.ToTable("Assessments");
                 });
@@ -169,7 +181,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SessionId")
+                    b.Property<int>("SessionId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -246,9 +258,6 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnrollmentId"), 1L, 1);
 
-                    b.Property<int?>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EnrollmentStatus")
                         .HasColumnType("int");
 
@@ -265,8 +274,6 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("EnrollmentId");
-
-                    b.HasIndex("CourseId");
 
                     b.HasIndex("GradeId");
 
@@ -391,6 +398,9 @@ namespace Data.Migrations
 
                     b.Property<string>("Topic")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isPrivate")
+                        .HasColumnType("bit");
 
                     b.HasKey("NoteId");
 
@@ -843,14 +853,26 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Data.Session", "Session")
+                        .WithMany("Assessments")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Grade");
+
+                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("Data.Attendance", b =>
                 {
-                    b.HasOne("Data.Session", null)
+                    b.HasOne("Data.Session", "Session")
                         .WithMany("Attendances")
-                        .HasForeignKey("SessionId");
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("Data.Course", b =>
@@ -890,10 +912,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Enrollment", b =>
                 {
-                    b.HasOne("Data.Course", null)
-                        .WithMany("Enrollments")
-                        .HasForeignKey("CourseId");
-
                     b.HasOne("Data.Grade", "Grade")
                         .WithMany("Enrollments")
                         .HasForeignKey("GradeId")
@@ -901,7 +919,7 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Data.Session", "Session")
-                        .WithMany()
+                        .WithMany("Enrollments")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1074,8 +1092,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Course", b =>
                 {
-                    b.Navigation("Enrollments");
-
                     b.Navigation("Sessions");
                 });
 
@@ -1110,7 +1126,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Session", b =>
                 {
+                    b.Navigation("Assessments");
+
                     b.Navigation("Attendances");
+
+                    b.Navigation("Enrollments");
                 });
 
             modelBuilder.Entity("Data.Student", b =>

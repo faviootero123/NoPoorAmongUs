@@ -36,7 +36,8 @@ services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     options.SignIn.RequireConfirmedEmail = true;
     options.User.RequireUniqueEmail = true;
     options.Stores.MaxLengthForKeys = 128;
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+}).AddDefaultTokenProviders()
+.AddEntityFrameworkStores<ApplicationDbContext>();
 
 services.AddAuthorization();
 
@@ -44,9 +45,9 @@ services.AddDatabaseDeveloperPageExceptionFilter();
 services.AddRazorPages()
     .AddRazorRuntimeCompilation();
 services.AddHttpContextAccessor();
-services.Configure<EmailConfiguration>(config.GetSection("EmailConfiguration"));
 
 services.AddScoped<IEmailSender, EmailSender>();
+
 services.AddSession();
 
 var app = builder.Build();

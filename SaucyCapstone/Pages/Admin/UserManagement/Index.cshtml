@@ -23,21 +23,31 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.UsersVM) {
-        <tr>
-            <td>
-                @item.UserName
-            </td>
-            <td>
-                @item.Email
-            </td>
-            <td>
-                Actions
-@*                <a asp-page="./Edit" asp-route-id="@item.TermId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.TermId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.TermId">Delete</a>*@
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.UsersVM)
+        {
+            <tr>
+                <td>
+                    @item.UserName
+                </td>
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    Actions
+                    <form method="post">
+                        @{
+                            if (item.LockoutEnd > DateTime.Now)
+                            {
+                                <button type="submit" class="btn btn-outline-warning" asp-page-handler="LockUnlock" asp-route-id="@item.Id"><i class="bi bi-unlock"></i> Unlock</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-outline-warning" asp-page-handler="LockUnlock" asp-route-id="@item.Id"><i class="bi bi-lock"></i> Lock</button>
+                            }
+                        }
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
