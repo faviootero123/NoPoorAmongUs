@@ -1,32 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Sessions.Assessments
+namespace SaucyCapstone.Pages.Sessions.Assessments;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public IndexModel(ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public IndexModel(SaucyCapstone.Data.ApplicationDbContext context)
+    public IList<Assessment> AssessmentList { get;set; } = default!;
+    public IList<Course> CourseList { get; set; } = default!;
+
+    public async Task OnGetAsync(string? subject, int? courselvl)
+    {
+        if (subject != null || courselvl != null)
         {
-            _context = context;
+            AssessmentList = await _context.Assessments.Include(u => u.Session).ThenInclude(u => u.Course).ThenInclude(u => u.Subject).Where(u => u.Session.Course.CourseLevel == courselvl).Where(u => u.Session.Course.Subject.SubjectName == subject).ToListAsync();
         }
-
-        public IList<Assessment> Assessment { get;set; } = default!;
-
-        public async Task OnGetAsync()
+        else
         {
-            if (_context.Assessments != null)
-            {
-                Assessment = await _context.Assessments.ToListAsync();
-            }
+            AssessmentList = await _context.Assessments.Include(u => u.Session).ThenInclude(u => u.Course).ThenInclude(u => u.Subject).ToListAsync();
         }
+        CourseList = await _context.Courses.Include(u => u.Subject).OrderByDescending(u => u.Subject).ToListAsync();
     }
 }
