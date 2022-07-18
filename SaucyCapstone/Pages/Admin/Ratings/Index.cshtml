@@ -1,49 +1,70 @@
 ﻿@page
+@using Data
 @model SaucyCapstone.Pages.Admin.Ratings.IndexModel
 
 @{
     ViewData["Title"] = "Index";
+    int ratingsIndex = 0;
 }
 
 <h1>Rating Dashboard</h1>
 
-<form method="post" asp-action="OnPostAsync" enctype="multipart/form-data">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Student[0].FirstName)
-                </th>
-                @foreach (var item in Model.Criterion)
-                {
-                    <th>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </th>
-                }
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var student in Model.Student)
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RatingVM.Students[0].FirstName)
+            </th>
+            @foreach (var item in Model.RatingVM.Criteria)
             {
-                <tr>
-                    <td>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <form method="post" asp-action="OnPostAsync" enctype="multipart/form-data">
+            @foreach (var student in Model.RatingVM.Students)
+            {
+            <tr>
+                <td>
                         @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
-                        <input asp-for="@student.Ratings" hidden/>
-                    </td>
-                    @foreach (var item in Model.Criterion)
+                    
+                </td>
+                @foreach (var rating in student.Ratings ?? new List<Rating>())
                     {
                         <td>
-                            <input asp-for="@student.Ratings" hidden />
-                            <div class="slidecontainer">
-                                <input type="range" min="1" max="5" value="1" class="slider" id="@student.StudentId @item.CriterionId" oninput="updateSlider(this)">
-                                <p><span id="slider @student.StudentId @item.CriterionId">--</span></p>
-                            </div>
+                        <div class="slidecontainer">
+                            <input  name="Ratings[@ratingsIndex].Value"type="range" min="1" max="5" value="@rating.Value" class="slider" id="@rating.StudentID @rating.CriterionId" oninput="updateSlider(this)">
+                            <input  name="Ratings[@ratingsIndex].CriterionId"value="@rating.CriterionId" hidden />
+                            <input  name="Ratings[@ratingsIndex].StudentId"value="@student.StudentId" hidden />
+                            <input  name="Ratings[@ratingsIndex].RatingId" value="@rating.RatingId" hidden />
+                            <p><span id="slider @rating.StudentID @rating.CriterionId">@rating.Value</span></p>
+                        </div>
                         </td>
+                        ratingsIndex++;
+
                     }
-                </tr>
+                @foreach (var criteria in Model.RatingVM.Criteria.Where(x => x.Ratings is null))
+                    {
+                    <td>
+
+                        <div class="slidecontainer">
+                            <input name="Ratings[@ratingsIndex].Value" type="range" min="1" max="5" value="" class="slider" id="@student.StudentId @criteria.CriterionId" oninput="updateSlider(this)">
+                            <input name="Ratings[@ratingsIndex].CriterionId" value="@criteria.CriterionId" hidden />
+                            <input name="Ratings[@ratingsIndex].StudentId" value="@student.StudentId" hidden />
+                            <p><span id="slider @student.StudentId @criteria.CriterionId">--</span></p>
+                        </div>
+                    </td>
+                    ratingsIndex++;
+                    }
+            </tr>
             }
-        </tbody>
-    </table>
-@*    <button type="submint" class="btn btn-primary" style="width:150px">Update</button>*@
-</form>
+            <button type="submit" class="btn btn-primary" style="width:150px">Save Ratings</button>
+        </form>
+    </tbody>
+</table>
+
+
