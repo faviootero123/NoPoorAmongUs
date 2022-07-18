@@ -33,6 +33,9 @@
         <thead>
             <tr>
                 <th>
+                    Title
+                </th>
+                <th>
                     Description
                 </th>
                 <th>
@@ -54,6 +57,9 @@
             @foreach (var item in Model.AssessmentList)
             {
                 <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>

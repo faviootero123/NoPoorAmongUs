@@ -62,7 +62,8 @@ public class DeleteModel : PageModel
 
         if (id != null)
         {
-            _context.Courses.Remove(CourseVM.Course);
+            var temp = _context.Courses.Where(u => u.CourseId == id).First();
+            _context.Courses.Remove(temp);
             await _context.SaveChangesAsync();
         }
 

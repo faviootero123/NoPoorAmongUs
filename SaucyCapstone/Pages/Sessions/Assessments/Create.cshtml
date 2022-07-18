@@ -1,54 +1,91 @@
 ﻿@page
 @model SaucyCapstone.Pages.Sessions.Assessments.CreateModel
 
-@{
-    ViewData["Title"] = "Create";
-}
+<form method="post">
+    <input type="hidden" asp-for="AssessmentVM.AssessmentId" />
 
-<h1>Create</h1>
-
-<h4>Assessment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
+    <div class="card">
+        <h4 class="card-header">Create Assessment</h4>
+        <div class="card-body rounded pb-2">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Assessment.Title" class="control-label"></label>
-                <input asp-for="Assessment.Title" class="form-control" />
-                <span asp-validation-for="Assessment.Title" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Title
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="studentFirst" asp-for="AssessmentVM.Assessment.Title" type="text" class="form-control" />
+                        <span asp-validation-for="AssessmentVM.Assessment.Title" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Assessment.Description" class="control-label"></label>
-                <input asp-for="Assessment.Description" class="form-control" />
-                <span asp-validation-for="Assessment.Description" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Description
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="studentFirst" asp-for="AssessmentVM.Assessment.Description" type="text" class="form-control" />
+                        <span asp-validation-for="AssessmentVM.Assessment.Description" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Assessment.Score" class="control-label"></label>
-                <input asp-for="Assessment.Score" class="form-control" />
-                <span asp-validation-for="Assessment.Score" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Subject
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select asp-for="@Model.AssessmentVM.SubjectId" asp-items="@Model.AssessmentVM.SubjectList" class="form-select">
+                            <option disabled selected>---Select Subject---</option>
+                        </select>
+                        <span asp-validation-for="@Model.AssessmentVM.SubjectId" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Assessment.MaxScore" class="control-label"></label>
-                <input asp-for="Assessment.MaxScore" class="form-control" />
-                <span asp-validation-for="Assessment.MaxScore" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Course
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select asp-for="@Model.AssessmentVM.CourseId" asp-items="@Model.AssessmentVM.CourseList" class="form-select">
+                            <option disabled selected>---Select Course Level---</option>
+                        </select>
+                        <span asp-validation-for="@Model.AssessmentVM.CourseId" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Assessment.DueDate" class="control-label"></label>
-                <input asp-for="Assessment.DueDate" class="form-control" />
-                <span asp-validation-for="Assessment.DueDate" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Max Score
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="studentFirst" asp-for="AssessmentVM.Assessment.MaxScore" type="text" class="form-control" />
+                        <span asp-validation-for="AssessmentVM.Assessment.MaxScore" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-success" style="width:100%">Create</button>
+                </div>
+                <div class="col-6">
+                    <a asp-page="Index" class="btn btn-primary" style="width:100%">
+                        Back to Assessment Overview
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
