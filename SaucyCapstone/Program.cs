@@ -10,6 +10,7 @@ using Data;
 using Serilog;
 using Serilog.Sinks.Grafana.Loki;
 using Microsoft.Net.Http.Headers;
+using SaucyCapstone.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,11 +40,16 @@ services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 }).AddDefaultTokenProviders()
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-services.AddAuthorization();
+services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", p => p.RequireRole(Roles.Admin));
+});
 
 services.AddDatabaseDeveloperPageExceptionFilter();
-services.AddRazorPages()
-    .AddRazorRuntimeCompilation();
+services.AddRazorPages(options => 
+{ 
+    options.Conventions.AuthorizeFolder("/Admin", "Admin"); 
+}).AddRazorRuntimeCompilation();
 services.AddHttpContextAccessor();
 
 services.AddScoped<IEmailSender, EmailSender>();
