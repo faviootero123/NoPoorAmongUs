@@ -13,10 +13,10 @@
                 </div>
                 <div class="col-9">
                     <div class="form-group">
-                        <select asp-for="CourseVM.TermId" asp-items="@Model.CourseVM.TermList" class="form-select">
+                        <select asp-for="CourseVM.Term.TermId" asp-items="@Model.CourseVM.TermList" class="form-select">
                             <option disabled>---Select Term---</option>
                         </select>
-                        <span asp-validation-for="CourseVM.TermId" class="text-danger"></span>
+                        <span asp-validation-for="CourseVM.Term.TermId" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -43,6 +43,20 @@
                             <option disabled>---Select Subject---</option>
                         </select>
                         <span asp-validation-for="CourseVM.Subject.SubjectId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Course Level
+                    </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select asp-for="CourseVM.Course.CourseLevel" class="form-select">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
                     </div>
                 </div>
             </div>

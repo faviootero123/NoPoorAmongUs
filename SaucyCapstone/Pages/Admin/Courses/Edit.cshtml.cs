@@ -64,7 +64,7 @@ public class EditModel : PageModel
 
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see https://aka.ms/RazorPagesCRUD.
-    public async Task<IActionResult> OnPostAsync(int id, CourseVM courseVM)
+    public async Task<IActionResult> OnPostAsync(int id, CourseVM CourseVM)
     {
         if (ModelState.IsValid && _context.Courses != null)
         {
@@ -75,10 +75,10 @@ public class EditModel : PageModel
                 return NotFound();
             }
 
-            courseToUpdate.Term = _context.Terms.Where(s => s.TermId == courseVM.Term.TermId).First();
-            courseToUpdate.Instructor = _context.FacultyMembers.Where(s => s.FacultyMemberId == courseVM.Instructor.FacultyMemberId).First();
-            courseToUpdate.Subject = _context.Subjects.Where(s => s.SubjectId == courseVM.Subject.SubjectId).First();
-            courseToUpdate.School = _context.Schools.Where(s => s.SchoolId == courseVM.School.SchoolId).First();
+            courseToUpdate.Term = _context.Terms.Where(s => s.TermId == CourseVM.Term.TermId).First();
+            courseToUpdate.Instructor = _context.FacultyMembers.Where(s => s.FacultyMemberId == CourseVM.Instructor.FacultyMemberId).First();
+            courseToUpdate.Subject = _context.Subjects.Where(s => s.SubjectId == CourseVM.Subject.SubjectId).First();
+            courseToUpdate.School = _context.Schools.Where(s => s.SchoolId == CourseVM.School.SchoolId).First();
             _context.Courses.Update(courseToUpdate);
             await _context.SaveChangesAsync();
 
