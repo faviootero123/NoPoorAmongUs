@@ -21,12 +21,12 @@ public class IndexModel : PageModel
     {
         if (subject != null || courselvl != null)
         {
-            AssessmentList = await _context.Assessments.Include(u => u.Course).ThenInclude(u => u.Subject).Where(u => u.Course.CourseLevel == courselvl).Where(u => u.Course.Subject.SubjectName == subject).ToListAsync();
+            AssessmentList = await _context.Assessments.Include(u => u.Course).ThenInclude(u => u.Subject).Where(u => u.Course.CourseLevel == courselvl).Where(u => u.Course.Subject.SubjectName == subject && u.Course.Term.IsActive == true).ToListAsync();
         }
         else
         {
-            AssessmentList = await _context.Assessments.Include(u => u.Course).ThenInclude(u => u.Subject).ToListAsync();
+            AssessmentList = await _context.Assessments.Include(u => u.Course).ThenInclude(u => u.Subject).Where(u => u.Course.Term.IsActive == true).ToListAsync();
         }
-        CourseList = await _context.Courses.Include(u => u.Subject).OrderByDescending(u => u.Subject).ToListAsync();
+        CourseList = await _context.Courses.Include(u => u.Subject).Where(u => u.Term.IsActive == true).OrderBy(u => u.Subject).ToListAsync();
     }
 }
