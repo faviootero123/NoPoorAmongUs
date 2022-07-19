@@ -5,7 +5,7 @@ using SaucyCapstone.Data;
 using Microsoft.AspNetCore.Mvc;
 using Models.ViewModels;
 
-namespace SaucyCapstone.Pages.Admin.Ratings;
+namespace SaucyCapstone.Pages.Judge.Ratings;
 
 public class IndexModel : PageModel
 {

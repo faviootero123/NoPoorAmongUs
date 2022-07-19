@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Admin.Ratings;
+namespace SaucyCapstone.Pages.Judge.Ratings;
 
 public class CreateModel : PageModel
 {

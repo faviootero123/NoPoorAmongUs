@@ -8,7 +8,7 @@ using SaucyCapstone.Data;
 using SaucyCapstone.Static;
 using System.Security.Claims;
 
-namespace SaucyCapstone.Pages.Students.Delete;
+namespace SaucyCapstone.Pages.Instructor.Students.Delete;
 
 [Authorize]
 public class deleteNotesModel : PageModel

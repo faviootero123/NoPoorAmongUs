@@ -7,7 +7,7 @@ using SaucyCapstone.Data;
 using SaucyCapstone.Static;
 using System.Security.Claims;
 
-namespace SaucyCapstone.Pages.Students.Add;
+namespace SaucyCapstone.Pages.Instructor.Students.Add;
 
 [Authorize]
 public class addDocumentsModel : PageModel

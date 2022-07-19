@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Students;
+namespace SaucyCapstone.Pages.Instructor.Students;
 
 public class StudentScheduleModel : PageModel
 {

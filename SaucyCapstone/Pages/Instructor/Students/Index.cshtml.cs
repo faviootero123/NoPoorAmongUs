@@ -7,7 +7,7 @@ using SaucyCapstone.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-namespace SaucyCapstone.Pages.Students;
+namespace SaucyCapstone.Pages.Instructor.Students;
 
 [Authorize]
 public class IndexModel : PageModel

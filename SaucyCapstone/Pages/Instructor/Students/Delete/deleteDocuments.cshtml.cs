@@ -9,7 +9,7 @@ using System;
 using System.IO;
 using System.Security.Claims;
 
-namespace SaucyCapstone.Pages.Students.Delete;
+namespace SaucyCapstone.Pages.Instructor.Students.Delete;
 
 [Authorize]
 public class deleteDocumentsModel : PageModel

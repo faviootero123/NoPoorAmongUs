@@ -8,7 +8,7 @@ using SaucyCapstone.Data;
 using SaucyCapstone.Static;
 using System.Security.Claims;
 
-namespace SaucyCapstone.Pages.Students;
+namespace SaucyCapstone.Pages.Instructor.Students;
 
 [Authorize]
 public class StudentNotesModel : PageModel

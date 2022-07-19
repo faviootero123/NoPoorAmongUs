@@ -9,7 +9,7 @@ using SaucyCapstone.Data;
 using SaucyCapstone.Static;
 using System.Security.Claims;
 
-namespace SaucyCapstone.Pages.Students.Edit;
+namespace SaucyCapstone.Pages.Instructor.Students.Edit;
 
 [Authorize]
 public class editNotesModel : PageModel
