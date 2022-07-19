@@ -37,12 +37,12 @@ public class EnrollmentsModel : PageModel
         int sessionLevel = session.Session.Course.CourseLevel;
         if (session.Session.Course.Subject.SubjectName == "English")
         {
-            studentList = await _context.Students.Where(c => c.EnglishLevel == sessionLevel).ToListAsync();
+            studentList = await _context.Students.Where(c => c.EnglishLevel == sessionLevel && c.Status == Student.StudentStatus.Active).ToListAsync();
         }
         else if (session.Session.Course.Subject.SubjectName == "IT")
         {
 
-            studentList = await _context.Students.Where(c => c.ITLevel == sessionLevel).ToListAsync();
+            studentList = await _context.Students.Where(c => c.ITLevel == sessionLevel && c.Status == Student.StudentStatus.Active).ToListAsync();
         }
       
         return Page();
@@ -65,16 +65,16 @@ public class EnrollmentsModel : PageModel
         enrollment.GradeId = grade.GradeId;
         _context.Enrollments.Add(enrollment);
         _context.SaveChanges();
-        return RedirectToPage("./Index");
-   // return RedirectToPage("./Enrollments", enrollment.SessionId);
+      
+        return RedirectToPage("./Enrollments", new { id = enrollment.SessionId });
     }
     public IActionResult OnPostRemove(int id)
     {
         enrollment = _context.Enrollments.Where(c => c.EnrollmentId == id).FirstOrDefault();
         _context.Enrollments.Remove(enrollment);
         _context.SaveChanges();
-        return RedirectToPage("./Index");
-        // return RedirectToPage("./Enrollments", enrollment.SessionId);
+        
+        return RedirectToPage("./Enrollments", new { id = enrollment.SessionId });
     }
     public bool isEnrolled(int SessionId, int StudentId)
     {
