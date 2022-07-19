@@ -1,4 +1,5 @@
  using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Sessions;
 
+[Authorize]
 public class UpsertModel : PageModel
 {
     private readonly ApplicationDbContext _context;
