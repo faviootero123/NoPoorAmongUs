@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Sessions;
+namespace SaucyCapstone.Pages.Instructor.Sessions;
 
 [Authorize]
 public class ArchiveModel : PageModel

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Sessions;
+namespace SaucyCapstone.Pages.Instructor.Sessions;
 
 [Authorize]
 public class EnrollmentsModel : PageModel

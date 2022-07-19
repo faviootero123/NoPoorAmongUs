@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Sessions.Assessments;
+namespace SaucyCapstone.Pages.Instructor.Assessments;
 
 public class IndexModel : PageModel
 {

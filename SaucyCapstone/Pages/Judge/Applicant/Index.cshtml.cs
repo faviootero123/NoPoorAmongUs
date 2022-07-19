@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Applicant;
+namespace SaucyCapstone.Pages.Judge.Applicant;
 
 public class IndexModel : PageModel
 {

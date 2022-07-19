@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Models.ViewModels;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Applicant;
+namespace SaucyCapstone.Pages.Judge.Applicant;
 
 public class CreateModel : PageModel
 {

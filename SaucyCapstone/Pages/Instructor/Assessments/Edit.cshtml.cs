@@ -5,7 +5,7 @@ using Data;
 using SaucyCapstone.Data;
 using Models.ViewModels;
 
-namespace SaucyCapstone.Pages.Sessions.Assessments;
+namespace SaucyCapstone.Pages.Instructor.Assessments;
 
 public class EditModel : PageModel
 {
