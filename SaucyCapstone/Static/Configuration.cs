@@ -98,8 +98,13 @@ public static class ConfigurationStaticMethods
             {
                 SchoolName = "Weber"
             };
+            var school3 = new School
+            {
+                SchoolName = "Public School"
+            };
             await db.AddAsync(school);
             await db.AddAsync(school2);
+            await db.AddAsync(school3);
 
             //subject
             var subject = new Subject
@@ -110,31 +115,46 @@ public static class ConfigurationStaticMethods
             {
                 SubjectName = "IT"
             };
+            var subject3 = new Subject
+            {
+                SubjectName = "Other"
+            };
             await db.AddAsync(subject);
             await db.AddAsync(subject2);
+            await db.AddAsync(subject3);
 
 
             //faculty-member
             var faculty = new FacultyMember
             {
-                FirstName = "Jo",
-                LastName = "Mama",
-                IsAdmin = true,
+                FirstName = "John",
+                LastName = "Doe",
+                IsAdmin = false,
                 IsInstructor = true,
                 IsRater = true,
                 IsSocialWorker = true
             };
             var faculty2 = new FacultyMember
             {
-                FirstName = "Jimmy",
-                LastName = "Mama",
+                FirstName = "Adam",
+                LastName = "Smith",
                 IsAdmin = false,
                 IsInstructor = true,
                 IsRater = false,
                 IsSocialWorker = false,
             };
+            var faculty3 = new FacultyMember
+            {
+                FirstName = "Public",
+                LastName = "Teacher",
+                IsAdmin = false,
+                IsInstructor = false,
+                IsRater = false,
+                IsSocialWorker = false,
+            };
             await db.AddAsync(faculty);
             await db.AddAsync(faculty2);
+            await db.AddAsync(faculty3);
 
             //terms
             var term = new Term
@@ -209,12 +229,22 @@ public static class ConfigurationStaticMethods
                 Instructor = faculty2,
                 Sessions = new List<Session>()
             };
+            var course7 = new Course
+            {
+                School = school3,
+                CourseLevel = 0,
+                Subject = subject3,
+                Term = term,
+                Instructor = faculty3,
+                Sessions = new List<Session>()
+            };
             await db.AddAsync(course);
             await db.AddAsync(course2);
             await db.AddAsync(course3);
             await db.AddAsync(course4);
             await db.AddAsync(course5);
             await db.AddAsync(course6);
+            await db.AddAsync(course7);
 
 
             //guardians
@@ -477,8 +507,8 @@ public static class ConfigurationStaticMethods
                 MaxScore = 100,
                 //Grade = grade,
                 Course = course,
-                Title = "Homework 1",
-                Description = "Homework 1 Description"
+                Title = "HW 1",
+                Description = "Introduce Yourself"
             };
             var assessment2 = new Assessment
             {
@@ -487,8 +517,8 @@ public static class ConfigurationStaticMethods
                 MaxScore = 100,
                 //Grade = grade,
                 Course = course2,
-                Title = "Homework 2",
-                Description = "Homework 2 Description"
+                Title = "HW 2",
+                Description = "Syllabus Quiz"
             };
             var assessment3 = new Assessment
             {
@@ -497,8 +527,8 @@ public static class ConfigurationStaticMethods
                 MaxScore = 100,
                 //Grade = grade2,
                 Course = course3,
-                Title = "Homework 3",
-                Description = "Homework 3 Description"
+                Title = "HW 3",
+                Description = "Short Essay"
             };
             await db.AddAsync(assessment);
             await db.AddAsync(assessment2);
