@@ -1,6 +1,7 @@
 using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Sessions;
@@ -18,7 +19,8 @@ public class ArchiveModel : PageModel
     public Session Session { get; set; }
     public void OnGet(int? id)
     {
-        Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
+        Session = _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).Where(x => x.SessionId == id).FirstOrDefault();
+       
     }
 
     public IActionResult OnPostAsync(int? id)
@@ -27,8 +29,8 @@ public class ArchiveModel : PageModel
         {
             return NotFound();
         }
-        Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
-        if(Session != null && Session.IsActive == true)
+        Session = _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).Where(x => x.SessionId == id).FirstOrDefault();
+        if (Session != null && Session.IsActive == true)
         {
             Session.IsActive = false;
             _context.SaveChanges();
