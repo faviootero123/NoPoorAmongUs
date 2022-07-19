@@ -25,7 +25,7 @@ public class IndexModel : PageModel
     {
         if (_context.Terms != null)
         {
-            Term = await _context.Terms.OrderByDescending(u => u.IsActive).ToListAsync();
+            Term = await _context.Terms.OrderByDescending(u => u.IsActive).OrderByDescending(u => u.EndDate).ToListAsync();
         }
     }
 }
