@@ -27,5 +27,5 @@ public class Session
 
     //Added this
     public IList<Enrollment>? Enrollments { get; set; }
-    public IList<Assessment>? Assessments { get; set; }
+    public IList<Assessment> SessionDates { get; set; }
 }

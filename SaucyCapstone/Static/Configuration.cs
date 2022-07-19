@@ -444,28 +444,30 @@ public static class ConfigurationStaticMethods
             await db.AddAsync(enrollment);
             await db.AddAsync(enrollment2);
 
-            //attendance
-            var attendance = new Attendance
-            {
-                Status = Attendance.AttendanceStatus.OnTime,
-                Date = DateTime.Now,
-                Session = session
-            };
-            var attendance2 = new Attendance
-            {
-                Status = Attendance.AttendanceStatus.OnTime,
-                Date = DateTime.Now,
-                Session = session
-            };
-            var attendance3 = new Attendance
-            {
-                Status = Attendance.AttendanceStatus.OnTime,
-                Date = DateTime.Now,
-                Session = session
-            };
-            await db.AddAsync(attendance);
-            await db.AddAsync(attendance2);
-            await db.AddAsync(attendance3);
+            ////attendance
+            //var attendance = new Attendance
+            //{
+            //    Status = Attendance.AttendanceStatus.OnTime,
+            //    Date = DateTime.Now,
+            //    Session = session
+            //};
+            //var attendance2 = new Attendance
+            //{
+            //    Status = Attendance.AttendanceStatus.OnTime,
+            //    Date = DateTime.Now,
+            //    Session = session
+            //};
+            //var attendance3 = new Attendance
+            //{
+            //    Status = Attendance.AttendanceStatus.OnTime,
+            //    Date = DateTime.Now,
+            //    Session = session
+            //};
+            //await db.AddAsync(attendance);
+            //await db.AddAsync(attendance2);
+            //await db.AddAsync(attendance3);
+
+            //Session Dates
 
             //assessment (homework)
             var assessment = new Assessment

@@ -72,6 +72,7 @@ public class Student
     public IList<Note>? Notes { get; set; }
     public IList<Rating>? Ratings { get; set; }
     public IList<Enrollment>? Enrollments {get; set;}
+    public IList<Attendance>? Attendance { get; set; }
     public IList<StudentGuardian> StudentGuardians { get; set; }
 
     //enums

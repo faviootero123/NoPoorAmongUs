@@ -2,66 +2,93 @@
 @model SaucyCapstone.Pages.Sessions.AttendanceModel
 @{
 }
+<div class="container">
+	<div class="row pt-4">
+		<div class="col-6">
+			<h2 class="text-primary">Session For @(Model.Session.Course.Subject.SubjectName + " " + Model.Session.Course.CourseLevel + " " + Model.Session.DayofWeek)</h2>
+			<h2 class="text-primary">@(Model.Session.StartTime.ToShortTimeString()+ " - " + Model.Session.EndTime.ToShortTimeString())</h2>
+		</div>
+	</div>
 
-@*<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">Session For @(Model.Session.Course.Subject.SubjectName + " " + Model.Session.Course.CourseLevel)</h2>
-        </div>     
-    </div>
-    <br />
-
-   <div class="category">
-        <div class="row">
-            <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            First Name
-                        </th>
-                        <th>
-                            School Level
-                        </th>
-                        <th>
-                            IT Level
-                        </th>
-                        <th>
-                            English Level 
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (@Model.StudentNames != null){
-                        @foreach (var name in Model.StudentNames)
-                            {
-                            <tr>
-                                <td width="40%">
-                                    @name
-                                </td>
-                                @*<td>
-                                    <div class="btn-group" role="group" style="justify-content:end">
-                                        <a class="btn btn-success mx-2" asp-route-id="@student.StudentId" asp-page="/Students/StudentDetails"><i class="bi bi-clipboard2-fill"></i>&nbsp;Details</a>
-                                        <a class="btn btn-primary mx-2" asp-route-id="@student.StudentId" asp-page="/Students/StudentNotes"><i class="bi bi-pencil-square"></i>&nbsp;Notes</a>
-                                        <a class="btn btn-info mx-2" asp-route-id="@student.StudentId" asp-page="/Students/StudentDocuments"><i class="bi bi-file-earmark-text-fill"></i>&nbsp;Documents</a>
-                                        <a class="btn btn-warning mx-2" asp-route-id="@student.StudentId" asp-page="/Students/StudentCertificates"><i class="bi bi-file-earmark-person"></i>&nbsp;Certifications</a>
-                                        <a class="btn btn-dark mx-2"><i class="bi bi-calendar"></i>&nbsp;Schedule</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            }
-                    }                   
-                </tbody>
-            </table>
-        </div>
-    </div>
+	<a id="Previous" class="btn btn-info mx-2" asp-page="Attendance" asp-route-id="@Model.Session.SessionId" asp-route-offset="@(Model.offset - 1)">Previous Page</a>
+	<a id="Next" class="btn btn-info mx-2" asp-page="Attendance" asp-route-id="@Model.Session.SessionId" asp-route-offset="@(Model.offset + 1)">Next Page</a>
+	
+	<br />
+	<br />	
+	
+	<table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+		<thead>
+			<tr>
+				<th>
+					Student Name					
+				</th>
+					@for (int i = 0; i < @Model.Dates.Count(); i++)
+					{
+						<th class="col text-center" width="20%">
+							@Model.Dates[i].ToLongDateString() 
+							<br>
+							<button type="submit" class="btn btn-primary mt-2 mb-2">Mark All Present</button>
+							<br>
+							<button type="submit" class="btn btn-danger mb-2">Unmark All</button>
+						</th>
+					}
+			</tr>
+		</thead>
+		<tbody>
+			@if (@Model.StudentNames != null)
+			{
+				@foreach (var name in Model.StudentNames)
+				{
+					<tr>
+						<td width="20%">
+							@name
+						</td>
+						@for (int i = 0; i < @Model.Dates.Count(); i++)
+						{
+							<td class="col text-center" width="20%">
+								<button id="Attendance-@name-@i" type="submit" class="btn btn-outline-success" onclick="changeColors(this.id)" style="padding: 30px"></button>	
+							</td>
+						}
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+	<a class="btn btn-primary" asp-page="/Sessions/Index">Go Back</a>
 </div>
 
 @section Scripts{
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').dataTable();
-        });
-    </script>
+
+	<script>
+		$(document).ready(function() {
+            $('#dataTable').dataTable({			
+				"ordering": false
+			});
+            if (@Model.PastDates.Count == 0) {
+				$( "#Previous" ).removeAttr( 'href' );
+			} 
+			if (@Model.FutureDates.Count == 0) {
+				$( "#Next" ).removeAttr( 'href' );
+			} 
+		});	 
+
+		function changeColors(val) {
+            
+			if (document.getElementById(val).className == "btn btn-outline-success") {
+                document.getElementById(val).className = "btn btn-success";
+			}
+            else if (document.getElementById(val).className == "btn btn-success") {
+                document.getElementById(val).className = "btn btn-danger";
+			}
+			else if (document.getElementById(val).className == "btn btn-danger") {
+                document.getElementById(val).className = "btn btn-warning";
+			}
+            else if (document.getElementById(val).className == "btn btn-warning") {
+                document.getElementById(val).className = "btn btn-info";
+			}
+            else if (document.getElementById(val).className == "btn btn-info") {
+                document.getElementById(val).className = "btn btn-outline-success";
+			}	
+		}			
+	</script>
 }
-*@
