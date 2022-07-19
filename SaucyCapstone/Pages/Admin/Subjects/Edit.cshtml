@@ -1,35 +1,42 @@
 ﻿@page
 @model SaucyCapstone.Pages.Admin.Subjects.EditModel
 
-@{
-    ViewData["Title"] = "Edit";
-}
-
-<h1>Edit</h1>
-
-<h4>Subject</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
+<form method="post">
+    <input type="hidden" asp-for="Subject.SubjectId" />
+    <input type="hidden" asp-for="Subject.Courses" />
+    <div class="card">
+        <h4 class="card-header">Update Subject</h4>
+        <div class="card-body rounded pb-2">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Subject.SubjectId" />
-            <div class="form-group">
-                <label asp-for="Subject.SubjectName" class="control-label"></label>
-                <input asp-for="Subject.SubjectName" class="form-control" />
-                <span asp-validation-for="Subject.SubjectName" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Subject Name
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="subjectName" asp-for="Subject.SubjectName" type="text" class="form-control" />
+                        <span asp-validation-for="Subject.SubjectName" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-success" style="width:100%">Update</button>
+                </div>
+                <div class="col-6">
+                    <a asp-page="./Index" class="btn btn-primary" style="width:100%">
+                        Back to Subject Overview
+                    </a>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
+</form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
