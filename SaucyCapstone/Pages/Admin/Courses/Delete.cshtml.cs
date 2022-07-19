@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Data;
 using SaucyCapstone.Data;
 using Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SaucyCapstone.Pages.Admin.Courses;
 
@@ -20,35 +21,29 @@ public class DeleteModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (id == null || _context.Courses == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var course = await _context.Courses.FindAsync(id);
 
-        course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault();
-        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault();
-        course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault();
-        course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault();
+        course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault() ?? new Term();
+        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault() ?? new FacultyMember();
+        course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault() ?? new Subject();
+        course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault() ?? new School();
 
+        CourseVM = new()
+        {
+            Course = course,
+            CourseId = course.CourseId,
+            TermId = course.Term.TermId,
+            FacultyMemberId = course.Instructor.FacultyMemberId,
+            SubjectId = course.Subject.SubjectId,
+            SchoolId = course.School.SchoolId
+        };
 
-        if (course == null)
-        {
-            return NotFound();
-        }
-        else
-        {
-            CourseVM = new()
-            {
-                Course = course,
-                CourseId = course.CourseId,
-                TermId = course.Term.TermId,
-                FacultyMemberId = course.Instructor.FacultyMemberId,
-                SubjectId = course.Subject.SubjectId,
-                SchoolId = course.School.SchoolId
-            };
-        }
+        await CourseVM.DropdownHelperAsync(_context, course);
 
         return Page();
     }

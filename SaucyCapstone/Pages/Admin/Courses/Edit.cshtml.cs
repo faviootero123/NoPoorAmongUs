@@ -21,17 +21,8 @@ public class EditModel : PageModel
         _context = context;
     }
 
-    public Course Course { get; set; }
     [BindProperty]
     public CourseVM CourseVM { get; set; }
-    [BindProperty]
-    public IEnumerable<SelectListItem> TermList { get; set; }
-    [BindProperty]
-    public IEnumerable<SelectListItem> InstructorList { get; set; }
-    [BindProperty]
-    public IEnumerable<SelectListItem> SubjectList { get; set; }
-    [BindProperty]
-    public IEnumerable<SelectListItem> SchoolList { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -42,10 +33,10 @@ public class EditModel : PageModel
 
         var course = await _context.Courses.FindAsync(id);
 
-        course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault();
-        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault();
-        course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault();
-        course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault();
+        course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault() ?? new Term();
+        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault() ?? new FacultyMember();
+        course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault() ?? new Subject();
+        course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault() ?? new School();
 
         CourseVM = new()
         {
@@ -57,7 +48,7 @@ public class EditModel : PageModel
             SchoolId = course.School.SchoolId
         };
 
-        CourseVM.DropdownHelperAsync(_context, course);
+        await CourseVM.DropdownHelperAsync(_context, course);
 
         return Page();
     }
