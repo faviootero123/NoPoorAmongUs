@@ -7,57 +7,60 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
+using Models.ViewModels;
 
-namespace SaucyCapstone.Pages.Sessions.Assessments
+namespace SaucyCapstone.Pages.Sessions.Assessments;
+
+public class DeleteModel : PageModel
 {
-    public class DeleteModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public DeleteModel(ApplicationDbContext context)
     {
-        private readonly SaucyCapstone.Data.ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DeleteModel(SaucyCapstone.Data.ApplicationDbContext context)
+    [BindProperty]
+    public AssessmentVM? AssessmentVM { get; set; }
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        [BindProperty]
-      public Assessment Assessment { get; set; } = default!;
+        var assessment = await _context.Assessments.Include(u => u.Course).ThenInclude(u => u.Subject).FirstOrDefaultAsync(u => u.AssessmentId == id);
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        if (assessment == null)
         {
-            if (id == null || _context.Assessments == null)
-            {
-                return NotFound();
-            }
-
-            var assessment = await _context.Assessments.FirstOrDefaultAsync(m => m.AssessmentId == id);
-
-            if (assessment == null)
-            {
-                return NotFound();
-            }
-            else 
-            {
-                Assessment = assessment;
-            }
-            return Page();
+            return NotFound();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        AssessmentVM = new()
         {
-            if (id == null || _context.Assessments == null)
-            {
-                return NotFound();
-            }
-            var assessment = await _context.Assessments.FindAsync(id);
+            Course = assessment.Course ?? new Course(),
+            Assessment = assessment
+        };
 
-            if (assessment != null)
-            {
-                Assessment = assessment;
-                _context.Assessments.Remove(Assessment);
-                await _context.SaveChangesAsync();
-            }
+        await AssessmentVM.DropdownHelperAsync(_context, assessment);
+        return Page();
+    }
 
-            return RedirectToPage("./Index");
+    public async Task<IActionResult> OnPostAsync(int? id)
+    {
+        if (id == null || _context.Assessments == null)
+        {
+            return NotFound();
         }
+
+        if (id != null)
+        {
+            var temp = _context.Assessments.Where(u => u.AssessmentId == id).First();
+            _context.Assessments.Remove(temp);
+            await _context.SaveChangesAsync();
+        }
+
+        return RedirectToPage("./Index");
     }
 }

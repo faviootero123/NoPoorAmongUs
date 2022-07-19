@@ -17,7 +17,7 @@ public class AssessmentVM
 
 
     [ValidateNever]
-    public Assessment Assessment { get; set; }
+    public Assessment? Assessment { get; set; }
 
     [ValidateNever]
     public Course? Course { get; set; }
@@ -27,9 +27,9 @@ public class AssessmentVM
     public IEnumerable<SelectListItem> SubjectList { get; set; } = default!;
 
 
-    public Task DropdownHelperAsync(ApplicationDbContext _context, Assessment assessment)
+    public Task DropdownHelperAsync(ApplicationDbContext _context, Assessment Assessment)
     {
-        if (assessment != null)
+        if (Assessment != null)
         {
             SubjectList = _context.Subjects.Select(i => new SelectListItem
             {
