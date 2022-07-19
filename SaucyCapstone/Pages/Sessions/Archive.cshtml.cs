@@ -1,10 +1,13 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Sessions;
 
+[Authorize]
 public class ArchiveModel : PageModel
 {
 
@@ -27,7 +30,7 @@ public class ArchiveModel : PageModel
         {
             return NotFound();
         }
-        Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault() ?? new Session();
+        Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
         if(Session != null && Session.IsActive == true)
         {
             Session.IsActive = false;

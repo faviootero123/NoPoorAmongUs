@@ -1,4 +1,5 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Sessions;
 
+[Authorize]
 public class ViewArchivedModel : PageModel
 {
 
@@ -16,12 +18,9 @@ public class ViewArchivedModel : PageModel
         _context = context;
     }
 
-    public IEnumerable<Session> Sessions { get; set; }
+    public IList<Session> Sessions { get; set; }
     public async Task OnGetAsync()
     {
-        Sessions = await _context.Sessions
-            .Include(a => a.Course)
-            .ThenInclude(a => a.Term)
-            .ToListAsync();
+        Sessions = await _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).Where(e => e.IsActive == false).ToListAsync();
     }
 }

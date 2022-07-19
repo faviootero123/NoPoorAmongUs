@@ -3,11 +3,13 @@
 @{
 }
 
-<h2>@Model.session.Session.DayofWeek @Model.session.Session.Course.Subject.SubjectName</h2>
+
+<h2> @Model.session.Session.Course.Subject.SubjectName @Model.session.Session.Course.CourseLevel</h2>
 <h5>
     Day: @Model.session.Session.DayofWeek <br />
     Time: @Model.session.Session.StartTime.ToShortTimeString() - @Model.session.Session.EndTime.ToShortTimeString()
 </h5>
+   <a asp-page="Index" id="CreateBtn">Go Back</a>
 <form method="post">
     <h2>Enrolled Students</h2>
     
@@ -40,7 +42,7 @@
         </tbody>
     </table>
     
-    <h2>All Students</h2>
+    <h2>Eligible Students</h2>
          <input type="hidden" asp-for="session.Session.SessionId" />
         
     <table id="dataTable2" class="table table-bordered table-striped" style="width:100%;">
