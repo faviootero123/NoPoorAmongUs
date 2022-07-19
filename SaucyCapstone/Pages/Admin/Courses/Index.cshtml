@@ -33,6 +33,9 @@
         <thead>
             <tr>
                 <th>
+                   IsActive 
+                </th>
+                <th>
                     Term
                 </th>
                 <th>
@@ -56,6 +59,9 @@
             @foreach (var item in Model.CourseVM.CourseList)
             {
                 <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Term.IsActive)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Term.TermName)
                     </td>

@@ -27,7 +27,7 @@ public class IndexModel : PageModel
         {
             CourseVM = new()
             {
-                CourseList = await _context.Courses.Include(c => c.Term).Include(c => c.Instructor).Include(c => c.Subject).Include(c => c.School).ToListAsync()
+                CourseList = await _context.Courses.Include(c => c.Term).Include(c => c.Instructor).Include(c => c.Subject).Include(c => c.School).OrderByDescending(u => u.Term.EndDate).ToListAsync()
             };
         }
         else
