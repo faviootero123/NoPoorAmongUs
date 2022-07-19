@@ -35,20 +35,20 @@ namespace SaucyCapstone.Pages.Sessions.Assessments
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync(AssessmentVM AssessmentVM)
         {
-            if (!ModelState.IsValid && _context.Assessments != null)
+            if (ModelState.IsValid)
             {
-                AssessmentVM.Assessment = new()
+                var tempAssessment = new Assessment
                 {
                     Title = AssessmentVM.Assessment.Title,
                     Description = AssessmentVM.Assessment.Description,
-                    Score = AssessmentVM.Assessment.Score,
+                    Score = 0.0M,
                     MaxScore = AssessmentVM.Assessment.MaxScore,
                     DueDate = null,
-                    Session = _context.Sessions.Where(u => u.SessionId == AssessmentVM.SessionId).First(),
-
+                    Course = _context.Courses.Where(u => u.CourseLevel == AssessmentVM.Course.CourseLevel && u.Subject.SubjectName == AssessmentVM.Course.Subject.SubjectName).First()
+                    //Grade = _context.Grades.Where(u => u.GradeId == 1).First()
                 };
 
-                _context.Assessments.Add(AssessmentVM.Assessment);
+                _context.Assessments.Add(tempAssessment);
                 await _context.SaveChangesAsync();
 
                 return RedirectToPage("./Index");

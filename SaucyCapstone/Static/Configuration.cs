@@ -84,7 +84,7 @@ public static class ConfigurationStaticMethods
     }
 
     private static async Task SeedData(this ApplicationDbContext db)
-    { 
+    {
 
         var alreadyExists = await db.Terms.Where(s => s.TermId == 1).FirstOrDefaultAsync() == null;
         if (alreadyExists)
@@ -141,14 +141,14 @@ public static class ConfigurationStaticMethods
             {
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddMonths(3),
-                TermName = "Summer",
+                TermName = "Spring22",
                 IsActive = true
             };
             var term2 = new Term
             {
                 StartDate = DateTime.Now.AddMonths(3),
                 EndDate = DateTime.Now.AddMonths(6),
-                TermName = "Spring",
+                TermName = "Summer22",
                 IsActive = false
             };
             await db.AddAsync(term);
@@ -161,28 +161,37 @@ public static class ConfigurationStaticMethods
                 CourseLevel = 1,
                 Subject = subject,
                 Term = term,
-                Instructor = faculty2,
+                Instructor = faculty,
                 Sessions = new List<Session>()
             };
-            var course4 = new Course
+            var course2 = new Course
             {
                 School = school,
                 CourseLevel = 2,
                 Subject = subject,
                 Term = term,
-                Instructor = faculty2,
+                Instructor = faculty,
                 Sessions = new List<Session>()
             };
-            var course5 = new Course
+            var course3 = new Course
             {
                 School = school,
                 CourseLevel = 3,
                 Subject = subject,
                 Term = term,
+                Instructor = faculty,
+                Sessions = new List<Session>()
+            };
+            var course4 = new Course
+            {
+                School = school,
+                CourseLevel = 1,
+                Subject = subject2,
+                Term = term2,
                 Instructor = faculty2,
                 Sessions = new List<Session>()
             };
-            var course2 = new Course
+            var course5 = new Course
             {
                 School = school,
                 CourseLevel = 2,
@@ -200,18 +209,13 @@ public static class ConfigurationStaticMethods
                 Instructor = faculty2,
                 Sessions = new List<Session>()
             };
-            var course3 = new Course
-            {
-                School = school2,
-                CourseLevel = 1,
-                Subject = subject2,
-                Term = term2,
-                Instructor = faculty,
-                Sessions = new List<Session>()
-            };
             await db.AddAsync(course);
             await db.AddAsync(course2);
             await db.AddAsync(course3);
+            await db.AddAsync(course4);
+            await db.AddAsync(course5);
+            await db.AddAsync(course6);
+
 
             //guardians
             var guardian1 = new Guardian
@@ -239,8 +243,8 @@ public static class ConfigurationStaticMethods
                 {
                     FirstName = "Karl",
                     LastName = "Guy",
-                     EnglishLevel = 1,
-                ITLevel = 1,
+                    EnglishLevel = 1,
+                    ITLevel = 1,
                     DateOfBirth = new DateTime(1990, 7, 7),
                     AcceptedDate = DateTime.Now,
                     LastModifiedDate = DateTime.Now,
@@ -304,10 +308,6 @@ public static class ConfigurationStaticMethods
                 FoodAssistance = false,
                 ChappaAssistance = true,
             };
-            await db.AddAsync(student1);
-            await db.AddAsync(student2);
-
-            //students
             var student3 = new Student
             {
                 FirstName = "Hailey",
@@ -354,6 +354,8 @@ public static class ConfigurationStaticMethods
                 FoodAssistance = false,
                 ChappaAssistance = true,
             };
+            await db.AddAsync(student1);
+            await db.AddAsync(student2);
             await db.AddAsync(student3);
             await db.AddAsync(student4);
 
@@ -471,30 +473,30 @@ public static class ConfigurationStaticMethods
             var assessment = new Assessment
             {
                 Score = 88,
-                Session = session,
                 DueDate = DateTime.Now.AddDays(14),
                 MaxScore = 100,
-                Grade = grade,
+                //Grade = grade,
+                Course = course,
                 Title = "Homework 1",
                 Description = "Homework 1 Description"
             };
             var assessment2 = new Assessment
             {
                 Score = 77,
-                Session = session,
                 DueDate = DateTime.Now.AddDays(7),
                 MaxScore = 100,
-                Grade = grade,
+                //Grade = grade,
+                Course = course2,
                 Title = "Homework 2",
                 Description = "Homework 2 Description"
             };
             var assessment3 = new Assessment
             {
                 Score = 66,
-                Session = session,
                 DueDate = DateTime.Now.AddDays(3),
                 MaxScore = 100,
-                Grade = grade2,
+                //Grade = grade2,
+                Course = course3,
                 Title = "Homework 3",
                 Description = "Homework 3 Description"
             };
@@ -532,11 +534,6 @@ public static class ConfigurationStaticMethods
             };
             await db.AddRangeAsync(criteria);
             await db.SaveChangesAsync();
-
-
-
-            //rating
-
 
             //accesstype
             var accesstype = new AccessType
@@ -583,7 +580,6 @@ public static class ConfigurationStaticMethods
                 FileGUID = "",
                 UploadDate = DateTime.Now
             };
-            await db.AddAsync(studentdoc);
             var studentdoc2 = new StudentDoc
             {
                 Student = student3,
@@ -595,11 +591,10 @@ public static class ConfigurationStaticMethods
                 Extension = "extension goes here",
                 UploadDate = DateTime.Now
             };
+            await db.AddAsync(studentdoc);
             await db.AddAsync(studentdoc2);
 
-
             await db.SaveChangesAsync();
-
         }
     }
 }
