@@ -40,15 +40,15 @@ services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 }).AddDefaultTokenProviders()
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-services.AddAuthorization(options =>
-{
-    options.AddPolicy("Admin", p => p.RequireRole(Roles.Admin));
-});
+//services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("Admin", p => p.RequireRole(Roles.Admin));
+//});
 
 services.AddDatabaseDeveloperPageExceptionFilter();
 services.AddRazorPages(options => 
 { 
-    options.Conventions.AuthorizeFolder("/Admin", "Admin"); 
+    //options.Conventions.AuthorizeFolder("/Admin", "Admin"); 
 }).AddRazorRuntimeCompilation();
 services.AddHttpContextAccessor();
 

@@ -16,11 +16,10 @@ public class ArchiveModel : PageModel
         _context = context;
     }
     [BindProperty]
-    public Session Session { get; set; }
+    public Session? Session { get; set; }
     public void OnGet(int? id)
     {
-        Session = _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).Where(x => x.SessionId == id).FirstOrDefault();
-       
+        Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault() ?? new Session();
     }
 
     public IActionResult OnPostAsync(int? id)
@@ -29,8 +28,8 @@ public class ArchiveModel : PageModel
         {
             return NotFound();
         }
-        Session = _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).Where(x => x.SessionId == id).FirstOrDefault();
-        if (Session != null && Session.IsActive == true)
+        Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
+        if(Session != null && Session.IsActive == true)
         {
             Session.IsActive = false;
             _context.SaveChanges();

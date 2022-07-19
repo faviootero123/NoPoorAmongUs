@@ -20,18 +20,22 @@
                 {
                     var subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
                     <a style="text-decoration:none" asp-page="/Sessions/Assessments/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
-                    <li class="list-group-item">@subjectCourse</li>
+                        <li class="list-group-item">@subjectCourse</li>
                     </a>
                 }
+                <a style="text-decoration:none" asp-page="/Sessions/Assessments/Index">
+                    <li class="list-group-item">All</li>
+                </a>
             </ul>
         </div>
-
     </div>
     <br />
-
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
+                <th>
+                    Title
+                </th>
                 <th>
                     Description
                 </th>
@@ -44,9 +48,6 @@
                 <th>
                     Max Score
                 </th>
-                <th>
-                    Due Date
-                </th>
                 <th>Options</th>
             </tr>
         </thead>
@@ -55,19 +56,19 @@
             {
                 <tr>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Session.Course.Subject.SubjectName)
+                        @Html.DisplayFor(modelItem => item.Course.Subject.SubjectName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Session.Course.CourseLevel)
+                        @Html.DisplayFor(modelItem => item.Course.CourseLevel)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.MaxScore)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DueDate)
                     </td>
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end">

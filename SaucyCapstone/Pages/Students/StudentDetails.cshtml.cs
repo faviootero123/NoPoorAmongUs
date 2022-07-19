@@ -14,7 +14,7 @@ public class StudentDetailsModel : PageModel
     private readonly ApplicationDbContext _db;
 
     [BindProperty(SupportsGet = true)]
-    public ApplicantVM Applicant { get; set; }
+    public ApplicantVM? Applicant { get; set; }
 
     public StudentDetailsModel(ApplicationDbContext db)
     {

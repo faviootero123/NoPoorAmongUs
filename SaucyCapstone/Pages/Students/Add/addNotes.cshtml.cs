@@ -17,7 +17,7 @@ public class addNotesModel : PageModel
     [BindProperty]
     public int StudentId { get; set; }
     [BindProperty]
-    public Note Note { get; set; }
+    public Note? Note { get; set; }
 
     public addNotesModel(ApplicationDbContext db)
     {
@@ -36,9 +36,9 @@ public class addNotesModel : PageModel
         Topic = Note.Topic,
         Content = Note.Content,
         CreatedDate = DateTime.Now,
-        Student = _db.Students.Where(d=>d.StudentId == id).FirstOrDefault(),
-        FacultyMember = _db.FacultyMembers.FirstOrDefault(),
-        NoteType = _db.AccessTypes.FirstOrDefault(),
+        Student = _db.Students.Where(d=>d.StudentId == id).FirstOrDefault() ?? new Student(),
+        FacultyMember = _db.FacultyMembers.FirstOrDefault() ?? new FacultyMember(),
+        NoteType = _db.AccessTypes.FirstOrDefault() ?? new AccessType(),
         isPrivate = Note.isPrivate,
         EditedDate = DateTime.Now
         };

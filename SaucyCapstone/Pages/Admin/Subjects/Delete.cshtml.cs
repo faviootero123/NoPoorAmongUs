@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
-using Models.ViewModels;
 
-namespace SaucyCapstone.Pages.Sessions.Assessments;
+namespace SaucyCapstone.Pages.Admin.Subjects;
 
 public class DeleteModel : PageModel
 {
@@ -21,43 +20,40 @@ public class DeleteModel : PageModel
     }
 
     [BindProperty]
-    public AssessmentVM? AssessmentVM { get; set; }
+  public Subject Subject { get; set; } = default!;
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (id == null)
+        if (id == null || _context.Subjects == null)
         {
             return NotFound();
         }
 
-        var assessment = await _context.Assessments.Include(u => u.Course).ThenInclude(u => u.Subject).FirstOrDefaultAsync(u => u.AssessmentId == id);
+        var subject = await _context.Subjects.FirstOrDefaultAsync(m => m.SubjectId == id);
 
-        if (assessment == null)
+        if (subject == null)
         {
             return NotFound();
         }
-
-        AssessmentVM = new()
+        else 
         {
-            Course = assessment.Course ?? new Course(),
-            Assessment = assessment
-        };
-
-        await AssessmentVM.DropdownHelperAsync(_context, assessment);
+            Subject = subject;
+        }
         return Page();
     }
 
     public async Task<IActionResult> OnPostAsync(int? id)
     {
-        if (id == null || _context.Assessments == null)
+        if (id == null || _context.Subjects == null)
         {
             return NotFound();
         }
+        var subject = await _context.Subjects.FindAsync(id);
 
-        if (id != null)
+        if (subject != null)
         {
-            var temp = _context.Assessments.Where(u => u.AssessmentId == id).First();
-            _context.Assessments.Remove(temp);
+            Subject = subject;
+            _context.Subjects.Remove(Subject);
             await _context.SaveChangesAsync();
         }
 
