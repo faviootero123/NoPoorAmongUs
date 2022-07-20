@@ -44,6 +44,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<Subject> Subjects => Set<Subject>();
     public DbSet<Term> Terms => Set<Term>();
     public DbSet<School> Schools => Set<School>();
+    public DbSet<SessionDates> SessionDates => Set<SessionDates>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

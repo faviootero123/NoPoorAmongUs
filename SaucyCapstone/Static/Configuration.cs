@@ -536,7 +536,8 @@ public static class ConfigurationStaticMethods
             await db.SaveChangesAsync();
 
 
-
+            //Seeding SessionDates
+            
             //rating
 
 
