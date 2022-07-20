@@ -1,0 +1,68 @@
+﻿@page
+@model SaucyCapstone.Pages.Instructor.Sessions.ViewArchivedModel
+@{
+}
+<h2>Archived Sessions</h2>
+<p>
+    <a asp-page="Index" id="CreateBtn">Go Back</a>
+
+</p>
+@if (Model.Sessions == null)
+{
+    <div> No Available Sessions</div>
+}
+@if (Model.Sessions != null)
+{
+   
+        <div class="container p-3">
+          
+
+            <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Day of Week</th>
+                        <th>Time</th>
+                        <th>Term</th>
+                        <th>Session Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   @foreach (var session in Model.Sessions)
+    {
+                        <tr>
+                            <td width="25%">
+                                @Html.DisplayFor(modelItem => session.Course.Subject.SubjectName) @Html.DisplayFor(modelItem => session.Course.CourseLevel)
+                            </td>
+                            <td width="15%">
+                                @Html.DisplayFor(modelItem => session.DayofWeek)
+                            </td>
+                            <td width="15%">
+                                @session.StartTime.ToShortTimeString() - @session.EndTime.ToShortTimeString()
+                            </td>
+                            <td width="15%">
+                                @Html.DisplayFor(modelItem => session.Course.Term.TermName)
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group" style="justify-content:end">
+                                    <a class="btn btn-success mx-2" asp-page="./Enrollments" asp-route-id="@session.SessionId"><i class="bi bi-people-fill"></i>&nbsp;Enrollments</a>
+                                  
+                                    <a class="btn btn-danger mx-2" asp-page="./Archive" asp-route-id="@session.SessionId"><i class="bi bi-archive-fill"></i>&nbsp;Activate</a>
+                                    <a class="btn btn-light mx-2" asp-page="./Attendance" asp-route-id="@session.SessionId"><i class="bi bi-calendar-check-fill"></i>&nbsp;Attendance</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+}

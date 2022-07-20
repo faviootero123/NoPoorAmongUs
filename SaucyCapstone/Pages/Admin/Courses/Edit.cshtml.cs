@@ -21,17 +21,8 @@ public class EditModel : PageModel
         _context = context;
     }
 
-    public Course Course { get; set; }
     [BindProperty]
     public CourseVM CourseVM { get; set; }
-    [BindProperty]
-    public IEnumerable<SelectListItem> TermList { get; set; }
-    [BindProperty]
-    public IEnumerable<SelectListItem> InstructorList { get; set; }
-    [BindProperty]
-    public IEnumerable<SelectListItem> SubjectList { get; set; }
-    [BindProperty]
-    public IEnumerable<SelectListItem> SchoolList { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -42,10 +33,10 @@ public class EditModel : PageModel
 
         var course = await _context.Courses.FindAsync(id);
 
-        course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault();
-        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault();
-        course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault();
-        course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault();
+        course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault() ?? new Term();
+        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault() ?? new FacultyMember();
+        course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault() ?? new Subject();
+        course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault() ?? new School();
 
         CourseVM = new()
         {
@@ -57,14 +48,14 @@ public class EditModel : PageModel
             SchoolId = course.School.SchoolId
         };
 
-        CourseVM.DropdownHelperAsync(_context, course);
+        await CourseVM.DropdownHelperAsync(_context, course);
 
         return Page();
     }
 
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see https://aka.ms/RazorPagesCRUD.
-    public async Task<IActionResult> OnPostAsync(int id, CourseVM courseVM)
+    public async Task<IActionResult> OnPostAsync(int id, CourseVM CourseVM)
     {
         if (ModelState.IsValid && _context.Courses != null)
         {
@@ -75,10 +66,10 @@ public class EditModel : PageModel
                 return NotFound();
             }
 
-            courseToUpdate.Term = _context.Terms.Where(s => s.TermId == courseVM.Term.TermId).First();
-            courseToUpdate.Instructor = _context.FacultyMembers.Where(s => s.FacultyMemberId == courseVM.Instructor.FacultyMemberId).First();
-            courseToUpdate.Subject = _context.Subjects.Where(s => s.SubjectId == courseVM.Subject.SubjectId).First();
-            courseToUpdate.School = _context.Schools.Where(s => s.SchoolId == courseVM.School.SchoolId).First();
+            courseToUpdate.Term = _context.Terms.Where(s => s.TermId == CourseVM.Term.TermId).First();
+            courseToUpdate.Instructor = _context.FacultyMembers.Where(s => s.FacultyMemberId == CourseVM.Instructor.FacultyMemberId).First();
+            courseToUpdate.Subject = _context.Subjects.Where(s => s.SubjectId == CourseVM.Subject.SubjectId).First();
+            courseToUpdate.School = _context.Schools.Where(s => s.SchoolId == CourseVM.School.SchoolId).First();
             _context.Courses.Update(courseToUpdate);
             await _context.SaveChangesAsync();
 

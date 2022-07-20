@@ -11,10 +11,14 @@ namespace Data;
 public class Attendance
 {
     public int AttendanceId { get; set; }
+
     [Required]
     public DateTime Date { get; set; }
     [Required]
     public AttendanceStatus Status { get; set; }
+
+    [ForeignKey("SessionId")]
+    public Session Session { get; set; }
     //enums
     public enum AttendanceStatus
     {

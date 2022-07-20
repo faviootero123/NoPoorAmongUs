@@ -1,0 +1,32 @@
+﻿@page
+@model SaucyCapstone.Pages.Instructor.Sessions.ArchiveModel
+@{
+}
+<form method="post">
+    @if(Model.Session.IsActive == true)
+    {
+<div>
+    <h3>Are you sure you want to archive this course?</h3>
+    <h4>Course Name: @Model.Session.Course.Subject.SubjectName @Model.Session.Course.CourseLevel</h4>
+    <h4>Day of the week: @Model.Session.DayofWeek</h4>
+    <h4>Start Time: @Model.Session.StartTime.ToShortTimeString()</h4>
+     <h4>End Time: @Model.Session.EndTime.ToShortTimeString()</h4>
+    <input type="hidden" asp-for="Session.SessionId" />
+       <input type="submit" value="Archive" class="btn btn-danger" /> 
+      <a class="btn btn-success" asp-page="./Index">No</a>
+</div>
+    }
+        @if(Model.Session.IsActive == false)
+    {
+        <div>
+    <h3>Are you sure you want to activate this course?</h3>
+        <h4>Course Name: @Model.Session.Course.Subject.SubjectName @Model.Session.Course.CourseLevel</h4>
+    <h4>Day of the week: @Model.Session.DayofWeek</h4>
+    <h4>Start Time: @Model.Session.StartTime.ToShortTimeString()</h4>
+     <h4>End Time: @Model.Session.EndTime.ToShortTimeString()</h4>
+    <input type="hidden" asp-for="Session.SessionId" />
+       <input type="submit" value="Activate" class="btn btn-success" /> 
+      <a class="btn btn-success" asp-page="./Index">No</a>
+</div>
+    }
+</form>

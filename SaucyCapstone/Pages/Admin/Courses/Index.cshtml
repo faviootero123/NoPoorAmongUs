@@ -2,65 +2,94 @@
 @using Data
 @model SaucyCapstone.Pages.Admin.Courses.IndexModel
 
-<div class="row pt-4">
-    <div class="col-6">
-        <h2 class="text-primary">Course Overveiw</h2>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Course Overview</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-page="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; New Course
+            </a>
+        </div>
     </div>
-    <div class="col-6 text-end">
-        <a asp-page="Create" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> &nbsp; New Course
-        </a>
+
+    <div class="pt-4">
+        <ul class="list-group list-group-horizontal-sm">
+            @if (Model.Term != null)
+            {
+                <a style="text-decoration:none" asp-page="/Admin/Courses/Index" asp-route-term="@Model.Term.TermId">
+                <li class="list-group-item">Active Term</li>
+                </a>
+            }
+
+            <a style="text-decoration:none" asp-page="/Admin/Courses/Index">
+            <li class="list-group-item">All</li>
+            </a>
+        </ul>
     </div>
-</div>
-<br />
-<table id="dataTable" class="table table-bordered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                Term
-            </th>
-            <th>
-                Instructor
-            </th>
-            <th>
-                Subject
-            </th>
-            <th>
-                School
-            </th>
-            <th>
-                Options
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.CourseVM.CourseList)
-        {
+    <br />
+    <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Term.TermName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Instructor.FirstName) @Html.DisplayFor(modelItem => item.Instructor.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subject.SubjectName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.School.SchoolName)
-                </td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <a asp-page="Edit" asp-route-id="@item.CourseId"
-                       class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
-                        <a asp-page="Delete" asp-route-id="@item.CourseId"
-                       class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
-                    </div>
-                </td>
+                <th>
+                   IsActive 
+                </th>
+                <th>
+                    Term
+                </th>
+                <th>
+                    Instructor
+                </th>
+                <th>
+                    Subject
+                </th>
+                <th>
+                    Course Level
+                </th>
+                <th>
+                    School
+                </th>
+                <th>
+                    Options
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CourseVM.CourseList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Term.IsActive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Term.TermName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Instructor.FirstName) @Html.DisplayFor(modelItem => item.Instructor.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseLevel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.School.SchoolName)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a asp-page="Edit" asp-route-id="@item.CourseId"
+                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                            <a asp-page="Delete" asp-route-id="@item.CourseId"
+                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section Scripts{
     <script>
@@ -68,4 +97,4 @@
             $('#dataTable').dataTable();
         });
     </script>
-}
+    }

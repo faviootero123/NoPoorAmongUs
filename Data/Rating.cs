@@ -18,8 +18,11 @@ public class Rating
     //relationships
     [Required]
     [ForeignKey("StudentId")]
-    public Student Student { get; set; }
+    public int StudentID { get; set; }
     [Required]
     [ForeignKey("CriterionId")]
-    public Criterion Criterion { get; set; }
+    public int CriterionId { get; set; }
+    //[Required]
+    //[ForeignKey("FacultyMemberId")]
+    //public int FacultyMemberId { get; set; }
 }

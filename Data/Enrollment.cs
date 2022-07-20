@@ -26,9 +26,6 @@ public class Enrollment
     [Required]
     [ForeignKey("SessionId")]
     public Session Session { get; set; }
-    //[Required]
-    //[ForeignKey("CourseId")]
-    //public Course Course { get; set; }
    
     [ForeignKey("GradeId")]
     public Grade Grade { get; set; }
