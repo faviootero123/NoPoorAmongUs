@@ -1,4 +1,5 @@
 ﻿@page
+@using SaucyCapstone.Pages.Admin.UserManagement
 @model SaucyCapstone.Pages.Admin.UserManagement.IndexModel
 @{
 
@@ -18,12 +19,15 @@
                 Email
             </th>
             <th>
-                Actions
+                Lock
+            </th>
+            <th>
+                Password Reset
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.UsersVM)
+        @foreach (var item in Model.UsersVM ?? new List<UserVM>())
         {
             <tr>
                 <td>
@@ -32,21 +36,40 @@
                 <td>
                     @item.Email
                 </td>
-                <td>
-                    Actions
-                    <form method="post">
-                        @{
-                            if (item.LockoutEnd > DateTime.Now)
-                            {
-                                <button type="submit" class="btn btn-outline-warning" asp-page-handler="LockUnlock" asp-route-id="@item.Id"><i class="bi bi-unlock"></i> Unlock</button>
-                            }
-                            else
-                            {
-                                <button type="submit" class="btn btn-outline-warning" asp-page-handler="LockUnlock" asp-route-id="@item.Id"><i class="bi bi-lock"></i> Lock</button>
-                            }
+
+                <form method="post">
+                    @{
+                        if (item.LockoutEnd > DateTime.Now)
+                        {
+                            <td>
+                                <button type="submit" class="btn btn-outline-warning" asp-page-handler="LockUnlock"
+                        asp-route-id="@item.Id">
+                                    <i class="bi bi-unlock"></i> Unlock
+                                </button>
+                            </td>
                         }
-                    </form>
-                </td>
+                        else
+                        {
+                            <td>
+                                <button type="submit" class="btn btn-outline-warning" asp-page-handler="LockUnlock"
+                        asp-route-id="@item.Id">
+                                    <i class="bi bi-lock"></i> Lock
+                                </button>
+                            </td>
+                        }
+                    }
+                    <td>
+                        <button type="submit" class="btn d-inline btn-outline-warning" asp-page-handler="PasswordResetEmail"
+                        asp-route-id="@item.Id">
+                            <i class="bi bi-envelope"></i>
+                        </button>
+                        <a class="btn d-inline btn-outline-warning" asp-page="Changepassword"
+                        asp-route-id="@item.Id">
+                            <i class="bi bi-input-cursor-text"></i>
+                        </a>
+                    </td>
+                </form>
+
             </tr>
         }
     </tbody>

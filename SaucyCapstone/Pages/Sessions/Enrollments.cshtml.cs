@@ -9,7 +9,7 @@ namespace SaucyCapstone.Pages.Sessions;
 
 public class EnrollmentsModel : PageModel
 {
-     
+
     private readonly ApplicationDbContext _context;
 
     public EnrollmentsModel(ApplicationDbContext context)
@@ -24,15 +24,15 @@ public class EnrollmentsModel : PageModel
     public async Task<IActionResult> OnGetAsync(int? id)
     {
 
-     
-        if(id == null)
+
+        if (id == null)
         {
             return NotFound();
         }
         session = new SessionVM
         {
-            Session = await _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c=>c.Course.Subject).FirstOrDefaultAsync(u => u.SessionId == id),
-            Enrollments = await _context.Enrollments.Include(c=>c.Student).Where(e=>e.Session.SessionId == id).ToListAsync(),
+            Session = await _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).FirstOrDefaultAsync(u => u.SessionId == id),
+            Enrollments = await _context.Enrollments.Include(c => c.Student).Where(e => e.Session.SessionId == id).ToListAsync(),
         };
         int sessionLevel = session.Session.Course.CourseLevel;
         if (session.Session.Course.Subject.SubjectName == "English")
@@ -44,7 +44,7 @@ public class EnrollmentsModel : PageModel
 
             studentList = await _context.Students.Where(c => c.ITLevel == sessionLevel).ToListAsync();
         }
-      
+
         return Page();
     }
     public IActionResult OnPostEnroll(int id)
@@ -66,7 +66,7 @@ public class EnrollmentsModel : PageModel
         _context.Enrollments.Add(enrollment);
         _context.SaveChanges();
         return RedirectToPage("./Index");
-   // return RedirectToPage("./Enrollments", enrollment.SessionId);
+        // return RedirectToPage("./Enrollments", enrollment.SessionId);
     }
     public IActionResult OnPostRemove(int id)
     {
@@ -78,18 +78,15 @@ public class EnrollmentsModel : PageModel
     }
     public bool isEnrolled(int SessionId, int StudentId)
     {
-       
-        var Enrollments = _context.Enrollments.Include(c => c.Student).Where(e => e.Session.SessionId == SessionId).ToList().AsEnumerable();
-        foreach(var enrollment in Enrollments)
-        {
-            if(enrollment.StudentId == StudentId)
-            {
-                return true;
-            }
-        }
+
+        var enrollemntsStudentId = _context.Enrollments
+            .Where(e => e.Session.SessionId == SessionId)
+            .Select(s => s.StudentId == StudentId)
+            .ToList();
+        if (enrollemntsStudentId.Any()) return true;
         return false;
     }
-    }
+}
 
 
 
