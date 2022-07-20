@@ -1,6 +1,7 @@
 ﻿@page
 @model SaucyCapstone.Pages.Instructor.Assessments.IndexModel
 @{
+    var subjectCourse = "";
 }
 
 <div class="container p-3">
@@ -18,13 +19,13 @@
             <ul class="list-group list-group-horizontal-sm">
                 @foreach (var course in Model.CourseList)
                 {
-                    var subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
-                    <a style="text-decoration:none" asp-page="/Instructor/Assessments/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
-                        <li class="list-group-item">@subjectCourse</li>
+                    subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
+                    <a id="@subjectCourse" onclick="changeactive(this.id)" asp-page="/Instructor/Assessments/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
+                    <li class="custom btn btn-outline-primary">@subjectCourse</li>
                     </a>
                 }
-                <a style="text-decoration:none" asp-page="/Instructor/Assessments/Index">
-                    <li class="list-group-item">All</li>
+                <a style="text-decoration:none" onclick="changeactive('All')" asp-page="/Instructor/Assessments/Index">
+                <li class="custom btn btn-outline-primary">All</li>
                 </a>
             </ul>
         </div>
@@ -85,9 +86,5 @@
 </div>
 
 @section Scripts{
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').dataTable();
-        });
-    </script>
+    <script src="~/js/class-sort-button.js"></script>
 }
