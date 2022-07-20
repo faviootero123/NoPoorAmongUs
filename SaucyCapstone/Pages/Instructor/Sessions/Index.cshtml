@@ -16,6 +16,21 @@
                 <i class="bi bi-plus-circle"></i> &nbsp; View Archived
             </a>
         </div>
+
+        <div class="pt-4">
+            <ul class="list-group list-group-horizontal-sm">
+                @foreach (var course in Model.CourseList)
+                {
+                    var subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
+                    <a style="text-decoration:none" asp-page="/Instructor/Sessions/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
+                        <li class="list-group-item">@subjectCourse</li>
+                    </a>
+                }
+                <a style="text-decoration:none" asp-page="/Instructor/Sessions/Index">
+                    <li class="list-group-item">All</li>
+                </a>
+            </ul>
+        </div>
     </div>
     <br />
 

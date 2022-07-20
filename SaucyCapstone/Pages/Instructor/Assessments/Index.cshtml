@@ -19,11 +19,11 @@
                 @foreach (var course in Model.CourseList)
                 {
                     var subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
-                    <a style="text-decoration:none" asp-page="/Sessions/Assessments/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
+                    <a style="text-decoration:none" asp-page="/Instructor/Assessments/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
                         <li class="list-group-item">@subjectCourse</li>
                     </a>
                 }
-                <a style="text-decoration:none" asp-page="/Sessions/Assessments/Index">
+                <a style="text-decoration:none" asp-page="/Instructor/Assessments/Index">
                     <li class="list-group-item">All</li>
                 </a>
             </ul>

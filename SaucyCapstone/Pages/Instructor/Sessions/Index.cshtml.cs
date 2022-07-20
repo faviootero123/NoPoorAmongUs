@@ -19,20 +19,19 @@ public class IndexModel : PageModel
     }
 
     public IList<Session> Sessions { get; set; }
-    public async Task OnGetAsync()
+    public IList<Course> CourseList { get; set; } = default!;
+
+    public async Task OnGetAsync(string? subject, int? courselvl)
     {
-        //Sessions = await _context.Sessions.Select(d=> new SessionViewModel
-        // { 
-        //    DayofWeek = d.DayofWeek,
-        //    StartTime = d.StartTime,
-        //    EndTime = d.EndTime,
-        //    IsActive = d.IsActive,
-        //    Course = d.Course,
-        //    Term = d.Course.Term,
-        //    Subject = d.Course.Subject,
-        //    SessionId = d.SessionId
-        //} ).ToListAsync();
-        Sessions = await _context.Sessions.Include(c=> c.Course).Include(c=> c.Course.Term).Include(c=>c.Course.Subject).Where(e=>e.IsActive ==true).ToListAsync();
+        if (subject != null || courselvl != null)
+        {
+            Sessions = await _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).Where(u => u.Course.CourseLevel == courselvl).Where(u => u.Course.Subject.SubjectName == subject && u.Course.Term.IsActive == true).ToListAsync();
+        }
+        else
+        {
+            Sessions = await _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).Where(u => u.Course.Term.IsActive == true).ToListAsync();
+        }
+        CourseList = await _context.Courses.Include(u => u.Subject).Where(u => u.Term.IsActive == true).OrderBy(u => u.Subject).ToListAsync();
     }
 }
 

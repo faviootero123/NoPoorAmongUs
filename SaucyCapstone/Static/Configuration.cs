@@ -626,14 +626,14 @@ public static class ConfigurationStaticMethods
             await db.SaveChangesAsync();
 
             ////////////sessions\\\\\\\\\\\\
-            //course 1 sessions
+            //course 1 sessions (current term)
             var session = new Session
             {
                 DayofWeek = "Monday",
                 StartTime = DateTime.MinValue.AddHours(9),
                 EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course
+                Course = course8
             };
             var session2 = new Session
             {
@@ -641,7 +641,7 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(12),
                 EndTime = DateTime.MinValue.AddHours(13),
                 IsActive = true,
-                Course = course
+                Course = course8
             };
             var session3 = new Session
             {
@@ -649,7 +649,7 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(9),
                 EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course
+                Course = course8
             };
             var session4 = new Session
             {
@@ -657,7 +657,7 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(12),
                 EndTime = DateTime.MinValue.AddHours(13),
                 IsActive = true,
-                Course = course
+                Course = course8
             };
             var session5 = new Session
             {
@@ -665,7 +665,7 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(9),
                 EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course
+                Course = course8
             };
             var session6 = new Session
             {
@@ -673,18 +673,18 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(12),
                 EndTime = DateTime.MinValue.AddHours(13),
                 IsActive = true,
-                Course = course
+                Course = course8
             };
 
 
-            //course 2 sessions
+            //course 2 sessions (current term)
             var session7 = new Session
             {
                 DayofWeek = "Monday",
                 StartTime = DateTime.MinValue.AddHours(9),
                 EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course
+                Course = course9
             };
             var session8 = new Session
             {
@@ -692,7 +692,7 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(9),
                 EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course
+                Course = course9
             };
             var session9 = new Session
             {
@@ -700,7 +700,7 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(9),
                 EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course
+                Course = course9
             };
             var session10 = new Session
             {
@@ -708,7 +708,7 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(9),
                 EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course
+                Course = course9
             };
             var session11 = new Session
             {
@@ -716,26 +716,26 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(9),
                 EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course
+                Course = course9
             }; var session12 = new Session
             {
                 DayofWeek = "Monday",
                 StartTime = DateTime.MinValue.AddHours(9),
                 EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course
+                Course = course9
             };
 
             //courses 3-7 only have one session per seeded
             //(theoretically our 6 main courses should have 4 sessions per
-            //and public school course could have very many sessions
+            //and public school course could have very many sessions (current term)
             var session13 = new Session
             {
                 DayofWeek = "Monday",
                 StartTime = DateTime.MinValue.AddHours(14),
                 EndTime = DateTime.MinValue.AddHours(15),
                 IsActive = true,
-                Course = course3
+                Course = course10
             };
             var session14 = new Session
             {
@@ -743,7 +743,7 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(7),
                 EndTime = DateTime.MinValue.AddHours(8),
                 IsActive = true,
-                Course = course4
+                Course = course11
             };
             var session15 = new Session
             {
@@ -751,7 +751,7 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(15),
                 EndTime = DateTime.MinValue.AddHours(18),
                 IsActive = true,
-                Course = course5
+                Course = course12
             };
             var session16 = new Session
             {
@@ -759,7 +759,7 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(7),
                 EndTime = DateTime.MinValue.AddHours(8),
                 IsActive = true,
-                Course = course6
+                Course = course13
             };
             var session17 = new Session
             {
@@ -767,8 +767,19 @@ public static class ConfigurationStaticMethods
                 StartTime = DateTime.MinValue.AddHours(15),
                 EndTime = DateTime.MinValue.AddHours(18),
                 IsActive = true,
-                Course = course7
+                Course = course14
             };
+
+            //session for class in non active term
+            var session18 = new Session
+            {
+                DayofWeek = "Friday",
+                StartTime = DateTime.MinValue.AddHours(15),
+                EndTime = DateTime.MinValue.AddHours(18),
+                IsActive = true,
+                Course = course
+            };
+
             await db.AddAsync(session);
             await db.AddAsync(session2);
             await db.AddAsync(session3);
@@ -786,6 +797,8 @@ public static class ConfigurationStaticMethods
             await db.AddAsync(session15);
             await db.AddAsync(session16);
             await db.AddAsync(session17);
+            await db.AddAsync(session18);
+
 
             ////////////grade\\\\\\\\\\\\
             var grade = new Grade
