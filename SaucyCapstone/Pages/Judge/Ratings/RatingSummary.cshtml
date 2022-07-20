@@ -1,0 +1,61 @@
+﻿@page
+@using Data
+@model SaucyCapstone.Pages.Judge.Ratings.RatingSummaryModel
+@{
+    List<Criterion> temp = new List<Criterion>();
+    decimal weightedValue = 0;
+    decimal totalValue = 0;
+}
+<h1>Rating Summary</h1>
+<table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Select</th>
+            <th>
+                @Html.DisplayNameFor(model => model.RatingVM.Students[0].FirstName)
+            </th>
+            @foreach (var item in Model.RatingVM.Criteria)
+            {
+                <th>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </th>
+            }
+            <th>Total Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model.RatingVM.Students)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox"/>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
+                </td>
+                @foreach (var rating in student.Ratings ?? new List<Rating>())
+                {
+                    temp = Model.RatingVM.Criteria.Where(x => x.CriterionId == rating.CriterionId).ToList();
+                    weightedValue = (temp[0].Weight * @rating.Value);
+                    <td>
+                        @weightedValue
+                    </td>
+                    totalValue += weightedValue;
+                }
+                <td>
+                    @totalValue
+                </td>
+            </tr>
+            totalValue = 0;
+        }
+</table>
+<button type="submit" class="btn btn-primary">Add Student</button>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+        }
