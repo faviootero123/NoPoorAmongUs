@@ -24,7 +24,7 @@
                     <li class="custom btn btn-outline-primary">@subjectCourse</li>
                     </a>
                 }
-                <a style="text-decoration:none" asp-page="/Instructor/Assessments/Index">
+                <a style="text-decoration:none" onclick="changeactive('All')" asp-page="/Instructor/Assessments/Index">
                 <li class="custom btn btn-outline-primary">All</li>
                 </a>
             </ul>
@@ -86,5 +86,5 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/assignment-index.js"></script>
+    <script src="~/js/class-sort-button.js"></script>
 }

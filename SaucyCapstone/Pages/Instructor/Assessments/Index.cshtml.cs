@@ -27,6 +27,6 @@ public class IndexModel : PageModel
         {
             AssessmentList = await _context.Assessments.Include(u => u.Course).ThenInclude(u => u.Subject).Where(u => u.Course.Term.IsActive == true).ToListAsync();
         }
-        CourseList = await _context.Courses.Include(u => u.Subject).Where(u => u.Term.IsActive == true).OrderBy(u => u.Subject).ToListAsync();
+        CourseList = await _context.Courses.Include(u => u.Subject).Where(u => u.Term.IsActive == true).Where(u => u.Subject.SubjectName != "Public").OrderBy(u => u.Subject).ToListAsync();
     }
 }
