@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css" />
+    <link rel="stylesheet" href="~/lib/fullcalendar/main.css" />
+    <script src="~/lib/fullcalendar/main.js"></script>
 </head>
 <body>
     <header>
@@ -32,6 +34,7 @@
                                 <a class="dropdown-item" asp-page="/Admin/Courses/Index">Courses</a>
                                 <a class="dropdown-item" asp-page="/Admin/Criteria/Index">Criteria</a>
                                 <a class="dropdown-item" asp-page="/Admin/Schools/Index">Schools</a>
+                                <a class="dropdown-item" asp-page="/Admin/Subjects/Index">Subjects</a>
                                 <a class="dropdown-item" asp-page="/Admin/Terms/Index">Terms</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" asp-page="/Admin/UserManagement/Index">Manage Users</a>
@@ -40,18 +43,18 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Applicant</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-page="/Applicant/Index">Overview</a>
-                                <a class="dropdown-item" asp-page="/Admin/Ratings/Index">Ratings</a>
+                                <a class="dropdown-item" asp-page="/Judge/Applicant/Index">Overview</a>
+                                <a class="dropdown-item" asp-page="/Judge/Ratings/Index">Ratings</a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Students/Index">Student</a>
+                            <a class="nav-link" asp-page="/Instructor/Students/Index">Student</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Instructor</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-page="/Sessions/Index">Session</a>
-                                <a class="dropdown-item" asp-page="/Sessions/Assessments/Index">Assignments</a>
+                                <a class="dropdown-item" asp-page="/Instructor/Sessions/Index">Sessions</a>
+                                <a class="dropdown-item" asp-page="/Instructor/Assessments/Index">Assignments</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -62,7 +65,7 @@
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-gear"></i></a>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu dropdown-menu-end">
                                 <div class="dropdown-item">
                                     <div>Dark Mode:</div>
                                     <div class="form-check form-switch">

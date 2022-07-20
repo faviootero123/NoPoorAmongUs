@@ -1,0 +1,39 @@
+﻿@page
+@model SaucyCapstone.Pages.Admin.Subjects.CreateModel
+
+<form method="post">
+    <input type="hidden" asp-for="Subject.Courses" />
+    <div class="card">
+        <h4 class="card-header">Create Subject</h4>
+        <div class="card-body rounded pb-2">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Subject Name
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="subjectName" asp-for="Subject.SubjectName" type="text" class="form-control" />
+                        <span asp-validation-for="Subject.SubjectName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-success" style="width:100%">Create</button>
+                </div>
+                <div class="col-6">
+                    <a asp-page="./Index" class="btn btn-primary" style="width:100%">
+                        Back to Subject Overview
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

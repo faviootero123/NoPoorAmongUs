@@ -13,11 +13,10 @@ public class Assessment
     public int AssessmentId { get; set; }
 
     [Required]
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
     public string? Description { get; set; }
 
-    [Required]
     [Column(TypeName = "decimal(5, 2)")]
     public decimal Score { get; set; }
 
@@ -26,9 +25,9 @@ public class Assessment
     public decimal MaxScore { get; set; }
     public DateTime? DueDate { get; set; }
 
-    [ForeignKey("SessionId")]
-    public Session Session { get; set; }
+    [ForeignKey("CourseId")]
+    public Course? Course { get; set; }
 
-    [ForeignKey("GradeId")]
-    public Grade Grade { get; set; }
+    //[ForeignKey("GradeId")]
+    //public Grade Grade { get; set; }
 }

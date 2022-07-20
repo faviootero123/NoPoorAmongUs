@@ -84,12 +84,12 @@ public static class ConfigurationStaticMethods
     }
 
     private static async Task SeedData(this ApplicationDbContext db)
-    { 
+    {
 
         var alreadyExists = await db.Terms.Where(s => s.TermId == 1).FirstOrDefaultAsync() == null;
         if (alreadyExists)
         {
-            //school
+            ///////////school\\\\\\\\\\\
             var school = new School
             {
                 SchoolName = "Bowani"
@@ -98,10 +98,15 @@ public static class ConfigurationStaticMethods
             {
                 SchoolName = "Weber"
             };
+            var school3 = new School
+            {
+                SchoolName = "Public School"
+            };
             await db.AddAsync(school);
             await db.AddAsync(school2);
+            await db.AddAsync(school3);
 
-            //subject
+            ///////////subject\\\\\\\\\\\
             var subject = new Subject
             {
                 SubjectName = "English"
@@ -110,65 +115,99 @@ public static class ConfigurationStaticMethods
             {
                 SubjectName = "IT"
             };
+            var subject3 = new Subject
+            {
+                SubjectName = "Public"
+            };
             await db.AddAsync(subject);
             await db.AddAsync(subject2);
+            await db.AddAsync(subject3);
 
 
-            //faculty-member
+            ///////////faculty-member\\\\\\\\\\\
             var faculty = new FacultyMember
             {
-                FirstName = "Jo",
-                LastName = "Mama",
-                IsAdmin = true,
+                FirstName = "John",
+                LastName = "Doe",
+                IsAdmin = false,
                 IsInstructor = true,
                 IsRater = true,
                 IsSocialWorker = true
             };
             var faculty2 = new FacultyMember
             {
-                FirstName = "Jimmy",
-                LastName = "Mama",
+                FirstName = "Adam",
+                LastName = "Smith",
                 IsAdmin = false,
                 IsInstructor = true,
                 IsRater = false,
                 IsSocialWorker = false,
             };
+            var faculty3 = new FacultyMember
+            {
+                FirstName = "Public",
+                LastName = "Teacher",
+                IsAdmin = false,
+                IsInstructor = false,
+                IsRater = false,
+                IsSocialWorker = false,
+            };
             await db.AddAsync(faculty);
             await db.AddAsync(faculty2);
+            await db.AddAsync(faculty3);
 
-            //terms
+            ///////////terms\\\\\\\\\\\\
             var term = new Term
             {
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddMonths(3),
-                TermName = "Summer",
-                IsActive = true
+                StartDate = DateTime.Now.AddMonths(-6),
+                EndDate = DateTime.Now.AddMonths(-3),
+                TermName = "Spring22",
+                IsActive = false
             };
             var term2 = new Term
             {
-                StartDate = DateTime.Now.AddMonths(3),
-                EndDate = DateTime.Now.AddMonths(6),
-                TermName = "Spring",
-                IsActive = false
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(3),
+                TermName = "Summer22",
+                IsActive = true
             };
             await db.AddAsync(term);
             await db.AddAsync(term2);
 
-            //course
+            ////////////course\\\\\\\\\\\\
+            //courses for inactive term
             var course = new Course
             {
                 School = school,
                 CourseLevel = 1,
                 Subject = subject,
                 Term = term,
-                Instructor = faculty2,
+                Instructor = faculty,
+                Sessions = new List<Session>()
+            };
+            var course2 = new Course
+            {
+                School = school,
+                CourseLevel = 2,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty,
+                Sessions = new List<Session>()
+            };
+            var course3 = new Course
+            {
+                School = school,
+                CourseLevel = 3,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty,
                 Sessions = new List<Session>()
             };
             var course4 = new Course
             {
                 School = school,
-                CourseLevel = 2,
-                Subject = subject,
+                CourseLevel = 1,
+                Subject = subject2,
                 Term = term,
                 Instructor = faculty2,
                 Sessions = new List<Session>()
@@ -176,18 +215,9 @@ public static class ConfigurationStaticMethods
             var course5 = new Course
             {
                 School = school,
-                CourseLevel = 3,
-                Subject = subject,
-                Term = term,
-                Instructor = faculty2,
-                Sessions = new List<Session>()
-            };
-            var course2 = new Course
-            {
-                School = school,
                 CourseLevel = 2,
                 Subject = subject2,
-                Term = term2,
+                Term = term,
                 Instructor = faculty2,
                 Sessions = new List<Session>()
             };
@@ -196,79 +226,133 @@ public static class ConfigurationStaticMethods
                 School = school,
                 CourseLevel = 3,
                 Subject = subject2,
+                Term = term,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course7 = new Course
+            {
+                School = school3,
+                CourseLevel = 0,
+                Subject = subject3,
+                Term = term,
+                Instructor = faculty3,
+                Sessions = new List<Session>()
+            };
+
+            //courses for active term
+            var course8 = new Course
+            {
+                School = school,
+                CourseLevel = 1,
+                Subject = subject,
+                Term = term2,
+                Instructor = faculty,
+                Sessions = new List<Session>()
+            };
+            var course9 = new Course
+            {
+                School = school,
+                CourseLevel = 2,
+                Subject = subject,
+                Term = term2,
+                Instructor = faculty,
+                Sessions = new List<Session>()
+            };
+            var course10 = new Course
+            {
+                School = school,
+                CourseLevel = 3,
+                Subject = subject,
+                Term = term2,
+                Instructor = faculty,
+                Sessions = new List<Session>()
+            };
+            var course11 = new Course
+            {
+                School = school,
+                CourseLevel = 1,
+                Subject = subject2,
                 Term = term2,
                 Instructor = faculty2,
                 Sessions = new List<Session>()
             };
-            var course3 = new Course
+            var course12 = new Course
             {
-                School = school2,
-                CourseLevel = 1,
+                School = school,
+                CourseLevel = 2,
                 Subject = subject2,
                 Term = term2,
-                Instructor = faculty,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course13 = new Course
+            {
+                School = school,
+                CourseLevel = 3,
+                Subject = subject2,
+                Term = term2,
+                Instructor = faculty2,
+                Sessions = new List<Session>()
+            };
+            var course14 = new Course
+            {
+                School = school3,
+                CourseLevel = 0,
+                Subject = subject3,
+                Term = term2,
+                Instructor = faculty3,
                 Sessions = new List<Session>()
             };
             await db.AddAsync(course);
             await db.AddAsync(course2);
             await db.AddAsync(course3);
+            await db.AddAsync(course4);
+            await db.AddAsync(course5);
+            await db.AddAsync(course6);
+            await db.AddAsync(course7);
+            await db.AddAsync(course8);
+            await db.AddAsync(course9);
+            await db.AddAsync(course10);
+            await db.AddAsync(course11);
+            await db.AddAsync(course12);
+            await db.AddAsync(course13);
+            await db.AddAsync(course14);
 
-            //guardians
+
+            ////////////guardians\\\\\\\\\\\\
             var guardian1 = new Guardian
             {
-                FirstName = "guardian1",
-                LastName = "guardian1",
+                FirstName = "John",
+                LastName = "Smith",
                 ContactInfo = "555-555-5555",
                 Relation = "father"
             };
             var guardian2 = new Guardian
             {
-                FirstName = "guardian2",
-                LastName = "guardian2",
+                FirstName = "Jane",
+                LastName = "Brown",
                 ContactInfo = "777-777-777",
                 Relation = "mother"
             };
             await db.AddAsync(guardian1);
             await db.AddAsync(guardian2);
 
+            ////////////applicant & student\\\\\\\\\\\\
             //applicant
-
-            var students = new List<Student>
-            {
-                new Student
-                {
-                    FirstName = "Karl",
-                    LastName = "Guy",
-                     EnglishLevel = 1,
-                ITLevel = 1,
-                    DateOfBirth = new DateTime(1990, 7, 7),
-                    AcceptedDate = DateTime.Now,
-                    LastModifiedDate = DateTime.Now,
-                    IsActive = false,
-                    Status = StudentStatus.Applicant,
-                    AppStatus = ApplicationStatus.Open,
-                    SchoolLevel = '1',
-                    FoodAssistance = false,
-                    ChappaAssistance = true,
-                    Determination = DeterminationLevel.Middle
-                },
-            };
-            db.AddRange(students);
-            db.SaveChanges();
-
-            var student1 = new Student
+            var applicant1 = new Student
             {
                 FirstName = "Jane",
                 LastName = "Doe",
-                Phone = "123-123-1234",
+                Phone = "111-111-1111",
                 EnglishLevel = 1,
                 ITLevel = 1,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.High,
+                Determination = Student.DeterminationLevel.Middle,
                 AppStatus = Student.ApplicationStatus.Open,
                 Status = Student.StudentStatus.Applicant,
-                DateOfBirth = DateTime.MinValue,
-                AcceptedDate = DateTime.MinValue,
+                DateOfBirth = DateTime.Now.AddYears(-12),
+                AcceptedDate = null,
                 LastModifiedDate = DateTime.Now,
                 IsActive = false,
                 Address = "86 Shadow Brook Street",
@@ -280,53 +364,177 @@ public static class ConfigurationStaticMethods
                 FoodAssistance = true,
                 ChappaAssistance = false,
             };
+            var applicant2 = new Student
+            {
+                FirstName = "Haley",
+                LastName = "Rogers",
+                Phone = "222-222-2222",
+                EnglishLevel = 1,
+                ITLevel = 1,
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.High,
+                AppStatus = Student.ApplicationStatus.Open,
+                Status = Student.StudentStatus.Applicant,
+                DateOfBirth = DateTime.Now.AddYears(-10),
+                AcceptedDate = null,
+                LastModifiedDate = DateTime.Now,
+                IsActive = false,
+                Address = "4914 Randolf Street",
+                Village = "Walpole",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 23456,
+                SchoolLevel = 10,
+                FoodAssistance = true,
+                ChappaAssistance = true,
+            };
+            var applicant3 = new Student
+            {
+                FirstName = "Dawn",
+                LastName = "Robles",
+                Phone = "333-333-3333",
+                EnglishLevel = 1,
+                ITLevel = 1,
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.Low,
+                AppStatus = Student.ApplicationStatus.Open,
+                Status = Student.StudentStatus.Applicant,
+                DateOfBirth = DateTime.Now.AddYears(-8),
+                AcceptedDate = null,
+                LastModifiedDate = DateTime.Now,
+                IsActive = false,
+                Address = "1836 Hart Ridge Road",
+                Village = "Grayling",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 34567,
+                SchoolLevel = 10,
+                FoodAssistance = false,
+                ChappaAssistance = false,
+            };
+            var applicant4 = new Student
+            {
+                FirstName = "Mandy",
+                LastName = "Tucker",
+                Phone = "444-444-4444",
+                EnglishLevel = 1,
+                ITLevel = 1,
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.AboveLow,
+                AppStatus = Student.ApplicationStatus.Open,
+                Status = Student.StudentStatus.Applicant,
+                DateOfBirth = DateTime.Now.AddYears(-17),
+                AcceptedDate = null,
+                LastModifiedDate = DateTime.Now,
+                IsActive = false,
+                Address = "4576 Murry Street",
+                Village = "Highland Mills",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 45678,
+                SchoolLevel = 10,
+                FoodAssistance = true,
+                ChappaAssistance = false,
+            };
+            var applicant5 = new Student
+            {
+                FirstName = "Tina",
+                LastName = "Cobb",
+                Phone = "555-555-5555",
+                EnglishLevel = 1,
+                ITLevel = 1,
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.High,
+                AppStatus = Student.ApplicationStatus.Open,
+                Status = Student.StudentStatus.Applicant,
+                DateOfBirth = DateTime.Now.AddYears(-20),
+                AcceptedDate = null,
+                LastModifiedDate = DateTime.Now,
+                IsActive = false,
+                Address = "2323 Camden Place",
+                Village = "Huntingdon Valley",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 56789,
+                SchoolLevel = 10,
+                FoodAssistance = false,
+                ChappaAssistance = true,
+            };
+            await db.AddAsync(applicant1);
+            await db.AddAsync(applicant2);
+            await db.AddAsync(applicant3);
+            await db.AddAsync(applicant4);
+            await db.AddAsync(applicant5);
+
+            //students
+            var student1 = new Student
+            {
+                FirstName = "Teresa",
+                LastName = "Willis",
+                Phone = "666-666-6666",
+                EnglishLevel = 1,
+                ITLevel = 1,
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.High,
+                AppStatus = Student.ApplicationStatus.Approved,
+                Status = Student.StudentStatus.Active,
+                DateOfBirth = DateTime.Now.AddYears(-15),
+                AcceptedDate = DateTime.Now.AddYears(-1),
+                LastModifiedDate = DateTime.Now,
+                IsActive = true,
+                Address = "4713 Glen Falls Road",
+                Village = "Grayling",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 23333,
+                SchoolLevel = 10,
+                FoodAssistance = true,
+                ChappaAssistance = false,
+            };
             var student2 = new Student
             {
                 FirstName = "Ashley",
                 LastName = "Smith",
-                Phone = "456-456-4567",
+                Phone = "777-777-7777",
                 EnglishLevel = 3,
                 ITLevel = 3,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.Low,
                 AppStatus = Student.ApplicationStatus.Approved,
                 Status = Student.StudentStatus.Active,
-                DateOfBirth = DateTime.MinValue,
-                AcceptedDate = DateTime.MinValue,
+                DateOfBirth = DateTime.Now.AddYears(-14),
+                AcceptedDate = DateTime.Now.AddYears(-3),
                 LastModifiedDate = DateTime.Now,
                 IsActive = true,
                 Address = "265 Lawrence St.",
                 Village = "Barberton",
                 Latitude = "",
                 Longitude = "",
-                AnnualIncome = 12345,
+                AnnualIncome = 43333,
                 SchoolLevel = 7,
                 FoodAssistance = false,
                 ChappaAssistance = true,
             };
-            await db.AddAsync(student1);
-            await db.AddAsync(student2);
-
-            //students
             var student3 = new Student
             {
                 FirstName = "Hailey",
                 LastName = "Jones",
-                Phone = "123-123-1234",
+                Phone = "888-888-8888",
                 EnglishLevel = 2,
                 ITLevel = 2,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.High,
+                AppStatus = Student.ApplicationStatus.Approved,
                 Status = Student.StudentStatus.Active,
-                DateOfBirth = DateTime.MinValue,
-                AcceptedDate = DateTime.MinValue,
+                DateOfBirth = DateTime.Now.AddYears(-15),
+                AcceptedDate = DateTime.Now.AddYears(-2),
                 LastModifiedDate = DateTime.Now,
                 IsActive = true,
-                Address = "86 Shadow Brook Street",
-                Village = "Plattsburgh",
+                Address = "4957 Aplha Avenue",
+                Village = "Marshall",
                 Latitude = "",
                 Longitude = "",
-                AnnualIncome = 12345,
+                AnnualIncome = 33433,
                 SchoolLevel = 10,
                 FoodAssistance = true,
                 ChappaAssistance = false,
@@ -337,28 +545,82 @@ public static class ConfigurationStaticMethods
                 LastName = "Bates",
                 EnglishLevel = 1,
                 ITLevel = 1,
-                Phone = "456-456-4567",
+                Phone = "999-999-9999",
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
                 Determination = Student.DeterminationLevel.Low,
+                AppStatus = Student.ApplicationStatus.Approved,
                 Status = Student.StudentStatus.Active,
-                DateOfBirth = DateTime.MinValue,
-                AcceptedDate = DateTime.MinValue,
+                DateOfBirth = DateTime.Now.AddYears(-15),
+                AcceptedDate = DateTime.Now.AddYears(-1),
                 LastModifiedDate = DateTime.Now,
                 IsActive = true,
-                Address = "265 Lawrence St.",
-                Village = "Barberton",
+                Address = "3320 Charla Lane",
+                Village = "Marshall",
                 Latitude = "",
                 Longitude = "",
-                AnnualIncome = 12345,
+                AnnualIncome = 32121,
                 SchoolLevel = 7,
                 FoodAssistance = false,
                 ChappaAssistance = true,
             };
+            var student5 = new Student
+            {
+                FirstName = "Enrollment",
+                LastName = "Tester",
+                EnglishLevel = 1,
+                ITLevel = 1,
+                Phone = "999-999-9999",
+                ImageUrl = "\\images\\stock-profile-pic.jpg",
+                Determination = Student.DeterminationLevel.Low,
+                AppStatus = Student.ApplicationStatus.Approved,
+                Status = Student.StudentStatus.Active,
+                DateOfBirth = DateTime.Now.AddYears(-15),
+                AcceptedDate = DateTime.Now.AddYears(-1),
+                LastModifiedDate = DateTime.Now,
+                IsActive = true,
+                Address = "Foobar Street",
+                Village = "",
+                Latitude = "",
+                Longitude = "",
+                AnnualIncome = 32121,
+                SchoolLevel = 7,
+                FoodAssistance = false,
+                ChappaAssistance = true,
+            };
+            await db.AddAsync(student1);
+            await db.AddAsync(student2);
             await db.AddAsync(student3);
             await db.AddAsync(student4);
+            await db.AddAsync(student5);
 
-            //student-guardians
+            ////////////student-guardians\\\\\\\\\\\\
+            //every applicant/student should have at least one, so have more
             var studentGuardians = new List<StudentGuardian>{
+                new StudentGuardian
+                {
+                    Student = applicant1,
+                    Guardian = guardian1,
+                },
+                new StudentGuardian
+                {
+                    Student = applicant2,
+                    Guardian = guardian1,
+                },
+                new StudentGuardian
+                {
+                    Student = applicant3,
+                    Guardian = guardian2,
+                },
+                new StudentGuardian
+                {
+                    Student = applicant4,
+                    Guardian = guardian2,
+                },
+                new StudentGuardian
+                {
+                    Student = applicant5,
+                    Guardian = guardian2,
+                },
                 new StudentGuardian
                 {
                     Student = student1,
@@ -372,42 +634,232 @@ public static class ConfigurationStaticMethods
                 new StudentGuardian
                 {
                     Student = student2,
-                    Guardian = guardian1,
+                    Guardian = guardian2,
+                },
+                new StudentGuardian
+                {
+                    Student = student3,
+                    Guardian = guardian2,
+                },
+                new StudentGuardian
+                {
+                    Student = student4,
+                    Guardian = guardian2,
+                },
+                new StudentGuardian
+                {
+                    Student = student5,
+                    Guardian = guardian2,
                 }
             };
             await db.AddRangeAsync(studentGuardians);
             await db.SaveChangesAsync();
 
-            //sessions
+            ////////////sessions\\\\\\\\\\\\
+            //course 1 sessions (current term)
             var session = new Session
             {
                 DayofWeek = "Monday",
-                StartTime = DateTime.MinValue,
-                EndTime = DateTime.MinValue.AddHours(9),
+                StartTime = DateTime.MinValue.AddHours(9),
+                EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course
+                Course = course8
             };
             var session2 = new Session
             {
-                DayofWeek = "Tuesday",
-                StartTime = DateTime.MinValue,
-                EndTime = DateTime.MinValue.AddHours(9),
+                DayofWeek = "Monday",
+                StartTime = DateTime.MinValue.AddHours(17),
+                EndTime = DateTime.MinValue.AddHours(18),
                 IsActive = true,
-                Course = course
+                Course = course8
             };
             var session3 = new Session
             {
-                DayofWeek = "Thursday",
-                StartTime = DateTime.MinValue,
-                EndTime = DateTime.MinValue.AddHours(9),
+                DayofWeek = "Wednesday",
+                StartTime = DateTime.MinValue.AddHours(9),
+                EndTime = DateTime.MinValue.AddHours(10),
                 IsActive = true,
-                Course = course2
+                Course = course8
             };
+            var session4 = new Session
+            {
+                DayofWeek = "Wednesday",
+                StartTime = DateTime.MinValue.AddHours(17),
+                EndTime = DateTime.MinValue.AddHours(18),
+                IsActive = true,
+                Course = course8
+            };
+            var session5 = new Session
+            {
+                DayofWeek = "Friday",
+                StartTime = DateTime.MinValue.AddHours(9),
+                EndTime = DateTime.MinValue.AddHours(10),
+                IsActive = true,
+                Course = course8
+            };
+
+            //course 2 sessions (current term)
+            var session6 = new Session
+            {
+                DayofWeek = "Monday",
+                StartTime = DateTime.MinValue.AddHours(11),
+                EndTime = DateTime.MinValue.AddHours(12),
+                IsActive = true,
+                Course = course9
+            };
+            var session7 = new Session
+            {
+                DayofWeek = "Monday",
+                StartTime = DateTime.MinValue.AddHours(18),
+                EndTime = DateTime.MinValue.AddHours(19),
+                IsActive = true,
+                Course = course9
+            };
+            var session8 = new Session
+            {
+                DayofWeek = "Wednesday",
+                StartTime = DateTime.MinValue.AddHours(11),
+                EndTime = DateTime.MinValue.AddHours(12),
+                IsActive = true,
+                Course = course9
+            };
+            var session9 = new Session
+            {
+                DayofWeek = "Wednesday",
+                StartTime = DateTime.MinValue.AddHours(18),
+                EndTime = DateTime.MinValue.AddHours(19),
+                IsActive = true,
+                Course = course9
+            };
+            var session10 = new Session
+            {
+                DayofWeek = "Friday",
+                StartTime = DateTime.MinValue.AddHours(11),
+                EndTime = DateTime.MinValue.AddHours(12),
+                IsActive = true,
+                Course = course9
+            };
+
+            //course 3 sessions
+            var session11 = new Session
+            {
+                DayofWeek = "Monday",
+                StartTime = DateTime.MinValue.AddHours(13),
+                EndTime = DateTime.MinValue.AddHours(14),
+                IsActive = true,
+                Course = course10
+            }; var session12 = new Session
+            {
+                DayofWeek = "Monday",
+                StartTime = DateTime.MinValue.AddHours(19),
+                EndTime = DateTime.MinValue.AddHours(20),
+                IsActive = true,
+                Course = course10
+            };
+            var session13 = new Session
+            {
+                DayofWeek = "Wednesday",
+                StartTime = DateTime.MinValue.AddHours(13),
+                EndTime = DateTime.MinValue.AddHours(14),
+                IsActive = true,
+                Course = course10
+            }; 
+            var session14 = new Session
+            {
+                DayofWeek = "Wednesday",
+                StartTime = DateTime.MinValue.AddHours(19),
+                EndTime = DateTime.MinValue.AddHours(20),
+                IsActive = true,
+                Course = course10
+            };
+            var session15 = new Session
+            {
+                DayofWeek = "Monday",
+                StartTime = DateTime.MinValue.AddHours(13),
+                EndTime = DateTime.MinValue.AddHours(14),
+                IsActive = true,
+                Course = course10
+            };
+
+            //courses 3-6 only have one session per seeded
+            //(theoretically our 6 main courses should have 4-6 sessions per
+            var session16 = new Session
+            {
+                DayofWeek = "Monday",
+                StartTime = DateTime.MinValue.AddHours(14),
+                EndTime = DateTime.MinValue.AddHours(15),
+                IsActive = true,
+                Course = course10
+            };
+            var session17 = new Session
+            {
+                DayofWeek = "Monday",
+                StartTime = DateTime.MinValue.AddHours(7),
+                EndTime = DateTime.MinValue.AddHours(8),
+                IsActive = true,
+                Course = course11
+            };
+            var session18 = new Session
+            {
+                DayofWeek = "Wednesday",
+                StartTime = DateTime.MinValue.AddHours(15),
+                EndTime = DateTime.MinValue.AddHours(18),
+                IsActive = true,
+                Course = course12
+            };
+            var session19 = new Session
+            {
+                DayofWeek = "Wednesday",
+                StartTime = DateTime.MinValue.AddHours(7),
+                EndTime = DateTime.MinValue.AddHours(8),
+                IsActive = true,
+                Course = course13
+            };
+
+            //session for class in non active term
+            var session20 = new Session
+            {
+                DayofWeek = "Friday",
+                StartTime = DateTime.MinValue.AddHours(15),
+                EndTime = DateTime.MinValue.AddHours(18),
+                IsActive = true,
+                Course = course
+            };
+
+            //public school sessions to be able to block out the schedule
+            var session21 = new Session
+            {
+                DayofWeek = "Friday",
+                StartTime = DateTime.MinValue.AddHours(9),
+                EndTime = DateTime.MinValue.AddHours(11),
+                IsActive = true,
+                Course = course14
+            };
+
             await db.AddAsync(session);
             await db.AddAsync(session2);
             await db.AddAsync(session3);
+            await db.AddAsync(session4);
+            await db.AddAsync(session5);
+            await db.AddAsync(session6);
+            await db.AddAsync(session7);
+            await db.AddAsync(session8);
+            await db.AddAsync(session9);
+            await db.AddAsync(session10);
+            await db.AddAsync(session11);
+            await db.AddAsync(session12);
+            await db.AddAsync(session13);
+            await db.AddAsync(session14);
+            await db.AddAsync(session15);
+            await db.AddAsync(session16);
+            await db.AddAsync(session17);
+            await db.AddAsync(session18);
+            await db.AddAsync(session19);
+            await db.AddAsync(session20);
+            await db.AddAsync(session21);
 
-            //grade
+
+            ////////////grade\\\\\\\\\\\\
             var grade = new Grade
             {
                 AssessmentGrade = "A+",
@@ -424,10 +876,10 @@ public static class ConfigurationStaticMethods
             await db.AddAsync(grade2);
 
 
-            //enrollment
+            ////////////enrollment\\\\\\\\\\\\
             var enrollment = new Enrollment
             {
-                Student = student1,
+                Student = student5,
                 Session = session,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
                 FinalGrade = 0,
@@ -435,16 +887,178 @@ public static class ConfigurationStaticMethods
             };
             var enrollment2 = new Enrollment
             {
-                Student = student2,
-                Session = session,
+                Student = student5,
+                Session = session2,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 85,
-                Grade = grade2
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment3 = new Enrollment
+            {
+                Student = student5,
+                Session = session3,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment4 = new Enrollment
+            {
+                Student = student5,
+                Session = session4,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment5 = new Enrollment
+            {
+                Student = student5,
+                Session = session5,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment6 = new Enrollment
+            {
+                Student = student5,
+                Session = session6,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment7 = new Enrollment
+            {
+                Student = student5,
+                Session = session7,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment8 = new Enrollment
+            {
+                Student = student5,
+                Session = session8,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment9 = new Enrollment
+            {
+                Student = student5,
+                Session = session9,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment10 = new Enrollment
+            {
+                Student = student5,
+                Session = session10,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment11 = new Enrollment
+            {
+                Student = student5,
+                Session = session11,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment12 = new Enrollment
+            {
+                Student = student5,
+                Session = session12,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment13 = new Enrollment
+            {
+                Student = student5,
+                Session = session13,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment14 = new Enrollment
+            {
+                Student = student5,
+                Session = session14,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment15 = new Enrollment
+            {
+                Student = student5,
+                Session = session15,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment16 = new Enrollment
+            {
+                Student = student5,
+                Session = session16,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment17 = new Enrollment
+            {
+                Student = student5,
+                Session = session17,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment18 = new Enrollment
+            {
+                Student = student5,
+                Session = session18,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment19 = new Enrollment
+            {
+                Student = student5,
+                Session = session19,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
+            };
+            var enrollment21 = new Enrollment
+            {
+                Student = student5,
+                Session = session21,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                FinalGrade = 0,
+                Grade = grade
             };
             await db.AddAsync(enrollment);
             await db.AddAsync(enrollment2);
+            await db.AddAsync(enrollment3);
+            await db.AddAsync(enrollment4);
+            await db.AddAsync(enrollment5);
+            await db.AddAsync(enrollment6);
+            await db.AddAsync(enrollment7);
+            await db.AddAsync(enrollment8); 
+            await db.AddAsync(enrollment9);
+            await db.AddAsync(enrollment10);
+            await db.AddAsync(enrollment11);
+            await db.AddAsync(enrollment12);
+            await db.AddAsync(enrollment13);
+            await db.AddAsync(enrollment14);
+            await db.AddAsync(enrollment15);
+            await db.AddAsync(enrollment16);
+            await db.AddAsync(enrollment17);
+            await db.AddAsync(enrollment18);
+            await db.AddAsync(enrollment19);
+            await db.AddAsync(enrollment21);
 
-            //attendance
+            ////////////attendance\\\\\\\\\\\\
             var attendance = new Attendance
             {
                 Status = Attendance.AttendanceStatus.OnTime,
@@ -467,42 +1081,90 @@ public static class ConfigurationStaticMethods
             await db.AddAsync(attendance2);
             await db.AddAsync(attendance3);
 
-            //assessment (homework)
+            ////////////assessment (homework)\\\\\\\\\\\\
+            //assessments tied to courses in active term
             var assessment = new Assessment
             {
-                Score = 88,
-                Session = session,
-                DueDate = DateTime.Now.AddDays(14),
+                Score = 0,
+                DueDate = null,
                 MaxScore = 100,
-                Grade = grade,
-                Title = "Homework 1",
-                Description = "Homework 1 Description"
+                //Grade = grade,
+                Course = course8,
+                Title = "HW 1",
+                Description = "Introduce Yourself"
             };
             var assessment2 = new Assessment
             {
-                Score = 77,
-                Session = session,
-                DueDate = DateTime.Now.AddDays(7),
+                Score = 0,
+                DueDate = null,
                 MaxScore = 100,
-                Grade = grade,
-                Title = "Homework 2",
-                Description = "Homework 2 Description"
+                //Grade = grade,
+                Course = course8,
+                Title = "HW 2",
+                Description = "Syllabus Quiz"
             };
             var assessment3 = new Assessment
             {
-                Score = 66,
-                Session = session,
-                DueDate = DateTime.Now.AddDays(3),
+                Score = 0,
+                DueDate = null,
                 MaxScore = 100,
-                Grade = grade2,
-                Title = "Homework 3",
-                Description = "Homework 3 Description"
+                //Grade = grade2,
+                Course = course9,
+                Title = "HW 3",
+                Description = "Short Essay"
+            };
+            var assessment4 = new Assessment
+            {
+                Score = 0,
+                DueDate = null,
+                MaxScore = 100,
+                //Grade = grade2,
+                Course = course10,
+                Title = "HW 4",
+                Description = "Medium Essay"
+            };
+            var assessment5 = new Assessment
+            {
+                Score = 0,
+                DueDate = null,
+                MaxScore = 100,
+                //Grade = grade2,
+                Course = course11,
+                Title = "Quiz 1",
+                Description = "Pop Quiz on Adjectives"
+            };
+            var assessment6 = new Assessment
+            {
+                Score = 0,
+                DueDate = null,
+                MaxScore = 100,
+                //Grade = grade2,
+                Course = course13,
+                Title = "HW 8",
+                Description = "How to Diagram"
+            };
+
+            //assessments tied to courses in non-active term
+            //(shouldnt see this unless you change active term to previous one)
+            var assessment7 = new Assessment
+            {
+                Score = 0,
+                DueDate = null,
+                MaxScore = 100,
+                //Grade = grade2,
+                Course = course,
+                Title = "ENG-1 Final",
+                Description = "Final Assessment"
             };
             await db.AddAsync(assessment);
             await db.AddAsync(assessment2);
             await db.AddAsync(assessment3);
+            await db.AddAsync(assessment4);
+            await db.AddAsync(assessment5);
+            await db.AddAsync(assessment6);
+            await db.AddAsync(assessment7);
 
-            //criterion
+            ////////////criterion\\\\\\\\\\\\
             var criteria = new List<Criterion> {
                 new Criterion
                 {
@@ -533,19 +1195,14 @@ public static class ConfigurationStaticMethods
             await db.AddRangeAsync(criteria);
             await db.SaveChangesAsync();
 
-
-
-            //rating
-
-
-            //accesstype
+            ////////////accesstype\\\\\\\\\\\\
             var accesstype = new AccessType
             {
                 Accesss = AccessType.Type.Rater
             };
             await db.AddAsync(accesstype);
 
-            //note
+            ////////////student note\\\\\\\\\\\\
             var note = new Note
             {
                 Student = student1,
@@ -571,7 +1228,7 @@ public static class ConfigurationStaticMethods
             await db.AddAsync(note);
             await db.AddAsync(note2);
 
-            //student doc
+            ////////////student doc\\\\\\\\\\\\
             var studentdoc = new StudentDoc
             {
                 Student = student1,
@@ -583,7 +1240,6 @@ public static class ConfigurationStaticMethods
                 FileGUID = "",
                 UploadDate = DateTime.Now
             };
-            await db.AddAsync(studentdoc);
             var studentdoc2 = new StudentDoc
             {
                 Student = student3,
@@ -595,11 +1251,10 @@ public static class ConfigurationStaticMethods
                 Extension = "extension goes here",
                 UploadDate = DateTime.Now
             };
+            await db.AddAsync(studentdoc);
             await db.AddAsync(studentdoc2);
 
-
             await db.SaveChangesAsync();
-
         }
     }
 }

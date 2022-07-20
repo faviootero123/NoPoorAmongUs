@@ -19,10 +19,10 @@ public class CreateModel : PageModel
     [BindProperty]
     public CourseVM CourseVM { get; set; }
 
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         CourseVM = new();
-        CourseVM.DropdownHelperAsync(_context, null);
+        await CourseVM.DropdownHelperAsync(_context, null);
 
         return Page();
     }

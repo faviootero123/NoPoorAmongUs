@@ -1,0 +1,67 @@
+﻿@page
+@model SaucyCapstone.Pages.Instructor.Students.IndexModel
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Student Overview</h2>
+        </div>     
+    </div>
+    <br />
+
+    <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    School Level
+                </th>
+                <th>
+                    IT Level
+                </th>
+                <th>
+                    English Level 
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td width="40%">
+                        @(student.FirstName + " " + student.LastName)
+                    </td>
+                    <td width="15%">
+                        @student.SchoolLevel
+                    </td>
+                    <td width="15%">
+                        @student.ITLevel
+                    </td>
+                    <td width="15%">
+                        @student.EnglishLevel
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" style="justify-content:end">
+                            <a class="btn btn-success mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentDetails"><i class="bi bi-clipboard2-fill"></i>&nbsp;Details</a>
+                            <a class="btn btn-primary mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentNotes"><i class="bi bi-pencil-square"></i>&nbsp;Notes</a>
+                            <a class="btn btn-info mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentDocuments"><i class="bi bi-file-earmark-text-fill"></i>&nbsp;Documents</a>
+                            <a class="btn btn-warning mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentCertificates"><i class="bi bi-file-earmark-person"></i>&nbsp;Certifications</a>
+                            <a class="btn btn-dark mx-2" asp-route-studentId="@student.StudentId" asp-page="/Instructor/Students/StudentSchedule"><i class="bi bi-calendar"></i>&nbsp;Schedule</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+}
