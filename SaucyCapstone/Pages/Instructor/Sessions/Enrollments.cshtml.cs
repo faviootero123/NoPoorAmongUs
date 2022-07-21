@@ -43,8 +43,11 @@ public class EnrollmentsModel : PageModel
         }
         else if (session.Session.Course.Subject.SubjectName == "IT")
         {
-
             studentList = await _context.Students.Where(c => c.ITLevel == sessionLevel && c.Status == Student.StudentStatus.Active).ToListAsync();
+        }        
+        else if (session.Session.Course.Subject.SubjectName == "Public")
+        {
+            studentList = await _context.Students.Where(s => s.Status == Student.StudentStatus.Active).ToListAsync();
         }
 
         return Page();
