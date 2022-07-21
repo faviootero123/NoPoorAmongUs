@@ -15,8 +15,8 @@ public class Attendance
     [Required]
     public AttendanceStatus Status { get; set; }
 
-    [ForeignKey("SessionDatesId")]
-    public SessionDates SessionDates { get; set; }
+    [ForeignKey("SessionDateId")]
+    public SessionDate SessionDate { get; set; }
 
     [ForeignKey("StudentId")]
     public Student Student { get; set; }

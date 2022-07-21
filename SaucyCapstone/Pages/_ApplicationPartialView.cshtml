@@ -1,0 +1,165 @@
+﻿@using Data
+@model Student
+
+<div id="Student" class="category">
+    <div class="row">
+        <div class="col-12 col-lg-6 pb-4">
+            <div class="row">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Student Details</span>
+                </h4>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">First Name</div>
+                <div class="col-9">
+
+                    <input id="studentFirst" asp-for="@Model.FirstName" type="text" class="form-control" readonly />
+                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Last Name</div>
+                <div class="col-9">
+
+                    <input id="studentLast" asp-for="@Model.LastName" type="text" class="form-control" readonly />
+                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Phone</div>
+                <div class="col-9">
+
+                    <input asp-for="@Model.Phone" type="text" class="form-control" readonly/>
+                    <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Date of Birth</div>
+                <div class="col-9">
+
+                    <input id="dob" asp-for="@Model.DateOfBirth" type="date" class="form-control" readonly/>
+                    <span asp-validation-for="@Model.DateOfBirth" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">School Level</div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select asp-for="@Model.SchoolLevel" class="form-select" disabled>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Determination</div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select asp-for="@Model.Determination" class="form-select" asp-items="Html.GetEnumSelectList<Student.DeterminationLevel>()" disabled></select>
+                        <span asp-validation-for="@Model.Determination" class="text-danger" />
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Address</div>
+                <div class="col-9">
+
+                    <input asp-for="@Model.Address" type="text" class="form-control" readonly/>
+                    <span asp-validation-for="@Model.Address" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Village</div>
+                <div class="col-9">
+
+                    <input asp-for="@Model.Village" type="text" class="form-control" readonly/>
+                    <span asp-validation-for="@Model.Village" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Lattitude</div>
+                <div class="col-9">
+
+                    <input asp-for="@Model.Latitude" type="text" class="form-control" readonly/>
+                    <span asp-validation-for="@Model.Latitude" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Longitude</div>
+                <div class="col-9">
+
+                    <input asp-for="@Model.Longitude" type="text" class="form-control" readonly/>
+                    <span asp-validation-for="@Model.Longitude" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Annual Income</div>
+                <div class="col-9">
+
+                    <input id="income" asp-for="@Model.AnnualIncome" type="text" class="form-control" readonly/>
+                    <span asp-validation-for="@Model.AnnualIncome" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row my-1 pb-3">
+                <div class="col-3">Food Assist?</div>
+                <div class="col-3">
+
+                    <input asp-for="@Model.FoodAssistance" type="checkbox" class="form-check-input" type="checkbox" disabled/>
+                    <span asp-validation-for="@Model.FoodAssistance" class="text-danger"></span>
+
+                </div>
+                <div class="col-3">Chappa Assist?</div>
+                <div class="col-3">
+
+                    <input asp-for="@Model.ChappaAssistance" type="checkbox" class="form-check-input" type="checkbox" disabled/>
+                    <span asp-validation-for="@Model.ChappaAssistance" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span>School Details:</span>
+                </h4>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Accepted Date</div>
+                <div class="col-9">
+
+                    <input asp-for="@Model.AcceptedDate" type="date" class="form-control" disabled />
+                    <span asp-validation-for="@Model.AcceptedDate" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-3">Status</div>
+                <div class="col-9">
+
+                    <input asp-for="@Model.Status" type="text" class="form-control" disabled />
+                    <span asp-validation-for="@Model.Status" class="text-danger"></span>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-5 offset-lg-1 pb-6">
+            <img src="@Model.ImageUrl"
+                 width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+            <div class="mb-3">
+                <input asp-for="@Model.ImageUrl" type="file" id="uploadBox" name="file" class="form-control" />
+            </div>
+        </div>
+    </div>
+</div>

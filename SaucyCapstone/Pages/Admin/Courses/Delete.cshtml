@@ -2,15 +2,22 @@
 @model SaucyCapstone.Pages.Admin.Courses.DeleteModel
 
 <form method="post">
+    <input type="hidden" asp-for="CourseVM.CourseId" />
     <div class="card">
         <h4 class="card-header">Delete Course</h4>
         <div class="card-body rounded pb-2">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row my-1 mb-2 d-flex align-items-center">
                 <div class="col-3 text-end">
                     Term
                 </div>
                 <div class="col-9">
-                    @Html.DisplayFor(model => model.CourseVM.Course.Term.TermName)
+                    <div class="form-group">
+                        <select asp-for="CourseVM.Term.TermId" asp-items="@Model.CourseVM.TermList" class="form-select" disabled>
+                            <option disabled>---Select Term---</option>
+                        </select>
+                        <span asp-validation-for="CourseVM.Term.TermId" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
@@ -18,7 +25,12 @@
                     Instructor
                 </div>
                 <div class="col-9">
-                    @Html.DisplayFor(model => model.CourseVM.Course.Instructor.FirstName) @Html.DisplayFor(model => model.CourseVM.Course.Instructor.LastName)
+                    <div class="form-group">
+                        <select asp-for="CourseVM.Instructor.FacultyMemberId" asp-items="@Model.CourseVM.InstructorList" class="form-select" disabled>
+                            <option disabled>---Select Instructor---</option>
+                        </select>
+                        <span asp-validation-for="CourseVM.Instructor.FacultyMemberId" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
@@ -26,15 +38,26 @@
                     Subject
                 </div>
                 <div class="col-9">
-                    @Html.DisplayFor(model => model.CourseVM.Course.Subject.SubjectName)
+                    <div class="form-group">
+                        <select asp-for="CourseVM.Subject.SubjectId" asp-items="@Model.CourseVM.SubjectList" class="form-select" disabled>
+                            <option disabled>---Select Subject---</option>
+                        </select>
+                        <span asp-validation-for="CourseVM.Subject.SubjectId" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
                 <div class="col-3 text-end">
                     Course Level
-                </div>
+                    </div>
                 <div class="col-9">
-                    @Html.DisplayFor(model => model.CourseVM.Course.CourseLevel)
+                    <div class="form-group">
+                        <select asp-for="CourseVM.Course.CourseLevel" class="form-select" disabled>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
@@ -42,16 +65,21 @@
                     School
                 </div>
                 <div class="col-9">
-                    @Html.DisplayFor(model => model.CourseVM.Course.School.SchoolName)
+                    <div class="form-group">
+                        <select asp-for="CourseVM.School.SchoolId" asp-items="@Model.CourseVM.SchoolList" class="form-select" disabled> 
+                            <option disabled>---Select School---</option>
+                        </select>
+                        <span asp-validation-for="CourseVM.School.SchoolId" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="card-footer">
-            <div class="row d-flex justify-content-center">
-                <div class="col-3">
+            <div class="row">
+                <div class="col-6">
                     <button type="submit" class="btn btn-danger" style="width:100%">Delete</button>
                 </div>
-                <div class="col-3">
+                <div class="col-6">
                     <a asp-page="Index" class="btn btn-primary" style="width:100%">
                         Back to Course Overview
                     </a>
@@ -60,3 +88,10 @@
         </div>
     </div>
 </form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

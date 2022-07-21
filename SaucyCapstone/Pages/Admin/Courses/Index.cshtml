@@ -13,11 +13,28 @@
             </a>
         </div>
     </div>
-    <br />
 
+    <div class="pt-4">
+        <ul class="list-group list-group-horizontal-sm">
+            @if (Model.Term != null)
+            {
+                <a style="text-decoration:none" asp-page="/Admin/Courses/Index" asp-route-term="@Model.Term.TermId">
+                <li class="list-group-item">Active Term</li>
+                </a>
+            }
+
+            <a style="text-decoration:none" asp-page="/Admin/Courses/Index">
+            <li class="list-group-item">All</li>
+            </a>
+        </ul>
+    </div>
+    <br />
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
+                <th>
+                   IsActive 
+                </th>
                 <th>
                     Term
                 </th>
@@ -42,6 +59,9 @@
             @foreach (var item in Model.CourseVM.CourseList)
             {
                 <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Term.IsActive)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Term.TermName)
                     </td>

@@ -1,0 +1,90 @@
+﻿@page
+@model SaucyCapstone.Pages.Instructor.Assessments.IndexModel
+@{
+    var subjectCourse = "";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Assignment Overview</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-page="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; New Assignment
+            </a>
+        </div>
+
+        <div class="pt-4">
+            <ul class="list-group list-group-horizontal-sm">
+                @foreach (var course in Model.CourseList)
+                {
+                    subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
+                    <a id="@subjectCourse" onclick="changeactive(this.id)" asp-page="/Instructor/Assessments/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
+                    <li class="custom btn btn-outline-primary">@subjectCourse</li>
+                    </a>
+                }
+                <a style="text-decoration:none" onclick="changeactive('All')" asp-page="/Instructor/Assessments/Index">
+                <li class="custom btn btn-outline-primary">All</li>
+                </a>
+            </ul>
+        </div>
+    </div>
+    <br />
+    <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Subject
+                </th>
+                <th>
+                    Course Level
+                </th>
+                <th>
+                    Max Score
+                </th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AssessmentList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Course.Subject.SubjectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Course.CourseLevel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxScore)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" style="justify-content:end">
+                            <a asp-page="Edit" asp-route-id="@item.AssessmentId"
+                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                            <a asp-page="Delete" asp-route-id="@item.AssessmentId"
+                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/js/class-sort-button.js"></script>
+}

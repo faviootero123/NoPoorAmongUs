@@ -1,16 +1,16 @@
+using Data;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using SaucyCapstone.Static;
-using SaucyCapstone.Data;
-using System.Configuration;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using SaucyCapstone.Services;
-using Data;
-using Serilog;
-using Serilog.Sinks.Grafana.Loki;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using SaucyCapstone.Constants;
+using SaucyCapstone.Data;
+using SaucyCapstone.Services;
+using SaucyCapstone.Static;
+using Serilog;
+using Serilog.Sinks.Grafana.Loki;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,12 +44,12 @@ services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin", p => p.RequireRole(Roles.Admin));
 });
-
 services.AddDatabaseDeveloperPageExceptionFilter();
-services.AddRazorPages(options => 
-{ 
-    options.Conventions.AuthorizeFolder("/Admin", "Admin"); 
+services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Admin", "Admin");
 }).AddRazorRuntimeCompilation();
+
 services.AddHttpContextAccessor();
 
 services.AddScoped<IEmailSender, EmailSender>();
@@ -80,12 +80,14 @@ else
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-    app.UseStaticFiles(new StaticFileOptions{
-    OnPrepareResponse = ctx => {
-        const int durationInSeconds = 60 * 60 * 24;
-        ctx.Context.Request.Headers[HeaderNames.CacheControl] = $"public,max-age={durationInSeconds}";
-    }
-});
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        OnPrepareResponse = ctx =>
+        {
+            const int durationInSeconds = 60 * 60 * 24;
+            ctx.Context.Request.Headers[HeaderNames.CacheControl] = $"public,max-age={durationInSeconds}";
+        }
+    });
 }
 
 
