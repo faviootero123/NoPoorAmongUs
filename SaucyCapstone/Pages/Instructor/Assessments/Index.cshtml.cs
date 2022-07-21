@@ -14,19 +14,53 @@ public class IndexModel : PageModel
         _context = context;
     }
 
-    public IList<Assessment> AssessmentList { get;set; } = default!;
+    public IList<Assessment> AssessmentList { get; set; } = default!;
     public IList<Course> CourseList { get; set; } = default!;
 
     public async Task OnGetAsync(string? subject, int? courselvl)
     {
-        if (subject != null || courselvl != null)
+        var Subject = HttpContext.Session.GetString("Subject");
+        var CourseLevel = HttpContext.Session.GetInt32("Course");
+
+        if (subject == "All")
         {
-            AssessmentList = await _context.Assessments.Include(u => u.Course).ThenInclude(u => u.Subject).Where(u => u.Course.CourseLevel == courselvl).Where(u => u.Course.Subject.SubjectName == subject && u.Course.Term.IsActive == true).ToListAsync();
+            HttpContext.Session.Remove("Subject");
+            HttpContext.Session.Remove("Course");
         }
-        else
+
+        var parameterNull = subject is null && courselvl is null;
+        var variablesNull = Subject is null && CourseLevel is null;
+
+        if (parameterNull && !variablesNull)
         {
-            AssessmentList = await _context.Assessments.Include(u => u.Course).ThenInclude(u => u.Subject).Where(u => u.Course.Term.IsActive == true).ToListAsync();
+            subject = Subject;
+            courselvl = CourseLevel;
         }
-        CourseList = await _context.Courses.Include(u => u.Subject).Where(u => u.Term.IsActive == true).Where(u => u.Subject.SubjectName != "Public").OrderBy(u => u.Subject).ToListAsync();
+
+        var query = _context.Assessments
+            .Include(u => u.Course)
+            .ThenInclude(u => u.Subject)
+            .Where(u => u.Course.Term.IsActive == true);
+
+        if (subject != null && subject != "All")
+        {
+            query = query.Where(u => u.Course.Subject.SubjectName == subject);
+            HttpContext.Session.SetString("Subject", subject);
+
+        }
+        if (courselvl != null)
+        {
+            query = query.Where(u => u.Course.CourseLevel == courselvl);
+            HttpContext.Session.SetInt32("Course", courselvl.Value);
+
+        }
+
+        AssessmentList = await query.ToListAsync();
+        CourseList = await _context.Courses
+            .Include(u => u.Subject)
+            .Where(u => u.Term.IsActive == true)
+            .Where(u => u.Subject.SubjectName != "Public")
+            .OrderBy(u => u.Subject)
+            .ToListAsync();
     }
 }

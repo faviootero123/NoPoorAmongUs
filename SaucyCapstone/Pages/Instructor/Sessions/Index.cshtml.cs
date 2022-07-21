@@ -23,15 +23,49 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync(string? subject, int? courselvl)
     {
-        if (subject != null || courselvl != null)
+        var Subject = HttpContext.Session.GetString("Subject");
+        var CourseLevel = HttpContext.Session.GetInt32("Course");
+        
+
+        if (subject == "All")
         {
-            Sessions = await _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).Where(u => u.Course.CourseLevel == courselvl).Where(u => u.Course.Subject.SubjectName == subject && u.Course.Term.IsActive == true).ToListAsync();
+            HttpContext.Session.Remove("Subject");
+            HttpContext.Session.Remove("Course");
         }
-        else
+
+        var parameterNull = subject is null && courselvl is null;
+        var variablesNull = Subject is null && CourseLevel is null;
+
+        if (parameterNull && !variablesNull)
         {
-            Sessions = await _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).Where(u => u.Course.Term.IsActive == true).ToListAsync();
+            subject = Subject;
+            courselvl = CourseLevel;
         }
-        CourseList = await _context.Courses.Include(u => u.Subject).Where(u => u.Term.IsActive == true).OrderBy(u => u.Subject).ToListAsync();
+
+        var query = _context.Sessions
+            .Include(u => u.Course)
+            .ThenInclude(u => u.Subject)
+            .Where(u => u.Course.Term.IsActive == true);
+
+        if (subject != null && subject != "All")
+        {
+            query = query.Where(u => u.Course.Subject.SubjectName == subject);
+            HttpContext.Session.SetString("Subject", subject);
+
+        }
+        if (courselvl != null)
+        {
+            query = query.Where(u => u.Course.CourseLevel == courselvl);
+            HttpContext.Session.SetInt32("Course", courselvl.Value);
+
+        }
+
+        Sessions = await query.ToListAsync();
+        CourseList = await _context.Courses
+                    .Include(u => u.Subject)
+                    .Where(u => u.Term.IsActive == true)
+                    .OrderBy(u => u.Subject)
+                    .ToListAsync();
     }
 }
 

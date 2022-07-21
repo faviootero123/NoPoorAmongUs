@@ -1,7 +1,12 @@
 ﻿@page
 @model SaucyCapstone.Pages.Instructor.Sessions.IndexModel
+@using Microsoft.AspNetCore.Http;
+
 @{
     var subjectCourse = "";
+    var sessionCourse = HttpContext.Session.GetInt32("Course");
+    var sessionSubject = HttpContext.Session.GetString("Subject");
+    var sessionSubjectCourse = sessionSubject + " " + sessionCourse;
 }
 
 <div class="container p-3">
@@ -23,12 +28,12 @@
                 @foreach (var course in Model.CourseList)
                 {
                     subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
-                    <a id="@subjectCourse" onclick="changeactive(this.id)" asp-page="/Instructor/Sessions/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
-                    <li class="custom btn btn-outline-primary">@subjectCourse</li>
+                    <a id="@subjectCourse" asp-page="/Instructor/Sessions/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
+                    <li class="custom btn @(sessionSubject is not null && subjectCourse == sessionSubjectCourse ? "btn-primary": "btn-outline-primary")">@subjectCourse</li>
                     </a>
                 }
-                <a style="text-decoration:none" onclick="changeactive('All')" asp-page="/Instructor/Sessions/Index">
-                <li class="custom btn btn-outline-primary">All</li>
+                <a style="text-decoration:none" asp-page="/Instructor/Sessions/Index" asp-route-subject="All">
+                <li class="custom btn @(sessionCourse is null ? "btn-primary": "btn-outline-primary")">All</li>
                 </a>
             </ul>
         </div>
@@ -81,6 +86,4 @@
             $('#dataTable').dataTable();
         });
     </script>
-       
-    <script src="~/js/class-sort-button.js"></script>
 }
