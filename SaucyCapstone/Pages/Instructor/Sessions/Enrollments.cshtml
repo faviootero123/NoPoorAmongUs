@@ -55,7 +55,7 @@
         <tbody>
             @foreach (var student in Model.studentList)
             {
-                if (!Model.isEnrolled(Model.session.Session.SessionId, student.StudentId))//only show students not enrolled already
+                if (Model.isEnrolled(Model.session.Session.SessionId, student.StudentId) != true)//only show students not enrolled already
                 {
                     <tr>
                         <td width="25%">
