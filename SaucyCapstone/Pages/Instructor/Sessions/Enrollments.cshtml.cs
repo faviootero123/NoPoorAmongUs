@@ -83,7 +83,7 @@ public class EnrollmentsModel : PageModel
 
         var enrollemntsStudentId = _context.Enrollments
             .Where(e => e.Session.SessionId == SessionId)
-            .Select(s => s.StudentId == StudentId)
+            .Where(s => s.StudentId == StudentId)
             .ToList();
         if (enrollemntsStudentId.Any()) return true;
         return false;
