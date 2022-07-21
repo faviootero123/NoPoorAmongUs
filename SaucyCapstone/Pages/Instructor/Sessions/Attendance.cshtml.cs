@@ -15,7 +15,10 @@ public class AttendanceModel : PageModel
     public List<SessionDate> SessionDates;
     public List<Enrollment> Enrollments;
     public Session Session;
-    public int offset;
+    [BindProperty]
+    public int SessionId { get; set; }
+    [BindProperty]
+    public int offset { get; set; }
     [BindProperty]
     public List<AttendanceEditModel> Attendances { get; set; }
 
@@ -28,8 +31,8 @@ public class AttendanceModel : PageModel
         if (id != null)
         {
             this.offset = (int)offset;
-
             Session = await _db.Sessions.Include(d => d.Course).ThenInclude(d => d.Term).Include(d => d.Course).ThenInclude(d => d.Subject).Where(d => d.SessionId == id).FirstAsync();
+            SessionId = Session.SessionId;
 
             if (_db.SessionDates.Where(d => d.Session.SessionId == id).ToList().Count() == 0)
             {
@@ -76,8 +79,18 @@ public class AttendanceModel : PageModel
                 await _db.SaveChangesAsync();
             }
 
-            SessionDates = await _db.SessionDates.Include(d => d.Session).Where(d => d.Session.SessionId == id).ToListAsync();
-            Enrollments = await _db.Enrollments.Include(d => d.Student).Where(d => d.SessionId == id).OrderBy(d => d.Student.LastName).ThenBy(d => d.Student.FirstName).ToListAsync();
+            SessionDates = await _db.SessionDates
+                .Include(d => d.Session)
+                .Include(d => d.Attendances)
+                .Where(d => d.Session.SessionId == id)
+                .ToListAsync();
+
+            Enrollments = await _db.Enrollments
+                .Include(d => d.Student)
+                .Where(d => d.SessionId == id)
+                .OrderBy(d => d.Student.LastName)
+                .ThenBy(d => d.Student.FirstName)
+                .ToListAsync();
 
             return Page();
         }
@@ -89,40 +102,29 @@ public class AttendanceModel : PageModel
 
     public async Task<ActionResult> OnPostAsync(List<AttendanceEditModel> Attendances)
     {
-        //var AttendanceStatus = new Attendance.AttendanceStatus();
+        var attendances = Attendances
+            .Select(d => new Attendance
+			{
+				SessionDateId = d.SessionDateId,
+				StudentId = d.StudentId,
+				Status = d.Status,
+                AttendanceId = d.AttendanceId,
+			})
+            .ToList();
+        var add = attendances.Where(x => x.AttendanceId == 0);
+        var update = attendances.Where(x => x.AttendanceId != 0);
 
-        //switch (Color)
-        //{
-        //    case "btn btn-success":
-        //        AttendanceStatus = Attendance.AttendanceStatus.OnTime;
-        //        break;
-        //    case "btn btn-danger":
-        //        AttendanceStatus = Attendance.AttendanceStatus.NoShow;
-        //        break;
-        //    case "btn btn-warning":
-        //        AttendanceStatus = Attendance.AttendanceStatus.Late;
-        //        break;
-        //    case "btn btn-info":
-        //        AttendanceStatus = Attendance.AttendanceStatus.Excused;
-        //        break;
-        //    case "btn-outline-success":
-        //    default:
-        //        return Page();
-        //}
-
-        //var Attendances = new Attendance
-        //{
-        //    Student = await _db.Students.Where(d => d.StudentId == StudentId).FirstAsync(),
-        //    SessionDates = await _db.SessionDates.Where(d => d.Session.SessionId == SessionId && d.Date == Date).FirstAsync(),
-        //    Status = AttendanceStatus
-        //};
-
-        return Page();
+        await _db.AddRangeAsync(add);
+        _db.UpdateRange(update);
+        await _db.SaveChangesAsync();
+        
+        return RedirectToPage(new { id = SessionId, offset = offset });
     }
-
     public class AttendanceEditModel {
         public int StudentId { get; set; }
-        public int SessionId { get; set; }
+        public int SessionDateId { get; set; }
+        public int AttendanceId { get; set; }
         public Attendance.AttendanceStatus Status { get; set; }
+       
     }
 }
