@@ -17,12 +17,9 @@ public class StudentScheduleModel : PageModel
     }
 
     [BindProperty]
-    public int TermId { get; set; }
-
-    [BindProperty]
     public ScheduleVM ScheduleVM { get; set; }
 
-    // Event array for the calendar to parse.
+    // Event array for student schedule calendar
     public Event[] Events { get; set; }
 
     public async Task OnGet(int? studentId, int termId = 1)
@@ -32,63 +29,66 @@ public class StudentScheduleModel : PageModel
             return;
         }
 
-        TermId = termId;
-
         var student = await _db.Students.FindAsync(studentId);
 
-        var enrollments = await _db.Enrollments.Where(x => x.StudentId == studentId)
+        var term = await _db.Terms.Where(t => t.TermId == termId).FirstOrDefaultAsync();
+
+        var enrollments = await _db.Enrollments.Where(e => e.StudentId == studentId && e.Session.Course.Term.TermId == termId)
             .Include(e => e.Student)
             .Include(g => g.Grade)
             .Include(e => e.Session)
-            .ThenInclude(c => c.Course)
-            .ThenInclude(t => t.Term)
-            .Include(s => s.Session)
-            .ThenInclude(c => c.Course)
-            .ThenInclude(f => f.Instructor).ToListAsync();
+            .Include(e => e.Session.Course)
+            .Include(e => e.Session.Course.Term)
+            .Include(e => e.Session.Course.Instructor)
+            .ToListAsync();
+
+        var sessions = await _db.Sessions.Where(s => s.Enrollments.Any(e => e.SessionId == s.SessionId && e.StudentId == studentId)).ToListAsync();
+
+        var courses = await _db.Courses.Where(c => c.Sessions.Any(s => s.Course.CourseId == c.CourseId)).ToListAsync();
+
+        var terms = await _db.Terms.ToListAsync();
+
+        ScheduleVM = new ScheduleVM
+        {
+            StudentId = student.StudentId,
+            TermId = termId,
+            Term = term,
+            Student = student,
+            Enrollments = enrollments,
+            Sessions = sessions,
+            Courses = courses,
+            Terms = terms
+        };
 
         if (enrollments != null)
         {
-            var sessions = await _db.Sessions.Where(s => s.Enrollments.Any(e => e.SessionId.Equals(s.SessionId))).ToListAsync();
-
-            var courses = await _db.Courses.Where(c => c.Sessions.Any(s => s.Course.CourseId.Equals(c.CourseId))).ToListAsync();
-
-            var terms = await _db.Terms.ToListAsync();
-
-            var term = await _db.Terms.Where(t => t.TermId == termId).FirstOrDefaultAsync();
-
-            ScheduleVM = new ScheduleVM
-            {
-                StudentId = student.StudentId,
-                Student = student,
-                Enrollments = enrollments,
-                Sessions = sessions,
-                Courses = courses,
-                Terms = terms
-            };
-
-            // Added 1000 extra events as I don't see an easy way to find the number of assignments in each course and add them.
             Event[] Events_Long = new Event[enrollments.Count + 1000];
 
-            // Count for event array
             int i = 0;
-            if (enrollments.Count != 0)
+
+            if (enrollments != null)
             {
-                foreach (var item in enrollments)
+                foreach (var e in enrollments)
                 {
                     Event temp_event = new();
-                    var temp = await _db.Sessions.Where(x => x.SessionId == item.SessionId)
-                        .Include(c => c.Course)
-                        .ThenInclude(t => t.Term)
-                        .Include(c => c.Course)
-                        .ThenInclude(s => s.Subject).ToListAsync();
+                    var temp = await _db.Sessions.Where(s => s.SessionId == e.SessionId)
+                        .Include(s => s.Course)
+                        .Include(s => s.Course.Term)
+                        .Include(s => s.Course.Subject)
+                        .ToListAsync();
+
                     temp_event.id = temp[0].SessionId.ToString();
                     temp_event.title = temp[0].Course.Subject.SubjectName;
+
+                    temp_event.start = temp[0].StartTime.TimeOfDay.ToString();
+                    temp_event.end = temp[0].EndTime.TimeOfDay.ToString();
+
                     temp_event.startTime = temp[0].StartTime.TimeOfDay.ToString();
                     temp_event.endTime = temp[0].EndTime.TimeOfDay.ToString();
-                    temp_event.startRecur = term.StartDate.ToString("dd/MM/yyyy");
-                    temp_event.endRecur = term.EndDate.ToString("dd/MM/yyyy");
 
-                    // Add days of week to the array if true.
+                    temp_event.startRecur = temp[0].Course.Term.StartDate.ToString("yyyy-MM-dd");
+                    temp_event.endRecur = temp[0].Course.Term.EndDate.ToString("yyyy-MM-dd");
+
                     switch (temp[0].DayofWeek)
                     {
                         case "Monday":
@@ -110,42 +110,56 @@ public class StudentScheduleModel : PageModel
                             break;
                     }
 
-                    // Add the temp event to the event array that will be parsed.
                     Events_Long[i++] = temp_event;
 
-                    var temp_sessions = _db.Sessions.Where(x => x.SessionId == item.SessionId).ToList();
+                    var temp_sessions = _db.Sessions.Where(s => s.SessionId == e.SessionId && e.Session.Course.Term.IsActive).ToList();
+
                     foreach (var session in temp_sessions)
                     {
                         Event temp_event_1 = new()
                         {
                             id = session.Course.CourseLevel.ToString(),
                             title = session.Course.Subject.SubjectName,
-                            start = session.StartTime.ToString("HH:mm"),
-                            end = session.EndTime.ToString("HH:mm")
+                            start = session.StartTime.TimeOfDay.ToString(),
+                            end = session.EndTime.TimeOfDay.ToString()
                         };
 
-                        // Add the temp event to the event array that will be parsed.
                         Events_Long[i++] = temp_event_1;
                     }
                 }
-            }
 
-            // Must have the exact size of the array which is easiest to make by using the count after assigning all items.
-            Events = new Event[i];
-            for (int j = 0; j < Events.Length; j++)
-            {
-                Events[j] = Events_Long[j];
+                Events = new Event[i];
+
+                for (int j = 0; j < Events.Length; j++)
+                {
+                    Events[j] = Events_Long[j];
+                }
             }
         }
     }
 
-    public async Task<IActionResult> OnPostAsync(int id, ScheduleVM scheduleVM)
+    public async Task<IActionResult> OnPostAsync(ScheduleVM scheduleVM)
     {
         if (ModelState.IsValid)
         {
-            return RedirectToPage("StudentSchedule", new { studentId = scheduleVM.StudentId, termId = id });
+            return RedirectToPage("StudentSchedule", new { scheduleVM.StudentId, scheduleVM.TermId });
         }
 
         return Page();
+    }
+}
+
+public static class DateTimeExtensions
+{
+    public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+    {
+        int diff = (7 + (dt.Date.DayOfWeek - startOfWeek)) % 7;
+        return dt.AddDays(-1 * diff).Date;
+    }
+
+    public static DateTime EndOfWeek(this DateTime dt, DayOfWeek endOfWeek)
+    {
+        int diff = (7 + (endOfWeek - dt.Date.DayOfWeek)) % 7;
+        return dt.AddDays(diff).Date;
     }
 }
