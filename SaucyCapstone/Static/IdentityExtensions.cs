@@ -17,9 +17,16 @@ public static class IdentityExtensions
     {
         return claimsPrincipal.FindFirstValue(ClaimTypes.Name);
     }
-    public static bool IsStaff(this ClaimsPrincipal claimsPrincipal)
-    {
-        return (claimsPrincipal.IsInRole(Roles.Instructor) || claimsPrincipal.IsInRole(Roles.Admin) || claimsPrincipal.IsInRole(Roles.Rater) || claimsPrincipal.IsInRole(Roles.SocialWorker));
+    public static bool IsInstructor(this ClaimsPrincipal claimsPrincipal){
+        return claimsPrincipal.IsInRole(Roles.Instructor);
     }
-
+    public static bool IsAdmin(this ClaimsPrincipal claimsPrincipal){
+        return claimsPrincipal.IsInRole(Roles.Admin);
+    }
+    public static bool IsRater(this ClaimsPrincipal claimsPrincipal){
+        return claimsPrincipal.IsInRole(Roles.Rater);
+    }
+    public static bool IsSocialWorker(this ClaimsPrincipal claimsPrincipal){
+        return claimsPrincipal.IsInRole(Roles.SocialWorker);
+    }
 }
