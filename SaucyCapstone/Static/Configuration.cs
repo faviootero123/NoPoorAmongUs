@@ -15,7 +15,7 @@ public static class ConfigurationStaticMethods
         // Allows us to access scoped services from the DI Container such as DbContext
         using var scope = provider.CreateAsyncScope();
         //Seed Roles
-        string[] roleNames = { Roles.Admin, Roles.Instructor, Roles.SocialWorker };
+        string[] roleNames = { Roles.Admin, Roles.Instructor, Roles.SocialWorker, Roles.Rater };
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -201,7 +201,7 @@ public static class ConfigurationStaticMethods
                 TermName = "Summer22",
                 IsActive = true
             };
-            await db.AddRangeAsync(new Term[]{term,term2});
+            await db.AddRangeAsync(new Term[] { term, term2 });
 
             ////////////course\\\\\\\\\\\\
             //courses for inactive term
