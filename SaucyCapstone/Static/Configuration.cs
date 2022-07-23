@@ -1,9 +1,9 @@
-﻿using Data;
+﻿using System.Text.Json;
+using Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
-using System.Text.Json;
 using static Data.Student;
 
 namespace SaucyCapstone.Static;
@@ -102,9 +102,13 @@ public static class ConfigurationStaticMethods
             {
                 SchoolName = "Public School"
             };
-            await db.AddAsync(school);
-            await db.AddAsync(school2);
-            await db.AddAsync(school3);
+            await db.AddRangeAsync(new School[]
+            {
+                school,
+                school2,
+                school3
+            });
+
 
             ///////////subject\\\\\\\\\\\
             var subject = new Subject
@@ -119,9 +123,12 @@ public static class ConfigurationStaticMethods
             {
                 SubjectName = "Public"
             };
-            await db.AddAsync(subject);
-            await db.AddAsync(subject2);
-            await db.AddAsync(subject3);
+            await db.AddRangeAsync(new Subject[]
+            {
+                subject,
+                subject2,
+                subject3
+            });
 
 
             ///////////faculty-member\\\\\\\\\\\
@@ -152,9 +159,12 @@ public static class ConfigurationStaticMethods
                 IsRater = false,
                 IsSocialWorker = false,
             };
-            await db.AddAsync(faculty);
-            await db.AddAsync(faculty2);
-            await db.AddAsync(faculty3);
+            await db.AddRangeAsync(new FacultyMember[]
+            {
+                faculty,
+                faculty2,
+                faculty3
+            });
 
             ///////////terms\\\\\\\\\\\\
             var term = new Term
@@ -171,8 +181,7 @@ public static class ConfigurationStaticMethods
                 TermName = "Summer22",
                 IsActive = true
             };
-            await db.AddAsync(term);
-            await db.AddAsync(term2);
+            await db.AddRangeAsync(new Term[]{term,term2});
 
             ////////////course\\\\\\\\\\\\
             //courses for inactive term
@@ -304,20 +313,23 @@ public static class ConfigurationStaticMethods
                 Instructor = faculty3,
                 Sessions = new List<Session>()
             };
-            await db.AddAsync(course);
-            await db.AddAsync(course2);
-            await db.AddAsync(course3);
-            await db.AddAsync(course4);
-            await db.AddAsync(course5);
-            await db.AddAsync(course6);
-            await db.AddAsync(course7);
-            await db.AddAsync(course8);
-            await db.AddAsync(course9);
-            await db.AddAsync(course10);
-            await db.AddAsync(course11);
-            await db.AddAsync(course12);
-            await db.AddAsync(course13);
-            await db.AddAsync(course14);
+            await db.AddRangeAsync(new Course[]
+            {
+                course,
+                course2,
+                course3,
+                course4,
+                course5,
+                course6,
+                course7,
+                course8,
+                course9,
+                course10,
+                course11,
+                course12,
+                course13,
+                course14
+            });
 
 
             ////////////guardians\\\\\\\\\\\\
@@ -335,8 +347,12 @@ public static class ConfigurationStaticMethods
                 ContactInfo = "777-777-777",
                 Relation = "mother"
             };
-            await db.AddAsync(guardian1);
-            await db.AddAsync(guardian2);
+            await db.AddRangeAsync(new Guardian[]
+            {
+                guardian1,
+                guardian2
+            });
+
 
             ////////////applicant & student\\\\\\\\\\\\
             //applicant
@@ -348,9 +364,9 @@ public static class ConfigurationStaticMethods
                 EnglishLevel = 1,
                 ITLevel = 1,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.Middle,
-                AppStatus = Student.ApplicationStatus.Open,
-                Status = Student.StudentStatus.Applicant,
+                Determination = DeterminationLevel.Middle,
+                AppStatus = ApplicationStatus.Open,
+                Status = StudentStatus.Applicant,
                 DateOfBirth = DateTime.Now.AddYears(-12),
                 AcceptedDate = null,
                 LastModifiedDate = DateTime.Now,
@@ -372,9 +388,9 @@ public static class ConfigurationStaticMethods
                 EnglishLevel = 1,
                 ITLevel = 1,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.High,
-                AppStatus = Student.ApplicationStatus.Open,
-                Status = Student.StudentStatus.Applicant,
+                Determination = DeterminationLevel.High,
+                AppStatus = ApplicationStatus.Open,
+                Status = StudentStatus.Applicant,
                 DateOfBirth = DateTime.Now.AddYears(-10),
                 AcceptedDate = null,
                 LastModifiedDate = DateTime.Now,
@@ -396,9 +412,9 @@ public static class ConfigurationStaticMethods
                 EnglishLevel = 1,
                 ITLevel = 1,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.Low,
-                AppStatus = Student.ApplicationStatus.Open,
-                Status = Student.StudentStatus.Applicant,
+                Determination = DeterminationLevel.Low,
+                AppStatus = ApplicationStatus.Open,
+                Status = StudentStatus.Applicant,
                 DateOfBirth = DateTime.Now.AddYears(-8),
                 AcceptedDate = null,
                 LastModifiedDate = DateTime.Now,
@@ -420,9 +436,9 @@ public static class ConfigurationStaticMethods
                 EnglishLevel = 1,
                 ITLevel = 1,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.AboveLow,
-                AppStatus = Student.ApplicationStatus.Open,
-                Status = Student.StudentStatus.Applicant,
+                Determination = DeterminationLevel.AboveLow,
+                AppStatus = ApplicationStatus.Open,
+                Status = StudentStatus.Applicant,
                 DateOfBirth = DateTime.Now.AddYears(-17),
                 AcceptedDate = null,
                 LastModifiedDate = DateTime.Now,
@@ -444,9 +460,9 @@ public static class ConfigurationStaticMethods
                 EnglishLevel = 1,
                 ITLevel = 1,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.High,
-                AppStatus = Student.ApplicationStatus.Open,
-                Status = Student.StudentStatus.Applicant,
+                Determination = DeterminationLevel.High,
+                AppStatus = ApplicationStatus.Open,
+                Status = StudentStatus.Applicant,
                 DateOfBirth = DateTime.Now.AddYears(-20),
                 AcceptedDate = null,
                 LastModifiedDate = DateTime.Now,
@@ -460,11 +476,15 @@ public static class ConfigurationStaticMethods
                 FoodAssistance = false,
                 ChappaAssistance = true,
             };
-            await db.AddAsync(applicant1);
-            await db.AddAsync(applicant2);
-            await db.AddAsync(applicant3);
-            await db.AddAsync(applicant4);
-            await db.AddAsync(applicant5);
+            await db.AddRangeAsync(new Student[]
+            {
+                applicant1,
+                applicant2,
+                applicant3,
+                applicant4,
+                applicant5
+            });
+
 
             //students
             var student1 = new Student
@@ -475,9 +495,9 @@ public static class ConfigurationStaticMethods
                 EnglishLevel = 1,
                 ITLevel = 1,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.High,
-                AppStatus = Student.ApplicationStatus.Approved,
-                Status = Student.StudentStatus.Active,
+                Determination = DeterminationLevel.High,
+                AppStatus = ApplicationStatus.Approved,
+                Status = StudentStatus.Active,
                 DateOfBirth = DateTime.Now.AddYears(-15),
                 AcceptedDate = DateTime.Now.AddYears(-1),
                 LastModifiedDate = DateTime.Now,
@@ -499,9 +519,9 @@ public static class ConfigurationStaticMethods
                 EnglishLevel = 3,
                 ITLevel = 3,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.Low,
-                AppStatus = Student.ApplicationStatus.Approved,
-                Status = Student.StudentStatus.Active,
+                Determination = DeterminationLevel.Low,
+                AppStatus = ApplicationStatus.Approved,
+                Status = StudentStatus.Active,
                 DateOfBirth = DateTime.Now.AddYears(-14),
                 AcceptedDate = DateTime.Now.AddYears(-3),
                 LastModifiedDate = DateTime.Now,
@@ -523,9 +543,9 @@ public static class ConfigurationStaticMethods
                 EnglishLevel = 2,
                 ITLevel = 2,
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.High,
-                AppStatus = Student.ApplicationStatus.Approved,
-                Status = Student.StudentStatus.Active,
+                Determination = DeterminationLevel.High,
+                AppStatus = ApplicationStatus.Approved,
+                Status = StudentStatus.Active,
                 DateOfBirth = DateTime.Now.AddYears(-15),
                 AcceptedDate = DateTime.Now.AddYears(-2),
                 LastModifiedDate = DateTime.Now,
@@ -547,9 +567,9 @@ public static class ConfigurationStaticMethods
                 ITLevel = 1,
                 Phone = "999-999-9999",
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.Low,
-                AppStatus = Student.ApplicationStatus.Approved,
-                Status = Student.StudentStatus.Active,
+                Determination = DeterminationLevel.Low,
+                AppStatus = ApplicationStatus.Approved,
+                Status = StudentStatus.Active,
                 DateOfBirth = DateTime.Now.AddYears(-15),
                 AcceptedDate = DateTime.Now.AddYears(-1),
                 LastModifiedDate = DateTime.Now,
@@ -571,9 +591,9 @@ public static class ConfigurationStaticMethods
                 ITLevel = 1,
                 Phone = "999-999-9999",
                 ImageUrl = "\\images\\stock-profile-pic.jpg",
-                Determination = Student.DeterminationLevel.Low,
-                AppStatus = Student.ApplicationStatus.Approved,
-                Status = Student.StudentStatus.Active,
+                Determination = DeterminationLevel.Low,
+                AppStatus = ApplicationStatus.Approved,
+                Status = StudentStatus.Active,
                 DateOfBirth = DateTime.Now.AddYears(-15),
                 AcceptedDate = DateTime.Now.AddYears(-1),
                 LastModifiedDate = DateTime.Now,
@@ -587,15 +607,19 @@ public static class ConfigurationStaticMethods
                 FoodAssistance = false,
                 ChappaAssistance = true,
             };
-            await db.AddAsync(student1);
-            await db.AddAsync(student2);
-            await db.AddAsync(student3);
-            await db.AddAsync(student4);
-            await db.AddAsync(student5);
+            await db.AddRangeAsync(new Student[]
+            {
+                student1,
+                student2,
+                student3,
+                student4,
+                student5
+            });
+
 
             ////////////student-guardians\\\\\\\\\\\\
             //every applicant/student should have at least one, so have more
-            var studentGuardians = new List<StudentGuardian>{
+            var studentGuardians = new StudentGuardian[]{
                 new StudentGuardian
                 {
                     Student = applicant1,
@@ -653,7 +677,6 @@ public static class ConfigurationStaticMethods
                 }
             };
             await db.AddRangeAsync(studentGuardians);
-            await db.SaveChangesAsync();
 
             ////////////sessions\\\\\\\\\\\\
             //course 1 sessions (current term)
@@ -763,7 +786,7 @@ public static class ConfigurationStaticMethods
                 EndTime = DateTime.MinValue.AddHours(14),
                 IsActive = true,
                 Course = course10
-            }; 
+            };
             var session14 = new Session
             {
                 DayofWeek = "Wednesday",
@@ -836,27 +859,27 @@ public static class ConfigurationStaticMethods
                 Course = course14
             };
 
-            await db.AddAsync(session);
-            await db.AddAsync(session2);
-            await db.AddAsync(session3);
-            await db.AddAsync(session4);
-            await db.AddAsync(session5);
-            await db.AddAsync(session6);
-            await db.AddAsync(session7);
-            await db.AddAsync(session8);
-            await db.AddAsync(session9);
-            await db.AddAsync(session10);
-            await db.AddAsync(session11);
-            await db.AddAsync(session12);
-            await db.AddAsync(session13);
-            await db.AddAsync(session14);
-            await db.AddAsync(session15);
-            await db.AddAsync(session16);
-            await db.AddAsync(session17);
-            await db.AddAsync(session18);
-            await db.AddAsync(session19);
-            await db.AddAsync(session20);
-            await db.AddAsync(session21);
+            await db.AddRangeAsync(new Session[]
+            {
+                session,
+                session2,
+                session3,
+                session4,
+                session5,
+                session6,
+                session7,
+                session11,
+                session12,
+                session13,
+                session14,
+                session15,
+                session16,
+                session17,
+                session18,
+                session19,
+                session20,
+                session21
+            });
 
 
             ////////////grade\\\\\\\\\\\\
@@ -872,8 +895,12 @@ public static class ConfigurationStaticMethods
                 BeginningRange = 1,
                 EndingRange = 1
             };
-            await db.AddAsync(grade);
-            await db.AddAsync(grade2);
+            await db.AddRangeAsync(new Grade[]
+            {
+                grade,
+                grade2
+            });
+
 
 
             ////////////enrollment\\\\\\\\\\\\
@@ -1037,26 +1064,30 @@ public static class ConfigurationStaticMethods
                 FinalGrade = 0,
                 Grade = grade
             };
-            await db.AddAsync(enrollment);
-            await db.AddAsync(enrollment2);
-            await db.AddAsync(enrollment3);
-            await db.AddAsync(enrollment4);
-            await db.AddAsync(enrollment5);
-            await db.AddAsync(enrollment6);
-            await db.AddAsync(enrollment7);
-            await db.AddAsync(enrollment8); 
-            await db.AddAsync(enrollment9);
-            await db.AddAsync(enrollment10);
-            await db.AddAsync(enrollment11);
-            await db.AddAsync(enrollment12);
-            await db.AddAsync(enrollment13);
-            await db.AddAsync(enrollment14);
-            await db.AddAsync(enrollment15);
-            await db.AddAsync(enrollment16);
-            await db.AddAsync(enrollment17);
-            await db.AddAsync(enrollment18);
-            await db.AddAsync(enrollment19);
-            await db.AddAsync(enrollment21);
+            await db.AddRangeAsync(new Enrollment[]
+            {
+                enrollment,
+                enrollment2,
+                enrollment3,
+                enrollment4,
+                enrollment5,
+                enrollment6,
+                enrollment7,
+                enrollment8,
+                enrollment9,
+                enrollment10,
+                enrollment11,
+                enrollment12,
+                enrollment13,
+                enrollment14,
+                enrollment15,
+                enrollment16,
+                enrollment17,
+                enrollment18,
+                enrollment19,
+                enrollment21
+            });
+
 
             ////attendance
             //var attendance = new Attendance
@@ -1158,13 +1189,17 @@ public static class ConfigurationStaticMethods
                 Title = "ENG-1 Final",
                 Description = "Final Assessment"
             };
-            await db.AddAsync(assessment);
-            await db.AddAsync(assessment2);
-            await db.AddAsync(assessment3);
-            await db.AddAsync(assessment4);
-            await db.AddAsync(assessment5);
-            await db.AddAsync(assessment6);
-            await db.AddAsync(assessment7);
+            await db.AddRangeAsync(new Assessment[]
+            {
+                assessment,
+                assessment2,
+                assessment3,
+                assessment4,
+                assessment5,
+                assessment6,
+                assessment7,
+            });
+
 
             ////////////criterion\\\\\\\\\\\\
             var criteria = new List<Criterion> {
@@ -1195,7 +1230,6 @@ public static class ConfigurationStaticMethods
                 }
             };
             await db.AddRangeAsync(criteria);
-            await db.SaveChangesAsync();
 
             ////////////accesstype\\\\\\\\\\\\
             var accesstype = new AccessType
@@ -1227,8 +1261,11 @@ public static class ConfigurationStaticMethods
                 EditedDate = DateTime.Now,
                 NoteType = accesstype
             };
-            await db.AddAsync(note);
-            await db.AddAsync(note2);
+            await db.AddRangeAsync(new Note[]
+            {
+                note,
+                note2
+            });
 
             ////////////student doc\\\\\\\\\\\\
             var studentdoc = new StudentDoc
@@ -1253,8 +1290,11 @@ public static class ConfigurationStaticMethods
                 Extension = "extension goes here",
                 UploadDate = DateTime.Now
             };
-            await db.AddAsync(studentdoc);
-            await db.AddAsync(studentdoc2);
+            await db.AddRangeAsync(new StudentDoc[]
+            {
+                studentdoc,
+                studentdoc2
+            });
 
             await db.SaveChangesAsync();
         }
