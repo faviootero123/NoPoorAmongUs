@@ -59,6 +59,24 @@ public static class ConfigurationStaticMethods
                     EmailConfirmed = true,
                },
                "InstructorUserDo@123!"
+           },
+            {
+               new ApplicationUser
+               {
+                    UserName ="SocialWorker@odetopeaches.com",
+                    Email = "SocialWorker@odetopeaches.com" ,
+                    EmailConfirmed = true,
+               },
+               "SocialWorkerUserDo@123!"
+           },
+            {
+               new ApplicationUser
+               {
+                    UserName ="Rater@odetopeaches.com",
+                    Email = "Rater@odetopeaches.com" ,
+                    EmailConfirmed = true,
+               },
+               "RaterUserDo@123!"
            }
         };
 
@@ -73,6 +91,8 @@ public static class ConfigurationStaticMethods
         // Apply role to user 
         await userManager.AddUserToRole("AdminUser@odetopeaches.com", Roles.Admin);
         await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
+        await userManager.AddUserToRole("SocialWorker@odetopeaches.com", Roles.SocialWorker);
+        await userManager.AddUserToRole("Rater@odetopeaches.com", Roles.Rater);
         //Seed data for other tables 
         await db.SeedData();
 
@@ -80,7 +100,7 @@ public static class ConfigurationStaticMethods
     private static async Task AddUserToRole(this UserManager<ApplicationUser> userManager, string username, string role)
     {
         var _user = await userManager.FindByNameAsync(username);
-        if (_user is not null) await userManager.AddToRoleAsync(_user, Roles.Admin);
+        if (_user is not null) await userManager.AddToRoleAsync(_user, role);
     }
 
     private static async Task SeedData(this ApplicationDbContext db)
