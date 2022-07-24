@@ -4,39 +4,55 @@
 }
 <form method="post">
     <h2 class="pt-4">Assesments</h2>
- 
-    <table id="dataTable" class="table table-bordered table-striped" style="width:100%;">
-        <thead>
-            <tr>
-                <th scope="col">Assessment Name</th>
-                <th scope="col">Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var assessment in Model.assessments)
-            {
-                <tr>
-                    <td width="25%">
-                         @Html.DisplayFor(modelItem => assessment.Title)
-                    </td>
-                    <td>
-                        <div class="btn-group" role="group" style="justify-content:end;">
-                            <a class="btn btn-primary mx-2" asp-page="../Students/StudentDetails" asp-route-id=""><i class="bi bi-clipboard2-fill"></i>&nbsp;Grades</a>
-                           
+    <h2> @Model.session.Course.Subject.SubjectName @Model.session.Course.CourseLevel</h2>
+    <h5>
+        Day: @Model.session.DayofWeek <br />
+        Time: @Model.session.StartTime.ToShortTimeString() - @Model.session.EndTime.ToShortTimeString()
+    </h5>
+    <button type="submit" class="btn btn-primary">Save Grades</button>
 
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    </form>
+    @foreach (var assessment in Model.assessments)
+    {
+        <h3>
+            @Html.DisplayFor(modelItem => assessment.Title)
+        </h3>
 
-                            @section Scripts{
+        <div class="btn-group" role="group" style="justify-content:end;">
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Grade</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var enrollment in Model.Enrollments)
+                    {
+                        <tr>
+                            <td width="50%">
+                                @(enrollment.Student.FirstName + " " + enrollment.Student.LastName)
+                            </td>
+                            <td width="50%">
+                                <input type="text" />
+                            </td>
+
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    }
+</form>
+
+@section Scripts{
     <script>
         $(document).ready(function() {
             $('#dataTable').dataTable();
-          
+
         });
     </script>
 }
