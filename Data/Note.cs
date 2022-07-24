@@ -25,12 +25,14 @@ public class Note
     public DateTime? EditedDate { get; set; }
 
     //relationships
+    public int StudentId {get; set; }
     [Required]
     [ForeignKey("StudentId")]
     public Student Student { get; set; }
+    [ForeignKey("Id")]
+    public string ApplicationUserId { get; set; }
     [Required]
-    [ForeignKey("FacultyMemberId")]
-    public FacultyMember FacultyMember { get; set; }
+    public ApplicationUser FacultyMember { get; set; }
     [Required]
     [ForeignKey("AccessTypeId")]
     public AccessType NoteType { get; set; }
