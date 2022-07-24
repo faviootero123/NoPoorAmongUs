@@ -2,3 +2,41 @@
 @model SaucyCapstone.Pages.Instructor.Sessions.GradesModel
 @{
 }
+<form method="post">
+    <h2 class="pt-4">Assesments</h2>
+ 
+    <table id="dataTable" class="table table-bordered table-striped" style="width:100%;">
+        <thead>
+            <tr>
+                <th scope="col">Assessment Name</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var assessment in Model.assessments)
+            {
+                <tr>
+                    <td width="25%">
+                         @Html.DisplayFor(modelItem => assessment.Title)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" style="justify-content:end;">
+                            <a class="btn btn-primary mx-2" asp-page="../Students/StudentDetails" asp-route-id=""><i class="bi bi-clipboard2-fill"></i>&nbsp;Grades</a>
+                           
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </form>
+
+                            @section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+          
+        });
+    </script>
+}

@@ -35,7 +35,7 @@ namespace Data.Migrations
 
                     b.HasKey("AccessTypeId");
 
-                    b.ToTable("AccessTypes");
+                    b.ToTable("AccessTypes", (string)null);
                 });
 
             modelBuilder.Entity("Data.ApplicationRole", b =>
@@ -172,7 +172,7 @@ namespace Data.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("Assessments");
+                    b.ToTable("Assessments", (string)null);
                 });
 
             modelBuilder.Entity("Data.Attendance", b =>
@@ -196,7 +196,7 @@ namespace Data.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("Attendances");
+                    b.ToTable("Attendances", (string)null);
                 });
 
             modelBuilder.Entity("Data.Course", b =>
@@ -232,7 +232,7 @@ namespace Data.Migrations
 
                     b.HasIndex("TermId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("Data.Criterion", b =>
@@ -252,7 +252,7 @@ namespace Data.Migrations
 
                     b.HasKey("CriterionId");
 
-                    b.ToTable("Criteria");
+                    b.ToTable("Criteria", (string)null);
                 });
 
             modelBuilder.Entity("Data.Enrollment", b =>
@@ -286,7 +286,7 @@ namespace Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Enrollments");
+                    b.ToTable("Enrollments", (string)null);
                 });
 
             modelBuilder.Entity("Data.FacultyMember", b =>
@@ -319,7 +319,7 @@ namespace Data.Migrations
 
                     b.HasKey("FacultyMemberId");
 
-                    b.ToTable("FacultyMembers");
+                    b.ToTable("FacultyMembers", (string)null);
                 });
 
             modelBuilder.Entity("Data.Grade", b =>
@@ -342,7 +342,7 @@ namespace Data.Migrations
 
                     b.HasKey("GradeId");
 
-                    b.ToTable("Grades");
+                    b.ToTable("Grades", (string)null);
                 });
 
             modelBuilder.Entity("Data.Guardian", b =>
@@ -371,7 +371,7 @@ namespace Data.Migrations
 
                     b.HasKey("GuardianId");
 
-                    b.ToTable("Guardians");
+                    b.ToTable("Guardians", (string)null);
                 });
 
             modelBuilder.Entity("Data.Note", b =>
@@ -415,7 +415,7 @@ namespace Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Notes");
+                    b.ToTable("Notes", (string)null);
                 });
 
             modelBuilder.Entity("Data.Rating", b =>
@@ -444,7 +444,7 @@ namespace Data.Migrations
 
                     b.HasIndex("StudentID");
 
-                    b.ToTable("Ratings");
+                    b.ToTable("Ratings", (string)null);
                 });
 
             modelBuilder.Entity("Data.School", b =>
@@ -461,7 +461,7 @@ namespace Data.Migrations
 
                     b.HasKey("SchoolId");
 
-                    b.ToTable("Schools");
+                    b.ToTable("Schools", (string)null);
                 });
 
             modelBuilder.Entity("Data.Session", b =>
@@ -492,7 +492,7 @@ namespace Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Sessions");
+                    b.ToTable("Sessions", (string)null);
                 });
 
             modelBuilder.Entity("Data.Student", b =>
@@ -573,7 +573,7 @@ namespace Data.Migrations
 
                     b.HasKey("StudentId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("Data.StudentDoc", b =>
@@ -618,7 +618,7 @@ namespace Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentDocs");
+                    b.ToTable("StudentDocs", (string)null);
                 });
 
             modelBuilder.Entity("Data.StudentGuardian", b =>
@@ -641,7 +641,7 @@ namespace Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentGuardians");
+                    b.ToTable("StudentGuardians", (string)null);
                 });
 
             modelBuilder.Entity("Data.Subject", b =>
@@ -658,7 +658,7 @@ namespace Data.Migrations
 
                     b.HasKey("SubjectId");
 
-                    b.ToTable("Subjects");
+                    b.ToTable("Subjects", (string)null);
                 });
 
             modelBuilder.Entity("Data.Term", b =>
@@ -684,7 +684,7 @@ namespace Data.Migrations
 
                     b.HasKey("TermId");
 
-                    b.ToTable("Terms");
+                    b.ToTable("Terms", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -762,7 +762,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdentityUser");
+                    b.ToTable("IdentityUser", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
