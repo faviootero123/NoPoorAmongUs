@@ -90,7 +90,7 @@ public class UpsertModel : PageModel
             Session.IsActive = true;
         }
         _context.SaveChanges();
-        return RedirectToPage("/Sessions/Index");
+        return RedirectToPage("/Instructor/Sessions/Index");
     }
 
 }

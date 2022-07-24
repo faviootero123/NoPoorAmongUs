@@ -167,7 +167,9 @@ namespace Data.Migrations
 
                     b.HasIndex("GradeId");
 
-                    b.ToTable("Assessments", (string)null);
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("Assessments");
                 });
 
             modelBuilder.Entity("Data.Attendance", b =>

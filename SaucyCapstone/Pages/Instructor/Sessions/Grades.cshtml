@@ -1,4 +1,59 @@
 ﻿@page
 @model SaucyCapstone.Pages.Instructor.Sessions.GradesModel
 @{
+     
+}
+<form method="post">
+    <h2 class="pt-4">Assesments</h2>
+    <h2> @Model.session.Course.Subject.SubjectName @Model.session.Course.CourseLevel</h2>
+    <h5>
+        Day: @Model.session.DayofWeek <br />
+        Time: @Model.session.StartTime.ToShortTimeString() - @Model.session.EndTime.ToShortTimeString()
+    </h5>
+    <button type="submit" class="btn btn-primary">Save Grades</button>
+   
+    @foreach (var assessment in Model.assessments)
+    {
+        <h3>
+            @Html.DisplayFor(modelItem => assessment.Title)
+        </h3>
+
+        <div class="btn-group" role="group" style="justify-content:end;">
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Grade</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var enrollment in Model.Enrollments)
+                    {
+                        <tr>
+                            <td width="50%">
+                                @(enrollment.Student.FirstName + " " + enrollment.Student.LastName)
+                            </td>
+                            <td width="50%">
+                                <input type="text" value="@assessment.Score"/>
+                            </td>
+
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    }
+</form>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+
+        });
+    </script>
 }
