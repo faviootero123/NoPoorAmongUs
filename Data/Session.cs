@@ -20,8 +20,8 @@ public class Session
     [Required]
     public bool IsActive { get; set; }
 
+    public int CourseId {get; set;}
     [Required]
-    [ForeignKey("CourseId")]
     public Course Course { get; set; }
 
     //Added this

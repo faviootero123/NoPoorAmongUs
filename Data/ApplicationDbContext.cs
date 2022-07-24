@@ -32,7 +32,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<Criterion> Criteria => Set<Criterion>();
     public DbSet<Enrollment> Enrollments => Set<Enrollment>();
-    public DbSet<FacultyMember> FacultyMembers => Set<FacultyMember>();
     public DbSet<Grade> Grades => Set<Grade>();
     public DbSet<Guardian> Guardians => Set<Guardian>();
     public DbSet<Note> Notes => Set<Note>();

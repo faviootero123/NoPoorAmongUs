@@ -16,13 +16,15 @@ public class Course
     [Required]
     public int CourseLevel { get; set; }
     //relationships
+    public int TermId {get; set;}
     [Required]
     [ForeignKey("TermId")]
     public Term Term { get; set; }
 
+    [ForeignKey("Id")]
+    public string ApplicationUserId {get; set;}
     [Required]
-    [ForeignKey("FacultyMemberId")]
-    public FacultyMember Instructor { get; set; }
+    public ApplicationUser Instructor { get; set; }
 
     [Required]
     [ForeignKey("SubjectId")]

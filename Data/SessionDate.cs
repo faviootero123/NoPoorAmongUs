@@ -11,8 +11,8 @@ public class SessionDate
 {
     public int SessionDateId { get; set; }
     public DateTime Date { get; set; }
+    public int SessionId {get; set;}
     [Required]
-    [ForeignKey("SessionId")]
     public Session Session { get; set; }
 
     public IList<Attendance> Attendances { get; set; }

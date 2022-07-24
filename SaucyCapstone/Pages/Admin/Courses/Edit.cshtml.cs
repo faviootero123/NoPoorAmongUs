@@ -34,7 +34,7 @@ public class EditModel : PageModel
         var course = await _context.Courses.FindAsync(id);
 
         course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault() ?? new Term();
-        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault() ?? new FacultyMember();
+        course.Instructor = _context.ApplicationUsers.Where(f => f.Courses.Contains(course)).FirstOrDefault() ?? new ApplicationUser();
         course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault() ?? new Subject();
         course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault() ?? new School();
 
@@ -43,7 +43,7 @@ public class EditModel : PageModel
             Course = course,
             CourseId = course.CourseId,
             TermId = course.Term.TermId,
-            FacultyMemberId = course.Instructor.FacultyMemberId,
+            FacultyMemberId = course.Instructor.Id,
             SubjectId = course.Subject.SubjectId,
             SchoolId = course.School.SchoolId
         };
@@ -67,7 +67,7 @@ public class EditModel : PageModel
             }
 
             courseToUpdate.Term = _context.Terms.Where(s => s.TermId == CourseVM.Term.TermId).First();
-            courseToUpdate.Instructor = _context.FacultyMembers.Where(s => s.FacultyMemberId == CourseVM.Instructor.FacultyMemberId).First();
+            courseToUpdate.Instructor = _context.ApplicationUsers.Where(s => s.Id == CourseVM.Instructor.Id).First();
             courseToUpdate.Subject = _context.Subjects.Where(s => s.SubjectId == CourseVM.Subject.SubjectId).First();
             courseToUpdate.School = _context.Schools.Where(s => s.SchoolId == CourseVM.School.SchoolId).First();
             _context.Courses.Update(courseToUpdate);

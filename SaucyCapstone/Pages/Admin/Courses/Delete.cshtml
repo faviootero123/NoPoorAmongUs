@@ -26,10 +26,10 @@
                 </div>
                 <div class="col-9">
                     <div class="form-group">
-                        <select asp-for="CourseVM.Instructor.FacultyMemberId" asp-items="@Model.CourseVM.InstructorList" class="form-select" disabled>
+                        <select asp-for="CourseVM.Instructor.Id" asp-items="@Model.CourseVM.InstructorList" class="form-select" disabled>
                             <option disabled>---Select Instructor---</option>
                         </select>
-                        <span asp-validation-for="CourseVM.Instructor.FacultyMemberId" class="text-danger"></span>
+                        <span asp-validation-for="CourseVM.Instructor.Id" class="text-danger"></span>
                     </div>
                 </div>
             </div>

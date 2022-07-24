@@ -14,7 +14,7 @@ public class CourseVM
 {
     public int CourseId { get; set; }
     public int TermId { get; set; }
-    public int FacultyMemberId { get; set; }
+    public string FacultyMemberId { get; set; }
     public int SubjectId { get; set; }
     public int SchoolId { get; set; }
 
@@ -23,7 +23,7 @@ public class CourseVM
     [ValidateNever]
     public Term Term { get; set; }
     [ValidateNever]
-    public FacultyMember Instructor { get; set; }
+    public ApplicationUser Instructor { get; set; }
     [ValidateNever]
     public Subject Subject { get; set; }
     [ValidateNever]
@@ -51,11 +51,11 @@ public class CourseVM
                 Selected = i.TermId == course.Term.TermId
             });
 
-            InstructorList = _context.FacultyMembers.Select(i => new SelectListItem
+            InstructorList = _context.ApplicationUsers.Select(i => new SelectListItem
             {
                 Text = i.LastName + ", " + i.FirstName,
-                Value = i.FacultyMemberId.ToString(),
-                Selected = i.FacultyMemberId == course.Instructor.FacultyMemberId
+                Value = i.Id.ToString(),
+                Selected = i.Id == course.Instructor.Id
             });
 
             SubjectList = _context.Subjects.Select(i => new SelectListItem
@@ -80,10 +80,10 @@ public class CourseVM
                 Value = i.TermId.ToString()
             });
 
-            InstructorList = _context.FacultyMembers.Select(i => new SelectListItem
+            InstructorList = _context.ApplicationUsers.Select(i => new SelectListItem
             {
                 Text = i.LastName + ", " + i.FirstName,
-                Value = i.FacultyMemberId.ToString()
+                Value = i.Id.ToString()
             });
 
             SubjectList = _context.Subjects.Select(i => new SelectListItem

@@ -37,7 +37,7 @@ public class addNotesModel : PageModel
         Content = Note.Content,
         CreatedDate = DateTime.Now,
         Student = _db.Students.Where(d=>d.StudentId == id).FirstOrDefault() ?? new Student(),
-        FacultyMember = _db.FacultyMembers.FirstOrDefault() ?? new FacultyMember(),
+        FacultyMember = _db.ApplicationUsers.FirstOrDefault() ?? new ApplicationUser(),
         NoteType = _db.AccessTypes.FirstOrDefault() ?? new AccessType(),
         isPrivate = Note.isPrivate,
         EditedDate = DateTime.Now

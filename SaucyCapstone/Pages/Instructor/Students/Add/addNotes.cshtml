@@ -9,7 +9,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input asp-for="@Model.Note.NoteId" hidden />
             <input asp-for="@Model.Note.Student.StudentId" hidden />
-            <input asp-for="@Model.Note.FacultyMember.FacultyMemberId" hidden />
+            <input asp-for="@Model.Note.FacultyMember.Id" hidden />
 
             <div class="form-group">
                 <label asp-for="@Model.Note.Topic" class="control-label"></label>       

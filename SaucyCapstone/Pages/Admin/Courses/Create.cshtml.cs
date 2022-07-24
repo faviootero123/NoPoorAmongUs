@@ -35,7 +35,7 @@ public class CreateModel : PageModel
             CourseVM.Course = new()
             {
                 Term = _context.Terms.Where(s => s.TermId == courseVM.TermId).First(),
-                Instructor = _context.FacultyMembers.Where(s => s.FacultyMemberId == courseVM.FacultyMemberId).First(),
+                Instructor = _context.ApplicationUsers.Where(s => s.Id == courseVM.FacultyMemberId).First(),
                 Subject = _context.Subjects.Where(s => s.SubjectId == courseVM.SubjectId).First(),
                 School = _context.Schools.Where(s => s.SchoolId == courseVM.SchoolId).First(),
                 CourseLevel = courseVM.Course.CourseLevel

@@ -29,7 +29,7 @@ public class DeleteModel : PageModel
         var course = await _context.Courses.FindAsync(id);
 
         course.Term = _context.Terms.Where(t => t.Courses.Contains(course)).FirstOrDefault() ?? new Term();
-        course.Instructor = _context.FacultyMembers.Where(f => f.Courses.Contains(course)).FirstOrDefault() ?? new FacultyMember();
+        course.Instructor = _context.ApplicationUsers.Where(f => f.Courses.Contains(course)).FirstOrDefault() ?? new ApplicationUser();
         course.Subject = _context.Subjects.Where(s => s.Courses.Contains(course)).FirstOrDefault() ?? new Subject();
         course.School = _context.Schools.Where(s => s.Courses.Contains(course)).FirstOrDefault() ?? new School();
 
@@ -38,7 +38,7 @@ public class DeleteModel : PageModel
             Course = course,
             CourseId = course.CourseId,
             TermId = course.Term.TermId,
-            FacultyMemberId = course.Instructor.FacultyMemberId,
+            FacultyMemberId = course.Instructor.Id,
             SubjectId = course.Subject.SubjectId,
             SchoolId = course.School.SchoolId
         };

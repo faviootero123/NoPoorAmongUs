@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -25,10 +26,10 @@ public class StudentDoc
     public DateTime UploadDate { get; set; }
 
     //relationships
+    public int StudentId {get; set;}
     [Required]
-    [ForeignKey("StudentId")]
     public Student Student { get; set; }
+    public int AccessTypeId {get; set;}
     [Required]
-    [ForeignKey("AccessTypeId")]
     public AccessType AccessType { get; set; }
 }

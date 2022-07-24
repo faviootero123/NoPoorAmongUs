@@ -5,9 +5,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data;
-
+[Index(nameof(TermId),nameof(IsActive))]
 public class Term
 {
     public int TermId { get; set; }

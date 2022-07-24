@@ -60,7 +60,7 @@ public static class ConfigurationStaticMethods
                },
                "InstructorUserDo@123!"
            },
-            {
+           {
                new ApplicationUser
                {
                     UserName ="SocialWorker@odetopeaches.com",
@@ -69,12 +69,46 @@ public static class ConfigurationStaticMethods
                },
                "SocialWorkerUserDo@123!"
            },
-            {
+           {
                new ApplicationUser
                {
                     UserName ="Rater@odetopeaches.com",
                     Email = "Rater@odetopeaches.com" ,
                     EmailConfirmed = true,
+               },
+               "RaterUserDo@123!"
+           },
+           // Test Faculty Members 
+           {
+               new ApplicationUser
+               {
+                    UserName ="john.doe@odetopeaches.com",
+                    Email = "john.doe@odetopeaches.com" ,
+                    EmailConfirmed = true,
+                    FirstName = "John",
+                    LastName = "Doe",
+               },
+               "RaterUserDo@123!"
+           },
+           {
+               new ApplicationUser
+               {
+                    UserName ="adam.smith@odetopeaches.com",
+                    Email = "adam.smith@odetopeaches.com" ,
+                    EmailConfirmed = true,
+                    FirstName = "Adam",
+                    LastName = "Smith",
+               },
+               "RaterUserDo@123!"
+           },
+           {
+               new ApplicationUser
+               {
+                    UserName ="public.teacher@odetopeaches.com",
+                    Email = "public.teacher@odetopeaches.com" ,
+                    EmailConfirmed = true,
+                    FirstName = "Public",
+                    LastName = "Teacher",
                },
                "RaterUserDo@123!"
            }
@@ -93,8 +127,12 @@ public static class ConfigurationStaticMethods
         await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
         await userManager.AddUserToRole("SocialWorker@odetopeaches.com", Roles.SocialWorker);
         await userManager.AddUserToRole("Rater@odetopeaches.com", Roles.Rater);
+
+        await userManager.AddUserToRole("john.doe@odetopeaches.com",Roles.Instructor);
+        await userManager.AddUserToRole("adam.smith@odetopeaches.com",Roles.Instructor);
+        await userManager.AddUserToRole("public.teacher@odetopeaches.com",Roles.Instructor);
         //Seed data for other tables 
-        await db.SeedData();
+        await SeedData(db, userManager);
 
     }
     private static async Task AddUserToRole(this UserManager<ApplicationUser> userManager, string username, string role)
@@ -103,7 +141,7 @@ public static class ConfigurationStaticMethods
         if (_user is not null) await userManager.AddToRoleAsync(_user, role);
     }
 
-    private static async Task SeedData(this ApplicationDbContext db)
+    private static async Task SeedData(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
     {
 
         var alreadyExists = await db.Terms.Where(s => s.TermId == 1).FirstOrDefaultAsync() == null;
@@ -151,40 +189,7 @@ public static class ConfigurationStaticMethods
             });
 
 
-            ///////////faculty-member\\\\\\\\\\\
-            var faculty = new FacultyMember
-            {
-                FirstName = "John",
-                LastName = "Doe",
-                IsAdmin = false,
-                IsInstructor = true,
-                IsRater = true,
-                IsSocialWorker = true
-            };
-            var faculty2 = new FacultyMember
-            {
-                FirstName = "Adam",
-                LastName = "Smith",
-                IsAdmin = false,
-                IsInstructor = true,
-                IsRater = false,
-                IsSocialWorker = false,
-            };
-            var faculty3 = new FacultyMember
-            {
-                FirstName = "Public",
-                LastName = "Teacher",
-                IsAdmin = false,
-                IsInstructor = false,
-                IsRater = false,
-                IsSocialWorker = false,
-            };
-            await db.AddRangeAsync(new FacultyMember[]
-            {
-                faculty,
-                faculty2,
-                faculty3
-            });
+
 
             ///////////terms\\\\\\\\\\\\
             var term = new Term
@@ -203,6 +208,10 @@ public static class ConfigurationStaticMethods
             };
             await db.AddRangeAsync(new Term[] { term, term2 });
 
+            ///////////faculty-member\\\\\\\\\\\
+            var faculty = await userManager.FindByEmailAsync("john.doe@odetopeaches.com");
+            var faculty2 = await userManager.FindByEmailAsync("adam.smith@odetopeaches.com");
+            var faculty3 = await userManager.FindByEmailAsync("public.teacher@odetopeaches.com");
             ////////////course\\\\\\\\\\\\
             //courses for inactive term
             var course = new Course
