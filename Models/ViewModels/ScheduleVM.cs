@@ -11,6 +11,11 @@ public class ScheduleVM
 {
     public int StudentId { get; set; }
 
+    public int TermId { get; set; }
+
+    [ValidateNever]
+    public Term Term { get; set; }
+
     [ValidateNever]
     public Student Student { get; set; }
 
@@ -33,19 +38,16 @@ public class Event
 
     public string title { get; set; }
 
-    // Used for repeating events
     public string daysOfWeek { get; set; }
 
     public string startTime { get; set; }
 
-    // Used for one time events
     public string start { get; set; }
 
     public string end { get; set; }
 
     public string endTime { get; set; }
 
-    // The time frame of repeating events
     public string startRecur { get; set; }
 
     public string endRecur { get; set; }

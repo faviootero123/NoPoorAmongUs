@@ -1,6 +1,12 @@
 ﻿@page
 @model SaucyCapstone.Pages.Instructor.Sessions.IndexModel
+@using Microsoft.AspNetCore.Http;
+
 @{
+    var subjectCourse = "";
+    var sessionCourse = HttpContext.Session.GetInt32("Course");
+    var sessionSubject = HttpContext.Session.GetString("Subject");
+    var sessionSubjectCourse = sessionSubject + " " + sessionCourse;
 }
 
 <div class="container p-3">
@@ -21,13 +27,13 @@
             <ul class="list-group list-group-horizontal-sm">
                 @foreach (var course in Model.CourseList)
                 {
-                    var subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
-                    <a style="text-decoration:none" asp-page="/Instructor/Sessions/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
-                        <li class="list-group-item">@subjectCourse</li>
+                    subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
+                    <a id="@subjectCourse" asp-page="/Instructor/Sessions/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
+                    <li class="custom btn @(sessionSubject is not null && subjectCourse == sessionSubjectCourse ? "btn-primary": "btn-outline-primary")">@subjectCourse</li>
                     </a>
                 }
-                <a style="text-decoration:none" asp-page="/Instructor/Sessions/Index">
-                    <li class="list-group-item">All</li>
+                <a style="text-decoration:none" asp-page="/Instructor/Sessions/Index" asp-route-subject="All">
+                <li class="custom btn @(sessionCourse is null ? "btn-primary": "btn-outline-primary")">All</li>
                 </a>
             </ul>
         </div>

@@ -41,6 +41,6 @@ public class IndexModel : PageModel
             _context.UpdateRange(updateRatings);
             await _context.SaveChangesAsync();
         }
-        return RedirectToPage("./Index");
+        return RedirectToPage("./RatingSummary");
     }
 }

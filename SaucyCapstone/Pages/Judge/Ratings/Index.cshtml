@@ -5,6 +5,7 @@
 @{
     ViewData["Title"] = "Index";
     int ratingsIndex = 0;
+    string collapseId = "";
 }
 
 <form method="post" asp-action="OnPostAsync" enctype="multipart/form-data">
@@ -13,13 +14,17 @@
             <div class="col-6">
                 <h2 class="text-primary">Ratings Overview</h2>
             </div>
-            <div class="col-6 text-end">
-                <button type="submit" class="btn btn-primary">Save Ratings</button>
-            </div>
         </div>
         <br />
-
-        <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+        <div class="row pb-2">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary">Save Ratings</button>
+                <a asp-page="RatingSummary" class="btn btn-primary">
+                    Go to Summary
+                </a>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>
@@ -31,12 +36,13 @@
                             @Html.DisplayFor(modelItem => item.Description)
                         </th>
                     }
-                    <th>Average</th>
+                    <th>@*place holder for button column*@</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var student in Model.RatingVM.Students)
                 {
+                    collapseId = "collapse" + student.StudentId.ToString();
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
@@ -54,7 +60,6 @@
                                 </div>
                             </td>
                             ratingsIndex++;
-
                         }
                         @foreach (var criteria in Model.RatingVM.Criteria.Where(x => x.Ratings is null))
                         {
@@ -69,20 +74,19 @@
                             </td>
                             ratingsIndex++;
                         }
-                        <td>foo</td>
+                        <td>
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
+                                View Application
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="collapse" id="@collapseId">
+                        <td colspan="12">
+                            @await Html.PartialAsync("_ApplicationPartialView", @student)
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
 </form>
-
-@section Scripts{
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').dataTable();
-        });
-
-        //function updateAverage() {}
-    </script>
-}
