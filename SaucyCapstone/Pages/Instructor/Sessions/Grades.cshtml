@@ -1,6 +1,7 @@
 ﻿@page
 @model SaucyCapstone.Pages.Instructor.Sessions.GradesModel
 @{
+     
 }
 <form method="post">
     <h2 class="pt-4">Assesments</h2>
@@ -10,7 +11,7 @@
         Time: @Model.session.StartTime.ToShortTimeString() - @Model.session.EndTime.ToShortTimeString()
     </h5>
     <button type="submit" class="btn btn-primary">Save Grades</button>
-
+   
     @foreach (var assessment in Model.assessments)
     {
         <h3>
@@ -23,7 +24,7 @@
                     <tr>
                         <th>Student Name</th>
                         <th>Grade</th>
-
+                       
                     </tr>
                 </thead>
                 <tbody>
@@ -34,7 +35,7 @@
                                 @(enrollment.Student.FirstName + " " + enrollment.Student.LastName)
                             </td>
                             <td width="50%">
-                                <input type="text" />
+                                <input type="text" value="@assessment.Score"/>
                             </td>
 
 
