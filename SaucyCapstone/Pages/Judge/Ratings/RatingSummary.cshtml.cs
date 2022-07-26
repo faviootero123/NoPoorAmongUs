@@ -23,6 +23,7 @@ namespace SaucyCapstone.Pages.Judge.Ratings
         {
             RatingVM = new RatingVM
             {
+                Waitlisted = await _context.Students.Where(x => x.AppStatus == Student.ApplicationStatus.Waitlisted).Include(r => r.Ratings).ToListAsync(),
                 Students = await _context.Students.Where(x => x.AppStatus == Student.ApplicationStatus.Open).Include(r => r.Ratings).ToListAsync(),
                 Criteria = await _context.Criteria.ToListAsync(),
             };

@@ -4,16 +4,14 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Documents For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
+            <h2>Documents For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
+        </div>
+        <div class="col-6 text-end">
+        <a asp-route-id="@Model.Student.StudentId" asp-page="./Add/addDocuments" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add Document</a>
+            <a class="btn btn-primary" asp-page="/Instructor/Students/Index">Back to Students</a>
         </div>
     </div>
-    <br />
-    <div class="float-end">
-        <a asp-route-id="@Model.Student.StudentId" asp-page="./Add/addDocuments" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Document</a>
-    </div>
-
-    <br />
-    <br />
+    <hr />
 
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
@@ -31,7 +29,7 @@
                     Upload Date
                 </th>
                 <th>
-                    Manage
+                    Options
                 </th>
             </tr>
         </thead>
@@ -56,9 +54,9 @@
                         <td width="10%">
                             <div class="btn-group" role="group">
                                 <form>
-                                    <a class="btn btn-success mx-2 al" download="@(obj.Name + obj.Extension)" href="@(obj.Path)"><i class="bi bi-file-earmark-arrow-down-fill"></i></a>
+                                    <a class="btn btn-info mx-2 al" download="@(obj.Name + obj.Extension)" href="@(obj.Path)"><i class="bi bi-file-earmark-arrow-down-fill"></i></a>
                                 </form>
-                                <a class="btn btn-danger mx-2" asp-page="./Delete/deleteDocuments" asp-route-id="@obj.StudentDocId">Delete</a>
+                                <a class="btn btn-danger mx-2" asp-page="./Delete/deleteDocuments" asp-route-id="@obj.StudentDocId"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
                             </div>
                         </td>
                     </tr>
@@ -66,7 +64,6 @@
             }
         </tbody>
     </table>
-    <a class="btn btn-primary" asp-page="/Instructor/Students/Index">Go Back</a>
 </div>
 
 @section Scripts{
