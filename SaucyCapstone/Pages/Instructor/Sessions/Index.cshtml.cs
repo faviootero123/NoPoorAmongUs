@@ -45,6 +45,7 @@ public class IndexModel : PageModel
         var query = _context.Sessions
             .Include(u => u.Course)
             .ThenInclude(u => u.Subject)
+            .Include(u => u.Course.Term)
             .Where(u => u.Course.Term.IsActive == true);
 
         if (subject != null && subject != "All")
