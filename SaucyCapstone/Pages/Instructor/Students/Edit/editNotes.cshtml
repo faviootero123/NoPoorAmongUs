@@ -1,4 +1,5 @@
 ﻿@page
+@using Data
 @model SaucyCapstone.Pages.Instructor.Students.Edit.editNotesModel
 @{
 }
@@ -27,7 +28,24 @@
 							<span asp-validation-for="@Model.NoteEditVM.Content" class="text-danger"></span>
 						</div>
 					</div>
-
+					<div class="row my-1">
+						<div class="col-3">Role Type</div>
+						<div class="col-9">
+							<select asp-for="@Model.NoteEditVM.type" asp-items="@Model.RolesOfUser" class="form-select">
+								<option disabled>---Select Role---</option>
+								<span asp-validation-for="@Model.RolesOfUser" class="text-danger"></span>
+							</select>
+						</div>
+					</div>
+					<div class="row my-1">
+						<div class="col-3">Level Type</div>
+						<div class="col-9">
+							<select asp-for="@Model.NoteEditVM.noteLevel" asp-items="Html.GetEnumSelectList<Note.NoteLevel>()" class="form-select">
+								<option disabled>---Select Importance Level---</option>
+								<span asp-validation-for="@Model.NoteEditVM.noteLevel" class="text-danger"></span>
+							</select>
+						</div>
+					</div>
 					<div class="row my-1">
 						<div class="col-3">Private Note</div>
 						<div class="col-9">

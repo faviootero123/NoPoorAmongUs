@@ -1295,7 +1295,8 @@ public static class ConfigurationStaticMethods
                 isPrivate = false,
                 CreatedDate = DateTime.Now,
                 EditedDate = DateTime.Now,
-                NoteType = accesstype
+                NoteType = accesstype,
+                Importance = Note.NoteLevel.Low
             };
             var note2 = new Note
             {
@@ -1306,7 +1307,8 @@ public static class ConfigurationStaticMethods
                 isPrivate = false,
                 CreatedDate = DateTime.Now,
                 EditedDate = DateTime.Now,
-                NoteType = accesstype
+                NoteType = accesstype,
+                Importance = Note.NoteLevel.Low
             };
             await db.AddRangeAsync(new Note[]
             {

@@ -34,10 +34,11 @@ public class addDocumentsModel : PageModel
     }
     public async Task<ActionResult> OnGetAsync(int id)
     {
-        foreach (var Roles in User.AllRoles())
+        foreach (var Roles in User.UserRoles())
         {
             RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
         }
+
         StudentId = id;
         return Page(); 
     }

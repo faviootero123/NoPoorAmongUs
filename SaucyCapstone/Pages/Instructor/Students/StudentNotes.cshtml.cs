@@ -16,6 +16,7 @@ public class StudentNotesModel : PageModel
     private readonly ApplicationDbContext _db;
     public Student? Student { get; set; }
     public List<Note>? Notes { get; set; }
+    public string userId { get; set; }
 
     public StudentNotesModel(ApplicationDbContext db)
     {
@@ -24,7 +25,7 @@ public class StudentNotesModel : PageModel
     
     public async Task<ActionResult> OnGetAsync(int? id)
     {
-        var userId = User.UserId();
+        userId = User.UserId();
 
         if (id != null)
         {
