@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
 using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -6,9 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using SaucyCapstone.Constants;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Encodings.Web;
 
 namespace SaucyCapstone.Pages.Admin.UserManagement;
 [Authorize(Roles = Roles.Admin)]
@@ -41,15 +41,32 @@ public class CreateModel : PageModel
         if (ModelState.IsValid)
         {
 
-            var user = new ApplicationUser();
+            var user = new ApplicationUser() { FirstName = model.FirstName, LastName = model.LastName };
             await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
             var result = await _userManager.CreateAsync(user, Input.Password);
-            if (result.Succeeded) {
+            if (result.Succeeded)
+            {
                 _logger.LogInformation("User created a new account with password.");
-
+                if (model.Admin)
+                {
+                    await _userManager.AddToRoleAsync(user, Roles.Admin);
+                }
+                if (model.Instructor)
+                {
+                    await _userManager.AddToRoleAsync(user, Roles.Instructor);
+                }
+                if (model.Rater)
+                {
+                    await _userManager.AddToRoleAsync(user, Roles.Rater);
+                }
+                if (model.SocialWorker)
+                {
+                    await _userManager.AddToRoleAsync(user, Roles.SocialWorker);
+                }
                 var userId = await _userManager.GetUserIdAsync(user);
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Page(
                     "/Account/ConfirmEmail",
@@ -88,6 +105,21 @@ public class InputModel
     [Display(Name = "Confirm password")]
     [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
     public string ConfirmPassword { get; set; }
+
+    [Required]
+    [DataType(DataType.Text)]
+    [Display(Name = "First Name")]
+    public string FirstName { get; set; }
+
+    [Required]
+    [DataType(DataType.Text)]
+    [Display(Name = "Last Name")]
+    public string LastName { get; set; }
+
+    public bool Admin { get; set; }
+    public bool Instructor { get; set; }
+    public bool Rater { get; set; }
+    public bool SocialWorker { get; set; }
 }
 
 
