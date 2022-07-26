@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using Data;
+using MailKit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -32,35 +33,39 @@ public class CreateModel : PageModel
     {
         _userManager = userManager;
         _userStore = userStore;
+        _emailSender = emailSender;
         _emailStore = (IUserEmailStore<ApplicationUser>)_userStore;
         _logger = logger;
     }
 
-    public async Task OnPostAsync(InputModel model)
+    public async Task OnPostAsync(InputModel Input)
     {
+        foreach(var k in ModelState){
+            _logger.LogInformation($"{k.Key} {k.Value}");
+        }
         if (ModelState.IsValid)
         {
 
-            var user = new ApplicationUser() { FirstName = model.FirstName, LastName = model.LastName };
+            var user = new ApplicationUser() { FirstName = Input.FirstName, LastName = Input.LastName };
             await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
             var result = await _userManager.CreateAsync(user, Input.Password);
             if (result.Succeeded)
             {
                 _logger.LogInformation("User created a new account with password.");
-                if (model.Admin)
+                if (Input.Admin)
                 {
                     await _userManager.AddToRoleAsync(user, Roles.Admin);
                 }
-                if (model.Instructor)
+                if (Input.Instructor)
                 {
                     await _userManager.AddToRoleAsync(user, Roles.Instructor);
                 }
-                if (model.Rater)
+                if (Input.Rater)
                 {
                     await _userManager.AddToRoleAsync(user, Roles.Rater);
                 }
-                if (model.SocialWorker)
+                if (Input.SocialWorker)
                 {
                     await _userManager.AddToRoleAsync(user, Roles.SocialWorker);
                 }
@@ -84,7 +89,7 @@ public class CreateModel : PageModel
             }
         }
 
-
+        
     }
 }
 public class InputModel
