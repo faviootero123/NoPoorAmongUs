@@ -17,6 +17,9 @@ public class Note
     public bool isPrivate { get; set; } = false;
 
     [Required]
+    public NoteLevel Importance { get; set; }
+
+    [Required]
     public string Content { get; set; } = string.Empty;
 
     [Required]
@@ -24,8 +27,14 @@ public class Note
 
     public DateTime? EditedDate { get; set; }
 
+    public enum NoteLevel
+    {
+        Low,
+        Middle,
+        High
+    }
+
     //relationships
-    public int StudentId {get; set; }
     [Required]
     [ForeignKey("StudentId")]
     public Student Student { get; set; }

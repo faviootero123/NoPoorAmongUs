@@ -2,6 +2,7 @@ using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
@@ -18,30 +19,51 @@ public class addNotesModel : PageModel
     public int StudentId { get; set; }
     [BindProperty]
     public Note? Note { get; set; }
+    [BindProperty]
+    public AccessType.Type SelectedRole { get; set; }
+    public List<SelectListItem> RolesOfUser;
 
     public addNotesModel(ApplicationDbContext db)
     {
         _db = db;
+        RolesOfUser = new List<SelectListItem>();
     }
-    public async Task<ActionResult> OnGetAsync(int studentId)
+
+    public ActionResult OnGetAsync(int studentId)
     {
+        if (User.IsAdmin())
+        {
+            foreach(var Roles in User.GetAllRoles())
+                RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
+        }
+        else
+        {
+            foreach (var Roles in User.UserRoles())
+                RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
+        }
+        
         StudentId = studentId;
         return Page();     
     }
 
     public async Task<IActionResult> OnPostAsync(int id)
     {
+        string userId = User.UserId();
+
         var newNote = new Note()
         {
         Topic = Note.Topic,
         Content = Note.Content,
         CreatedDate = DateTime.Now,
-        Student = _db.Students.Where(d=>d.StudentId == id).FirstOrDefault() ?? new Student(),
-        FacultyMember = _db.ApplicationUsers.FirstOrDefault() ?? new ApplicationUser(),
-        NoteType = _db.AccessTypes.FirstOrDefault() ?? new AccessType(),
+        Student = await _db.Students.Where(d=>d.StudentId == id).FirstAsync() ?? new Student(),
+        FacultyMember = await _db.ApplicationUsers.Where(d => d.Id == userId).FirstAsync() ?? new ApplicationUser(),
+        NoteType = await _db.AccessTypes.Where(d => d.Accesss == SelectedRole).FirstAsync() ?? new AccessType(),
+        ApplicationUserId = userId,
         isPrivate = Note.isPrivate,
-        EditedDate = DateTime.Now
+        EditedDate = DateTime.Now,
+        Importance = Note.Importance
         };
+
         await _db.AddAsync(newNote);
         await _db.SaveChangesAsync();
         return RedirectToPage("../StudentNotes", new { id = id });

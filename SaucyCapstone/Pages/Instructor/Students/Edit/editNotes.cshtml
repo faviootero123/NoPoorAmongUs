@@ -1,40 +1,65 @@
 ﻿@page
+@using Data
 @model SaucyCapstone.Pages.Instructor.Students.Edit.editNotesModel
 @{
 }
 
 <h1>Edit Note</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" value="@Model.Note.Student.StudentId" asp-for="@Model.NoteVM.StudentId" />
-            <input type="hidden" value="@Model.Note.NoteId" asp-for="@Model.NoteVM.StudentNoteId" />
 
-            <div class="form-group">
-                <label asp-for="@Model.NoteVM.Topic" class="control-label"></label>       
-                <input asp-for="@Model.NoteVM.Topic" value="@Model.Note.Topic"  class="form-control" />
-                <span asp-validation-for="@Model.NoteVM.Topic" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.NoteVM.Content" class="control-label"></label>
-                <textarea asp-for="@Model.NoteVM.Content" class="form-control" ></textarea>
-                <span asp-validation-for="@Model.NoteVM.Content" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.NoteVM.isPrivate" class="control-label">Private Note</label>
-                <input asp-for="@Model.NoteVM.isPrivate" type="checkbox" class="form-check-input" >
-                <span asp-validation-for="@Model.NoteVM.isPrivate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <br />
-                <input type="submit" value="Save" class="btn btn-success" />  
+<form method="post" enctype="multipart/form-data">
+	<input type="hidden" value="@Model.Note.Student.StudentId" asp-for="@Model.NoteEditVM.StudentId" />
+    <input type="hidden" value="@Model.Note.NoteId" asp-for="@Model.NoteEditVM.StudentNoteId" />
+	<div class="container">
+		<div class="card">
+			<div class="card-body">
+				<div class="col-12 col-lg-6 pb-4">
+					<div class="row my-1">
+						<div class="col-3">Topic</div>
+						<div class="col-9">
+							<input asp-for="@Model.NoteEditVM.Topic" value="@Model.Note.Topic"  class="form-control" />
+							<span asp-validation-for="@Model.NoteEditVM.Topic" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="row my-1">
+						<div class="col-3">Content</div>
+						<div class="col-9">
+							<textarea asp-for="@Model.NoteEditVM.Content" class="form-control" ></textarea>
+							<span asp-validation-for="@Model.NoteEditVM.Content" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="row my-1">
+						<div class="col-3">Role Type</div>
+						<div class="col-9">
+							<select asp-for="@Model.NoteEditVM.type" asp-items="@Model.RolesOfUser" class="form-select">
+								<option disabled>---Select Role---</option>
+								<span asp-validation-for="@Model.RolesOfUser" class="text-danger"></span>
+							</select>
+						</div>
+					</div>
+					<div class="row my-1">
+						<div class="col-3">Level Type</div>
+						<div class="col-9">
+							<select asp-for="@Model.NoteEditVM.noteLevel" asp-items="Html.GetEnumSelectList<Note.NoteLevel>()" class="form-select">
+								<option disabled>---Select Importance Level---</option>
+								<span asp-validation-for="@Model.NoteEditVM.noteLevel" class="text-danger"></span>
+							</select>
+						</div>
+					</div>
+					<div class="row my-1">
+						<div class="col-3">Private Note</div>
+						<div class="col-9">
+							<input asp-for="@Model.NoteEditVM.isPrivate" type="checkbox" class="form-check-input" >
+                <span asp-validation-for="@Model.NoteEditVM.isPrivate" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+				<input type="submit" value="Save" class="btn btn-success">
                 <a class="btn btn-primary" asp-route-id="@Model.Note.Student.StudentId" asp-page="/Instructor/Students/StudentNotes" >Cancel</a>
-            </div>
-        </form>
-    </div>
-</div>
+			</div>
+		</div>
+	</div>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

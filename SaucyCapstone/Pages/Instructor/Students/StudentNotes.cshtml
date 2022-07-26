@@ -1,4 +1,5 @@
 ﻿@page
+@using SaucyCapstone.Static
 @model SaucyCapstone.Pages.Instructor.Students.StudentNotesModel
 
 <div class="container p-3">
@@ -23,7 +24,13 @@
                     Content
                 </th>
                 <th>
+                    Importance Level
+                </th>
+                <th>
                     Creator
+                </th>
+                <th>
+                    Access Type
                 </th>
                 <th>
                     Created Date
@@ -46,11 +53,17 @@
                         <td width="10">
                             @obj.Topic
                         </td>
-                        <td width="30%">
+                        <td width="20%">
                             @obj.Content
                         </td>
                         <td width="10%">
+                            @obj.Importance
+                        </td>
+                        <td width="10%">
                             @obj.FacultyMember?.FirstName @obj.FacultyMember?.LastName
+                        </td>
+                        <td width="10%">
+                            @obj.NoteType.Accesss
                         </td>
                         <td width="10%">
                             @obj.CreatedDate
@@ -60,23 +73,25 @@
                         </td>
                         @if (@obj.isPrivate == true)
                         {
-                            <td width="10%">
+                            <td width="5%">
                                 Only You
                             </td>
                         }
                         @if (@obj.isPrivate == false)
                         {
-                            <td width="10%">
+                            <td width="5%">
                                 Everyone
                             </td>
-                        }
-
+                        }                      
                         <td width="10%">
+                            @if (@obj.FacultyMember.Id == Model.userId || User.IsAdmin())
+                            {
                             <div class="btn-group" role="group">
                                 <a class="btn btn-primary mx-2" asp-page="./Edit/editNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
                                 <a class="btn btn-danger mx-2" asp-page="./Delete/deleteNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
                             </div>
-                        </td>
+                            }
+                        </td>                                          
                     </tr>
                 }
             }

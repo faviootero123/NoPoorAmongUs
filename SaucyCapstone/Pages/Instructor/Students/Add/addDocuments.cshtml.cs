@@ -2,6 +2,8 @@ using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
 using SaucyCapstone.Static;
@@ -18,16 +20,25 @@ public class addDocumentsModel : PageModel
     [BindProperty]
     public int StudentId { get; set; }
     [BindProperty]
-    public StudentDoc StudentDocs { get; set; }
+    public StudentDoc? StudentDocs { get; set; }
+    [BindProperty]
+    public AccessType.Type SelectedRole { get; set; }
+    public List<SelectListItem> RolesOfUser;
 
     public addDocumentsModel(ApplicationDbContext db, IWebHostEnvironment hostEnvironment)
     {
         _db = db;
         StudentDocs = new StudentDoc();
+        RolesOfUser = new List<SelectListItem>();
         _hostEnvironment = hostEnvironment;
     }
     public async Task<ActionResult> OnGetAsync(int id)
     {
+        foreach (var Roles in User.UserRoles())
+        {
+            RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
+        }
+
         StudentId = id;
         return Page(); 
     }
@@ -64,8 +75,8 @@ public class addDocumentsModel : PageModel
 
         var newDoc = new StudentDoc()
         {
-            Student = _db.Students.Where(d => d.StudentId == id).FirstOrDefault(),
-            AccessType = _db.AccessTypes.FirstOrDefault(),
+            Student = await _db.Students.Where(d => d.StudentId == id).FirstAsync(),
+            AccessType = await _db.AccessTypes.Where(d => d.Accesss == SelectedRole).FirstAsync(),
             Name = StudentDocs.Name,
             Description = StudentDocs.Description,
             Path = StudentDocs.Path,
