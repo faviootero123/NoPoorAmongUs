@@ -62,7 +62,7 @@ app.UseSerilogRequestLogging();
 //Seed the data to the database
 if (app.Configuration.GetValue<bool>("SeedData"))
 {
-   // await app.Services.SeedDataAsync();
+   await app.Services.SeedDataAsync();
 }
 var mvcBuilder = builder.Services.AddRazorPages();
 // Configure the HTTP request pipeline. AKA middleware
