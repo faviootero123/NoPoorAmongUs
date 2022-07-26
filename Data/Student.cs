@@ -95,7 +95,7 @@ public class Student
     {
         Archived,
         Open,
-        Judged,
+        Waitlisted,
         Approved
     }
 }

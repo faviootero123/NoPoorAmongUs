@@ -23,6 +23,9 @@
                 <th>
                     Application Status
                 </th>
+                <th>
+                    Last Modified Date
+                </th>
                 <th>Application Options</th>
             </tr>
         </thead>
@@ -35,6 +38,9 @@
                     </td>
                     <td>
                         @obj.AppStatus
+                    </td>
+                    <td>
+                        @obj.LastModifiedDate.ToShortDateString()
                     </td>
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end">
