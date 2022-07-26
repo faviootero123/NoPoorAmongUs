@@ -5,69 +5,111 @@
     ViewData["Title"] = "New User";
 }
 
-<h1>User</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <h2>Create a new user.</h2>
-            <hr />
+<form method="post">
+    <div class="card">
+        <h4 class="card-header">Create User</h4>
+        <div class="card-body rounded pb-2">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Input.Email"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Email
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="email" asp-for="Input.Email" type="text" class="form-control" autocomplete="Email" aria-required="true" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.Password"></label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Password
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="password" asp-for="Input.Password" type="text" class="form-control" autocomplete="new-password" aria-required="true" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
-                    aria-required="true" />
-                <label asp-for="Input.ConfirmPassword"></label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Confirm Password
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="confirmPassword" asp-for="Input.ConfirmPassword" type="text" class="form-control" autocomplete="new-password" aria-required="true" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.FirstName" class="form-control" autocomplete="new-password"
-                    aria-required="true" />
-                <label asp-for="Input.FirstName"></label>
-                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    First Name
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="firstName" asp-for="Input.FirstName" type="text" class="form-control" autocomplete="First Name" aria-required="true" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.LastName" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Input.LastName"></label>
-                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Last Name
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="LastName" asp-for="Input.LastName" type="text" class="form-control" autocomplete="Last Name" aria-required="true" />
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <h3>Roles</h3>
-            <div class="form-check">
-                <input type="checkbox"  asp-for="Input.Admin" class="form-check-input"
-                    value="true">
-                <label class="form-check-label" asp-for="Input.Admin">@Roles.Admin</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" asp-for="Input.Instructor" class="form-check-input" value="true">
-                <label class="form-check-label" asp-for="Input.Instructor">@Roles.Instructor</label>
-            </div>
-            <div class="form-check">
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Roles
+                </div>
+                <div class="col-9">
+                    <div class="form-check">
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" asp-for="Input.Admin" class="form-check-input"
+                                   value="true">
+                            <label class="form-check-label" asp-for="Input.Admin">@Roles.Admin</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" asp-for="Input.Instructor" class="form-check-input" value="true">
+                            <label class="form-check-label" asp-for="Input.Instructor">@Roles.Instructor</label>
+                        </div>
+                        <div class="form-check form-check-inline">
 
-                <input type="checkbox"  asp-for="Input.Rater" class="form-check-input" value="true">
-                <label class="form-check-label" asp-for="Input.Rater">@Roles.Rater</label>
+                            <input type="checkbox" asp-for="Input.Rater" class="form-check-input" value="true">
+                            <label class="form-check-label" asp-for="Input.Rater">@Roles.Rater</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" asp-for="Input.SocialWorker" class="form-check-input" value="true">
+                            <label class="form-check-label" asp-for="Input.SocialWorker">@Roles.SocialWorker</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-6">
+                            <button id="registerSubmit" type="submit" class="btn btn-success" style="width:100%">Create</button>
+                        </div>
+                        <div class="col-6">
+                            <a asp-page="Index" class="btn btn-primary" style="width:100%">
+                                Back to User Overview
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-check">
-                <input type="checkbox" asp-for="Input.SocialWorker" class="form-check-input" value="true">
-                <label class="form-check-label" asp-for="Input.SocialWorker">@Roles.SocialWorker</label>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Create</button>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+</form>
 
 @section Scripts {
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
