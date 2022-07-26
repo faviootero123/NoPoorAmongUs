@@ -1267,6 +1267,24 @@ public static class ConfigurationStaticMethods
             };
             await db.AddAsync(accesstype);
 
+            var accesstype2 = new AccessType
+            {
+                Accesss = AccessType.Type.Admin
+            };
+            await db.AddAsync(accesstype2);
+
+            var accesstype3 = new AccessType
+            {
+                Accesss = AccessType.Type.SocialWorker
+            };
+            await db.AddAsync(accesstype3);
+
+            var accesstype4 = new AccessType
+            {
+                Accesss = AccessType.Type.Instructor
+            };
+            await db.AddAsync(accesstype4);
+
             ////////////student note\\\\\\\\\\\\
             var note = new Note
             {

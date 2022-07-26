@@ -17,8 +17,7 @@ public class editNotesModel : PageModel
     public readonly ApplicationDbContext _db;
 
     [BindProperty(SupportsGet = true)]
-    public NoteVM NoteVM { get; set; }
-
+    public NoteVM NoteEditVM { get; set; }
     public Note Note { get; set; }
 
     public editNotesModel(ApplicationDbContext db)
@@ -34,7 +33,7 @@ public class editNotesModel : PageModel
             return NotFound();
         }
 
-        var note = await _db.Notes.Include(d => d.Student).Include(d => d.FacultyMember).Include(d => d.NoteType).FirstOrDefaultAsync(m => m.NoteId == noteId);
+        var note = await _db.Notes.Include(d => d.Student).Include(d => d.FacultyMember).Include(d => d.NoteType).FirstAsync(m => m.NoteId == noteId);
 
         if (note == null)
         {
@@ -42,8 +41,8 @@ public class editNotesModel : PageModel
         }
 
         Note = note;
-        NoteVM.Content = Note.Content;
-        NoteVM.isPrivate = Note.isPrivate;
+        NoteEditVM.Content = Note.Content;
+        NoteEditVM.isPrivate = Note.isPrivate;
 
         return Page();
     }
@@ -55,7 +54,7 @@ public class editNotesModel : PageModel
             return Page();
         }
 
-        var note = await _db.Notes.Where(d=>d.NoteId == NoteEditVM.StudentNoteId).FirstOrDefaultAsync();
+        var note = await _db.Notes.Where(d=>d.NoteId == NoteEditVM.StudentNoteId).FirstAsync();
 
         if(note == null)
         {

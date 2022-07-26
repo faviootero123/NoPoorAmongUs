@@ -28,6 +28,9 @@
                     Creator
                 </th>
                 <th>
+                    Access Type
+                </th>
+                <th>
                     Created Date
                 </th>
                 <th>
@@ -48,11 +51,14 @@
                         <td width="10">
                             @obj.Topic
                         </td>
-                        <td width="30%">
+                        <td width="20%">
                             @obj.Content
                         </td>
                         <td width="10%">
                             @obj.FacultyMember?.FirstName @obj.FacultyMember?.LastName
+                        </td>
+                        <td width="10%">
+                            @obj.NoteType.Accesss
                         </td>
                         <td width="10%">
                             @obj.CreatedDate
