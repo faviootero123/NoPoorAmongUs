@@ -18,6 +18,9 @@ public class IndexModel : PageModel
     //Get all applicant
     public async Task OnGetAsync()
     {
-        Students = await _db.Students.Where(u => u.Status != Student.StudentStatus.Active && u.IsActive == false).ToListAsync();
+        Students = await _db.Students
+            .Where(u => u.AppStatus == Student.ApplicationStatus.Open || u.AppStatus == Student.ApplicationStatus.Archived)
+            .Where(u => u.IsActive == false)
+            .ToListAsync();
     }
 }

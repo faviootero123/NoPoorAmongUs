@@ -4,15 +4,15 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Applicant Overview</h2>
+            <h2>Applicant Overview</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-page="Upsert" class="btn btn-primary">
+            <a asp-page="Upsert" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> &nbsp; New Application
             </a>
         </div>
     </div>
-    <br />
+    <hr />
 
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
@@ -22,6 +22,9 @@
                 </th>
                 <th>
                     Application Status
+                </th>
+                <th>
+                    Last Modified Date
                 </th>
                 <th>Application Options</th>
             </tr>
@@ -35,6 +38,9 @@
                     </td>
                     <td>
                         @obj.AppStatus
+                    </td>
+                    <td>
+                        @obj.LastModifiedDate.ToShortDateString()
                     </td>
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end">

@@ -4,73 +4,93 @@
 @{
 
 }
-<h1>Users</h1>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2>Manage Users</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-page="Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> &nbsp; New User
+            </a>
+        </div>
+    </div>
+    <hr />
 
-<p>
-    <a asp-page="Create">Add New User</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                User Name
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Lock
-            </th>
-            <th>
-                Password Reset
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.UsersVM ?? new List<UserVM>())
-        {
+
+    <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+        <thead>
             <tr>
-                <td>
-                    @item.UserName
-                </td>
-                <td>
-                    @item.Email
-                </td>
+                <th>
+                    User Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Lock
+                </th>
+                <th>
+                    Password Reset
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.UsersVM ?? new List<UserVM>())
+            {
+                <tr>
+                    <td>
+                        @item.UserName
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
 
-                <form method="post">
-                    @{
-                        if (item.LockoutEnd > DateTime.Now)
-                        {
+                    <form method="post">
+                        @{
+                            if (item.LockoutEnd > DateTime.Now)
+                            {
                             <td>
                                 <button type="submit" class="btn btn-outline-warning" asp-page-handler="LockUnlock"
-                        asp-route-id="@item.Id">
+                            asp-route-id="@item.Id">
                                     <i class="bi bi-unlock"></i> Unlock
                                 </button>
                             </td>
-                        }
-                        else
-                        {
+                            }
+                            else
+                            {
                             <td>
-                                <button type="submit" class="btn btn-outline-warning" asp-page-handler="LockUnlock"
-                        asp-route-id="@item.Id">
-                                    <i class="bi bi-lock"></i> Lock
+                                <button type="submit" class="btn btn-warning" asp-page-handler="LockUnlock"
+                                    asp-route-id="@item.Id">
+                                    <i class="bi bi-lock-fill"></i> Lock
                                 </button>
                             </td>
+                            }
                         }
-                    }
                     <td>
-                        <button type="submit" class="btn d-inline btn-outline-warning" asp-page-handler="PasswordResetEmail"
-                        asp-route-id="@item.Id">
-                            <i class="bi bi-envelope"></i>
-                        </button>
-                        <a class="btn d-inline btn-outline-warning" asp-page="Changepassword"
-                        asp-route-id="@item.Id">
-                            <i class="bi bi-input-cursor-text"></i>
-                        </a>
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-info mx-2" asp-page-handler="PasswordResetEmail"
+                                asp-route-id="@item.Id">
+                                <i class="bi bi-envelope-fill"></i> Reset Password
+                            </button>
+                            <a class="btn btn-primary mx-2" asp-page="Changepassword"
+                                asp-route-id="@item.Id">
+                                <i class="bi bi-input-cursor-text"></i> Change Password
+                            </a>
+                        </div>
                     </td>
-                </form>
+                    </form>
 
-            </tr>
-        }
-    </tbody>
-</table>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable();
+        });
+    </script>
+    }

@@ -21,9 +21,9 @@ public class IndexModel : PageModel
         _context = context;
     }
 
-    public async Task OnGetAsync(int? term)
+    public async Task OnGetAsync(int? id)
     {
-        if (term == null)
+        if (id == null)
         {
             CourseVM = new()
             {
@@ -34,7 +34,7 @@ public class IndexModel : PageModel
         {
             CourseVM = new()
             {
-                CourseList = await _context.Courses.Include(c => c.Term).Include(c => c.Instructor).Include(c => c.Subject).Include(c => c.School).Where(u => u.Term.IsActive == true).ToListAsync()
+                CourseList = await _context.Courses.Include(c => c.Term).Include(c => c.Instructor).Include(c => c.Subject).Include(c => c.School).Where(u => u.Term.TermId == id).ToListAsync()
             };
         }
         Term = await _context.Terms.Where(u => u.IsActive == true).FirstOrDefaultAsync() ?? null;

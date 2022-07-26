@@ -118,8 +118,8 @@ public static class ConfigurationStaticMethods
         foreach (var user in users)
         {
             var userExists = await userManager.FindByEmailAsync(user.Key.Email);
-            if (userExists is not null) await userManager.DeleteAsync(userExists);
-            userResult = await userManager.CreateAsync(user.Key, user.Value);
+            // if (userExists is not null) await userManager.DeleteAsync(userExists);
+            if (userExists is null)userResult = await userManager.CreateAsync(user.Key, user.Value);
         }
 
         // Apply role to user 

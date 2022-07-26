@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
+using SaucyCapstone.Static;
 
 namespace SaucyCapstone.Pages.Instructor.Assessments;
 
@@ -62,5 +63,6 @@ public class IndexModel : PageModel
             .Where(u => u.Subject.SubjectName != "Public")
             .OrderBy(u => u.Subject)
             .ToListAsync();
+        
     }
 }
