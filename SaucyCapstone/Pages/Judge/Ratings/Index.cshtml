@@ -23,11 +23,11 @@
             </div>
             <hr />
 
-            <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+            <table class="table table-bordered table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.RatingVM.Students[0].FirstName)
+                            Student Name
                         </th>
                         @foreach (var item in Model.RatingVM.Criteria)
                         {
@@ -94,13 +94,7 @@
 @section Scripts{
     <script>
         $(document).ready(function() {
-            var indexTotalScore = $("#dataTable").find('tr')[0].cells.length - 2;
-            $('#dataTable').dataTable({
-                order: [[indexTotalScore, 'desc']],
-            });
-            $('#dataTable2').dataTable({
-                order: [[indexTotalScore, 'desc']],
-            });
+            $('#dataTable').dataTable();
         });
     </script>
 }
