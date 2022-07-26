@@ -4,7 +4,7 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Documents For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
+            <h2>Documents For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
         </div>
     </div>
     <br />
@@ -12,8 +12,7 @@
         <a asp-route-id="@Model.Student.StudentId" asp-page="./Add/addDocuments" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Document</a>
     </div>
 
-    <br />
-    <br />
+    <hr />
 
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>

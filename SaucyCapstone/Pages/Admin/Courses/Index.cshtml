@@ -14,12 +14,12 @@
                 </div>
             </div>
 
-        <div class="pt-4">
+        <div class="pt-2">
             <ul class="list-group list-group-horizontal-sm">
                 @if (Model.Term != null)
                 {
-                    <a style="text-decoration:none" asp-page="/Admin/Courses/Index" asp-route-term="@Model.Term.TermId">
-                    <li class="list-group-item">Active Term</li>
+                    <a style="text-decoration:none" asp-page="/Admin/Courses/Index" asp-route-id="@Model.Term.TermId">
+                    <li class="list-group-item">Active Term(s)</li>
                     </a>
                 }
 
@@ -28,7 +28,8 @@
                 </a>
             </ul>
         </div>
-        <br />
+        <hr />
+
         <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>

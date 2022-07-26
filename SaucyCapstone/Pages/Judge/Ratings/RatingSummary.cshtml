@@ -9,12 +9,12 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Ratings Summary</h2>
+            <h2>Ratings Summary</h2>
         </div>
         <div class="col-6 text-end">
             <button type="submit" class="btn btn-success"><i class="bi bi-check2-circle"></i> &nbsp; Add Selected Student(s)</button>
             <a asp-page="./Index" class="btn btn-primary">
-                Back to Overiew
+                Go to Overiew
             </a>
         </div>
         <hr />
@@ -62,7 +62,7 @@
                         <td>
 
                             <a asp-page="Waitlist" asp-route-id="@student.StudentId"
-                           class="btn btn-warning mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Waitlist</a>
+                           class="btn btn-warning mx-2"> <i class="bi bi-archive-fill"></i>&nbsp;Waitlist</a>
 
 
                         </td>
@@ -109,7 +109,7 @@
                         </td>
                         <td>
                             <a asp-page="Waitlist" asp-route-id="@student.StudentId"
-                           class="btn btn-info mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Reactivate</a>
+                           class="btn btn-info mx-2"> <i class="bi bi-plus-circle"></i>&nbsp;Reactivate</a>
                         </td>
                     </tr>
                     totalValue = 0;
