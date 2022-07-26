@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SaucyCapstone.Data;
+using SaucyCapstone.Static;
 
 namespace SaucyCapstone.Pages.Instructor.Sessions;
 
@@ -30,7 +31,7 @@ public class IndexModel : PageModel
             .Include(u => u.Course)
             .ThenInclude(u => u.Subject)
             .Include(u => u.Course.Term)
-            .Where(u => u.Course.Term.IsActive == true);
+            .Where(u => u.Course.Term.IsActive == true && ((u.Course.ApplicationUserId == User.UserId() || User.IsAdmin()) || u.Course.Subject.SubjectName == "Public"));
 
         if (id == null)
         {
@@ -73,7 +74,7 @@ public class IndexModel : PageModel
         Sessions = await query.ToListAsync();
         CourseList = await _context.Courses
                     .Include(u => u.Subject)
-                    .Where(u => u.Term.IsActive == true)
+                    .Where(u => u.Term.IsActive == true && ((u.ApplicationUserId == User.UserId() || User.IsAdmin()) || u.Subject.SubjectName == "Public"))
                     .OrderBy(u => u.Subject)
                     .ToListAsync();
     }
