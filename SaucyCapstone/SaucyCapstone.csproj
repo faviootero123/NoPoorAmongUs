@@ -10,6 +10,9 @@
   <ItemGroup>
     <PackageReference Include="AutoBogus" Version="2.13.1" />
     <PackageReference Include="Bogus" Version="34.0.2" />
+    <PackageReference Include="Magick.NET-Q8-x64" Version="11.3.0" />
+    <PackageReference Include="Magick.NET.Core" Version="11.3.0" />
+
     <PackageReference Include="MailKit" Version="3.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
