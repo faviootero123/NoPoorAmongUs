@@ -1267,6 +1267,24 @@ public static class ConfigurationStaticMethods
             };
             await db.AddAsync(accesstype);
 
+            var accesstype2 = new AccessType
+            {
+                Accesss = AccessType.Type.Admin
+            };
+            await db.AddAsync(accesstype2);
+
+            var accesstype3 = new AccessType
+            {
+                Accesss = AccessType.Type.SocialWorker
+            };
+            await db.AddAsync(accesstype3);
+
+            var accesstype4 = new AccessType
+            {
+                Accesss = AccessType.Type.Instructor
+            };
+            await db.AddAsync(accesstype4);
+
             ////////////student note\\\\\\\\\\\\
             var note = new Note
             {
@@ -1277,7 +1295,8 @@ public static class ConfigurationStaticMethods
                 isPrivate = false,
                 CreatedDate = DateTime.Now,
                 EditedDate = DateTime.Now,
-                NoteType = accesstype
+                NoteType = accesstype,
+                Importance = Note.NoteLevel.Low
             };
             var note2 = new Note
             {
@@ -1288,7 +1307,8 @@ public static class ConfigurationStaticMethods
                 isPrivate = false,
                 CreatedDate = DateTime.Now,
                 EditedDate = DateTime.Now,
-                NoteType = accesstype
+                NoteType = accesstype,
+                Importance = Note.NoteLevel.Low
             };
             await db.AddRangeAsync(new Note[]
             {

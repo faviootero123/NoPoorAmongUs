@@ -31,9 +31,6 @@
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end;">
                             <a class="btn btn-primary mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.Student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
-                                                       @*asp-route-id=""*@
-                            <a class="btn btn-info mx-2" asp-page="/"><i class="bi bi-clipboard-data-fill"></i>&nbsp;Assessment</a>
-
                             <button class="btn btn-danger mx-2" asp-page-handler="Remove" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Remove</button>
                             <button class="btn btn-success mx-2" asp-page-handler="Pass" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Pass</button>
                         </div>

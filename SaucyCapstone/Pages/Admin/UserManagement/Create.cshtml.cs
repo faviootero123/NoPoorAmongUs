@@ -38,14 +38,13 @@ public class CreateModel : PageModel
         _logger = logger;
     }
 
-    public async Task OnPostAsync(InputModel Input)
+    public async Task<IActionResult> OnPostAsync(InputModel Input)
     {
         foreach(var k in ModelState){
             _logger.LogInformation($"{k.Key} {k.Value}");
         }
         if (ModelState.IsValid)
         {
-
             var user = new ApplicationUser() { FirstName = Input.FirstName, LastName = Input.LastName };
             await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -82,14 +81,17 @@ public class CreateModel : PageModel
                 await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                //not sure if this is needed
+                return RedirectToPage("./Index");
             }
+
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
         }
 
-        
+        return Page();
     }
 }
 public class InputModel

@@ -22,15 +22,34 @@
             @Html.DisplayFor(model => model.Note.Content)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Note.NoteType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Note.NoteType.Accesss)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Note.Importance)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Note.Importance)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Note.CreatedDate)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Note.CreatedDate)
-        </dd><dt class="col-sm-2">
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Note.EditedDate)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Note.EditedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Note.FacultyMember)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Note.FacultyMember.FirstName)
         </dd>
     </dl>
     

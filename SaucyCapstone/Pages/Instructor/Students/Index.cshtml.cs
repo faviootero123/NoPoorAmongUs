@@ -6,6 +6,7 @@ using System.Security.Claims;
 using SaucyCapstone.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using SaucyCapstone.Static;
 
 namespace SaucyCapstone.Pages.Instructor.Students;
 
@@ -24,6 +25,8 @@ public class IndexModel : PageModel
     }
     public async Task<ActionResult> OnGetAsync()
     {
+        string userId = User.UserId();
+
         Students = await _db.Students.Where(u => u.Status == Student.StudentStatus.Active && u.IsActive == true).ToListAsync();
         _logger.LogDebug("Testing serilog");
         return Page();

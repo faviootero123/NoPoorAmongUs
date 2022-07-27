@@ -20,9 +20,9 @@ public class StudentScheduleModel : PageModel
     public ScheduleVM ScheduleVM { get; set; }
 
     // Event array for student schedule calendar
-    public Event[] Events { get; set; }
+    public Event[] CalendarEvents { get; set; }
 
-    public async Task OnGet(int? studentId, int termId = 1)
+    public async Task OnGet(int? studentId)
     {
         if (studentId == null)
         {
@@ -31,38 +31,25 @@ public class StudentScheduleModel : PageModel
 
         var student = await _db.Students.FindAsync(studentId);
 
-        var term = await _db.Terms.Where(t => t.TermId == termId).FirstOrDefaultAsync();
+        var term = await _db.Terms.Where(t => t.IsActive).FirstOrDefaultAsync();
 
-        var enrollments = await _db.Enrollments.Where(e => e.StudentId == studentId && e.Session.Course.Term.TermId == termId)
+        var enrollments = await _db.Enrollments.Where(e => e.StudentId == studentId)
             .Include(e => e.Student)
-            .Include(g => g.Grade)
             .Include(e => e.Session)
             .Include(e => e.Session.Course)
+            .Include(e => e.Session.Course.Subject)
             .Include(e => e.Session.Course.Term)
-            .Include(e => e.Session.Course.Instructor)
             .ToListAsync();
-
-        var sessions = await _db.Sessions.Where(s => s.Enrollments.Any(e => e.SessionId == s.SessionId && e.StudentId == studentId)).ToListAsync();
-
-        var courses = await _db.Courses.Where(c => c.Sessions.Any(s => s.Course.CourseId == c.CourseId)).ToListAsync();
-
-        var terms = await _db.Terms.ToListAsync();
 
         ScheduleVM = new ScheduleVM
         {
-            StudentId = student.StudentId,
-            TermId = termId,
-            Term = term,
             Student = student,
             Enrollments = enrollments,
-            Sessions = sessions,
-            Courses = courses,
-            Terms = terms
         };
 
         if (enrollments != null)
         {
-            Event[] Events_Long = new Event[enrollments.Count + 1000];
+            Event[] EventList = new Event[enrollments.Count];
 
             int i = 0;
 
@@ -70,96 +57,76 @@ public class StudentScheduleModel : PageModel
             {
                 foreach (var e in enrollments)
                 {
-                    Event temp_event = new();
-                    var temp = await _db.Sessions.Where(s => s.SessionId == e.SessionId)
+                    var temp_sessions = await _db.Sessions.Where(s => s.SessionId == e.SessionId && e.Session.Course.Term.IsActive)
                         .Include(s => s.Course)
-                        .Include(s => s.Course.Term)
                         .Include(s => s.Course.Subject)
+                        .Include(s => s.Course.Term)
                         .ToListAsync();
-
-                    temp_event.id = temp[0].SessionId.ToString();
-                    temp_event.title = temp[0].Course.Subject.SubjectName;
-
-                    temp_event.start = temp[0].StartTime.TimeOfDay.ToString();
-                    temp_event.end = temp[0].EndTime.TimeOfDay.ToString();
-
-                    temp_event.startTime = temp[0].StartTime.TimeOfDay.ToString();
-                    temp_event.endTime = temp[0].EndTime.TimeOfDay.ToString();
-
-                    temp_event.startRecur = temp[0].Course.Term.StartDate.ToString("yyyy-MM-dd");
-                    temp_event.endRecur = temp[0].Course.Term.EndDate.ToString("yyyy-MM-dd");
-
-                    switch (temp[0].DayofWeek)
+                    foreach (var s in temp_sessions)
                     {
-                        case "Monday":
-                            temp_event.daysOfWeek += "1";
-                            break;
-                        case "Tuesday":
-                            temp_event.daysOfWeek += " 2";
-                            break;
-                        case "Wednesday":
-                            temp_event.daysOfWeek += " 3";
-                            break;
-                        case "Thursday":
-                            temp_event.daysOfWeek += " 4";
-                            break;
-                        case "Friday":
-                            temp_event.daysOfWeek += " 5";
-                            break;
-                        default:
-                            break;
-                    }
-
-                    Events_Long[i++] = temp_event;
-
-                    var temp_sessions = _db.Sessions.Where(s => s.SessionId == e.SessionId && e.Session.Course.Term.IsActive).ToList();
-
-                    foreach (var session in temp_sessions)
-                    {
-                        Event temp_event_1 = new()
+                        Event temp_event = new()
                         {
-                            id = session.Course.CourseLevel.ToString(),
-                            title = session.Course.Subject.SubjectName,
-                            start = session.StartTime.TimeOfDay.ToString(),
-                            end = session.EndTime.TimeOfDay.ToString()
+                            id = s.SessionId.ToString(),
+                            title = s.Course.Subject.SubjectName + " " + s.Course.CourseLevel.ToString(),
+                            start = s.StartTime.TimeOfDay.ToString(),
+                            end = s.EndTime.TimeOfDay.ToString(),
+                            startTime = s.StartTime.TimeOfDay.ToString(),
+                            endTime = s.EndTime.TimeOfDay.ToString(),
+                            //DimGray
+                            borderColor = "#696969"
                         };
-
-                        Events_Long[i++] = temp_event_1;
+                        switch (s.Course.Subject.SubjectName)
+                        {
+                            case "English":
+                                //Teal
+                                temp_event.color = "#008080";
+                                break;
+                            case "IT":
+                                //SteelBlue
+                                temp_event.color = "#4682B4";
+                                break;
+                            case "Public":
+                                //DarkTurquoise
+                                temp_event.color = "#00CED1";
+                                break;
+                            default:
+                                break;
+                        }
+                        switch (s.DayofWeek)
+                        {
+                            case "Sunday":
+                                temp_event.daysOfWeek = "0";
+                                break;
+                            case "Monday":
+                                temp_event.daysOfWeek = "1";
+                                break;
+                            case "Tuesday":
+                                temp_event.daysOfWeek = "2";
+                                break;
+                            case "Wednesday":
+                                temp_event.daysOfWeek = "3";
+                                break;
+                            case "Thursday":
+                                temp_event.daysOfWeek = "4";
+                                break;
+                            case "Friday":
+                                temp_event.daysOfWeek = "5";
+                                break;
+                            case "Saturday":
+                                temp_event.daysOfWeek = "6";
+                                break;
+                            default:
+                                break;
+                        }
+                        EventList[i++] = temp_event;
                     }
                 }
-
-                Events = new Event[i];
-
-                for (int j = 0; j < Events.Length; j++)
+                CalendarEvents = new Event[i];
+                for (int j = 0; j < CalendarEvents.Length; j++)
                 {
-                    Events[j] = Events_Long[j];
+                    CalendarEvents[j] = EventList[j];
                 }
             }
         }
-    }
-
-    public async Task<IActionResult> OnPostAsync(ScheduleVM scheduleVM)
-    {
-        if (ModelState.IsValid)
-        {
-            return RedirectToPage("StudentSchedule", new { scheduleVM.StudentId, scheduleVM.TermId });
-        }
-
-        return Page();
-    }
-}
-
-public static class DateTimeExtensions
-{
-    public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
-    {
-        int diff = (7 + (dt.Date.DayOfWeek - startOfWeek)) % 7;
-        return dt.AddDays(-1 * diff).Date;
-    }
-
-    public static DateTime EndOfWeek(this DateTime dt, DayOfWeek endOfWeek)
-    {
-        int diff = (7 + (endOfWeek - dt.Date.DayOfWeek)) % 7;
-        return dt.AddDays(diff).Date;
     }
 }

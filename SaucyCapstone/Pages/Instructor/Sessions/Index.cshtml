@@ -12,33 +12,33 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Session Overview</h2>
+            <h2>Session Overview</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-page="Upsert" id="CreateBtn" class="btn btn-primary">
+            <a asp-page="Upsert" id="CreateBtn" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> &nbsp; New Session
             </a>
-            <a asp-page="ViewArchived" id="CreateBtn" class="btn btn-danger">
-                <i class="bi bi-plus-circle"></i> &nbsp; View Archived
-            </a>
+            @*<a asp-page="ViewArchived" id="CreateBtn" class="btn btn-danger">
+            <i class="bi bi-plus-circle"></i> &nbsp; View Archived
+            </a>*@
         </div>
 
-        <div class="pt-4">
+        <div class="pt-2">
             <ul class="list-group list-group-horizontal-sm">
                 @foreach (var course in Model.CourseList)
                 {
                     subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
                     <a id="@subjectCourse" asp-page="/Instructor/Sessions/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
-                    <li class="custom btn @(sessionSubject is not null && subjectCourse == sessionSubjectCourse ? "btn-primary": "btn-outline-primary")">@subjectCourse</li>
+                    <li class="custom btn @(sessionSubject is not null && subjectCourse == sessionSubjectCourse ? "btn-primary": "btn-outline-primary bg-white")">@subjectCourse</li>
                     </a>
                 }
                 <a style="text-decoration:none" asp-page="/Instructor/Sessions/Index" asp-route-subject="All">
-                <li class="custom btn @(sessionCourse is null ? "btn-primary": "btn-outline-primary")">All</li>
+                <li class="custom btn @(sessionCourse is null ? "btn-primary": "btn-outline-primary bg-white")">All</li>
                 </a>
             </ul>
         </div>
     </div>
-    <br />
+    <hr />
 
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
@@ -68,11 +68,11 @@
                     </td>
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end">
-                            <a class="btn btn-success mx-2" asp-page="./Enrollments" asp-route-id="@session.SessionId"><i class="bi bi-people-fill"></i>&nbsp;Enrollments</a>
-                            <a class="btn btn-primary mx-2" asp-page="./Upsert" asp-route-id="@session.SessionId"><i class="bi bi-pen-fill"></i>&nbsp;Edit</a>
-                             <a class="btn btn-info mx-2" asp-page="./Grades" asp-route-id="@session.SessionId"><i class="bi bi-file-earmark-text-fill"></i>&nbsp;Assessments</a>
-                            <a class="btn btn-light mx-2" asp-page="./Attendance" asp-route-id="@session.SessionId"><i class="bi bi-calendar-check-fill"></i>&nbsp;Attendance</a>
-                           
+                            <a class="btn btn-primary mx-2" asp-page="./Upsert" asp-route-id="@session.SessionId"><i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                            <a class="btn btn-warning mx-2" asp-page="./Enrollments" asp-route-id="@session.SessionId"><i class="bi bi-people-fill"></i>&nbsp;Enrollments</a>
+                            <a class="btn btn-info mx-2" asp-page="./Grades" asp-route-id="@session.SessionId"><i class="bi bi-file-earmark-text-fill"></i>&nbsp;Assessments</a>
+                            <a class="btn btn-secondary mx-2" asp-page="./Attendance" asp-route-id="@session.SessionId"><i class="bi bi-calendar-check-fill"></i>&nbsp;Attendance</a>
+                            <a class="btn btn-danger mx-2" asp-page="./Archive" asp-route-id="@session.SessionId"><i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
                         </div>
                     </td>
                 </tr>
