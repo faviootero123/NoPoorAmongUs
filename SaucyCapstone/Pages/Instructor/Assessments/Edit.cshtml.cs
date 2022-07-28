@@ -27,7 +27,10 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var assessment = await _context.Assessments.Include(u => u.Course).ThenInclude(u => u.Subject).FirstOrDefaultAsync(u => u.AssessmentId == id);
+        var assessment = await _context.Assessments
+            .Include(u => u.Course)
+            .ThenInclude(u => u.Subject)
+            .FirstOrDefaultAsync(u => u.AssessmentId == id);
 
         if (assessment == null)
         {
@@ -58,7 +61,16 @@ public class EditModel : PageModel
             AssessmentToUpdate.Title = AssessmentVM.Assessment.Title;
             AssessmentToUpdate.Description = AssessmentVM.Assessment.Description;
             AssessmentToUpdate.MaxScore = AssessmentVM.Assessment.MaxScore;
-            AssessmentToUpdate.Course = _context.Courses.Where(u => u.CourseLevel == AssessmentVM.Course.CourseLevel && u.Subject.SubjectName == AssessmentVM.Course.Subject.SubjectName).Include(i => i.School).Include(i => i.Sessions).Include(i => i.Subject).Include(i => i.Instructor).Include(i => i.Term).First();
+            AssessmentToUpdate.Course = _context.Courses
+                .Where(u => u.CourseLevel == AssessmentVM.Course.CourseLevel 
+                    && u.Subject.SubjectName == AssessmentVM.Course.Subject.SubjectName)
+                .Where(u => u.Term.IsActive == true)
+                .Include(i => i.School)
+                .Include(i => i.Sessions)
+                .Include(i => i.Subject)
+                .Include(i => i.Instructor)
+                .Include(i => i.Term)
+                .First();
 
             _context.Assessments.Update(AssessmentToUpdate);
             await _context.SaveChangesAsync();

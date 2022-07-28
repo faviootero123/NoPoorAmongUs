@@ -31,7 +31,7 @@ public class IndexModel : PageModel
             .Include(u => u.Course)
             .ThenInclude(u => u.Subject)
             .Include(u => u.Course.Term)
-            .Where(u => u.Course.Term.IsActive == true && ((u.Course.ApplicationUserId == User.UserId() || User.IsAdmin()) || u.Course.Subject.SubjectName == "Public"));
+            .Where(u => ((u.Course.ApplicationUserId == User.UserId() || User.IsAdmin()) || u.Course.Subject.SubjectName == "Public"));
 
         if (id == null)
         {
@@ -60,6 +60,9 @@ public class IndexModel : PageModel
                 HttpContext.Session.SetInt32("Course", courselvl.Value);
 
             }
+
+            Sessions = await query.Where(u => u.Course.Term.IsActive == true).ToListAsync();
+
         }
         else
         {
@@ -68,15 +71,15 @@ public class IndexModel : PageModel
             {
                 HttpContext.Session.SetString("Subject", query.FirstOrDefault().Course.Subject.SubjectName);
                 HttpContext.Session.SetInt32("Course", query.FirstOrDefault().Course.CourseLevel);
-            }  
+            }
+            Sessions = await query.ToListAsync();
         }
 
-        Sessions = await query.ToListAsync();
         CourseList = await _context.Courses
-                    .Include(u => u.Subject)
-                    .Where(u => u.Term.IsActive == true && ((u.ApplicationUserId == User.UserId() || User.IsAdmin()) || u.Subject.SubjectName == "Public"))
-                    .OrderBy(u => u.Subject)
-                    .ToListAsync();
+                   .Include(u => u.Subject)
+                   .Where(u => u.Term.IsActive == true && ((u.ApplicationUserId == User.UserId() || User.IsAdmin()) || u.Subject.SubjectName == "Public"))
+                   .OrderBy(u => u.Subject)
+                   .ToListAsync();
     }
 }
 
