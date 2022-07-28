@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-9">
                     <div class="form-group">
-                        <input id="starttimepicker" value="" asp-for="Session.StartTime" type="time" class="form-control" />
+                        <input id="starttimepicker" value="@Model.Session.StartTime.ToShortTimeString()" asp-for="Session.StartTime" type="text" class="form-control" />
                         <span asp-validation-for="Session.StartTime" class="text-danger"></span>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="col-9">
                     <div class="form-group">
-                        <input id="endtimepicker" value="" asp-for="Session.EndTime" type="time" class="form-control" />
+                        <input id="endtimepicker" value="@Model.Session.EndTime.ToShortTimeString()" asp-for="Session.EndTime" type="text" class="form-control" />
                         <span asp-validation-for="Session.EndTime" class="text-danger"></span>
                     </div>
                 </div>

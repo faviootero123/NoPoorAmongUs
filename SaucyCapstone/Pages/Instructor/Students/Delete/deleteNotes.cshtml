@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.Note.Content)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Note.Content)
+            <textarea asp-for="@Model.Note.Content" class="form-control" readonly></textarea>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Note.NoteType)

@@ -120,6 +120,7 @@ public class AttendanceModel : PageModel
         
         return RedirectToPage(new { id = SessionId, offset = offset });
     }
+
     public class AttendanceEditModel {
         public int StudentId { get; set; }
         public int SessionDateId { get; set; }

@@ -4,6 +4,7 @@
 
 @{
     string collapseId = "";
+    int sort = 0;
 }
 
 <div class="container p-3">
@@ -23,6 +24,9 @@
             <tr>
                 <th>
                     Topic
+                </th>
+                <th>
+                    Content
                 </th>
                 <th>
                     Importance Level
@@ -48,12 +52,16 @@
                 @foreach (var obj in Model.Notes)
                 {
                     collapseId = "collapse" + obj.NoteId.ToString();
+                    sort++;
                     <tr>
                         <td>
                             @obj.Topic
                         </td>
                         <td>
-                            @obj.Importance
+                            <textarea asp-for="@obj.Content" class="form-control" readonly></textarea>                      
+                        </td>
+                        <td>
+                            @((int)obj.Importance + 1)-@obj.Importance                    
                         </td>
                         <td>
                             @obj.FacultyMember?.FirstName @obj.FacultyMember?.LastName
@@ -82,25 +90,11 @@
                             <div class="btn-group" role="group">
                                 <a class="btn btn-primary mx-2" asp-page="./Edit/editNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
                                 <a class="btn btn-danger mx-2" asp-page="./Delete/deleteNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
-                                <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
-                                    View Content
-                                </button>
                             </div>
                             }
                         </td>                                          
-                    </tr>
+                    </tr>   
                     
-                    <tr class="collapse" id="@collapseId">       
-					    <td colspan="7">
-						    @await Html.PartialAsync("_NotePartialView", @obj)
-					    </td>
-					    <td class="d-none">@obj.isPrivate</td>
-					    <td class="d-none">@obj.Topic</td>
-					    <td class="d-none">@obj.Importance</td>
-					    <td class="d-none">@obj.FacultyMember?.FirstName @obj.FacultyMember?.LastName</td>
-					    <td class="d-none">@obj.NoteType.Accesss</td>
-					    <td class="d-none">@obj.EditedDate</td>
-					 </tr>                  
                 }
             }
         </tbody>

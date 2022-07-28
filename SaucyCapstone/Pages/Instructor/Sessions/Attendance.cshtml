@@ -9,6 +9,20 @@
 	Attendance? attendance;
 	Guid ButtonGuid;
 	var index = 0;
+
+	string StatusToColor(int? Status){
+
+		return Status switch
+		{
+			null => "btn btn-danger",
+			0 => "btn btn-success",
+			1 => "btn btn-warning",
+			2 => "btn btn-danger",
+			3 => "btn btn-primary",
+			_ => throw new Exception()
+		};
+	}
+
 }
 <div class="container">
 	<div class="row pt-4">
@@ -28,14 +42,14 @@
 		<thead>
 			<tr>
 				<th>
-					Student					
+					Student Name					
 				</th>
 					@foreach (var SessionDate in Model.SessionDates.Select(d => d.Date).Where(d => d >= @BeginningRange.AddDays(28 * (double)Model.offset) && d <= @EndingRange.AddDays(28 * (double)Model.offset)).ToList())
 					{
 						<th class="col text-center" width="20%">
 							@SessionDate.ToLongDateString() 
 							<br>
-							<button type="button" class="btn btn-primary mt-2 mb-2">Mark All Present</button>
+							<button type="button" asp- class="btn btn-primary mt-2 mb-2">Mark All Present</button>
 							<br>
 							<button type="button" class="btn btn-danger mb-2">Unmark All</button>
 						</th>
@@ -48,7 +62,7 @@
 				@foreach (var Enrollment in Model.Enrollments)
 				{
 					<tr>
-						<td width="20%" >					
+						<td width="20%">					
 							<a class="m-2" asp-page="../Students/Add/addNotes" asp-route-studentId="@Enrollment.Student.StudentId"><img src="@Enrollment.Student.ImageUrl" width="30%" style="border-radius:5px; border:1px solid #bbb9b9" /></a>
 							@(Enrollment.Student.FirstName + " " + Enrollment.Student.LastName)						
 						</td>
@@ -64,7 +78,7 @@
 								<input id="@(ButtonGuid + "input")" name="Attendances[@index].Status" value="@((int?)attendance?.Status ?? 2)" class="btn btn-outline-success" hidden>
 								<input name="Attendances[@index].StudentId" value="@Enrollment.StudentId" hidden>
 								<input name="Attendances[@index].SessionDateId" value="@SessionDate.SessionDateId" hidden>
-								<button id="@ButtonGuid" type="button" class="@((int?)attendance?.Status == 0 ? "btn btn-success": "btn btn-danger")" onclick="changeColors(this.id)" style="padding: 30px"></button>
+								<button id="@ButtonGuid" type="button" class="@(StatusToColor((int?)attendance?.Status))" onclick="changeColors(this.id)" style="padding: 30px"></button>
 							</td>
 							index++;
 						}
@@ -76,34 +90,42 @@
 		<button type="submit" class="btn btn-success">Save</button>
 		<a class="btn btn-primary" asp-page="Index">Go Back</a>
 	</form>
+	
 </div>
 
 @section Scripts{
-
-	<script>
-		$(document).ready(function() {
-            $('#dataTable').dataTable({			
-				"ordering": false
-			});
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').dataTable({
+                "ordering": false
+            });
             if (@PastDates.Count == 0) {
-				$( "#Previous" ).removeAttr( 'href' );
-			} 
-			if (@FutureDates.Count == 0) {
-				$( "#Next" ).removeAttr( 'href' );
-			} 
-		});	 
-		function changeColors(val) {
+                $("#Previous").removeAttr('href');
+            }
+            if (@FutureDates.Count == 0) {
+                $("#Next").removeAttr('href');
+            }
+        });
+        function changeColors(val) {
             const button = document.getElementById(val);
             const input = document.getElementById(val + "input");
 
-			if (button.className == "btn btn-danger") {
+            if (button.className == "btn btn-danger") {
                 button.className = "btn btn-success";
                 input.value = "0";
-			}
-			else if (button.className == "btn btn-success") {
+            }
+            else if (button.className == "btn btn-success") {
+                button.className = "btn btn-warning";
+                input.value = "1";
+            }
+			else if (button.className == "btn btn-warning") {
+                button.className = "btn btn-primary";
+                input.value = "3";
+            }
+			else if (button.className == "btn btn-primary") {
                 button.className = "btn btn-danger";
                 input.value = "2";
-			}
-		}
-	</script>
+            }
+        }
+    </script>
 }
