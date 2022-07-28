@@ -937,7 +937,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -945,7 +945,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session2,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -953,7 +953,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session3,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -961,7 +961,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session4,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -969,7 +969,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session5,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -977,7 +977,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session6,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -985,7 +985,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session7,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -993,7 +993,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session8,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1001,7 +1001,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session9,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1009,7 +1009,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session10,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1017,7 +1017,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session11,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1025,7 +1025,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session12,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1033,7 +1033,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session13,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1041,7 +1041,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session14,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1049,7 +1049,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session15,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1057,7 +1057,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session16,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1065,7 +1065,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session17,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1073,7 +1073,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session18,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1081,7 +1081,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session19,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };
@@ -1089,7 +1089,7 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session21,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
                 FinalGrade = 0,
                 Grade = grade
             };

@@ -109,8 +109,10 @@ public class AttendanceModel : PageModel
 				StudentId = d.StudentId,
 				Status = d.Status,
                 AttendanceId = d.AttendanceId,
+                Comment = d.Comment
 			})
             .ToList();
+
         var add = attendances.Where(x => x.AttendanceId == 0);
         var update = attendances.Where(x => x.AttendanceId != 0);
 
@@ -125,7 +127,8 @@ public class AttendanceModel : PageModel
         public int StudentId { get; set; }
         public int SessionDateId { get; set; }
         public int AttendanceId { get; set; }
+        public string? Comment { get; set; }
         public Attendance.AttendanceStatus Status { get; set; }
-       
+           
     }
 }

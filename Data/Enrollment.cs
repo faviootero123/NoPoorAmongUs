@@ -13,7 +13,7 @@ public class Enrollment
     public int EnrollmentId { get; set; }
     
     [Column(TypeName = "decimal(5, 2)")]
-    public decimal FinalGrade { get; set; }
+    public decimal? FinalGrade { get; set; }
     [Required]
     public EnrollmentStatusType EnrollmentStatus { get; set; }
     public int StudentId { get; set; }

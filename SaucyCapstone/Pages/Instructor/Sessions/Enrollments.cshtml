@@ -26,20 +26,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var student in Model.session.Enrollments) //all students enrolled in this session
-                    {
-                        <tr>
-                            <td width="25%">
-                                @Html.DisplayFor(modelItem => @student.Student.FirstName) @Html.DisplayFor(modelItem => @student.Student.LastName)
-                            </td>
-                            <td>
-                                <div class="btn-group" role="group" style="justify-content:end;">
-                                    <a class="btn btn-info mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.Student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
-                                    <button class="btn btn-danger mx-2" asp-page-handler="Remove" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Remove</button>
-                                    <button class="btn btn-success mx-2" asp-page-handler="Pass" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Pass</button>
-                                </div>
-                            </td>
-                        </tr>
+                    @if (Model.session.Enrollments != null){
+                        @foreach (var student in Model.session.Enrollments) //all students enrolled in this session
+                        {
+                            <tr>
+                                <td width="25%">
+                                    @Html.DisplayFor(modelItem => @student.Student.FirstName) @Html.DisplayFor(modelItem => @student.Student.LastName)
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group" style="justify-content:end;">
+                                        <a class="btn btn-info mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.Student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
+                                        <button class="btn btn-danger mx-2" asp-page-handler="Remove" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Remove</button>
+                                        <button class="btn btn-success mx-2" asp-page-handler="Pass" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Pass</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
@@ -55,22 +57,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var student in Model.studentList)
-                    {
-                        if (Model.isEnrolled(Model.session.Session.SessionId, student.StudentId) != true)//only show students not enrolled already
+                    @if (Model.studentList != null)
+                    {                 
+                        @foreach (var student in Model.studentList)
                         {
-                            <tr>
-                                <td width="25%">
-                                    @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
-                                </td>
-                                <td>
-                                    <div class="btn-group" role="group" style="justify-content:end;">
-                                        <a class="btn btn-info mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
-                                        <button type="submit" class="btn btn-warning mx-2" asp-page-handler="Enroll" asp-route-id="@student.StudentId"><i class="bi bi-clipboard-data-fill"></i>&nbsp;Enroll</button>
+                            if (Model.isEnrolled(Model.session.Session.SessionId, student.StudentId) != true)//only show students not enrolled already
+                            {
+                                <tr>
+                                    <td width="25%">
+                                        @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group" style="justify-content:end;">
+                                            <a class="btn btn-info mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
+                                            <button type="submit" class="btn btn-warning mx-2" asp-page-handler="Enroll" asp-route-id="@student.StudentId"><i class="bi bi-clipboard-data-fill"></i>&nbsp;Enroll</button>
 
-                                    </div>
-                                </td>
-                            </tr>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
                         }
                     }
                 </tbody>
