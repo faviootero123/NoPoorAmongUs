@@ -12,7 +12,7 @@ public class Attendance
 {
     public int AttendanceId { get; set; }
 
-    public string? Comments { get; set; }
+    public string? Comment { get; set; }
 
     [Required]
     public AttendanceStatus Status { get; set; }
