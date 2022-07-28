@@ -1,59 +1,140 @@
 ﻿@page
 @model SaucyCapstone.Pages.Instructor.Sessions.GradesModel
 @{
-     
+    Guid ButtonGuid;
+    var index = 0;
 }
-<form method="post">
-    <h2 class="pt-4">Assesments</h2>
-    <h2> @Model.session.Course.Subject.SubjectName @Model.session.Course.CourseLevel</h2>
-    <h5>
-        Day: @Model.session.DayofWeek <br />
-        Time: @Model.session.StartTime.ToShortTimeString() - @Model.session.EndTime.ToShortTimeString()
-    </h5>
-    <button type="submit" class="btn btn-primary">Save Grades</button>
-   
-    @foreach (var assessment in Model.assessments)
-    {
-        <h3>
-            @Html.DisplayFor(modelItem => assessment.Title)
-        </h3>
 
-        <div class="btn-group" role="group" style="justify-content:end;">
-            <table class="table table-bordered table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Student Name</th>
-                        <th>Grade</th>
-                       
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var enrollment in Model.Enrollments)
+<form method="post">
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2>Grades for @Model.Session.Course.Subject.SubjectName @Model.Session.Course.CourseLevel</h2>
+                <h5>
+                    @Model.Session.DayofWeek, @Model.Session.StartTime.ToShortTimeString() - @Model.Session.EndTime.ToShortTimeString()
+                </h5>
+            </div>
+            <div class="col-6 text-end">
+                <button type="submit" class="btn btn-success"><i class="bi bi-check2-circle"></i>&nbsp;Save All</button>
+                <a class="btn btn-primary" asp-page="Index" id="CreateBtn">Back to Session</a>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-6">
+                <a id="Previous" class="btn btn-info" asp-page="" asp-route-id="@Model.Session.SessionId" asp-route-offset="@(Model.offset - 1)">Previous Page</a>
+                <a id="Next" class="btn btn-info" asp-page="" asp-route-id="@Model.Session.SessionId" asp-route-offset="@(Model.offset + 1)">Next Page</a>
+            </div>
+        </div>
+        <hr />
+
+        <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Student
+                    </th>
+                    @foreach (var Assignment in Model.Assessments)
+                    {
+                        <th class="col text-center" width="20%">
+                            @Assignment.Description
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (@Model.Enrollments != null)
+                {
+                    @foreach (var Enrollment in Model.Enrollments)
                     {
                         <tr>
-                            <td width="50%">
-                                @(enrollment.Student.FirstName + " " + enrollment.Student.LastName)
-                            </td>
-                            <td width="50%">
-                                <input type="text" value="@assessment.Score"/>
+                            <td width="20%">
+                                <a class="m-2" asp-page="../Students/Add/addNotes" asp-route-studentId="@Enrollment.Student.StudentId"><img src="@Enrollment.Student.ImageUrl" width="30%" style="border-radius:5px; border:1px solid #bbb9b9" /></a>
+                                @(Enrollment.Student.FirstName + " " + Enrollment.Student.LastName)
                             </td>
 
-
-
+                            @foreach (var Assignment in Model.Assessments)
+                            {
+                                ButtonGuid = Guid.NewGuid();
+                                <td class="col text-center">
+                                    <div><input asp-for="@Assignment.Score" type="text" /> of @Assignment.MaxScore </div>
+                                </td>
+                            }
                         </tr>
                     }
-                </tbody>
-            </table>
-        </div>
-
-    }
+                }
+            </tbody>
+        </table>
+    </div>
 </form>
 
 @section Scripts{
     <script>
         $(document).ready(function() {
             $('#dataTable').dataTable();
-
+            $('#dataTable2').dataTable();
         });
     </script>
-}
+    }
+
+
+
+
+
+
+
+
+
+
+
+    @*<form method="post">
+    <h2 class="pt-4">Assesments</h2>
+    <h2> @Model.session.Course.Subject.SubjectName @Model.session.Course.CourseLevel</h2>
+    <h5>
+    Day: @Model.session.DayofWeek <br />
+    Time: @Model.session.StartTime.ToShortTimeString() - @Model.session.EndTime.ToShortTimeString()
+    </h5>
+    <button type="submit" class="btn btn-primary">Save Grades</button>
+
+    @foreach (var assessment in Model.assessments)
+    {
+    <h3>
+    @Html.DisplayFor(modelItem => assessment.Title)
+    </h3>
+
+    <div class="btn-group" role="group" style="justify-content:end;">
+    <table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+    <tr>
+    <th>Student Name</th>
+    <th>Grade</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var enrollment in Model.Enrollments)
+    {
+    <tr>
+    <td width="50%">
+    @(enrollment.Student.FirstName + " " + enrollment.Student.LastName)
+    </td>
+    <td width="50%">
+    <input type="text" value="@assessment.Score" />
+    </td>
+    </tr>
+    }
+    </tbody>
+    </table>
+    </div>
+
+    }
+    </form>
+
+    @section Scripts{
+    <script>
+    $(document).ready(function() {
+    $('#dataTable').dataTable();
+
+    });
+    </script>
+    }
+    *@
