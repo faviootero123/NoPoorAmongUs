@@ -28,7 +28,7 @@
 		<thead>
 			<tr>
 				<th>
-					Student Name					
+					Student					
 				</th>
 					@foreach (var SessionDate in Model.SessionDates.Select(d => d.Date).Where(d => d >= @BeginningRange.AddDays(28 * (double)Model.offset) && d <= @EndingRange.AddDays(28 * (double)Model.offset)).ToList())
 					{
@@ -48,15 +48,16 @@
 				@foreach (var Enrollment in Model.Enrollments)
 				{
 					<tr>
-						<td width="20%">
-							@(Enrollment.Student.FirstName + " " + Enrollment.Student.LastName)
+						<td width="20%" >					
+							<a class="m-2" asp-page="../Students/Add/addNotes" asp-route-studentId="@Enrollment.Student.StudentId"><img src="@Enrollment.Student.ImageUrl" width="30%" style="border-radius:5px; border:1px solid #bbb9b9" /></a>
+							@(Enrollment.Student.FirstName + " " + Enrollment.Student.LastName)						
 						</td>
 						
 						@foreach (var SessionDate in Model.SessionDates.Where(d => d.Date >= @BeginningRange.AddDays(28 * (double)Model.offset) && d.Date <= @EndingRange.AddDays(28 * (double)Model.offset)).ToList())
 						{
 							ButtonGuid = Guid.NewGuid();
-								attendance = @SessionDate.Attendances?.Where(d => d.StudentId == Enrollment?.StudentId).FirstOrDefault();
-								<td class="col text-center" width="20%">
+							attendance = @SessionDate.Attendances?.Where(d => d.StudentId == Enrollment?.StudentId).FirstOrDefault();
+							<td class="col text-center">
 								<input asp-for="@Model.SessionId" value="@Model.SessionId" hidden>
 								<input asp-for="@Model.offset" value="@Model.offset" hidden>
 								<input name="Attendances[@index].AttendanceId" value="@(attendance?.AttendanceId ?? 0)" hidden>
@@ -65,7 +66,7 @@
 								<input name="Attendances[@index].SessionDateId" value="@SessionDate.SessionDateId" hidden>
 								<button id="@ButtonGuid" type="button" class="@((int?)attendance?.Status == 0 ? "btn btn-success": "btn btn-danger")" onclick="changeColors(this.id)" style="padding: 30px"></button>
 							</td>
-								index++;
+							index++;
 						}
 					</tr>
 				}				
@@ -75,7 +76,6 @@
 		<button type="submit" class="btn btn-success">Save</button>
 		<a class="btn btn-primary" asp-page="Index">Go Back</a>
 	</form>
-	
 </div>
 
 @section Scripts{

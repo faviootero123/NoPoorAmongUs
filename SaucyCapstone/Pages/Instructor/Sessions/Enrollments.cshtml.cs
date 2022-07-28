@@ -11,13 +11,12 @@ namespace SaucyCapstone.Pages.Instructor.Sessions;
 [Authorize]
 public class EnrollmentsModel : PageModel
 {
-
     private readonly ApplicationDbContext _context;
-
     public EnrollmentsModel(ApplicationDbContext context)
     {
         _context = context;
     }
+
     [BindProperty]
     public SessionVM session { get; set; }
     public IList<Student> studentList { get; set; }
@@ -25,8 +24,6 @@ public class EnrollmentsModel : PageModel
     public Enrollment enrollment { get; set; }
     public async Task<IActionResult> OnGetAsync(int? id)
     {
-
-
         if (id == null)
         {
             return NotFound();
@@ -83,7 +80,6 @@ public class EnrollmentsModel : PageModel
     }
     public bool isEnrolled(int SessionId, int StudentId)
     {
-
         var enrollemntsStudentId = _context.Enrollments
             .Where(e => e.Session.SessionId == SessionId)
             .Where(s => s.StudentId == StudentId)
