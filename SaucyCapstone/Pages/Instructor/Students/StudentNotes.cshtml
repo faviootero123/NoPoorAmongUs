@@ -2,6 +2,11 @@
 @using SaucyCapstone.Static
 @model SaucyCapstone.Pages.Instructor.Students.StudentNotesModel
 
+@{
+    string collapseId = "";
+    int sort = 0;
+}
+
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
@@ -33,9 +38,6 @@
                     Access Type
                 </th>
                 <th>
-                    Created Date
-                </th>
-                <th>
                     Edited Date
                 </th>
                 <th>
@@ -49,41 +51,40 @@
             {
                 @foreach (var obj in Model.Notes)
                 {
+                    collapseId = "collapse" + obj.NoteId.ToString();
+                    sort++;
                     <tr>
-                        <td width="10">
+                        <td>
                             @obj.Topic
                         </td>
-                        <td width="20%">
-                            @obj.Content
+                        <td>
+                            <textarea asp-for="@obj.Content" class="form-control" readonly></textarea>                      
                         </td>
-                        <td width="10%">
-                            @obj.Importance
+                        <td>
+                            @((int)obj.Importance + 1)-@obj.Importance                    
                         </td>
-                        <td width="10%">
+                        <td>
                             @obj.FacultyMember?.FirstName @obj.FacultyMember?.LastName
                         </td>
-                        <td width="10%">
+                        <td>
                             @obj.NoteType.Accesss
                         </td>
-                        <td width="10%">
-                            @obj.CreatedDate
-                        </td>
-                        <td width="10%">
+                        <td>
                             @obj.EditedDate
                         </td>
                         @if (@obj.isPrivate == true)
                         {
-                            <td width="5%">
+                            <td>
                                 Only You
                             </td>
                         }
                         @if (@obj.isPrivate == false)
                         {
-                            <td width="5%">
+                            <td>
                                 Everyone
                             </td>
                         }                      
-                        <td width="10%">
+                        <td>
                             @if (@obj.FacultyMember.Id == Model.userId || User.IsAdmin())
                             {
                             <div class="btn-group" role="group">
@@ -92,7 +93,8 @@
                             </div>
                             }
                         </td>                                          
-                    </tr>
+                    </tr>   
+                    
                 }
             }
         </tbody>

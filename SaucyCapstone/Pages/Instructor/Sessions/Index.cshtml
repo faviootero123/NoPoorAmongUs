@@ -47,23 +47,23 @@
                 <th>Day of Week</th>
                 <th>Time</th>
                 <th>Term</th>
-                <th>Session Options</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var session in Model.Sessions)
             {
                 <tr>
-                    <td width="25%">
+                    <td>
                         @Html.DisplayFor(modelItem => session.Course.Subject.SubjectName) @Html.DisplayFor(modelItem => session.Course.CourseLevel)
                     </td>
-                    <td width="15%">
+                    <td>
                         @Html.DisplayFor(modelItem => session.DayofWeek)
                     </td>
-                    <td width="15%">
+                    <td>
                         @session.StartTime.ToShortTimeString() - @session.EndTime.ToShortTimeString()
                     </td>
-                    <td width="15%">
+                    <td>
                         @Html.DisplayFor(modelItem => session.Course.Term.TermName)
                     </td>
                     <td>

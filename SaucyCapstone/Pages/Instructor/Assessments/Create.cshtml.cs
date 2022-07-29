@@ -43,7 +43,16 @@ public class CreateModel : PageModel
                 Score = 0.0M,
                 MaxScore = AssessmentVM.Assessment.MaxScore,
                 DueDate = null,
-                Course = _context.Courses.Where(u => u.CourseLevel == AssessmentVM.Course.CourseLevel && u.Subject.SubjectName == AssessmentVM.Course.Subject.SubjectName).Include(i => i.School).Include(i => i.Sessions).Include(i => i.Subject).Include(i => i.Instructor).Include(i => i.Term).First()
+                Course = _context.Courses
+                .Where(u => u.CourseLevel == AssessmentVM.Course.CourseLevel 
+                        && u.Subject.SubjectName == AssessmentVM.Course.Subject.SubjectName)
+                .Where(u => u.Term.IsActive == true)
+                .Include(i => i.School)
+                .Include(i => i.Sessions)
+                .Include(i => i.Subject)
+                .Include(i => i.Instructor)
+                .Include(i => i.Term)
+                .First()
                 //Grade = _context.Grades.Where(u => u.GradeId == 1).First()
             };
 

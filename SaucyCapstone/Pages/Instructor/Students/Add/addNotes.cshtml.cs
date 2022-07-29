@@ -20,7 +20,7 @@ public class addNotesModel : PageModel
     [BindProperty]
     public Note? Note { get; set; }
     [BindProperty]
-    public AccessType.Type SelectedRole { get; set; }
+    public AccessType.Type? SelectedRole { get; set; }
     public List<SelectListItem> RolesOfUser;
 
     public addNotesModel(ApplicationDbContext db)
