@@ -25,8 +25,8 @@ public class Assessment
     public decimal MaxScore { get; set; }
     public DateTime? DueDate { get; set; }
 
-  
 
+    [Required]
     [ForeignKey("CourseId")]
     public Course? Course { get; set; }
 
