@@ -1,10 +1,12 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Admin.Terms
 {
+    [Authorize]
     public class CreateFromActiveModel : PageModel
     {
         private readonly ApplicationDbContext _context;

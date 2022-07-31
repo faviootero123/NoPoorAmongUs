@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 using SaucyCapstone.Static;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Instructor.Assessments;
 
+[Authorize]
 public class IndexModel : PageModel
 {
     private readonly ApplicationDbContext _context;

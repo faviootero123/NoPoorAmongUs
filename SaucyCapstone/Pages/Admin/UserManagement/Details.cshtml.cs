@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Admin.UserManagement
 {
+    [Authorize]
     public class Details : PageModel
     {
         private readonly ILogger<Details> _logger;

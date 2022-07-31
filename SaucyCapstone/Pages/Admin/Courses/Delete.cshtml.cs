@@ -6,9 +6,11 @@ using Models.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
 using SaucyCapstone.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Admin.Courses;
 
+[Authorize]
 public class DeleteModel : PageModel
 {
     private readonly ApplicationDbContext _context;

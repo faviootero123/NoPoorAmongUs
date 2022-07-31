@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Judge.Ratings;
 
+[Authorize]
 public class DetailsModel : PageModel
 {
     private readonly ApplicationDbContext _context;

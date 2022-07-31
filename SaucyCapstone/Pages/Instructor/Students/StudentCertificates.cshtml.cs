@@ -1,4 +1,5 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,8 @@ using SaucyCapstone.Data;
 using static Data.Enrollment;
 
 namespace SaucyCapstone.Pages.Instructor.Students;
+
+[Authorize]
 public class StudentCertificatesModel : PageModel
 {
     private readonly ApplicationDbContext _db;

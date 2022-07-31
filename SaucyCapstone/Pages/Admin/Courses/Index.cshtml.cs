@@ -4,9 +4,11 @@ using Data;
 using SaucyCapstone.Data;
 using Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Admin.Courses;
 
+[Authorize]
 public class IndexModel : PageModel
 {
     private readonly ApplicationDbContext _context;

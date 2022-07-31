@@ -9,9 +9,11 @@ using Data;
 using SaucyCapstone.Data;
 using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Instructor.Assessments;
 
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ApplicationDbContext _context;
