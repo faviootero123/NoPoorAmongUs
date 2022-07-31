@@ -1,0 +1,110 @@
+﻿@page
+@model SaucyCapstone.Pages.Admin.Terms.CreateFromActiveModel
+@{
+}
+
+<form method="post">
+    <div class="card">
+        <h4 class="card-header">Copy  from Active Term:  @Model.ActiveTerm.TermName</h4>
+        <div class="card-body rounded pb-2">
+            <input type="hidden" asp-for="Term.Courses" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Start Date
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="termStart" asp-for="Term.StartDate" type="date" class="form-control" />
+                        <span asp-validation-for="Term.StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    End Date
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="termEnd" asp-for="Term.EndDate" type="date" class="form-control" />
+                        <span asp-validation-for="Term.EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Term Name
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="termName" asp-for="Term.TermName" type="text" class="form-control" />
+                        <span asp-validation-for="Term.TermName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Active Term?
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input asp-for="Term.IsActive" type="checkbox" class="form-check-input" type="checkbox" />
+                        <span asp-validation-for="Term.IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Copy Courses from active?
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input asp-for="Term.IsActive" type="checkbox" class="form-check-input" type="checkbox" />
+                        <span asp-validation-for="Term.IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+             <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Copy Assignments from active?
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input asp-for="Term.IsActive" type="checkbox" class="form-check-input" type="checkbox" />
+                        <span asp-validation-for="Term.IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+             <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Copy Sessions from active?
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input asp-for="Term.IsActive" type="checkbox" class="form-check-input" type="checkbox" />
+                        <span asp-validation-for="Term.IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-success" style="width:100%">Create</button>
+                </div>
+                <div class="col-6">
+                    <a asp-page="Index" class="btn btn-primary" style="width:100%">
+                        Back to Term Overview
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
