@@ -7,7 +7,6 @@
 			<h2>Certificates For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
 		</div>
 		<div class="col-6 text-end">
-			<a asp-route-studentId="@Model.Student.StudentId" asp-page="./Add/addCertificates" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add Certificate</a>
 			<a class="btn btn-primary" asp-page="/Instructor/Students/Index">Back to Students</a>
 		</div>
 	</div>
