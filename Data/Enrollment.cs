@@ -18,13 +18,13 @@ public class Enrollment
     [Column(TypeName = "decimal(5, 2)")]
     public decimal? FinalGrade { get; set; }
 
-    public int StudentId { get; set; }
-    public int SessionId { get; set; }
-
     //Relationships
+    public int StudentId { get; set; }
     [Required]
     [ForeignKey("StudentId")]
     public Student Student { get; set; }
+
+    public int SessionId { get; set; }
     [Required]
     [ForeignKey("SessionId")]
     public Session Session { get; set; }

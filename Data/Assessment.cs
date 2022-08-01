@@ -23,10 +23,9 @@ public class Assessment
 
     public DateTime? DueDate { get; set; }
 
-
     [Required]
     [ForeignKey("CourseId")]
-    public Course? Course { get; set; }
+    public Course Course { get; set; }
 
     //relationships
     public IList<AssessmentStudent>? AssessmentStudents { get; set; }

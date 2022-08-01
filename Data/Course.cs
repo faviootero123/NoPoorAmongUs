@@ -36,8 +36,8 @@ public class Course
     public School School { get; set; }
 
     //relationships
-    public IList<Session> Sessions { get; set; }
-    public IList<Assessment> Assessments { get; set; }
+    public IList<Session>? Sessions { get; set; }
+    public IList<Assessment>? Assessments { get; set; }
 
 }
 

@@ -178,10 +178,10 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssessmentStudentId"), 1L, 1);
 
-                    b.Property<int>("AssessmentId")
+                    b.Property<int?>("AssessmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EnrollmentId")
+                    b.Property<int?>("EnrollmentId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Score")
@@ -848,7 +848,7 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.Assessment", b =>
                 {
                     b.HasOne("Data.Course", "Course")
-                        .WithMany()
+                        .WithMany("Assessments")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -860,15 +860,11 @@ namespace Data.Migrations
                 {
                     b.HasOne("Data.Assessment", "Assessment")
                         .WithMany("AssessmentStudents")
-                        .HasForeignKey("AssessmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AssessmentId");
 
                     b.HasOne("Data.Enrollment", "Enrollment")
                         .WithMany("AssessmentStudents")
-                        .HasForeignKey("EnrollmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EnrollmentId");
 
                     b.Navigation("Assessment");
 
