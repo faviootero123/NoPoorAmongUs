@@ -18,40 +18,126 @@ public class EnrollmentsModel : PageModel
     }
 
     [BindProperty]
-    public SessionVM session { get; set; }
-    public IList<Student> studentList { get; set; }
-    public Student student { get; set; }
+    public SessionVM SessionVM { get; set; }
+
     public Enrollment enrollment { get; set; }
+
     public async Task<IActionResult> OnGetAsync(int? id)
     {
         if (id == null)
         {
             return NotFound();
         }
-        session = new SessionVM
-        {
-            Session = await _context.Sessions.Include(c => c.Course).Include(c => c.Course.Term).Include(c => c.Course.Subject).FirstOrDefaultAsync(u => u.SessionId == id),
-            Enrollments = await _context.Enrollments.Include(c => c.Student).Where(e => e.Session.SessionId == id).ToListAsync(),
-        };
-        int sessionLevel = session.Session.Course.CourseLevel;
-        if (session.Session.Course.Subject.SubjectName == "English")
-        {
-            studentList = await _context.Students.Where(c => c.EnglishLevel == sessionLevel && c.Status == Student.StudentStatus.Active).ToListAsync();
-        }
-        else if (session.Session.Course.Subject.SubjectName == "IT")
-        {
-            studentList = await _context.Students.Where(c => c.ITLevel == sessionLevel && c.Status == Student.StudentStatus.Active).ToListAsync();
-        }        
-        else if (session.Session.Course.Subject.SubjectName == "Public")
-        {
-            studentList = await _context.Students.Where(s => s.Status == Student.StudentStatus.Active).ToListAsync();
-        }
 
-        foreach (var CourseName in _context.Subjects)
+        var Session = await _context.Sessions.Where(s => s.SessionId == id)
+            .Include(s => s.Course)
+            .ThenInclude(c => c.Term)
+            .Include(s => s.Course)
+            .ThenInclude(c => c.Subject)
+            .FirstOrDefaultAsync();
+
+        var Students = await _context.Students.Where(s => s.Status == Student.StudentStatus.Active)
+            .Include(s => s.Enrollments)
+            .ThenInclude(e => e.Session)
+            .ThenInclude(s => s.Course)
+            .ThenInclude(c => c.Subject)
+            .ToListAsync();
+
+        var SessionEnrollments = await _context.Enrollments.Where(e => e.Session.SessionId == id)
+            .Include(e => e.Student)
+            .Include(e => e.Session)
+            .ThenInclude(s => s.Course)
+            .ThenInclude(c => c.Subject)
+            .Include(e => e.Session)
+            .ThenInclude(s => s.Course)
+            .ThenInclude(c => c.Term)
+            .ToListAsync();
+
+        var CourseLevel = Session.Course.CourseLevel;
+
+        var SubjectName = Session.Course.Subject.SubjectName;
+
+        SessionVM = new SessionVM
         {
-            if (session.Session.Course.Subject == CourseName)
+            Session = Session,
+            Students = Students,
+            SessionEnrollments = SessionEnrollments,
+            EligibleStudents = new(),
+            CourseLevel = CourseLevel,
+            SubjectName = SubjectName,
+            StudentEnrollmentTimes = new()
+        };
+
+        foreach (var s in Students)
+        {
+            SessionVM.StudentEnrollmentTimes.Add(s, new());
+
+            for (int i = 0; i < 7; i++)
             {
-                
+                SessionVM.StudentEnrollmentTimes[s].Add(((DayOfWeek)i).ToString(), new());
+            }
+            foreach (var se in s.Enrollments)
+            {
+                SessionVM.StudentEnrollmentTimes[s][se.Session.DayofWeek].Add((se.Session.StartTime.TimeOfDay, se.Session.EndTime.TimeOfDay));
+            }
+
+            var conflict = false;
+
+            foreach (var (start, end) in SessionVM.StudentEnrollmentTimes[s][SessionVM.Session.DayofWeek])
+            {
+                if (isEnrolled(SessionVM.Session.SessionId, s.StudentId))
+                {
+                    conflict = true;
+                    break;
+                }
+                else if ((start <= SessionVM.Session.StartTime.TimeOfDay && (end > SessionVM.Session.StartTime.TimeOfDay && end <= SessionVM.Session.EndTime.TimeOfDay))
+                     || ((start >= SessionVM.Session.StartTime.TimeOfDay && start < SessionVM.Session.EndTime.TimeOfDay) && (end > SessionVM.Session.EndTime.TimeOfDay)))
+                {
+                    conflict = true;
+                    break;
+                }
+            }
+
+            if (!conflict && s.Status == Student.StudentStatus.Active)
+            {
+                foreach (var CourseName in _context.Subjects)
+                {
+                    if (SessionVM.Session.Course.Subject == CourseName)
+                    {
+                        switch (CourseName.SubjectName)
+                        {
+                            case "English":
+                                if (s.EnglishLevel == SessionVM.CourseLevel)
+                                {
+                                    SessionVM.EligibleStudents.Add(s);
+                                }
+                                break;
+                            case "IT":
+                                if (s.ITLevel == SessionVM.CourseLevel)
+                                {
+                                    SessionVM.EligibleStudents.Add(s);
+                                }
+                                break;
+                            case "Public":
+                                SessionVM.EligibleStudents.Add(s);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                //if (SessionVM.SubjectName == "English" && s.EnglishLevel == SessionVM.CourseLevel)
+                //{
+                //    SessionVM.EligibleStudents.Add(s);
+                //}
+                //else if (SessionVM.SubjectName == "IT" && s.ITLevel == SessionVM.CourseLevel)
+                //{
+                //    SessionVM.EligibleStudents.Add(s);
+                //}
+                //else if (SessionVM.SubjectName == "Public")
+                //{
+                //    SessionVM.EligibleStudents.Add(s);
+                //}
             }
         }
 
@@ -60,33 +146,34 @@ public class EnrollmentsModel : PageModel
     public IActionResult OnPostEnroll(int id)
     {
         Enrollment enrollment = new Enrollment();
-  
-        enrollment.SessionId = session.Session.SessionId;
+        enrollment.FinalGrade = 100;
+        enrollment.SessionId = SessionVM.Session.SessionId;
         enrollment.StudentId = id;
         enrollment.EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing;
         _context.Enrollments.Add(enrollment);
         _context.SaveChanges();
-      
+
         return RedirectToPage("./Enrollments", new { id = enrollment.SessionId });
     }
     public IActionResult OnPostRemove(int id)
     {
+        if (id == null)
+        {
+            return NotFound();
+        }
         enrollment = _context.Enrollments.Where(c => c.EnrollmentId == id).FirstOrDefault();
         _context.Enrollments.Remove(enrollment);
         _context.SaveChanges();
-        
+
         return RedirectToPage("./Enrollments", new { id = enrollment.SessionId });
     }
     public bool isEnrolled(int SessionId, int StudentId)
     {
-        var enrollemntsStudentId = _context.Enrollments
+        var enrollmentStudentId = _context.Enrollments
             .Where(e => e.Session.SessionId == SessionId)
             .Where(s => s.StudentId == StudentId)
             .ToList();
-        if (enrollemntsStudentId.Any()) return true;
+        if (enrollmentStudentId.Any()) return true;
         return false;
     }
 }
-
-
-

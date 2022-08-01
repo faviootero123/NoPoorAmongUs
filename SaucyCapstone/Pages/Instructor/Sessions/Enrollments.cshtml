@@ -6,9 +6,9 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-9">
-            <h2>Enrollments for @Model.session.Session.Course.Subject.SubjectName @Model.session.Session.Course.CourseLevel</h2>
+            <h2>Enrollments for @Model.SessionVM.Session.Course.Subject.SubjectName @Model.SessionVM.Session.Course.CourseLevel</h2>
             <h5>
-                @Model.session.Session.DayofWeek, @Model.session.Session.StartTime.ToShortTimeString() - @Model.session.Session.EndTime.ToShortTimeString()
+                @Model.SessionVM.Session.DayofWeek, @Model.SessionVM.Session.StartTime.ToShortTimeString() - @Model.SessionVM.Session.EndTime.ToShortTimeString()
             </h5>
         </div>
         <div class="col-3 text-end">
@@ -26,8 +26,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.session.Enrollments != null){
-                        @foreach (var student in Model.session.Enrollments) //all students enrolled in this session
+                    @if (Model.SessionVM.SessionEnrollments != null){
+                        @foreach (var student in Model.SessionVM.SessionEnrollments) //all students enrolled in this session
                         {
                             <tr>
                                 <td width="25%">
@@ -47,7 +47,7 @@
             </table>
 
             <h3 class="pt-4">Eligible Students</h3>
-            <input type="hidden" asp-for="session.Session.SessionId" />
+            <input type="hidden" asp-for="SessionVM.Session.SessionId" />
 
             <table id="dataTable2" class="table table-bordered table-striped" style="width:100%;">
                 <thead>
@@ -57,11 +57,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.studentList != null)
+                    @if (Model.SessionVM.EligibleStudents != null)
                     {                 
-                        @foreach (var student in Model.studentList)
+                        @foreach (var student in Model.SessionVM.EligibleStudents)
                         {
-                            if (Model.isEnrolled(Model.session.Session.SessionId, student.StudentId) != true)//only show students not enrolled already
+                            if (Model.isEnrolled(Model.SessionVM.Session.SessionId, student.StudentId) != true)//only show students not enrolled already
                             {
                                 <tr>
                                     <td width="25%">

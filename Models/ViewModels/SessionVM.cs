@@ -5,16 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
 namespace Models.ViewModels;
 public class SessionVM
 {
-    //public DateTime StartTime { get; set; }
-    //public DateTime EndTime { get; set; }
-    //public string DayofWeek { get; set; }
-    //public string SubjectName { get; set; }
-    //public string CourseName { get; set; }
-    public List<Enrollment> Enrollments { get; set; }
     public Session Session { get; set; }
 
+    [ValidateNever]
+    public List<Student> Students { get; set; }
 
+    [ValidateNever]
+    public List<Enrollment> SessionEnrollments { get; set; }
+
+    [ValidateNever]
+    public List<Student> EligibleStudents { get; set; }
+
+    [ValidateNever]
+    public int CourseLevel { get; set; }
+
+    [ValidateNever]
+    public string SubjectName { get; set; }
+
+    [ValidateNever]
+    public Dictionary<Student, Dictionary<string, List<(TimeSpan start, TimeSpan end)>>> StudentEnrollmentTimes { get; set; }
 }
