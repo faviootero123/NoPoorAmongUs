@@ -47,7 +47,7 @@ public class editNotesModel : PageModel
                 RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
         }
 
-        var note = await _db.Notes.Include(d => d.Student).Include(d => d.FacultyMember).Include(d => d.NoteType).FirstAsync(m => m.NoteId == noteId);
+        var note = await _db.Notes.Include(d => d.Student).Include(d => d.FacultyMember).Include(d => d.AccessType).FirstAsync(m => m.NoteId == noteId);
 
         if (note == null)
         {
@@ -58,7 +58,7 @@ public class editNotesModel : PageModel
         NoteEditVM.Content = Note.Content;
         NoteEditVM.isPrivate = Note.isPrivate;
         NoteEditVM.noteLevel = Note.Importance;
-        NoteEditVM.type = Note.NoteType.Accesss;
+        NoteEditVM.type = Note.AccessType.Accesss;
 
         return Page();
     }
@@ -81,7 +81,7 @@ public class editNotesModel : PageModel
         note.Content = NoteEditVM.Content;
         note.Topic = NoteEditVM.Topic;
         note.isPrivate = NoteEditVM.isPrivate;
-        note.NoteType = await _db.AccessTypes.Where(d => d.Accesss == NoteEditVM.type).FirstAsync() ?? new AccessType();
+        note.AccessType = await _db.AccessTypes.Where(d => d.Accesss == NoteEditVM.type).FirstAsync() ?? new AccessType();
         note.Importance = NoteEditVM.noteLevel;
 
         _db.Update(note);

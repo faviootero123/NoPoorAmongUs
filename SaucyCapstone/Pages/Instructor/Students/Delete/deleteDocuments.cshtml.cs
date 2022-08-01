@@ -32,7 +32,7 @@ public class deleteDocumentsModel : PageModel
             return NotFound();
         }
 
-        var doc = await _db.StudentDocs.Include(d => d.Student).FirstOrDefaultAsync(m => m.StudentDocId == id);
+        var doc = await _db.StudentDocs.Include(d => d.Student).Include(d=>d.AccessType).FirstOrDefaultAsync(m => m.StudentDocId == id);
 
         if (doc == null)
         {

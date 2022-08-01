@@ -32,7 +32,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<Criterion> Criteria => Set<Criterion>();
     public DbSet<Enrollment> Enrollments => Set<Enrollment>();
-    public DbSet<Grade> Grades => Set<Grade>();
     public DbSet<Guardian> Guardians => Set<Guardian>();
     public DbSet<Note> Notes => Set<Note>();
     public DbSet<Rating> Ratings => Set<Rating>();
@@ -44,6 +43,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
     public DbSet<Term> Terms => Set<Term>();
     public DbSet<School> Schools => Set<School>();
     public DbSet<SessionDate> SessionDates => Set<SessionDate>();
+    public DbSet<AssessmentStudent> AssessmentStudents => Set<AssessmentStudent>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -47,24 +47,23 @@ public class EnrollmentsModel : PageModel
             studentList = await _context.Students.Where(s => s.Status == Student.StudentStatus.Active).ToListAsync();
         }
 
+        foreach (var CourseName in _context.Subjects)
+        {
+            if (session.Session.Course.Subject == CourseName)
+            {
+                
+            }
+        }
+
         return Page();
     }
     public IActionResult OnPostEnroll(int id)
     {
         Enrollment enrollment = new Enrollment();
-        var grade = new Grade
-        {
-            AssessmentGrade = "A+",
-            BeginningRange = 1,
-            EndingRange = 1
-        };
-        _context.Grades.Add(grade);
-        _context.SaveChanges();
+  
         enrollment.SessionId = session.Session.SessionId;
         enrollment.StudentId = id;
         enrollment.EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing;
-        enrollment.FinalGrade = 0;
-        enrollment.GradeId = grade.GradeId;
         _context.Enrollments.Add(enrollment);
         _context.SaveChanges();
       

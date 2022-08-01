@@ -109,7 +109,7 @@ public class AttendanceModel : PageModel
 				StudentId = d.StudentId,
 				Status = d.Status,
                 AttendanceId = d.AttendanceId,
-                Comment = d.Comment
+                Comment = d.Comment,
 			})
             .ToList();
 

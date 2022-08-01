@@ -36,8 +36,8 @@ public class StudentNotesModel : PageModel
                 return NotFound();
             }
 
-            Notes = await _db.Notes.Include(d => d.Student).Include(f => f.FacultyMember).Include(x => x.NoteType).Where(s => s.Student.StudentId == Student.StudentId && s.isPrivate == false).ToListAsync();
-            var PrivateNotesPerInstructure = await _db.Notes.Include(d => d.Student).Include(f => f.FacultyMember).Include(x => x.NoteType).Where(s => s.FacultyMember.Id == userId && s.isPrivate == true).ToListAsync();
+            Notes = await _db.Notes.Include(d => d.Student).Include(f => f.FacultyMember).Include(x => x.AccessType).Where(s => s.Student.StudentId == Student.StudentId && s.isPrivate == false).ToListAsync();
+            var PrivateNotesPerInstructure = await _db.Notes.Include(d => d.Student).Include(f => f.FacultyMember).Include(x => x.AccessType).Where(s => s.FacultyMember.Id == userId && s.isPrivate == true).ToListAsync();
             if (PrivateNotesPerInstructure != null)
             {
                 foreach (var notes in PrivateNotesPerInstructure)

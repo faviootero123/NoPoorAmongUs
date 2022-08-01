@@ -25,7 +25,7 @@ public class StudentDoc
     [Required]
     public DateTime UploadDate { get; set; }
 
-    //relationships
+    //foreign
     public int StudentId {get; set;}
     [Required]
     public Student Student { get; set; }

@@ -22,10 +22,10 @@
             <textarea asp-for="@Model.Note.Content" class="form-control" readonly></textarea>
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Note.NoteType)
+            @Html.DisplayNameFor(model => model.Note.AccessType)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Note.NoteType.Accesss)
+            @Html.DisplayFor(model => model.Note.AccessType.Accesss)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Note.Importance)

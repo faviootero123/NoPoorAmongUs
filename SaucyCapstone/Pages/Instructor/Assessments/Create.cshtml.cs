@@ -40,7 +40,6 @@ public class CreateModel : PageModel
             {
                 Title = AssessmentVM.Assessment.Title,
                 Description = AssessmentVM.Assessment.Description,
-                Score = 0.0M,
                 MaxScore = AssessmentVM.Assessment.MaxScore,
                 DueDate = null,
                 Course = _context.Courses
@@ -53,7 +52,6 @@ public class CreateModel : PageModel
                 .Include(i => i.Instructor)
                 .Include(i => i.Term)
                 .First()
-                //Grade = _context.Grades.Where(u => u.GradeId == 1).First()
             };
 
             _context.Assessments.Add(tempAssessment);

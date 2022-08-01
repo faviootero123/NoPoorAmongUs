@@ -82,6 +82,7 @@
 								<button id="@ButtonGuid" type="button" name="@SessionDate.Date" class="@(StatusToColor((int?)attendance?.Status))" onclick="changeColors(this.id)" style="padding: 30px"></button>
 								<br>
 								<label for="Attendances[@index].Comment">Optional Comments</label>
+								<br>
 								<input name="Attendances[@index].Comment" value="@attendance?.Comment" >
 							</td>
 							index++;

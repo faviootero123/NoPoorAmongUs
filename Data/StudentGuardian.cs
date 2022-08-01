@@ -12,7 +12,7 @@ public class StudentGuardian
 {
     public int StudentGuardianId { get; set; }
     
-    //relationships
+    //foreign
     [Required]
     [ForeignKey("StudentId")]
     public Student Student { get; set; }
