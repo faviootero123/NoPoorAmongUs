@@ -108,6 +108,11 @@ public class LoginModel : PageModel
             if (result.Succeeded)
             {
                 _logger.LogInformation("User logged in.");
+
+                if (returnUrl == "/")
+                {
+                    return RedirectToPage("/Index", new { redirectUser = true });
+                }
                 return LocalRedirect(returnUrl);
             }
             if (result.RequiresTwoFactor)
