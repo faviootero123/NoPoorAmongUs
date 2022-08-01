@@ -57,6 +57,8 @@ public static class ConfigurationStaticMethods
                     UserName ="InstructorUser@odetopeaches.com",
                     Email = "InstructorUser@odetopeaches.com" ,
                     EmailConfirmed = true,
+                    FirstName = "Instructor",
+                    LastName = "Instructor"
                },
                "InstructorUserDo@123!"
            },
@@ -131,6 +133,7 @@ public static class ConfigurationStaticMethods
         await userManager.AddUserToRole("john.doe@odetopeaches.com",Roles.Instructor);
         await userManager.AddUserToRole("adam.smith@odetopeaches.com",Roles.Instructor);
         await userManager.AddUserToRole("public.teacher@odetopeaches.com",Roles.Instructor);
+
         //Seed data for other tables 
         await SeedData(db, userManager);
 
@@ -187,9 +190,6 @@ public static class ConfigurationStaticMethods
                 subject2,
                 subject3
             });
-
-
-
 
             ///////////terms\\\\\\\\\\\\
             var term = new Term
@@ -912,23 +912,23 @@ public static class ConfigurationStaticMethods
 
 
             ////////////grade\\\\\\\\\\\\
-            var grade = new Grade
-            {
-                AssessmentGrade = "A+",
-                BeginningRange = 1,
-                EndingRange = 1
-            };
-            var grade2 = new Grade
-            {
-                AssessmentGrade = "B+",
-                BeginningRange = 1,
-                EndingRange = 1
-            };
-            await db.AddRangeAsync(new Grade[]
-            {
-                grade,
-                grade2
-            });
+            //var grade = new Grade
+            //{
+            //    AssessmentGrade = "A+",
+            //    BeginningRange = 1,
+            //    EndingRange = 1
+            //};
+            //var grade2 = new Grade
+            //{
+            //    AssessmentGrade = "B+",
+            //    BeginningRange = 1,
+            //    EndingRange = 1
+            //};
+            //await db.AddRangeAsync(new Grade[]
+            //{
+            //    grade,
+            //    grade2
+            //});
 
 
 
@@ -937,161 +937,121 @@ public static class ConfigurationStaticMethods
             {
                 Student = student5,
                 Session = session,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
             };
             var enrollment2 = new Enrollment
             {
                 Student = student5,
                 Session = session2,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
             };
             var enrollment3 = new Enrollment
             {
                 Student = student5,
                 Session = session3,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
             };
             var enrollment4 = new Enrollment
             {
                 Student = student5,
                 Session = session4,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
             };
             var enrollment5 = new Enrollment
             {
                 Student = student5,
                 Session = session5,
                 EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
             };
             var enrollment6 = new Enrollment
             {
                 Student = student5,
                 Session = session6,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment7 = new Enrollment
             {
                 Student = student5,
                 Session = session7,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment8 = new Enrollment
             {
                 Student = student5,
                 Session = session8,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment9 = new Enrollment
             {
                 Student = student5,
                 Session = session9,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment10 = new Enrollment
             {
                 Student = student5,
                 Session = session10,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment11 = new Enrollment
             {
                 Student = student5,
                 Session = session11,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment12 = new Enrollment
             {
                 Student = student5,
                 Session = session12,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment13 = new Enrollment
             {
                 Student = student5,
                 Session = session13,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment14 = new Enrollment
             {
                 Student = student5,
                 Session = session14,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment15 = new Enrollment
             {
                 Student = student5,
                 Session = session15,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment16 = new Enrollment
             {
                 Student = student5,
                 Session = session16,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment17 = new Enrollment
             {
                 Student = student5,
                 Session = session17,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment18 = new Enrollment
             {
                 Student = student5,
                 Session = session18,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment19 = new Enrollment
             {
                 Student = student5,
                 Session = session19,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment21 = new Enrollment
             {
                 Student = student5,
                 Session = session21,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
-                FinalGrade = 0,
-                Grade = grade
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             await db.AddRangeAsync(new Enrollment[]
             {
@@ -1147,60 +1107,48 @@ public static class ConfigurationStaticMethods
             //assessments tied to courses in active term
             var assessment = new Assessment
             {
-                Score = 0,
                 DueDate = null,
                 MaxScore = 100,
-                //Grade = grade,
                 Course = course8,
                 Title = "HW 1",
                 Description = "Introduce Yourself"
             };
             var assessment2 = new Assessment
             {
-                Score = 0,
                 DueDate = null,
                 MaxScore = 100,
-                //Grade = grade,
                 Course = course8,
                 Title = "HW 2",
                 Description = "Syllabus Quiz"
             };
             var assessment3 = new Assessment
             {
-                Score = 0,
                 DueDate = null,
                 MaxScore = 100,
-                //Grade = grade2,
                 Course = course9,
                 Title = "HW 3",
                 Description = "Short Essay"
             };
             var assessment4 = new Assessment
             {
-                Score = 0,
                 DueDate = null,
                 MaxScore = 100,
-                //Grade = grade2,
                 Course = course10,
                 Title = "HW 4",
                 Description = "Medium Essay"
             };
             var assessment5 = new Assessment
             {
-                Score = 0,
                 DueDate = null,
                 MaxScore = 100,
-                //Grade = grade2,
                 Course = course11,
                 Title = "Quiz 1",
                 Description = "Pop Quiz on Adjectives"
             };
             var assessment6 = new Assessment
             {
-                Score = 0,
                 DueDate = null,
                 MaxScore = 100,
-                //Grade = grade2,
                 Course = course13,
                 Title = "HW 8",
                 Description = "How to Diagram"
@@ -1210,10 +1158,8 @@ public static class ConfigurationStaticMethods
             //(shouldnt see this unless you change active term to previous one)
             var assessment7 = new Assessment
             {
-                Score = 0,
                 DueDate = null,
                 MaxScore = 100,
-                //Grade = grade2,
                 Course = course,
                 Title = "ENG-1 Final",
                 Description = "Final Assessment"
@@ -1254,7 +1200,7 @@ public static class ConfigurationStaticMethods
                 },
                 new Criterion
                 {
-                    Description = "Finanaces",
+                    Description = "Finances",
                     Weight = .25m
                 }
             };
@@ -1267,6 +1213,24 @@ public static class ConfigurationStaticMethods
             };
             await db.AddAsync(accesstype);
 
+            var accesstype2 = new AccessType
+            {
+                Accesss = AccessType.Type.Admin
+            };
+            await db.AddAsync(accesstype2);
+
+            var accesstype3 = new AccessType
+            {
+                Accesss = AccessType.Type.SocialWorker
+            };
+            await db.AddAsync(accesstype3);
+
+            var accesstype4 = new AccessType
+            {
+                Accesss = AccessType.Type.Instructor
+            };
+            await db.AddAsync(accesstype4);
+
             ////////////student note\\\\\\\\\\\\
             var note = new Note
             {
@@ -1277,7 +1241,8 @@ public static class ConfigurationStaticMethods
                 isPrivate = false,
                 CreatedDate = DateTime.Now,
                 EditedDate = DateTime.Now,
-                NoteType = accesstype
+                AccessType = accesstype,
+                Importance = Note.NoteLevel.Low
             };
             var note2 = new Note
             {
@@ -1288,7 +1253,8 @@ public static class ConfigurationStaticMethods
                 isPrivate = false,
                 CreatedDate = DateTime.Now,
                 EditedDate = DateTime.Now,
-                NoteType = accesstype
+                AccessType = accesstype,
+                Importance = Note.NoteLevel.Low
             };
             await db.AddRangeAsync(new Note[]
             {

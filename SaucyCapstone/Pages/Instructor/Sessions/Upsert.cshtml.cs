@@ -1,4 +1,4 @@
- using Data;
+using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -23,52 +23,72 @@ public class UpsertModel : PageModel
     public IEnumerable<SelectListItem> CourseList { get; set; }
     public IEnumerable<SelectListItem> TermList { get; set; }
     public List<SelectListItem> DayOfWeekList { get; set; }
- 
+
 
     public void OnGet(int? id)
     {
         DayOfWeekList = new List<SelectListItem>()
         {
-             new SelectListItem() { Text="", Value=null },
              new SelectListItem() { Text="Monday", Value="Monday"},
              new SelectListItem() { Text="Tuesday", Value="Tuesday"},
              new SelectListItem() { Text="Wednesday", Value="Wednesday"},
              new SelectListItem() { Text="Thursday", Value="Thursday"},
              new SelectListItem() { Text="Friday", Value="Friday"},
         };
-   
+
         if (id != null)
         {
-            Session = _context.Sessions.Where(x => x.SessionId == id).FirstOrDefault();
-            var Courses = _context.Courses.Include(d=>d.Subject).ToList();
-            var Terms = _context.Terms.ToList();
+            Session = _context.Sessions
+                .Where(x => x.SessionId == id)
+                .FirstOrDefault();
+            var Courses = _context.Courses
+                .Include(d => d.Subject)
+                .Include(d => d.Term)
+                .Where(d => d.Term.IsActive == true)
+                .ToList();
 
-            CourseList = Courses.Select(c => new SelectListItem { Value = c.CourseId.ToString(), Text = c.Subject.SubjectName +" " + c.CourseLevel});
-            TermList = Terms.Select(c => new SelectListItem { Value = c.TermId.ToString(), Text = c.TermName });
-
-        }
-
-        if (Session == null)
-        {
-            var Courses = _context.Courses.Include(d => d.Subject).ToList();
-            var Terms = _context.Terms.ToList();
-            //these are to populate the drop down lists
             CourseList = Courses
+                .Where(d => d.Term.IsActive == true)
                 .Select(c => new SelectListItem
                 {
                     Value = c.CourseId.ToString(),
                     Text = c.Subject.SubjectName + " " + c.CourseLevel
                 });
-            TermList = Terms
+            TermList = _context.Terms
+                .Where(d => d.IsActive == true)
                 .Select(c => new SelectListItem
                 {
                     Value = c.TermId.ToString(),
                     Text = c.TermName
                 });
+        }
+
+        if (Session == null)
+        {
+            var Courses = _context.Courses
+                .Include(d => d.Subject)
+                .Include(d => d.Term)
+                .ToList();
+
+            CourseList = Courses
+                .Where(d => d.Term.IsActive == true)
+                .Select(c => new SelectListItem
+                {
+                    Value = c.CourseId.ToString(),
+                    Text = c.Subject.SubjectName + " " + c.CourseLevel
+                });
+            TermList = _context.Terms
+                .Where(d => d.IsActive == true)
+                .Select(c => new SelectListItem
+                {
+                    Value = c.TermId.ToString(),
+                    Text = c.TermName
+                });
+
             Session = new();
         }
     }
-    public IActionResult OnPost(int? id)
+    public IActionResult OnPost(int? id, Session Session)
     {
         var term = _context.Terms
             .Where(d => d.TermId == Session.Course.Term.TermId)
@@ -77,7 +97,7 @@ public class UpsertModel : PageModel
             .Where(d => d.CourseId == Session.Course.CourseId)
             .FirstOrDefault();
         Session.Course = course;
-        Session.Course.Term = term; 
+        Session.Course.Term = term;
 
         if (id is null && Session?.SessionId == 0)
         {

@@ -4,109 +4,96 @@
 }
 
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
-    <div class="container">
-        <div class="row px-2 mx-2 backgroundWhite border">
-            @* All for Model validation and HTML validation *@
+    <div class="card">
+        <h4 class="card-header">@(Model.Session.SessionId != 0 ? "Update" : "Create") Session</h4>
+        <div class="card-body rounded pb-2">
             <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="Session.SessionId" />
 
-            <div class="col-12 px-3" style="border-bottom:1px solid #325d88">
-                <h2 class="text-primary">@(Model.Session.SessionId != 0 ? "Update" : "Create") Session</h2>
-
-            </div>
-            <div class="col-8 pt-3">
-                <div class="form-group row">
-
-                    @if (Model.Session.SessionId != 0)
-                    {
-                        <input type="hidden" asp-for="Session.SessionId" />
-                    }
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Course
                 </div>
-
-
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label asp-for="Session.Course.CourseId"></label>
-                    </div>
-                    <div class="col-9">
-                        @Html.DropDownListFor(m => m.Session.Course.CourseId,
-                        Model.CourseList,
-                        " - Please select a Course - ",
-                        new { @class = "form-control", @id = "ddlCourseModel" })
-                        <span class="text-danger" asp-validation-for="Session.Course.CourseId"></span>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label asp-for="Session.Course.Term.TermId"></label>
-                    </div>
-                    <div class="col-9">
-                        @Html.DropDownListFor(m => m.Session.Course.Term.TermId,
-                        Model.TermList,
-                        " - Please select a Term - ",
-                        new { @class = "form-control", @id = "ddlTermModel" })
-                        <span class="text-danger" asp-validation-for="Session.Course.Term.TermId"></span>
-                    </div>
-                </div>
-                 <div class="form-group row">
-                      <div class="col-3">
-                        <label> Days of Week</label>
-                    </div>
-                     <div class="col-3">
-                          <div class="col-9">
-                        @Html.DropDownListFor(m => m.Session.DayofWeek,
-                        Model.DayOfWeekList,
-                        " - Please select a Day - ",
-                        new { @class = "form-control", @id = "ddlDayModel" })
-                        
+                <div class="col-9">
+                    <div class="form-group">
+                        <select id="name" asp-for="Session.Course.CourseId" asp-items="@Model.CourseList" class="form-select">
+                            <option selected disabled>---Select Course---</option>
+                        </select>
+                        <span asp-validation-for="Session.Course.CourseId" class="text-danger"></span>
                     </div>
                 </div>
             </div>
-
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label asp-for="Session.StartTime"></label>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Term
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select asp-for="Session.Course.Term.TermId" asp-items="@Model.TermList" class="form-select">
+                            <option selected disabled>---Select Term---</option>
+                        </select>
+                        <span asp-validation-for="Session.Course.Term.TermId" class="text-danger"></span>
                     </div>
-                    <div class="col-9">
-                        <input id="starttimepicker" value="" asp-for="Session.StartTime" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Day of Week
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select id="datepicker" asp-for="Session.DayofWeek" asp-items="@Model.DayOfWeekList" class="form-select">
+                            <option selected disabled>---Select Day---</option>
+                        </select>
+                        <span asp-validation-for="Session.Course.CourseId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    Start Time
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="starttimepicker" value="@Model.Session.StartTime.ToShortTimeString()" asp-for="Session.StartTime" type="text" class="form-control" />
                         <span asp-validation-for="Session.StartTime" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-3">
-                        <label asp-for="Session.EndTime"></label>
-                    </div>
-                    <div class="col-9">
-                        <input id="endtimepicker" value="" asp-for="Session.EndTime" type="text" class="form-control" />
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div class="col-3 text-end">
+                    End Time
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input id="endtimepicker" value="@Model.Session.EndTime.ToShortTimeString()" asp-for="Session.EndTime" type="text" class="form-control" />
                         <span asp-validation-for="Session.EndTime" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-9 offset-3">
-                        <div class="row">
-                            <div class="col-6">
-                                @if (Model.Session.SessionId != 0)
-                                {
-                                    <button type="submit" class="btn btn-primary form-control" onclick="return validateInput()">Update</button>
-                                }
-                                else
-                                {
-                                    <button type="submit" class="btn btn-primary form-control" onclick="return validateInput()">Create</button>
-                                }
-
-                            </div>
-                            <div class="col-6">
-                                <a asp-page="./Index" class="btn btn-success form-control">Back to List</a>
-                            </div>
-                        </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-6">
+                        @if (Model.Session.SessionId != 0)
+                        {
+                            <button type="submit" class="btn btn-success form-control" onclick="return validateInput()">Update</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-success form-control" onclick="return validateInput()">Create</button>
+                        }
+                    </div>
+                    <div class="col-6">
+                        <a asp-page="Index" class="btn btn-primary" style="width:100%">
+                            Back to Session Overview
+                        </a>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 </form>
+
 
 @section Scripts{
     <script type="text/javascript">

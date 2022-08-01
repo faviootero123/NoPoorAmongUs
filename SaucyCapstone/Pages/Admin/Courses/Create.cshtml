@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-9">
                     <div class="form-group">
-                        <select asp-for="CourseVM.FacultyMemberId" asp-items="@Model.CourseVM.InstructorList" class="form-select">
+                        <select asp-for="CourseVM.FacultyMemberId" asp-items="@Model.InstructorList" class="form-select">
                             <option disabled selected>---Select Instructor---</option>
                         </select>
                         <span asp-validation-for="CourseVM.FacultyMemberId" class="text-danger"></span>

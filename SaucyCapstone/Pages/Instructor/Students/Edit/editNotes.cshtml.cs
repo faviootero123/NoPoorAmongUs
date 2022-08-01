@@ -2,6 +2,7 @@ using Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
 using SaucyCapstone.Constants;
@@ -17,13 +18,14 @@ public class editNotesModel : PageModel
     public readonly ApplicationDbContext _db;
 
     [BindProperty(SupportsGet = true)]
-    public NoteVM NoteVM { get; set; }
-
+    public NoteVM NoteEditVM { get; set; }
     public Note Note { get; set; }
 
+    public List<SelectListItem> RolesOfUser;
     public editNotesModel(ApplicationDbContext db)
     {
         _db = db;
+        RolesOfUser = new List<SelectListItem>();
     }
 
     public async Task<IActionResult> OnGetAsync(int? noteId)
@@ -34,7 +36,18 @@ public class editNotesModel : PageModel
             return NotFound();
         }
 
-        var note = await _db.Notes.Include(d => d.Student).Include(d => d.FacultyMember).Include(d => d.NoteType).FirstOrDefaultAsync(m => m.NoteId == noteId);
+        if (User.IsAdmin())
+        {
+            foreach (var Roles in User.GetAllRoles())
+                RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
+        }
+        else
+        {
+            foreach (var Roles in User.UserRoles())
+                RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
+        }
+
+        var note = await _db.Notes.Include(d => d.Student).Include(d => d.FacultyMember).Include(d => d.AccessType).FirstAsync(m => m.NoteId == noteId);
 
         if (note == null)
         {
@@ -42,8 +55,10 @@ public class editNotesModel : PageModel
         }
 
         Note = note;
-        NoteVM.Content = Note.Content;
-        NoteVM.isPrivate = Note.isPrivate;
+        NoteEditVM.Content = Note.Content;
+        NoteEditVM.isPrivate = Note.isPrivate;
+        NoteEditVM.noteLevel = Note.Importance;
+        NoteEditVM.type = Note.AccessType.Accesss;
 
         return Page();
     }
@@ -55,7 +70,7 @@ public class editNotesModel : PageModel
             return Page();
         }
 
-        var note = await _db.Notes.Where(d=>d.NoteId == NoteEditVM.StudentNoteId).FirstOrDefaultAsync();
+        var note = await _db.Notes.Where(d=>d.NoteId == NoteEditVM.StudentNoteId).FirstAsync();
 
         if(note == null)
         {
@@ -66,6 +81,8 @@ public class editNotesModel : PageModel
         note.Content = NoteEditVM.Content;
         note.Topic = NoteEditVM.Topic;
         note.isPrivate = NoteEditVM.isPrivate;
+        note.AccessType = await _db.AccessTypes.Where(d => d.Accesss == NoteEditVM.type).FirstAsync() ?? new AccessType();
+        note.Importance = NoteEditVM.noteLevel;
 
         _db.Update(note);
         await _db.SaveChangesAsync();             

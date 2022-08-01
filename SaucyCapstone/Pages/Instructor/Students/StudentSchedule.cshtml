@@ -1,118 +1,90 @@
 ﻿@page
 @model SaucyCapstone.Pages.Instructor.Students.StudentScheduleModel
 
+
 <div class="card">
     <div class="card-header">
         <div class="h2">
             Student Schedule
-            <span class="h3">
+            <span class="h3 text-muted">
                 - @Model.ScheduleVM.Student.FirstName @Model.ScheduleVM.Student.LastName
             </span>
         </div>
     </div>
-    <div class="card-body m-3">
-        <form method="post">
-            <div class="row justify-content-around align-items-center mb-3">
-                @foreach (var term in Model.ScheduleVM.Terms)
-                {
-                    <div class="col-3 text-center align-self-end">
-                        @if (!term.IsActive)
-                        {
-                            <i class="text-muted">
-                                Inactive
-                            </i>
-                        }
-                        <input type="hidden" asp-for="ScheduleVM.StudentId" />
-                        @if (Model.ScheduleVM.TermId == term.TermId)
-                        {
-                            <button class="btn btn-primary active mb-md-2 col-md-12" disabled>@term.TermName @term.StartDate.Year</button>
-                        }
-                        else
-                        {
-                            <input type="hidden" asp-for="@Model.ScheduleVM.TermId" value="@term.TermId" />
-                            <button type="submit" class="btn btn-primary mb-md-2 col-md-12" asp-page="/Students/StudentSchedule">@term.TermName @term.StartDate.Year</button>
-                        }
-                    </div>
-                }
+    @if (Model.ScheduleVM.Enrollments.Count > 0)
+    {
+        <div class="card-body">
+            <div id="calendar"></div>
+        </div>
+        <div class="card-footer d-print-none">
+            <div class="d-grid col-6 mx-auto">
+                <button class="btn btn-lg btn-primary" type="button" id="btnPrint" onclick="printCalendar()">Print Schedule</button>
             </div>
-        </form>
-        @if (Model.ScheduleVM.Enrollments.Count != 0)
-        {
-            <div class="row justify-content-center align-items-center">
-                <h5 class="col-3">
-                    Course
-                </h5>
-                <h5 class="col-3">
-                    Instructor
-                </h5>
-                <h5 class="col-3 col-md-4">
-                    Meeting Times
-                </h5>
-                <h5 class="col-2 text-end px-0">
-                    Manage
-                </h5>
-            </div>
-            @foreach (var enrollment in Model.ScheduleVM.Enrollments)
-            {
-                <div class="row py-2 mb-3 bg-secondary rounded bg-opacity-25 align-items-center">
-                    <div class="col-3">
-                        @enrollment.Session.Course.Subject.SubjectName @enrollment.Session.Course.CourseLevel
-                    </div>
-                    <div class="col-3">
-                        @enrollment.Session.Course.Instructor.FirstName @enrollment.Session.Course.Instructor.LastName
-                    </div>
-                    <div class="col-3 col-md-4">
-                        @enrollment.Session.DayofWeek - @enrollment.Session.StartTime.ToShortTimeString() : @enrollment.Session.EndTime.ToShortTimeString()
-                    </div>
-                    <div class="col-2 text-end">
-                        <a class="btn btn-info" asp-route-id="@enrollment.SessionId" asp-page="/Instructor/Sessions/Enrollments"><i class="bi bi-pencil-square"></i></a>
-                    </div>
-                </div>
-            }
-            <br />
-            <div class="container" id="calendar"></div>
-        }
-        else
-        {
+        </div>
+    }
+    else
+    {
+        <div class="card-body">
             <i class="h4 text-muted text-center d-block">
-                No Enrollments for Term
+                No Enrollments
             </i>
-        }
-    </div>
+        </div>
+        <div class="card-footer d-print-none">
+            <div class="d-grid col-6 mx-auto">
+                <a asp-page="Index" class="btn btn-primary">
+                    Back to Student List
+                </a>
+            </div>
+        </div>
+    }
 </div>
-
+<br style="clear: right;" />
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        var initialDate = @Model.ScheduleVM.Term.StartDate.ToString("yyyy-MM-dd");
-        if (Model.ScheduleVM.Term.IsActive)
-        {
-            initialDate = DateTime.Now.AddDays(-1 * (7 + (DateTime.Now.DayOfWeek - DayOfWeek.Sunday)) % 7).ToString("yyyy-MM-dd");
-        }
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var userObj = @Html.Raw(Json.Serialize(Model.Events));
+            function fullcalendar() {
                 var calendarEl = document.getElementById('calendar');
+                var userObj = @Html.Raw(Json.Serialize(Model.CalendarEvents));
                 var calendar = new FullCalendar.Calendar(calendarEl, {
+                    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                     initialView: 'timeGridWeek',
                     timeZone: 'local',
-                    initialDate: '@initialDate',
                     allDaySlot: false,
-                    aspectRatio: 2,
                     headerToolbar: {
-                        start: 'prev,next today',
-                        center: 'title',
-                        end: 'timeGridWeek,dayGridMonth'
+                        start: '',
+                        center: '',
+                        end: ''
                     },
+                    dayHeaderFormat: {
+                        weekday: 'short'
+                    },
+                    contentHeight: 'auto',
+                    slotMinTime: '06:00:00',
+                    slotMaxTime: '21:00:00',
                     events: userObj,
                     eventTimeFormat: {
                         hour: 'numeric',
                         minute: '2-digit',
-                        hour12: true
+                        omitZeroMinute: true,
+                        meridiem: 'short'
                     }
                 });
                 calendar.render();
+                $('.fc-event-time').css('font-size', '.75rem');
+                $('.fc-event-title').css('font-size', '1rem');
+            };
+
+            function printCalendar() {
+                var w = window;
+                //w.innerWidth = 1800;
+                var c = window.document.getElementById('calendar');
+                w.print();
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                fullcalendar()
             });
         </script>
     }

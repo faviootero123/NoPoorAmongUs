@@ -3,78 +3,86 @@
 @{
 }
 
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-9">
+            <h2>Enrollments for @Model.session.Session.Course.Subject.SubjectName @Model.session.Session.Course.CourseLevel</h2>
+            <h5>
+                @Model.session.Session.DayofWeek, @Model.session.Session.StartTime.ToShortTimeString() - @Model.session.Session.EndTime.ToShortTimeString()
+            </h5>
+        </div>
+        <div class="col-3 text-end">
+            <a class="btn btn-primary" asp-page="Index" id="CreateBtn">Back to Session</a>
+        </div>
+        <hr />
 
-<h2> @Model.session.Session.Course.Subject.SubjectName @Model.session.Session.Course.CourseLevel</h2>
-<h5>
-    Day: @Model.session.Session.DayofWeek <br />
-    Time: @Model.session.Session.StartTime.ToShortTimeString() - @Model.session.Session.EndTime.ToShortTimeString()
-</h5>
-<a asp-page="Index" id="CreateBtn">Go Back</a>
-<form method="post">
-    <h2 class="pt-4">Enrolled Students</h2>
-
-
-    <table id="dataTable" class="table table-bordered table-striped" style="width:100%;">
-        <thead>
-            <tr>
-                <th scope="col">Student Name</th>
-                <th scope="col">Student Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var student in Model.session.Enrollments) //all students enrolled in this session
-            {
-                <tr>
-                    <td width="25%">
-                        @Html.DisplayFor(modelItem => @student.Student.FirstName) @Html.DisplayFor(modelItem => @student.Student.LastName)
-                    </td>
-                    <td>
-                        <div class="btn-group" role="group" style="justify-content:end;">
-                            <a class="btn btn-primary mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.Student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
-                                                       @*asp-route-id=""*@
-                            <a class="btn btn-info mx-2" asp-page="/"><i class="bi bi-clipboard-data-fill"></i>&nbsp;Assessment</a>
-
-                            <button class="btn btn-danger mx-2" asp-page-handler="Remove" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Remove</button>
-                            <button class="btn btn-success mx-2" asp-page-handler="Pass" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Pass</button>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <h2 class="pt-4">Eligible Students</h2>
-    <input type="hidden" asp-for="session.Session.SessionId" />
-
-    <table id="dataTable2" class="table table-bordered table-striped" style="width:100%;">
-        <thead>
-            <tr>
-                <th scope="col">Student Name</th>
-                <th scope="col">Student Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var student in Model.studentList)
-            {
-                if (Model.isEnrolled(Model.session.Session.SessionId, student.StudentId) != true)//only show students not enrolled already
-                {
+        <form method="post">
+            <h3 class="pt-2">Enrolled Students</h3>
+            <table id="dataTable" class="table table-bordered table-striped" style="width:100%;">
+                <thead>
                     <tr>
-                        <td width="25%">
-                            @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
-                        </td>
-                        <td>
-                            <div class="btn-group" role="group" style="justify-content:end;">
-                                <a class="btn btn-primary mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
-                                <button type="submit" class="btn btn-info mx-2" asp-page-handler="Enroll" asp-route-id="@student.StudentId"><i class="bi bi-clipboard-data-fill"></i>&nbsp;Enroll</button>
-
-                            </div>
-                        </td>
+                        <th scope="col">Student Name</th>
+                        <th scope="col">Student Options</th>
                     </tr>
-                }
-            }
-        </tbody>
-    </table>
-</form>
+                </thead>
+                <tbody>
+                    @if (Model.session.Enrollments != null){
+                        @foreach (var student in Model.session.Enrollments) //all students enrolled in this session
+                        {
+                            <tr>
+                                <td width="25%">
+                                    @Html.DisplayFor(modelItem => @student.Student.FirstName) @Html.DisplayFor(modelItem => @student.Student.LastName)
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group" style="justify-content:end;">
+                                        <a class="btn btn-info mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.Student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
+                                        <button class="btn btn-danger mx-2" asp-page-handler="Remove" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Remove</button>
+                                        <button class="btn btn-success mx-2" asp-page-handler="Pass" asp-route-id="@student.EnrollmentId"><i class="bi bi-x-square-fill"></i>&nbsp;Pass</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <h3 class="pt-4">Eligible Students</h3>
+            <input type="hidden" asp-for="session.Session.SessionId" />
+
+            <table id="dataTable2" class="table table-bordered table-striped" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th scope="col">Student Name</th>
+                        <th scope="col">Student Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.studentList != null)
+                    {                 
+                        @foreach (var student in Model.studentList)
+                        {
+                            if (Model.isEnrolled(Model.session.Session.SessionId, student.StudentId) != true)//only show students not enrolled already
+                            {
+                                <tr>
+                                    <td width="25%">
+                                        @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group" style="justify-content:end;">
+                                            <a class="btn btn-info mx-2" asp-page="../Students/StudentDetails" asp-route-id="@student.StudentId"><i class="bi bi-clipboard2-fill"></i>&nbsp;Student Details</a>
+                                            <button type="submit" class="btn btn-warning mx-2" asp-page-handler="Enroll" asp-route-id="@student.StudentId"><i class="bi bi-clipboard-data-fill"></i>&nbsp;Enroll</button>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
 
 @section Scripts{
     <script>
@@ -83,4 +91,4 @@
             $('#dataTable2').dataTable();
         });
     </script>
-}
+        }

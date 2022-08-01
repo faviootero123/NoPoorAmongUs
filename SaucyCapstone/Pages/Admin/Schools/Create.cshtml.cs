@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Data;
 using SaucyCapstone.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Admin.Schools;
 
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly SaucyCapstone.Data.ApplicationDbContext _context;

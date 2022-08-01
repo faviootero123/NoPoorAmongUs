@@ -29,7 +29,7 @@ public class deleteNotesModel : PageModel
             return NotFound();
         }
 
-        var note = await _db.Notes.Include(d => d.Student).FirstOrDefaultAsync(m => m.NoteId == noteId);
+        var note = await _db.Notes.Include(d => d.Student).Include(d=>d.FacultyMember).Include(d=>d.AccessType).FirstOrDefaultAsync(m => m.NoteId == noteId);
 
         if (note == null)
         {

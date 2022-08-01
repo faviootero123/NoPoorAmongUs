@@ -13,30 +13,31 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Assignment Overview</h2>
+            <h2>Assignment Overview</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-page="Create" class="btn btn-primary">
+            <a asp-page="Create" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> &nbsp; New Assignment
             </a>
         </div>
 
-        <div class="pt-4">
+        <div class="pt-2">
             <ul class="list-group list-group-horizontal-sm">
                 @foreach (var course in Model.CourseList)
                 {
                     subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
                     <a id="@subjectCourse" asp-page="/Instructor/Assessments/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
-                    <li class="custom btn @(sessionSubject is not null && subjectCourse == sessionSubjectCourse ? "btn-primary": "btn-outline-primary")">@subjectCourse</li>
+                    <li class="custom btn @(sessionSubject is not null && subjectCourse == sessionSubjectCourse ? "btn-primary": "btn-outline-primary bg-white")">@subjectCourse</li>
                     </a>
                 }
                 <a style="text-decoration:none" asp-page="/Instructor/Assessments/Index" asp-route-subject="All">
-                <li class="custom btn @(sessionCourse is null ? "btn-primary": "btn-outline-primary")">All</li>
+                <li class="custom btn @(sessionCourse is null ? "btn-primary": "btn-outline-primary bg-white")">All</li>
                 </a>
             </ul>
         </div>
+
     </div>
-    <br />
+    <hr />
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>

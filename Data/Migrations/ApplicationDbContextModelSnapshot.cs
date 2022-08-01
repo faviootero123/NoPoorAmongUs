@@ -147,7 +147,7 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssessmentId"), 1L, 1);
 
-                    b.Property<int?>("CourseId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -156,13 +156,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("GradeId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("MaxScore")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<decimal>("Score")
                         .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("Title")
@@ -173,9 +167,33 @@ namespace Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("GradeId");
-
                     b.ToTable("Assessments");
+                });
+
+            modelBuilder.Entity("Data.AssessmentStudent", b =>
+                {
+                    b.Property<int>("AssessmentStudentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssessmentStudentId"), 1L, 1);
+
+                    b.Property<int?>("AssessmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EnrollmentId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Score")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.HasKey("AssessmentStudentId");
+
+                    b.HasIndex("AssessmentId");
+
+                    b.HasIndex("EnrollmentId");
+
+                    b.ToTable("AssessmentStudents");
                 });
 
             modelBuilder.Entity("Data.Attendance", b =>
@@ -185,6 +203,9 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendanceId"), 1L, 1);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SessionDateId")
                         .HasColumnType("int");
@@ -272,11 +293,8 @@ namespace Data.Migrations
                     b.Property<int>("EnrollmentStatus")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("FinalGrade")
+                    b.Property<decimal?>("FinalGrade")
                         .HasColumnType("decimal(5,2)");
-
-                    b.Property<int>("GradeId")
-                        .HasColumnType("int");
 
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
@@ -286,36 +304,11 @@ namespace Data.Migrations
 
                     b.HasKey("EnrollmentId");
 
-                    b.HasIndex("GradeId");
-
                     b.HasIndex("SessionId");
 
                     b.HasIndex("StudentId");
 
                     b.ToTable("Enrollments");
-                });
-
-            modelBuilder.Entity("Data.Grade", b =>
-                {
-                    b.Property<int>("GradeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradeId"), 1L, 1);
-
-                    b.Property<string>("AssessmentGrade")
-                        .IsRequired()
-                        .HasColumnType("char(2)");
-
-                    b.Property<decimal>("BeginningRange")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<decimal>("EndingRange")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.HasKey("GradeId");
-
-                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("Data.Guardian", b =>
@@ -371,6 +364,9 @@ namespace Data.Migrations
 
                     b.Property<DateTime?>("EditedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Importance")
+                        .HasColumnType("int");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
@@ -852,14 +848,27 @@ namespace Data.Migrations
             modelBuilder.Entity("Data.Assessment", b =>
                 {
                     b.HasOne("Data.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId");
-
-                    b.HasOne("Data.Grade", null)
-                        .WithMany("Assessment")
-                        .HasForeignKey("GradeId");
+                        .WithMany("Assessments")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("Data.AssessmentStudent", b =>
+                {
+                    b.HasOne("Data.Assessment", "Assessment")
+                        .WithMany("AssessmentStudents")
+                        .HasForeignKey("AssessmentId");
+
+                    b.HasOne("Data.Enrollment", "Enrollment")
+                        .WithMany("AssessmentStudents")
+                        .HasForeignKey("EnrollmentId");
+
+                    b.Navigation("Assessment");
+
+                    b.Navigation("Enrollment");
                 });
 
             modelBuilder.Entity("Data.Attendance", b =>
@@ -918,12 +927,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Enrollment", b =>
                 {
-                    b.HasOne("Data.Grade", "Grade")
-                        .WithMany("Enrollments")
-                        .HasForeignKey("GradeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Data.Session", "Session")
                         .WithMany("Enrollments")
                         .HasForeignKey("SessionId")
@@ -936,8 +939,6 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Grade");
-
                     b.Navigation("Session");
 
                     b.Navigation("Student");
@@ -945,7 +946,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Note", b =>
                 {
-                    b.HasOne("Data.AccessType", "NoteType")
+                    b.HasOne("Data.AccessType", "AccessType")
                         .WithMany("Notes")
                         .HasForeignKey("AccessTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -963,9 +964,9 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("FacultyMember");
+                    b.Navigation("AccessType");
 
-                    b.Navigation("NoteType");
+                    b.Navigation("FacultyMember");
 
                     b.Navigation("Student");
                 });
@@ -1110,8 +1111,15 @@ namespace Data.Migrations
                     b.Navigation("Notes");
                 });
 
+            modelBuilder.Entity("Data.Assessment", b =>
+                {
+                    b.Navigation("AssessmentStudents");
+                });
+
             modelBuilder.Entity("Data.Course", b =>
                 {
+                    b.Navigation("Assessments");
+
                     b.Navigation("Sessions");
                 });
 
@@ -1120,11 +1128,9 @@ namespace Data.Migrations
                     b.Navigation("Ratings");
                 });
 
-            modelBuilder.Entity("Data.Grade", b =>
+            modelBuilder.Entity("Data.Enrollment", b =>
                 {
-                    b.Navigation("Assessment");
-
-                    b.Navigation("Enrollments");
+                    b.Navigation("AssessmentStudents");
                 });
 
             modelBuilder.Entity("Data.Guardian", b =>

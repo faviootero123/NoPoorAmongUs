@@ -17,19 +17,17 @@ public class Assessment
 
     public string? Description { get; set; }
 
-    [Column(TypeName = "decimal(5, 2)")]
-    public decimal Score { get; set; }
-
     [Required]
     [Column(TypeName = "decimal(5, 2)")]
     public decimal MaxScore { get; set; }
+
     public DateTime? DueDate { get; set; }
 
-  
-
+    [Required]
     [ForeignKey("CourseId")]
-    public Course? Course { get; set; }
+    public Course Course { get; set; }
 
-    //[ForeignKey("GradeId")]
-    //public Grade Grade { get; set; }
+    //relationships
+    public IList<AssessmentStudent>? AssessmentStudents { get; set; }
+
 }

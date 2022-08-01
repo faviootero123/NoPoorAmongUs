@@ -10,8 +10,9 @@ public class School
 {
     public int SchoolId { get; set; }
     [Required]
-    public string SchoolName { get; set; }
+    public string SchoolName { get; set; } = string.Empty;
 
-    public IList<Course> Courses { get; set; }
+    //relationships
+    public IList<Course>? Courses { get; set; }
 
 }

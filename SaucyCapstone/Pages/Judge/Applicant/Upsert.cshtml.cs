@@ -1,4 +1,5 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Judge.Applicant;
 
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ApplicationDbContext _db;

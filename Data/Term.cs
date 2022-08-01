@@ -25,5 +25,6 @@ public class Term
     [Required]
     public bool IsActive { get; set; }
 
-    public IList<Course> Courses { get; set; }
+    //relationships
+    public IList<Course>? Courses { get; set; }
 }

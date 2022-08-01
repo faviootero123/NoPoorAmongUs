@@ -9,9 +9,11 @@ using Data;
 using SaucyCapstone.Data;
 using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Instructor.Assessments;
 
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ApplicationDbContext _context;
@@ -40,11 +42,18 @@ public class CreateModel : PageModel
             {
                 Title = AssessmentVM.Assessment.Title,
                 Description = AssessmentVM.Assessment.Description,
-                Score = 0.0M,
                 MaxScore = AssessmentVM.Assessment.MaxScore,
                 DueDate = null,
-                Course = _context.Courses.Where(u => u.CourseLevel == AssessmentVM.Course.CourseLevel && u.Subject.SubjectName == AssessmentVM.Course.Subject.SubjectName).Include(i => i.School).Include(i => i.Sessions).Include(i => i.Subject).Include(i => i.Instructor).Include(i => i.Term).First()
-                //Grade = _context.Grades.Where(u => u.GradeId == 1).First()
+                Course = _context.Courses
+                .Where(u => u.CourseLevel == AssessmentVM.Course.CourseLevel 
+                        && u.Subject.SubjectName == AssessmentVM.Course.Subject.SubjectName)
+                .Where(u => u.Term.IsActive == true)
+                .Include(i => i.School)
+                .Include(i => i.Sessions)
+                .Include(i => i.Subject)
+                .Include(i => i.Instructor)
+                .Include(i => i.Term)
+                .First()
             };
 
             _context.Assessments.Add(tempAssessment);

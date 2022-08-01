@@ -14,8 +14,6 @@ public class Note
 
     public string? Topic { get; set; }
 
-    public bool isPrivate { get; set; } = false;
-
     [Required]
     public string Content { get; set; } = string.Empty;
 
@@ -24,16 +22,29 @@ public class Note
 
     public DateTime? EditedDate { get; set; }
 
-    //relationships
-    public int StudentId {get; set; }
+    [Required]
+    public NoteLevel Importance { get; set; }
+
+    public bool isPrivate { get; set; } = false;
+
+    public enum NoteLevel
+    {
+        Low,
+        Middle,
+        High
+    }
+
+    //foreign
     [Required]
     [ForeignKey("StudentId")]
     public Student Student { get; set; }
+
     [ForeignKey("Id")]
     public string ApplicationUserId { get; set; }
     [Required]
     public ApplicationUser FacultyMember { get; set; }
+
     [Required]
     [ForeignKey("AccessTypeId")]
-    public AccessType NoteType { get; set; }
+    public AccessType AccessType { get; set; }
 }

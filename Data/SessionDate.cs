@@ -11,9 +11,12 @@ public class SessionDate
 {
     public int SessionDateId { get; set; }
     public DateTime Date { get; set; }
+
+    //foreign
     public int SessionId {get; set;}
     [Required]
     public Session Session { get; set; }
 
-    public IList<Attendance> Attendances { get; set; }
+    //relationships
+    public IList<Attendance>? Attendances { get; set; }
 }
