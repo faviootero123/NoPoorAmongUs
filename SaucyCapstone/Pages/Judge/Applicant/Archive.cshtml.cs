@@ -1,10 +1,12 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SaucyCapstone.Data;
 
 namespace SaucyCapstone.Pages.Judge.Applicant;
 
+[Authorize]
 public class ArchiveModel : PageModel
 {
 

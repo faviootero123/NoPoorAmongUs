@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SaucyCapstone.Data;
 
@@ -11,9 +12,10 @@ using SaucyCapstone.Data;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220731213620_requireCourseForeignKeyAssessment")]
+    partial class requireCourseForeignKeyAssessment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,7 +158,13 @@ namespace Data.Migrations
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("GradeId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("MaxScore")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<decimal>("Score")
                         .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("Title")
@@ -167,33 +175,9 @@ namespace Data.Migrations
 
                     b.HasIndex("CourseId");
 
+                    b.HasIndex("GradeId");
+
                     b.ToTable("Assessments");
-                });
-
-            modelBuilder.Entity("Data.AssessmentStudent", b =>
-                {
-                    b.Property<int>("AssessmentStudentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssessmentStudentId"), 1L, 1);
-
-                    b.Property<int>("AssessmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EnrollmentId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("Score")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.HasKey("AssessmentStudentId");
-
-                    b.HasIndex("AssessmentId");
-
-                    b.HasIndex("EnrollmentId");
-
-                    b.ToTable("AssessmentStudents");
                 });
 
             modelBuilder.Entity("Data.Attendance", b =>
@@ -293,8 +277,11 @@ namespace Data.Migrations
                     b.Property<int>("EnrollmentStatus")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("FinalGrade")
+                    b.Property<decimal>("FinalGrade")
                         .HasColumnType("decimal(5,2)");
+
+                    b.Property<int>("GradeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
@@ -304,11 +291,36 @@ namespace Data.Migrations
 
                     b.HasKey("EnrollmentId");
 
+                    b.HasIndex("GradeId");
+
                     b.HasIndex("SessionId");
 
                     b.HasIndex("StudentId");
 
                     b.ToTable("Enrollments");
+                });
+
+            modelBuilder.Entity("Data.Grade", b =>
+                {
+                    b.Property<int>("GradeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradeId"), 1L, 1);
+
+                    b.Property<string>("AssessmentGrade")
+                        .IsRequired()
+                        .HasColumnType("char(2)");
+
+                    b.Property<decimal>("BeginningRange")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<decimal>("EndingRange")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.HasKey("GradeId");
+
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("Data.Guardian", b =>
@@ -853,26 +865,11 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Data.Grade", null)
+                        .WithMany("Assessment")
+                        .HasForeignKey("GradeId");
+
                     b.Navigation("Course");
-                });
-
-            modelBuilder.Entity("Data.AssessmentStudent", b =>
-                {
-                    b.HasOne("Data.Assessment", "Assessment")
-                        .WithMany("AssessmentStudents")
-                        .HasForeignKey("AssessmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data.Enrollment", "Enrollment")
-                        .WithMany("AssessmentStudents")
-                        .HasForeignKey("EnrollmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Assessment");
-
-                    b.Navigation("Enrollment");
                 });
 
             modelBuilder.Entity("Data.Attendance", b =>
@@ -931,6 +928,12 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Enrollment", b =>
                 {
+                    b.HasOne("Data.Grade", "Grade")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("GradeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Data.Session", "Session")
                         .WithMany("Enrollments")
                         .HasForeignKey("SessionId")
@@ -943,6 +946,8 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Grade");
+
                     b.Navigation("Session");
 
                     b.Navigation("Student");
@@ -950,7 +955,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Note", b =>
                 {
-                    b.HasOne("Data.AccessType", "AccessType")
+                    b.HasOne("Data.AccessType", "NoteType")
                         .WithMany("Notes")
                         .HasForeignKey("AccessTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -968,9 +973,9 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AccessType");
-
                     b.Navigation("FacultyMember");
+
+                    b.Navigation("NoteType");
 
                     b.Navigation("Student");
                 });
@@ -1115,15 +1120,8 @@ namespace Data.Migrations
                     b.Navigation("Notes");
                 });
 
-            modelBuilder.Entity("Data.Assessment", b =>
-                {
-                    b.Navigation("AssessmentStudents");
-                });
-
             modelBuilder.Entity("Data.Course", b =>
                 {
-                    b.Navigation("Assessments");
-
                     b.Navigation("Sessions");
                 });
 
@@ -1132,9 +1130,11 @@ namespace Data.Migrations
                     b.Navigation("Ratings");
                 });
 
-            modelBuilder.Entity("Data.Enrollment", b =>
+            modelBuilder.Entity("Data.Grade", b =>
                 {
-                    b.Navigation("AssessmentStudents");
+                    b.Navigation("Assessment");
+
+                    b.Navigation("Enrollments");
                 });
 
             modelBuilder.Entity("Data.Guardian", b =>

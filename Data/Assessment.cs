@@ -23,7 +23,8 @@ public class Assessment
 
     public DateTime? DueDate { get; set; }
 
-    //foreign 
+
+    [Required]
     [ForeignKey("CourseId")]
     public Course? Course { get; set; }
 

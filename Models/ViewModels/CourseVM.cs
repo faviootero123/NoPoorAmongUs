@@ -40,22 +40,19 @@ public class CourseVM
     [ValidateNever]
     public IEnumerable<SelectListItem> SchoolList { get; set; } = default!;
 
+
+
+
+
     public async Task DropdownHelperAsync(ApplicationDbContext _context, Course course)
     {
         if (course != null)
         {
-            TermList = _context.Terms.Select(i => new SelectListItem
+            TermList = _context.Terms.Where(u => u.IsActive == true).Select(i => new SelectListItem
             {
                 Text = i.TermName,
                 Value = i.TermId.ToString(),
                 Selected = i.TermId == course.Term.TermId
-            });
-
-            InstructorList = _context.ApplicationUsers.Select(i => new SelectListItem
-            {
-                Text = i.LastName + ", " + i.FirstName,
-                Value = i.Id.ToString(),
-                Selected = i.Id == course.Instructor.Id
             });
 
             SubjectList = _context.Subjects.Select(i => new SelectListItem
@@ -73,17 +70,11 @@ public class CourseVM
             });
         }
         else
-        { 
-            TermList = _context.Terms.Select(i => new SelectListItem
+        {
+            TermList = _context.Terms.Where(u => u.IsActive == true).Select(i => new SelectListItem
             {
                 Text = i.TermName,
                 Value = i.TermId.ToString()
-            });
-
-            InstructorList = _context.ApplicationUsers.Select(i => new SelectListItem
-            {
-                Text = i.LastName + ", " + i.FirstName,
-                Value = i.Id.ToString()
             });
 
             SubjectList = _context.Subjects.Select(i => new SelectListItem

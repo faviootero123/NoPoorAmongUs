@@ -57,6 +57,8 @@ public static class ConfigurationStaticMethods
                     UserName ="InstructorUser@odetopeaches.com",
                     Email = "InstructorUser@odetopeaches.com" ,
                     EmailConfirmed = true,
+                    FirstName = "Instructor",
+                    LastName = "Instructor"
                },
                "InstructorUserDo@123!"
            },
@@ -131,6 +133,7 @@ public static class ConfigurationStaticMethods
         await userManager.AddUserToRole("john.doe@odetopeaches.com",Roles.Instructor);
         await userManager.AddUserToRole("adam.smith@odetopeaches.com",Roles.Instructor);
         await userManager.AddUserToRole("public.teacher@odetopeaches.com",Roles.Instructor);
+
         //Seed data for other tables 
         await SeedData(db, userManager);
 

@@ -1,33 +1,34 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Judge.Ratings
+namespace SaucyCapstone.Pages.Judge.Ratings;
+
+[Authorize]
+public class RatingSummaryModel : PageModel
 {
-    public class RatingSummaryModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public RatingSummaryModel(ApplicationDbContext context)
     {
-        private readonly ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public RatingSummaryModel(ApplicationDbContext context)
+    public RatingVM RatingVM { get; set; }
+    //public Rating Ratings { get; set; }
+
+    public async Task OnGetAsync()
+    {
+        RatingVM = new RatingVM
         {
-            _context = context;
-        }
+            Waitlisted = await _context.Students.Where(x => x.AppStatus == Student.ApplicationStatus.Waitlisted).Include(r => r.Ratings).ToListAsync(),
+            Students = await _context.Students.Where(x => x.AppStatus == Student.ApplicationStatus.Open).Include(r => r.Ratings).ToListAsync(),
+            Criteria = await _context.Criteria.ToListAsync(),
+        };
 
-        public RatingVM RatingVM { get; set; }
-        //public Rating Ratings { get; set; }
-
-        public async Task OnGetAsync()
-        {
-            RatingVM = new RatingVM
-            {
-                Waitlisted = await _context.Students.Where(x => x.AppStatus == Student.ApplicationStatus.Waitlisted).Include(r => r.Ratings).ToListAsync(),
-                Students = await _context.Students.Where(x => x.AppStatus == Student.ApplicationStatus.Open).Include(r => r.Ratings).ToListAsync(),
-                Criteria = await _context.Criteria.ToListAsync(),
-            };
-
-        }
     }
 }

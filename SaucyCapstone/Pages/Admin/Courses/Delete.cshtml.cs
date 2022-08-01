@@ -4,20 +4,29 @@ using Data;
 using SaucyCapstone.Data;
 using Models.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
+using SaucyCapstone.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Admin.Courses;
 
+[Authorize]
 public class DeleteModel : PageModel
 {
     private readonly ApplicationDbContext _context;
+    private readonly UserManager<ApplicationUser> _user;
 
-    public DeleteModel(ApplicationDbContext context)
+
+    public DeleteModel(ApplicationDbContext context, UserManager<ApplicationUser> user)
     {
         _context = context;
+        _user = user;
     }
 
     [BindProperty]
     public CourseVM CourseVM { get; set; }
+    public IEnumerable<SelectListItem> InstructorList { get; set; } = default!;
+
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -42,6 +51,12 @@ public class DeleteModel : PageModel
             SubjectId = course.Subject.SubjectId,
             SchoolId = course.School.SchoolId
         };
+
+        InstructorList = (await _user.GetUsersInRoleAsync(Roles.Instructor)).Select(i => new SelectListItem
+        {
+            Text = i.FirstName + ", " + i.FirstName,
+            Value = i.Id.ToString(),
+        });
 
         await CourseVM.DropdownHelperAsync(_context, course);
 
