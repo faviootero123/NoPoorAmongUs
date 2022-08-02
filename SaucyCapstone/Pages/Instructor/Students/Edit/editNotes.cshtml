@@ -31,9 +31,9 @@
 					<div class="row my-1">
 						<div class="col-3">Role Type</div>
 						<div class="col-9">
-							<select asp-for="@Model.NoteEditVM.type" asp-items="@Model.RolesOfUser" class="form-select">
+							<select asp-for="@Model.NoteEditVM.type" asp-items="@Model.RoleOfUser" class="form-select">
 								<option disabled>---Select Role---</option>
-								<span asp-validation-for="@Model.RolesOfUser" class="text-danger"></span>
+								<span asp-validation-for="@Model.RoleOfUser" class="text-danger"></span>
 							</select>
 						</div>
 					</div>

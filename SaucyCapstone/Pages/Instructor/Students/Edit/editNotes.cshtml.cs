@@ -21,32 +21,23 @@ public class editNotesModel : PageModel
     public NoteVM NoteEditVM { get; set; }
     public Note Note { get; set; }
 
-    public List<SelectListItem> RolesOfUser;
+    public List<SelectListItem> RoleOfUser;
     public editNotesModel(ApplicationDbContext db)
     {
         _db = db;
-        RolesOfUser = new List<SelectListItem>();
+        RoleOfUser = new List<SelectListItem>();
     }
 
     public async Task<IActionResult> OnGetAsync(int? noteId)
-
     {
         if (noteId == null || _db.Notes == null)
         {
             return NotFound();
         }
 
-        if (User.IsAdmin())
-        {
-            foreach (var Roles in User.GetAllRoles())
-                RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
-        }
-        else
-        {
-            foreach (var Roles in User.UserRoles())
-                RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
-        }
-
+        foreach (var Roles in User.UserRoles())
+            RoleOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
+ 
         var note = await _db.Notes.Include(d => d.Student).Include(d => d.FacultyMember).Include(d => d.AccessType).FirstAsync(m => m.NoteId == noteId);
 
         if (note == null)
@@ -81,7 +72,7 @@ public class editNotesModel : PageModel
         note.Content = NoteEditVM.Content;
         note.Topic = NoteEditVM.Topic;
         note.isPrivate = NoteEditVM.isPrivate;
-        note.AccessType = await _db.AccessTypes.Where(d => d.Accesss == NoteEditVM.type).FirstAsync() ?? new AccessType();
+        note.AccessType = await _db.AccessTypes.Where(d => d.Accesss == NoteEditVM.type).FirstAsync();
         note.Importance = NoteEditVM.noteLevel;
 
         _db.Update(note);
