@@ -29,7 +29,6 @@ public class editNotesModel : PageModel
     }
 
     public async Task<IActionResult> OnGetAsync(int? noteId)
-
     {
         if (noteId == null || _db.Notes == null)
         {
