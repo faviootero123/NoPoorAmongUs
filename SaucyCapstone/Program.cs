@@ -2,17 +2,24 @@ using Data;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop;
 using Microsoft.Net.Http.Headers;
 using Radzen;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
+using SaucyCapstone.LocalizationResources;
 using SaucyCapstone.Services;
 using SaucyCapstone.Static;
 using Serilog;
 using Serilog.Sinks.Grafana.Loki;
-
+using System.Globalization;
+using XLocalizer;
+using XLocalizer.Routing;
+using XLocalizer.Translate;
+using XLocalizer.Translate.MyMemoryTranslate;
+using XLocalizer.Xml;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,10 +58,35 @@ services.AddAuthorization(options =>
     options.AddPolicy("Admin", p => p.RequireRole(Roles.Admin));
 });
 services.AddDatabaseDeveloperPageExceptionFilter();
-services.AddRazorPages(options =>
+
+services.AddLocalization();
+services.Configure<RequestLocalizationOptions>(ops =>
 {
-    options.Conventions.AuthorizeFolder("/Admin", "Admin");
-}).AddRazorRuntimeCompilation();
+    var cultures = new CultureInfo[]
+    {
+       new CultureInfo("en-US"),
+       new CultureInfo("pt-MZ"),
+    }; 
+    ops.SupportedCultures = cultures;
+    ops.SupportedUICultures = cultures;
+    ops.DefaultRequestCulture = new RequestCulture("en-US");    // Optional: add custom provider to support localization 
+    // based on route value
+    ops.RequestCultureProviders.Insert(0, new RouteSegmentRequestCultureProvider(cultures));
+});
+services.AddHttpClient<ITranslator, MyMemoryTranslateService>();
+services.AddSingleton<IXResourceProvider, XmlResourceProvider>();
+
+services.AddRazorPages()
+    .AddRazorPagesOptions(ops => { ops.Conventions.Insert(0, new RouteTemplateModelConventionRazorPages()); })
+    .AddXLocalizer<LocSource, MyMemoryTranslateService>(ops =>
+    {
+        ops.ResourcesPath = "LocalizationResources";
+        ops.AutoTranslate = true;
+        ops.AutoAddKeys = true;
+        ops.UseExpressMemoryCache = true;
+        ops.TranslateFromCulture = "en-US";
+    })
+    .AddRazorRuntimeCompilation();
 
 services.AddHttpContextAccessor();
 
@@ -96,8 +128,6 @@ else
     });
 }
 
-
-
 app.UseRouting();
 app.UseSession();
 
@@ -112,4 +142,12 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapBlazorHub();
+
+// Use request localization middleware
+app.UseRequestLocalization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+});
+
 app.Run();

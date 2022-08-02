@@ -22,4 +22,7 @@ public class Rating
     [Required]
     [ForeignKey("CriterionId")]
     public int CriterionId { get; set; }
+    [Required]
+    [ForeignKey("UserId")]
+    public string UserId { get; set; }
 }

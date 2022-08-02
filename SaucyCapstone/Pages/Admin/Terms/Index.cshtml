@@ -4,14 +4,14 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2>Term Overview</h2>
+            <h2 localize-content>Term Overview</h2>
         </div>
         <div class="col-6 text-end">
             <a asp-page="Create" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> &nbsp; New Term
+                <i class="bi bi-plus-circle">&nbsp;</i><localize>New Term</localize>
             </a>
             <a asp-page="CreateFromActive" class="btn btn-warning" >
-                <i class="bi bi-box-arrow-in-right"></i> &nbsp; New from Active
+                <i class="bi bi-box-arrow-in-right">&nbsp;</i><localize>New from Active</localize>
             </a>
         </div>
     </div>
@@ -20,19 +20,19 @@
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>
+                <th localize-content>
                     IsActive
                 </th>
-                <th>
+                <th localize-content>
                     Term Name
                 </th>
-                <th>
+                <th localize-content>
                     Start Date
                 </th>
-                <th>
+                <th localize-content>
                     End Date
                 </th>
-                <th>Options</th>
+                <th localize-content>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -54,11 +54,11 @@
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end">
                             <a asp-page="Edit" asp-route-id="@item.TermId"
-                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                           class="btn btn-primary mx-2"><i class="bi bi-pencil-square">&nbsp;</i><localize>Edit</localize></a>
                            <a asp-page="/Admin/Courses/Index" asp-route-id="@item.TermId"
-                           class="btn btn-info mx-2"> <i class="bi bi-columns"></i>&nbsp;Courses</a>
+                           class="btn btn-info mx-2"><i class="bi bi-columns">&nbsp;</i><localize>Courses</localize></a>
                             <a asp-page="Delete" asp-route-id="@item.TermId"
-                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
+                           class="btn btn-danger mx-2"><i class="bi bi-trash-fill">&nbsp;</i><localize>Delete</localize></a>
                         </div>
                     </td>
                 </tr>

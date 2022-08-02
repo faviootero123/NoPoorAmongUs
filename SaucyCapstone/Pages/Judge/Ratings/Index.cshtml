@@ -1,11 +1,14 @@
 ﻿@page
 @using Data
+@using SaucyCapstone.Static
 @model SaucyCapstone.Pages.Judge.Ratings.IndexModel
 
 @{
     ViewData["Title"] = "Index";
     int ratingsIndex = 0;
     string collapseId = "";
+    string userId = User.UserId();
+    string age;
 }
 
 <form method="post" asp-action="OnPostAsync" enctype="multipart/form-data">
@@ -16,9 +19,7 @@
             </div>
             <div class="col-6 text-end">
                 <button type="submit" class="btn btn-success"><i class="bi bi-check2-circle"></i>&nbsp;Save Ratings</button>
-                <a asp-page="RatingSummary" class="btn btn-primary">
-                    Go to Summary
-                </a>
+                <button asp-route-summary="Summary" type="submit" class="btn btn-primary">Go to Summary</button>
             </div>
         </div>
         <hr />
@@ -47,7 +48,7 @@
                             @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
 
                         </td>
-                        @foreach (var rating in student.Ratings ?? new List<Rating>())
+                        @foreach (var rating in student.Ratings.Where(x => x.UserId == userId) ?? new List<Rating>())
                         {
                             <td>
                                 <div class="slidecontainer">
@@ -55,23 +56,78 @@
                                     <input name="Ratings[@ratingsIndex].CriterionId" value="@rating.CriterionId" hidden />
                                     <input name="Ratings[@ratingsIndex].StudentId" value="@student.StudentId" hidden />
                                     <input name="Ratings[@ratingsIndex].RatingId" value="@rating.RatingId" hidden />
+                                    <input name="Ratings[@ratingsIndex].UserId" value="@User.UserId()" hidden />
                                     <p><span id="slider @rating.StudentID @rating.CriterionId">@rating.Value</span></p>
                                 </div>
                             </td>
                             ratingsIndex++;
                         }
-                        @foreach (var criteria in Model.RatingVM.Criteria.Where(x => x.Ratings is null))
+                        @if (student.Ratings.Where(x => x.UserId == userId).Count() == 0)
                         {
-                            <td>
+                            @foreach (var criteria in Model.RatingVM.Criteria)
+                            {
+                                <td>
 
-                                <div class="slidecontainer">
-                                    <input name="Ratings[@ratingsIndex].Value" type="range" min="1" max="5" value="" class="slider" id="@student.StudentId @criteria.CriterionId" oninput="updateSlider(this)">
-                                    <input name="Ratings[@ratingsIndex].CriterionId" value="@criteria.CriterionId" hidden />
-                                    <input name="Ratings[@ratingsIndex].StudentId" value="@student.StudentId" hidden />
-                                    <p><span id="slider @student.StudentId @criteria.CriterionId">--</span></p>
-                                </div>
-                            </td>
-                            ratingsIndex++;
+                                    <div class="slidecontainer">
+                                        @if (criteria.Description == "Age")
+                                        {
+                                            var temp = DateTime.Now.Subtract(student.DateOfBirth).TotalDays;
+                                            temp = temp / 365;
+                                            age = temp.ToString();
+                                            @switch (age)
+                                            {
+                                                case "13":
+                                                    {
+                                                        <input name="Ratings[@ratingsIndex].Value" type="range" min="1" max="5" value="5" class="slider" id="@student.StudentId @criteria.CriterionId" oninput="updateSlider(this)" onload="updateSlider(this)"/>
+                                                        <p><span id="slider @student.StudentId @criteria.CriterionId">5</span></p>
+                                                        break;
+                                                    }
+                                                case "14":
+                                                    { }
+                                                    {
+                                                        <input name="Ratings[@ratingsIndex].Value" type="range" min="1" max="5" value="4" class="slider" id="@student.StudentId @criteria.CriterionId" oninput="updateSlider(this)"/>
+                                                        <p><span id="slider @student.StudentId @criteria.CriterionId">4</span></p>
+                                                        break;
+                                                    }
+                                                case "15":
+                                                    { }
+                                                    {
+                                                        <input name="Ratings[@ratingsIndex].Value" type="range" min="1" max="5" value="3" class="slider" id="@student.StudentId @criteria.CriterionId" oninput="updateSlider(this)"/>
+                                                        <p><span id="slider @student.StudentId @criteria.CriterionId">3</span></p>
+                                                        break;
+                                                    }
+                                                case "16":
+                                                    { }
+                                                    {
+                                                        <input name="Ratings[@ratingsIndex].Value" type="range" min="1" max="5" value="2" class="slider" id="@student.StudentId @criteria.CriterionId" oninput="updateSlider(this)"/>
+                                                        <p><span id="slider @student.StudentId @criteria.CriterionId">2</span></p>
+                                                        break;
+                                                    }
+                                                default:
+                                                    { }
+                                                    {
+                                                        <input name="Ratings[@ratingsIndex].Value" type="range" min="1" max="5" value="1" class="slider" id="@student.StudentId @criteria.CriterionId" oninput="updateSlider(this)"/>
+                                                        <p><span id="slider @student.StudentId @criteria.CriterionId">1</span></p>
+                                                        break;
+                                                    }
+                                            }
+                                            <input name="Ratings[@ratingsIndex].CriterionId" value="@criteria.CriterionId" hidden />
+                                            <input name="Ratings[@ratingsIndex].StudentId" value="@student.StudentId" hidden />
+                                            <input name="Ratings[@ratingsIndex].UserId" value="@User.UserId()" hidden />
+
+                                        }
+                                        else
+                                        {
+                                            <input name="Ratings[@ratingsIndex].Value" type="range" min="1" max="5" value="" class="slider" id="@student.StudentId @criteria.CriterionId" oninput="updateSlider(this)">
+                                            <input name="Ratings[@ratingsIndex].CriterionId" value="@criteria.CriterionId" hidden />
+                                            <input name="Ratings[@ratingsIndex].StudentId" value="@student.StudentId" hidden />
+                                            <input name="Ratings[@ratingsIndex].UserId" value="@User.UserId()" hidden />
+                                            <p><span id="slider @student.StudentId @criteria.CriterionId">--</span></p>
+                                        }
+                                    </div>
+                                </td>
+                                ratingsIndex++;
+                            }
                         }
                         <td>
                             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
