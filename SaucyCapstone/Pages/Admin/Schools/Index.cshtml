@@ -4,11 +4,11 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2>School Overview</h2>
+            <h2 localize-content>School Overview</h2>
         </div>
         <div class="col-6 text-end">
             <a asp-page="Create" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> &nbsp; New School
+                <i class="bi bi-plus-circle">&nbsp;</i><localize>New School</localize>
             </a>
         </div>
     </div>
@@ -17,10 +17,10 @@
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>
+                <th localize-content>
                     School Name
                 </th>
-                <th>Options</th>
+                <th localize-content>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -33,9 +33,9 @@
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end">
                             <a asp-page="Edit" asp-route-id="@item.SchoolId"
-                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                           class="btn btn-primary mx-2"><i class="bi bi-pencil-square">&nbsp;</i><localize>Edit</localize></a>
                             <a asp-page="Delete" asp-route-id="@item.SchoolId"
-                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
+                           class="btn btn-danger mx-2"><i class="bi bi-trash-fill">&nbsp;</i><localize>Delete</localize></a>
                         </div>
                     </td>
                 </tr>

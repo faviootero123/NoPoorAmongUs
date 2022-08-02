@@ -18,7 +18,7 @@ public class GradesModel : PageModel
     }
 
     [BindProperty]
-    public xD AssessmentStudents { get; set; }
+    public Info AssessmentStudents { get; set; }
 
     [BindProperty]
     public List<GradeEditModel> GradeEditModel { get; set; }
@@ -28,9 +28,11 @@ public class GradesModel : PageModel
 
     public async Task<ActionResult> OnGetAsync(int? id)
     {
+        var CourseId = await _context.Sessions.Where(d => d.SessionId == id).Select(d => d.CourseId).FirstAsync();
+
         AssessmentStudents = await _context.Sessions
-            .Where(d => d.SessionId == id)
-            .Select(d => new xD
+            .Where(d => d.CourseId == CourseId)
+            .Select(d => new Info
             {
                 SessionId = d.SessionId,
                 Assessments = d.Course.Assessments,
@@ -40,7 +42,7 @@ public class GradesModel : PageModel
                 StartTime = d.StartTime,
                 EndTime = d.EndTime,
                 Students = d.Enrollments
-                .Select(x => new xD2
+                .Select(x => new Info2
                 {
                     StudentId = x.StudentId,
                     StudentImage = x.Student.ImageUrl,
@@ -59,7 +61,7 @@ public class GradesModel : PageModel
 
     public async Task<ActionResult> OnPostAsync(List<GradeEditModel> GradeEditModel)
     {
-        var AssessmentStudent = GradeEditModel
+        var AssessmentStudents = GradeEditModel
             .Select(d => new AssessmentStudent
             {
                 AssessmentId = d.AssessmentId,
@@ -69,8 +71,8 @@ public class GradesModel : PageModel
             })
             .ToList();
 
-        var add = AssessmentStudent.Where(x => x.AssessmentStudentId == 0);
-        var update = AssessmentStudent.Where(x => x.AssessmentStudentId != 0);
+        var add = AssessmentStudents.Where(x => x.AssessmentStudentId == 0);
+        var update = AssessmentStudents.Where(x => x.AssessmentStudentId != 0);
 
         await _context.AddRangeAsync(add);
         _context.UpdateRange(update);
@@ -80,7 +82,7 @@ public class GradesModel : PageModel
     }
 }
 
-public class xD2
+public class Info2
 {
     public int EnrollmentId { get; set; }
     public string FirstName { get; set; }
@@ -91,11 +93,12 @@ public class xD2
     public List<AssessmentStudent> UncompletedAssessments { get; set; }
 }
 
-public class xD
+public class Info
 {
     public int SessionId { get; set; }
     public IList<Assessment> Assessments { get; set; }
-    public IList<xD2> Students { get; set; }
+    public IList<Info2> Students { get; set; }
+    public int CourseId { get; set; }
     public string SubjectName { get; set; }
     public int CourseLevel { get; set; }
     public DateTime StartTime { get; set; }

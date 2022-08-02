@@ -7,11 +7,11 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2>Manage Users</h2>
+            <h4 localize-content>Manage Users</h4>
         </div>
         <div class="col-6 text-end">
             <a asp-page="Create" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> &nbsp; New User
+                <i class="bi bi-plus-circle">&nbsp;</i><localize>New User</localize>
             </a>
         </div>
     </div>
@@ -21,16 +21,16 @@
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>
+                <th localize-content>
                     User Name
                 </th>
-                <th>
+                <th localize-content>
                     Email
                 </th>
-                <th>
+                <th localize-content>
                     Lock
                 </th>
-                <th>
+                <th localize-content>
                     Password Reset
                 </th>
             </tr>
@@ -53,7 +53,7 @@
                             <td>
                                 <button type="submit" class="btn btn-outline-warning" asp-page-handler="LockUnlock"
                             asp-route-id="@item.Id">
-                                    <i class="bi bi-unlock"></i> Unlock
+                                    <i class="bi bi-unlock">&nbsp;</i><localize>Unlock</localize>
                                 </button>
                             </td>
                             }
@@ -62,7 +62,7 @@
                             <td>
                                 <button type="submit" class="btn btn-warning" asp-page-handler="LockUnlock"
                                     asp-route-id="@item.Id">
-                                    <i class="bi bi-lock-fill"></i> Lock
+                                    <i class="bi bi-lock-fill">&nbsp;</i><localize>Lock</localize>
                                 </button>
                             </td>
                             }
@@ -75,7 +75,7 @@
                             </button>
                             <a class="btn btn-primary mx-2" asp-page="Changepassword"
                                 asp-route-id="@item.Id">
-                                <i class="bi bi-input-cursor-text"></i> Change Password
+                                <i class="bi bi-input-cursor-text">&nbsp;</i><localize>Change Password</localize> 
                             </a>
                         </div>
                     </td>

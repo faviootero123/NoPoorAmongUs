@@ -3,6 +3,8 @@
 @model SaucyCapstone.Pages.Instructor.Sessions.GradesModel
 @{
 	var index = 0;
+	decimal maxPoints = (decimal)0.00;
+	decimal? studentPoints = (decimal)0.00;;
 	AssessmentStudent? assessment;
 }
 
@@ -15,34 +17,26 @@
 				@Model.AssessmentStudents.DayOfWeek, @Model.AssessmentStudents.StartTime.ToShortTimeString() - @Model.AssessmentStudents.EndTime.ToShortTimeString()
 			</h5>
 		</div>
-		<div class="col-6 text-end">
-			<button type="submit" class="btn btn-success"><i class="bi bi-check2-circle"></i>&nbsp;Save All</button>
-			<a class="btn btn-primary" asp-page="Index" id="CreateBtn">Back to Session</a>
-		</div>
-	</div>
-	<div class="row pt-2">
-		<div class="col-6">
-			@*<a id="Previous" class="btn btn-info" asp-page="" asp-route-id="@Model.Session.SessionId" asp-route-offset="@(Model.offset - 1)">Previous Page</a>
-			<a id="Next" class="btn btn-info" asp-page="" asp-route-id="@Model.Session.SessionId" asp-route-offset="@(Model.offset + 1)">Next Page</a>*@
-		</div>
 	</div>
 	<hr />
 	<form method="post">
 		<table id="dataTable" class="table table-bordered table-striped" style="width:100%">
 			<thead>
-				<tr>
-					<th>
-						Student
+				<th>
+					Student
+				</th>
+				@foreach (var AssessmentStudent in Model.AssessmentStudents.Assessments)
+				{
+					<th class="col text-center" width="20%">
+						@AssessmentStudent.Title
+						<br>
+						Max Points @AssessmentStudent.MaxScore						
 					</th>
-					@foreach (var AssessmentStudent in Model.AssessmentStudents.Assessments)
-					{
-						<th class="col text-center" width="20%">
-							@AssessmentStudent.Title
-							<br>
-							Max Points @AssessmentStudent.MaxScore
-						</th>
-					}
-				</tr>
+					maxPoints = maxPoints + @AssessmentStudent.MaxScore;	
+				}
+				<th>
+					Final Grade
+				</th>
 			</thead>
 			<tbody>
 				@if (Model.AssessmentStudents != null)
@@ -59,13 +53,14 @@
 								@foreach (var AssessmentStudent in Student.AssessmentStudents)
 								{
 									<td class="col text-center">
-										<input asp-for="GradeEditModel[index].Score" value="@AssessmentStudent.Score" type="text" /> 
+										<input asp-for="GradeEditModel[index].Score" value="@AssessmentStudent.Score"/> 
 										<input asp-for="GradeEditModel[index].EnrollmentId" value="@AssessmentStudent.EnrollmentId" hidden>
 										<input asp-for="GradeEditModel[index].AssessmentId" value="@AssessmentStudent.AssessmentId" hidden>
 										<input asp-for="GradeEditModel[index].AssessmentStudentId" value="@AssessmentStudent.AssessmentStudentId" hidden>
 										<input asp-for="@Model.SessionId" value="@Model.AssessmentStudents.SessionId" hidden>
 									</td>
 									index++;
+									studentPoints += @AssessmentStudent.Score;
 								}
 
 								@foreach (var Uncompleted in Student.UncompletedAssessments)
@@ -73,19 +68,23 @@
 									@if (Student.AssessmentStudents is null ? true : !Student.AssessmentStudents.Select(d =>d.AssessmentId).ToList().Contains(Uncompleted.AssessmentId))
 										{
 											<td class="col text-center">
-											<input asp-for="GradeEditModel[index].Score" value="@Uncompleted.Score" type="text" /> 
+											<input asp-for="GradeEditModel[index].Score" value="@Uncompleted.Score"/> 
 											<input asp-for="GradeEditModel[index].EnrollmentId" value="@Uncompleted.EnrollmentId" hidden>
 											<input asp-for="GradeEditModel[index].AssessmentId" value="@Uncompleted.AssessmentId" hidden>
 											<input asp-for="GradeEditModel[index].AssessmentStudentId" value="@Uncompleted.AssessmentStudentId" hidden>
 											<input asp-for="@Model.SessionId" value="@Model.AssessmentStudents.SessionId" hidden>
 										</td>
 										index++;
-										}								
+										studentPoints += @Uncompleted.Score;
+										}	
+									
 								}
-							}
-							
-							
+								<td>
+									<p>@studentPoints / @maxPoints</p>
+								</td>
+							}						
 						</tr>
+						studentPoints = (decimal)0.00;
 					}
 				}
 			</tbody>
