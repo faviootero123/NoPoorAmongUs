@@ -51,7 +51,7 @@
 							<input asp-for="@Model.CertificationVM.Subject" value="@(Enrollment.Session.Course.Subject.SubjectName + " " + Enrollment.Session.Course.CourseLevel)" hidden>
 							<input asp-for="@Model.CertificationVM.TermName" value="@Enrollment.Session.Course.Term.TermName" hidden>
 							<input asp-for="@Model.CertificationVM.StudentName" value="@(Model.Student.FirstName + " " + Model.Student.LastName)" hidden>
-							<input type="Submit" value="GeneratePDF" />
+							<input type="Submit" class="btn btn-success" value="GeneratePDF" />
 						</form>
 					</td>
 				</tr>
