@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Admin.Subjects;
 
+[Authorize]
 public class IndexModel : PageModel
 {
     private readonly ApplicationDbContext _context;

@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
 using Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Instructor.Assessments;
 
+[Authorize]
 public class EditModel : PageModel
 {
     private readonly ApplicationDbContext _context;

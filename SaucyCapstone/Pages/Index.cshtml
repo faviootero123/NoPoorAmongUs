@@ -4,15 +4,30 @@
 	ViewData["Title"] = "Index";
 }
 
-@*<h1>todo list</h1>
+<div>
+	<h3>No Poor Among Us</h3>
+</div>
 
-<h4>ability to select top 'n' applicants and move them to studenthood</h4>
-<h4>student attendence and grades</h4>
-<h4>ability to "clone" term and all associated things (courses, sessions, assignments)</h4>
-<h4>localization for portuguese</h4>
-<h4>about us page</h4>
-<h4>reporting page</h4>*@
+<br/>
 
+<div>
+	<h5>Quick Links:</h5>
+</div>
 
-
-
+<div>
+	<a class="btn btn-primary m-2" style="min-width:175px" asp-page="/Judge/Applicant/Index">
+		<i class="bi bi-card-list" style="font-size:xx-large"></i> <br />Applicant Overview
+	</a>
+	<a class="btn btn-primary m-2" style="min-width:175px" asp-page="/Instructor/Students/Index">
+		<i class="bi bi-person" style="font-size:xx-large"></i> <br />Students
+	</a>
+	<a class="btn btn-primary m-2" style="min-width:175px" asp-page="/Instructor/Sessions/Index">
+		<i class="bi bi-mortarboard" style="font-size:xx-large"></i> <br />Sessions
+	</a>
+	<a class="btn btn-primary m-2" style="min-width:175px" asp-page="/Instructor/Assessments/Index">
+		<i class="bi bi-book" style="font-size:xx-large"></i> <br />Assignments
+	</a>
+	<a class="btn btn-primary m-2" style="min-width:175px" asp-page="/Admin/Reports/Index">
+		<i class="bi bi-clipboard-data" style="font-size:xx-large"></i> <br />Reports
+	</a>
+</div>

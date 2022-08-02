@@ -49,9 +49,9 @@
 						<th class="col text-center" width="20%">
 							@SessionDate.ToLongDateString() 
 							<br>
-							<button type="button" asp- class="btn btn-primary mt-2 mb-2">Mark All Present</button>
+							<button type="button" onclick="AllPresent('@SessionDate')" class="btn btn-primary mt-2 mb-2">Mark All Present</button>
 							<br>
-							<button type="button" class="btn btn-danger mb-2">Unmark All</button>
+							<button type="button" onclick="AllMiss('@SessionDate')" class="btn btn-danger mb-2">Unmark All</button>
 						</th>
 					}
 			</tr>
@@ -71,6 +71,7 @@
 						{
 							ButtonGuid = Guid.NewGuid();
 							attendance = @SessionDate.Attendances?.Where(d => d.StudentId == Enrollment?.StudentId).FirstOrDefault();
+							 
 							<td class="col text-center">
 								<input asp-for="@Model.SessionId" value="@Model.SessionId" hidden>
 								<input asp-for="@Model.offset" value="@Model.offset" hidden>
@@ -78,7 +79,11 @@
 								<input id="@(ButtonGuid + "input")" name="Attendances[@index].Status" value="@((int?)attendance?.Status ?? 2)" class="btn btn-outline-success" hidden>
 								<input name="Attendances[@index].StudentId" value="@Enrollment.StudentId" hidden>
 								<input name="Attendances[@index].SessionDateId" value="@SessionDate.SessionDateId" hidden>
-								<button id="@ButtonGuid" type="button" class="@(StatusToColor((int?)attendance?.Status))" onclick="changeColors(this.id)" style="padding: 30px"></button>
+								<button id="@ButtonGuid" type="button" name="@SessionDate.Date" class="@(StatusToColor((int?)attendance?.Status))" onclick="changeColors(this.id)" style="padding: 30px"></button>
+								<br>
+								<label for="Attendances[@index].Comment">Optional Comments</label>
+								<br>
+								<input name="Attendances[@index].Comment" value="@attendance?.Comment" >
 							</td>
 							index++;
 						}
@@ -127,5 +132,25 @@
                 input.value = "2";
             }
         }
+
+		function AllPresent(val) {
+            const buttons = document.getElementsByName(val);
+
+            for (let i = 0; i < buttons.length; i++){
+                buttons[i].className = "btn btn-success";
+				const input = document.getElementById(buttons[i].id + "input");
+				input.value = "0"; 
+			}
+		}
+
+		function AllMiss(val) {
+			const buttons = document.getElementsByName(val);
+
+            for (let i = 0; i < buttons.length; i++){
+                buttons[i].className = "btn btn-danger";
+				const input = document.getElementById(buttons[i].id + "input");
+				input.value = "2"; 
+			}
+		}
     </script>
 }

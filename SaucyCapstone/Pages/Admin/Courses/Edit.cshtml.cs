@@ -11,9 +11,11 @@ using SaucyCapstone.Data;
 using Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using SaucyCapstone.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Admin.Courses;
 
+[Authorize]
 public class EditModel : PageModel
 {
     private readonly ApplicationDbContext _context;

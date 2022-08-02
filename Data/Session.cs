@@ -12,7 +12,7 @@ public class Session
 {
     public int SessionId { get; set; }
     [Required]
-    public string DayofWeek { get; set; } 
+    public string DayofWeek { get; set; } = string.Empty;
     [Required]
     public DateTime StartTime { get; set; } 
     [Required]
@@ -20,11 +20,12 @@ public class Session
     [Required]
     public bool IsActive { get; set; }
 
+    //foreign
     public int CourseId {get; set;}
     [Required]
     public Course Course { get; set; }
 
-    //Added this
+    //relationships
     public IList<Enrollment>? Enrollments { get; set; }
     public IList<SessionDate>? SessionDates { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿@page
+@using SaucyCapstone.Pages.Components
 @model SaucyCapstone.Pages.Instructor.Students.StudentScheduleModel
-
 
 <div class="card">
     <div class="card-header">
@@ -11,16 +11,17 @@
             </span>
         </div>
     </div>
-    @if (Model.ScheduleVM.Enrollments.Count > 0)
+    @if (Model.ScheduleVM.Student.Enrollments.Count > 0)
     {
-        <div class="card-body">
-            <div id="calendar"></div>
-        </div>
-        <div class="card-footer d-print-none">
-            <div class="d-grid col-6 mx-auto">
-                <button class="btn btn-lg btn-primary" type="button" id="btnPrint" onclick="printCalendar()">Print Schedule</button>
-            </div>
-        </div>
+            @(await Html.RenderComponentAsync<Component>(
+        renderMode: RenderMode.Server@*Prerendered*@,
+        new{
+        studentId = Model.ScheduleVM.Student.StudentId,
+        studentName = Model.ScheduleVM.Student.FirstName + Model.ScheduleVM.Student.LastName,
+        studentFirstName = Model.ScheduleVM.Student.FirstName,
+        studentLastName = Model.ScheduleVM.Student.LastName
+        }
+        ))
     }
     else
     {
@@ -38,54 +39,15 @@
         </div>
     }
 </div>
-<br style="clear: right;" />
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        <script>
-            function fullcalendar() {
-                var calendarEl = document.getElementById('calendar');
-                var userObj = @Html.Raw(Json.Serialize(Model.CalendarEvents));
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                    initialView: 'timeGridWeek',
-                    timeZone: 'local',
-                    allDaySlot: false,
-                    headerToolbar: {
-                        start: '',
-                        center: '',
-                        end: ''
-                    },
-                    dayHeaderFormat: {
-                        weekday: 'short'
-                    },
-                    contentHeight: 'auto',
-                    slotMinTime: '06:00:00',
-                    slotMaxTime: '21:00:00',
-                    events: userObj,
-                    eventTimeFormat: {
-                        hour: 'numeric',
-                        minute: '2-digit',
-                        omitZeroMinute: true,
-                        meridiem: 'short'
-                    }
-                });
-                calendar.render();
-                $('.fc-event-time').css('font-size', '.75rem');
-                $('.fc-event-title').css('font-size', '1rem');
-            };
-
-            function printCalendar() {
-                var w = window;
-                //w.innerWidth = 1800;
-                var c = window.document.getElementById('calendar');
-                w.print();
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-                fullcalendar()
-            });
-        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"
+            integrity="sha512-w3u9q/DeneCSwUDjhiMNibTRh/1i/gScBVp2imNVAMCt6cUHIw6xzhzcPFIaL3Q1EbI2l+nu17q2aLJJLo4ZYg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="/js/site.js"></script>
+        <script src="_framework/blazor.server.js"></script>
+        <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
     }
     }

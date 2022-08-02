@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using SaucyCapstone.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SaucyCapstone.Pages.Admin.Schools;
 
+[Authorize]
 public class EditModel : PageModel
 {
     private readonly SaucyCapstone.Data.ApplicationDbContext _context;

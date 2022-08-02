@@ -1,0 +1,181 @@
+﻿[class*="rz"] {
+    -webkit-filler: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.rz-scheduler {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  border: 1px solid #dfe7eb;
+  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.01);
+  color: #6a6a6a;
+  background: #ffffff;
+  margin: 0 2rem;
+}
+
+.rz-scheduler .rz-event-list-btn {
+  position: absolute;
+  color: #479cc8;
+}
+
+.rz-scheduler .rz-event-list-btn:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.rz-slot {
+  display: flex;
+  height: 1.5em;
+  border-top: 1px solid #888888;
+  border-left: 1px solid #888888;
+}
+
+.rz-view-header .rz-slot-header {
+  width: 100% !important;
+}
+
+.rz-slot-hours .rz-slot-header {
+  height: 1.5em;
+  text-align: right;
+  padding: 0 4px;
+  width: 55px;
+  border-right: 1px solid #888888;
+  white-space: nowrap;
+}
+
+.rz-slot-minor {
+  border-top: 1px solid #dddddd;
+
+  z-index: unset;
+}
+
+.rz-day-view .rz-slot,
+.rz-slots:first-child .rz-slot {
+  border-left: none;
+}
+
+.rz-event {
+  position: absolute;
+  padding: 2px 1px;
+  width: 100% !important;
+}
+
+.rz-event-content {
+  background-color: #cccccc !important;
+  border-radius: 4px;
+  color: #000000;
+  height: 100%;
+  padding: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  line-height: 16px;
+  overflow: hidden;
+}
+
+.rz-events {
+  position: relative;
+  z-index: 3;
+}
+
+.rz-month-view .rz-view-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.rz-slot-title {
+  text-align: right;
+  padding: 0 11px;
+}
+
+.rz-scheduler-nav {
+  /*display: none;*/
+}
+
+.rz-scheduler-nav .rz-scheduler-nav-prev-next {
+  display: none;
+}
+
+.rz-scheduler-nav .rz-scheduler-nav-views {
+  display: none;
+}
+
+.rz-scheduler-nav .rz-scheduler-nav-views {
+  display: none;
+}
+
+.rz-scheduler-nav-title {
+  display: none;
+}
+
+.rz-scheduler-nav .rz-scheduler-nav-title {
+  /*display: flex;*/
+  text-align: center;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.rz-view-header {
+  border-top: none;
+  border-bottom: none;
+  background-color: #dddddd;
+  text-transform: uppercase;
+  color: inherit;
+  display: flex;
+}
+
+.rz-view-header {
+  border-radius: 3px 3px 0 0;
+}
+
+.rz-view-header .rz-slot-header {
+  flex: 1;
+  text-align: center;
+  font-size: 0.6875rem;
+  padding: 0.5rem 0;
+}
+
+.rz-view-header .rz-slot-hour-header {
+  flex: none;
+  width: 55px;
+}
+
+.rz-view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.rz-view-content {
+  flex: auto;
+  display: flex;
+  overflow: auto;
+  height: 0;
+}
+
+.rz-week-view-content {
+  flex: 1;
+  display: flex;
+}
+
+.rz-slots {
+  flex: 1;  
+  position: relative;
+  z-index: 0;
+}
+
+.rz-week {
+  flex: 1;
+}
+
+.rz-week .rz-slots {
+  display: flex;
+  height: 100%;
+}
+
+.rz-week:first-child .rz-slot {
+  border-top: none;
+}

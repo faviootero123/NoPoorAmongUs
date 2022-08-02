@@ -57,7 +57,7 @@ public class addNotesModel : PageModel
         CreatedDate = DateTime.Now,
         Student = await _db.Students.Where(d=>d.StudentId == id).FirstAsync() ?? new Student(),
         FacultyMember = await _db.ApplicationUsers.Where(d => d.Id == userId).FirstAsync() ?? new ApplicationUser(),
-        NoteType = await _db.AccessTypes.Where(d => d.Accesss == SelectedRole).FirstAsync() ?? new AccessType(),
+        AccessType = await _db.AccessTypes.Where(d => d.Accesss == SelectedRole).FirstAsync() ?? new AccessType(),
         ApplicationUserId = userId,
         isPrivate = Note.isPrivate,
         EditedDate = DateTime.Now,

@@ -17,14 +17,15 @@ public class Attendance
     [Required]
     public AttendanceStatus Status { get; set; }
 
+    //foreign
     public int SessionDateId { get; set; }
-
     [ForeignKey("SessionDateId")]
-    public SessionDate SessionDate { get; set; }
-    public int StudentId { get; set; }
+    public SessionDate? SessionDate { get; set; }
 
+    public int StudentId { get; set; }
     [ForeignKey("StudentId")]
-    public Student Student { get; set; }
+    public Student? Student { get; set; }
+
     //enums
     public enum AttendanceStatus
     {

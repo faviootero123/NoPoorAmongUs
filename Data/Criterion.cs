@@ -19,5 +19,6 @@ public class Criterion
     [Column(TypeName = "decimal(3, 2)")]
     public decimal Weight { get; set; }
 
+    //relationships
     public IList<Rating> Ratings { get; set; }
 }

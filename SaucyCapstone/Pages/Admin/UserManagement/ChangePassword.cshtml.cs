@@ -1,4 +1,5 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,6 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SaucyCapstone.Pages.Admin.UserManagement;
+
+[Authorize]
 public class ChangePassword : PageModel
 {
     private readonly ILogger<ChangePassword> _logger;

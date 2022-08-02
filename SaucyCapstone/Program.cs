@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop;
 using Microsoft.Net.Http.Headers;
+using Radzen;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
 using SaucyCapstone.Services;
@@ -30,7 +32,11 @@ builder.Host.UseSerilog((ctx, lc) =>
     }
 });
 
-
+services.AddServerSideBlazor();
+services.AddScoped<DialogService>();
+services.AddScoped<NotificationService>();
+services.AddScoped<TooltipService>();
+services.AddScoped<ContextMenuService>();
 services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 {
@@ -105,5 +111,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
-
+app.MapBlazorHub();
 app.Run();

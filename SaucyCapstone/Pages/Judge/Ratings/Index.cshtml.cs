@@ -4,10 +4,12 @@ using Data;
 using SaucyCapstone.Data;
 using Microsoft.AspNetCore.Mvc;
 using Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using SaucyCapstone.Static;
 
 namespace SaucyCapstone.Pages.Judge.Ratings;
 
+[Authorize]
 public class IndexModel : PageModel
 {
     private readonly ApplicationDbContext _context;

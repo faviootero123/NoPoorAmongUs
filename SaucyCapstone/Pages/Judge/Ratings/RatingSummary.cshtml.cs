@@ -1,15 +1,17 @@
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
 using SaucyCapstone.Data;
 
-namespace SaucyCapstone.Pages.Judge.Ratings
+namespace SaucyCapstone.Pages.Judge.Ratings;
+
+[Authorize]
+public class RatingSummaryModel : PageModel
 {
-    public class RatingSummaryModel : PageModel
-    {
-        private readonly ApplicationDbContext _context;
+    private readonly ApplicationDbContext _context;
 
         public RatingSummaryModel(ApplicationDbContext context)
         {
