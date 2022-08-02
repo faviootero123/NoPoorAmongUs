@@ -21,26 +21,18 @@ public class addNotesModel : PageModel
     public Note? Note { get; set; }
     [BindProperty]
     public AccessType.Type? SelectedRole { get; set; }
-    public List<SelectListItem> RolesOfUser;
+    public List<SelectListItem> RoleOfUser;
 
     public addNotesModel(ApplicationDbContext db)
     {
         _db = db;
-        RolesOfUser = new List<SelectListItem>();
+        RoleOfUser = new List<SelectListItem>();
     }
 
     public ActionResult OnGetAsync(int studentId)
     {
-        if (User.IsAdmin())
-        {
-            foreach(var Roles in User.GetAllRoles())
-                RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
-        }
-        else
-        {
-            foreach (var Roles in User.UserRoles())
-                RolesOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
-        }
+        foreach (var Roles in User.UserRoles())
+            RoleOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
         
         StudentId = studentId;
         return Page();     
