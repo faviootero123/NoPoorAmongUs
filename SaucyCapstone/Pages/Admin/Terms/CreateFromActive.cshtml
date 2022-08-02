@@ -5,12 +5,12 @@
 
 <form method="post">
     <div class="card">
-        <h4 class="card-header">Copy  from Active Term:  @Model.ActiveTerm.TermName</h4>
+        <h4 localize-content class="card-header">Copy  from Active Term:  @Model.ActiveTerm.TermName</h4>
         <div class="card-body rounded pb-2">
             <input type="hidden" asp-for="Term.Courses" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     Start Date
                 </div>
                 <div class="col-9">
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     End Date
                 </div>
                 <div class="col-9">
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     Term Name
                 </div>
                 <div class="col-9">
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     Active Term?
                 </div>
                 <div class="col-9">
@@ -55,7 +55,7 @@
             </div>
             <hr />
             <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     Copy Courses from active?
                 </div>
                 <div class="col-9">
@@ -66,7 +66,7 @@
                 </div>
             </div>
              <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     Copy Assignments from active?
                 </div>
                 <div class="col-9">
@@ -77,7 +77,7 @@
                 </div>
             </div>
              <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     Copy Sessions from active?
                 </div>
                 <div class="col-9">
@@ -91,10 +91,10 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-6">
-                    <button type="submit" class="btn btn-success" style="width:100%">Create</button>
+                    <button localize-content type="submit" class="btn btn-success" style="width:100%">Create</button>
                 </div>
                 <div class="col-6">
-                    <a asp-page="Index" class="btn btn-primary" style="width:100%">
+                    <a localize-content asp-page="Index" class="btn btn-primary" style="width:100%">
                         Back to Term Overview
                     </a>
                 </div>
