@@ -4,6 +4,7 @@ using Data;
 using SaucyCapstone.Data;
 using Microsoft.AspNetCore.Mvc;
 using Models.ViewModels;
+using SaucyCapstone.Static;
 
 namespace SaucyCapstone.Pages.Judge.Ratings;
 
@@ -20,18 +21,26 @@ public class IndexModel : PageModel
     [BindProperty]
     public List<Rating> Ratings { get; set; }
 
-    public async Task OnGetAsync()
+    public async Task<IActionResult> OnGetAsync()
     {
-        RatingVM = new RatingVM
+        List<string> userRole = User.UserRoles();
+        if (User.IsRater())
         {
-            Students = await _context.Students.Where(x => x.AppStatus == Student.ApplicationStatus.Open).Include(r => r.Ratings).ToListAsync(),
-            Criteria = await _context.Criteria.ToListAsync(),
-        };
-
+            RatingVM = new RatingVM
+            {
+                Students = await _context.Students.Where(x => x.AppStatus == Student.ApplicationStatus.Open).Include(r => r.Ratings).ToListAsync(),
+                Criteria = await _context.Criteria.ToListAsync(),
+            };
+        }
+        else
+        {
+            return RedirectToPage("./RatingSummary");
+        }
+        return Page();
     }
 
 
-    public async Task<IActionResult> OnPostAsync(List<Rating> Ratings)
+    public async Task<IActionResult> OnPostAsync(List<Rating> Ratings, string? summary)
     {
         if (ModelState.IsValid)
         {
@@ -41,6 +50,11 @@ public class IndexModel : PageModel
             _context.UpdateRange(updateRatings);
             await _context.SaveChangesAsync();
         }
-        return RedirectToPage("./RatingSummary");
+
+        if (summary == "Summary")
+        {
+            return RedirectToPage("./RatingSummary");
+        }
+        else { return RedirectToPage(); }
     }
 }

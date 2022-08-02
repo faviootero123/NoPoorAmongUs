@@ -80,6 +80,15 @@ public static class ConfigurationStaticMethods
                },
                "RaterUserDo@123!"
            },
+                      {
+               new ApplicationUser
+               {
+                    UserName ="Rater2@odetopeaches.com",
+                    Email = "Rater2@odetopeaches.com" ,
+                    EmailConfirmed = true,
+               },
+               "RaterUserDo@123!"
+           },
            // Test Faculty Members 
            {
                new ApplicationUser
@@ -121,7 +130,7 @@ public static class ConfigurationStaticMethods
         {
             var userExists = await userManager.FindByEmailAsync(user.Key.Email);
             // if (userExists is not null) await userManager.DeleteAsync(userExists);
-            if (userExists is null)userResult = await userManager.CreateAsync(user.Key, user.Value);
+            if (userExists is null) userResult = await userManager.CreateAsync(user.Key, user.Value);
         }
 
         // Apply role to user 
@@ -129,10 +138,11 @@ public static class ConfigurationStaticMethods
         await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
         await userManager.AddUserToRole("SocialWorker@odetopeaches.com", Roles.SocialWorker);
         await userManager.AddUserToRole("Rater@odetopeaches.com", Roles.Rater);
+        await userManager.AddUserToRole("Rater2@odetopeaches.com", Roles.Rater);
 
-        await userManager.AddUserToRole("john.doe@odetopeaches.com",Roles.Instructor);
-        await userManager.AddUserToRole("adam.smith@odetopeaches.com",Roles.Instructor);
-        await userManager.AddUserToRole("public.teacher@odetopeaches.com",Roles.Instructor);
+        await userManager.AddUserToRole("john.doe@odetopeaches.com", Roles.Instructor);
+        await userManager.AddUserToRole("adam.smith@odetopeaches.com", Roles.Instructor);
+        await userManager.AddUserToRole("public.teacher@odetopeaches.com", Roles.Instructor);
 
         //Seed data for other tables 
         await SeedData(db, userManager);
