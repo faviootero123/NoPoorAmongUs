@@ -5,119 +5,135 @@
     List<Criterion> temp = new List<Criterion>();
     decimal weightedValue = 0;
     decimal totalValue = 0;
+    int userCount = 0;
+    int studentIndex = 0;
 }
+<form method="post" asp-action="OnPostAsync" enctype="multipart/form-data">
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2>Ratings Summary</h2>
+            </div>
+            <div class="col-6 text-end">
+                <button type="submit" class="btn btn-success"><i class="bi bi-check2-circle"></i> &nbsp; Add Selected Student(s)</button>
+                <a asp-page="./Index" class="btn btn-primary">
+                    Go to Overiew
+                </a>
+            </div>
+            <hr />
 
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2>Ratings Summary</h2>
-        </div>
-        <div class="col-6 text-end">
-            <button type="submit" class="btn btn-success"><i class="bi bi-check2-circle"></i> &nbsp; Add Selected Student(s)</button>
-            <a asp-page="./Index" class="btn btn-primary">
-                Go to Overiew
-            </a>
-        </div>
-        <hr />
-
-        <h3 class="pt-4">Active Applicants</h3>
-        <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Select</th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RatingVM.Students[0].FirstName)
-                    </th>
-                    @foreach (var item in Model.RatingVM.Criteria)
-                    {
-                        <th>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </th>
-                    }
-                    <th>Total Score</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var student in Model.RatingVM.Students)
-                {
+            <h3 class="pt-4">Active Applicants</h3>
+            <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
+                <thead>
                     <tr>
-                        <td>
-                            <input type="checkbox" />
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
-                        </td>
-                        @foreach (var rating in student.Ratings ?? new List<Rating>())
-                        {
-                            temp = Model.RatingVM.Criteria.Where(x => x.CriterionId == rating.CriterionId).ToList();
-                            weightedValue = (temp[0].Weight * @rating.Value);
-                            <td>
-                                @weightedValue
-                            </td>
-                            totalValue += weightedValue;
-                        }
-                        <td>
-                            @totalValue
-                        </td>
-                        <td>
-
-                            <a asp-page="Waitlist" asp-route-id="@student.StudentId"
-                           class="btn btn-warning mx-2"> <i class="bi bi-archive-fill"></i>&nbsp;Waitlist</a>
-
-
-                        </td>
-                    </tr>
-                    totalValue = 0;
-                }
-        </table>
-
-        <h3 class="pt-4">Waitlisted Applicants</h3>
-        <table id="dataTable2" class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RatingVM.Waitlisted[0].FirstName)
-                    </th>
-                    @foreach (var item in Model.RatingVM.Criteria)
-                    {
+                        <th>Select</th>
                         <th>
-                            @Html.DisplayFor(modelItem => item.Description)
+                            @Html.DisplayNameFor(model => model.RatingSummaryVM.OpenApp[studentIndex].FirstName)
                         </th>
-                    }
-                    <th>Total Score</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var student in Model.RatingVM.Waitlisted)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
-                        </td>
-                        @foreach (var rating in student.Ratings ?? new List<Rating>())
+                        @foreach (var item in Model.RatingSummaryVM.Criteria)
                         {
-                            temp = Model.RatingVM.Criteria.Where(x => x.CriterionId == rating.CriterionId).ToList();
-                            weightedValue = (temp[0].Weight * @rating.Value);
-                            <td>
-                                @weightedValue
-                            </td>
-                            totalValue += weightedValue;
+                            <th>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </th>
                         }
-                        <td>
-                            @totalValue
-                        </td>
-                        <td>
-                            <a asp-page="Waitlist" asp-route-id="@student.StudentId"
-                           class="btn btn-info mx-2"> <i class="bi bi-plus-circle"></i>&nbsp;Reactivate</a>
-                        </td>
+                        <th>Total Score</th>
+                        <th>Options</th>
                     </tr>
-                    totalValue = 0;
-                }
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.RatingSummaryVM.OpenApp)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" asp-for="RatingSummaryVM.StudentVM[studentIndex].IsSelected" />
+                                <input asp-for="RatingSummaryVM.StudentVM[studentIndex].StudentId" value="@student.StudentId" hidden />
+                                <input asp-for="RatingSummaryVM.OpenApp" value="@Model.RatingSummaryVM.OpenApp" hidden />
+                                <input asp-for="RatingSummaryVM.Criteria" value="@Model.RatingSummaryVM.Criteria" hidden />
+                                <input asp-for="RatingSummaryVM.Waitlisted" value="@Model.RatingSummaryVM.Waitlisted" hidden />
+                            </td>
+                            @{studentIndex++;} 
+                            <td>
+                                @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
+                            </td>
+                            @foreach (var criteria in Model.RatingSummaryVM.Criteria)
+                            {
+                                @foreach (var rating in student.Ratings ?? new List<Rating>())
+                                {
+                                    @if (rating.CriterionId == criteria.CriterionId)
+                                    {
+                                        weightedValue += (criteria.Weight * rating.Value);
+                                        userCount++;
+                                    }
+                                }
+                                @if (userCount != 0) { weightedValue = weightedValue / userCount; }
+                                <td>@weightedValue</td>
+                                totalValue += weightedValue;
+                                weightedValue = 0;
+                                userCount = 0;
+                            }
+
+                            <td>
+                                @totalValue
+                            </td>
+                            <td>
+
+                                <a asp-page="Waitlist" asp-route-id="@student.StudentId"
+                               class="btn btn-warning mx-2"> <i class="bi bi-archive-fill"></i>&nbsp;Waitlist</a>
+
+
+                            </td>
+                        </tr>
+                        totalValue = 0;
+                    }
+            </table>
+
+            <h3 class="pt-4">Waitlisted Applicants</h3>
+            <table id="dataTable2" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RatingSummaryVM.Waitlisted[0].FirstName)
+                        </th>
+                        @foreach (var item in Model.RatingSummaryVM.Criteria)
+                        {
+                            <th>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </th>
+                        }
+                        <th>Total Score</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.RatingSummaryVM.Waitlisted)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => student.FirstName) @Html.DisplayFor(modelItem => student.LastName)
+                            </td>
+                            @foreach (var rating in student.Ratings ?? new List<Rating>())
+                            {
+                                temp = Model.RatingSummaryVM.Criteria.Where(x => x.CriterionId == rating.CriterionId).ToList();
+                                weightedValue = (temp[0].Weight * @rating.Value);
+                                <td>
+                                    @weightedValue
+                                </td>
+                                totalValue += weightedValue;
+                            }
+                            <td>
+                                @totalValue
+                            </td>
+                            <td>
+                                <a asp-page="Waitlist" asp-route-id="@student.StudentId"
+                               class="btn btn-info mx-2"> <i class="bi bi-plus-circle"></i>&nbsp;Reactivate</a>
+                            </td>
+                        </tr>
+                        totalValue = 0;
+                    }
+            </table>
+        </div>
     </div>
-</div>
+</form>
 
 @section Scripts{
     <script>
@@ -126,7 +142,7 @@
             $('#dataTable').dataTable({
                 order: [[indexTotalScore, 'desc']],
             });
-            
+
             indexTotalScore = $("#dataTable2").find('tr')[0].cells.length - 2;
             $('#dataTable2').dataTable({
                 order: [[indexTotalScore, 'desc']],
