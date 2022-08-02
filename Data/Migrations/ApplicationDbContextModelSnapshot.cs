@@ -311,29 +311,6 @@ namespace Data.Migrations
                     b.ToTable("Enrollments");
                 });
 
-            modelBuilder.Entity("Data.Grade", b =>
-                {
-                    b.Property<int>("GradeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradeId"), 1L, 1);
-
-                    b.Property<string>("AssessmentGrade")
-                        .IsRequired()
-                        .HasColumnType("char(2)");
-
-                    b.Property<decimal>("BeginningRange")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<decimal>("EndingRange")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.HasKey("GradeId");
-
-                    b.ToTable("Grades", (string)null);
-                });
-
             modelBuilder.Entity("Data.Guardian", b =>
                 {
                     b.Property<int>("GuardianId")
