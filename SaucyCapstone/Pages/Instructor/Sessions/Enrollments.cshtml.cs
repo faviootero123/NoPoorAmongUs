@@ -22,6 +22,8 @@ public class EnrollmentsModel : PageModel
 
     public Enrollment enrollment { get; set; }
 
+    public Student student { get; set; }
+
     public async Task<IActionResult> OnGetAsync(int? id)
     {
         if (id == null)
@@ -162,7 +164,33 @@ public class EnrollmentsModel : PageModel
             return NotFound();
         }
         enrollment = _context.Enrollments.Where(c => c.EnrollmentId == id).FirstOrDefault();
+      
         _context.Enrollments.Remove(enrollment);
+        _context.SaveChanges();
+
+        return RedirectToPage("./Enrollments", new { id = enrollment.SessionId });
+    }
+    public IActionResult OnPostPass(int id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+        enrollment = _context.Enrollments.Where(c => c.EnrollmentId == id)  .Include(e => e.Session)
+            .ThenInclude(s => s.Course)
+            .ThenInclude(c => c.Subject).FirstOrDefault();
+        var courseLevel = enrollment.Session.Course.CourseLevel;
+        student = _context.Students.Where(c => c.StudentId == enrollment.StudentId).FirstOrDefault();
+        if (enrollment.Session.Course.Subject.SubjectName == "English")
+        {
+            student.EnglishLevel = courseLevel + 1;
+        }
+        else if (enrollment.Session.Course.Subject.SubjectName == "IT")
+        {
+            student.ITLevel = courseLevel + 1;
+        }
+        _context.Enrollments.Remove(enrollment);
+        _context.Students.Update(student);
         _context.SaveChanges();
 
         return RedirectToPage("./Enrollments", new { id = enrollment.SessionId });
