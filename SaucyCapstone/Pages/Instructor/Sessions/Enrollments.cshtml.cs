@@ -164,7 +164,9 @@ public class EnrollmentsModel : PageModel
             return NotFound();
         }
         enrollment = _context.Enrollments.Where(c => c.EnrollmentId == id).FirstOrDefault();
-      
+        var AssessmentStudent = _context.AssessmentStudents.Where(c => c.EnrollmentId == enrollment.EnrollmentId).ToList();
+
+        _context.AssessmentStudents.RemoveRange(AssessmentStudent);
         _context.Enrollments.Remove(enrollment);
         _context.SaveChanges();
 
