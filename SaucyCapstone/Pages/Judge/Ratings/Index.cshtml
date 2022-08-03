@@ -15,11 +15,11 @@
     <div class="container p-3">
         <div class="row pt-4">
             <div class="col-6">
-                <h2>Ratings Overview</h2>
+                <h2 localize-content>Ratings Overview</h2>
             </div>
             <div class="col-6 text-end">
-                <button type="submit" class="btn btn-success"><i class="bi bi-check2-circle"></i>&nbsp;Save Ratings</button>
-                <button asp-route-summary="Summary" type="submit" class="btn btn-primary">Go to Summary</button>
+                <button type="submit" class="btn btn-success"><i class="bi bi-check2-circle">&nbsp;</i><localize>Save Ratings</localize></button>
+                <button localize-content asp-route-summary="Summary" type="submit" class="btn btn-primary">Go to Summary</button>
             </div>
         </div>
         <hr />
@@ -27,12 +27,12 @@
         <table class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>
+                    <th localize-content>
                         Student Name
                     </th>
                     @foreach (var item in Model.RatingVM.Criteria)
                     {
-                        <th>
+                        <th localize-content>
                             @Html.DisplayFor(modelItem => item.Description)
                         </th>
                     }
@@ -130,7 +130,7 @@
                             }
                         }
                         <td>
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
+                            <button localize-content class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
                                 View Application
                             </button>
                         </td>

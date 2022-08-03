@@ -49,7 +49,7 @@
             <div class="row my-1 mb-2 d-flex align-items-center">
                 <div localize-content class="col-3 text-end">
                     Course Level
-                    </div>
+                </div>
                 <div class="col-9">
                     <div class="form-group">
                         <select asp-for="CourseVM.Course.CourseLevel" class="form-select" disabled>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="col-9">
                     <div class="form-group">
-                        <select asp-for="CourseVM.School.SchoolId" asp-items="@Model.CourseVM.SchoolList" class="form-select" disabled> 
+                        <select asp-for="CourseVM.School.SchoolId" asp-items="@Model.CourseVM.SchoolList" class="form-select" disabled>
                             <option disabled>---Select School---</option>
                         </select>
                         <span asp-validation-for="CourseVM.School.SchoolId" class="text-danger"></span>
@@ -93,5 +93,6 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <localization-validation-scripts></localization-validation-scripts>
     }
-    }
+}

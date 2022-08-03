@@ -2,64 +2,89 @@
 @using Data
 @model SaucyCapstone.Pages.Instructor.Students.Add.addNotesModel
 
-<h1>New Note</h1>
-<hr />
-
 <form method="post" enctype="multipart/form-data">
-	<input asp-for="@Model.Note.NoteId" hidden />
-	<input asp-for="@Model.Note.Student.StudentId" hidden />
-	<input asp-for="@Model.Note.FacultyMember.Id" hidden />
-	<div class="container">
-		<div class="card">
-			<div class="card-body">
-				<div class="col-12 col-lg-6 pb-4">
-					<div class="row my-1">
-						<div class="col-3">Topic</div>
-						<div class="col-9">
-							<input asp-for="@Model.Note.Topic" type="text" class="form-control" />
-							<span asp-validation-for="@Model.Note.Topic" class="text-danger"></span>
-						</div>
-					</div>
-					<div class="row my-1">
-						<div class="col-3">Content</div>
-						<div class="col-9">
-							<textarea asp-for="@Model.Note.Content" class="form-control"></textarea>
-							<span asp-validation-for="@Model.Note.Content" class="text-danger"></span>
-						</div>
-					</div>
-					<div class="row my-1">
-						<div class="col-3">Role Type</div>
-						<div class="col-9">
-							<select asp-for="@Model.SelectedRole" asp-items="@Model.RolesOfUser" class="form-select">
-								<option disabled selected>---Select Role---</option>
-								<span asp-validation-for="@Model.RolesOfUser" class="text-danger"></span>
-							</select>
-						</div>
-					</div>
-					<div class="row my-1">
-						<div class="col-3">Level Type</div>
-						<div class="col-9">
-							<select asp-for="@Model.Note.Importance" asp-items="Html.GetEnumSelectList<Note.NoteLevel>()" class="form-select">
-								<option disabled selected>---Select Importance Level---</option>
-								<span asp-validation-for="@Model.Note.Importance" class="text-danger"></span>
-							</select>
-						</div>
-					</div>
-					<div class="row my-1">
-						<div class="col-3">Private Note</div>
-						<div class="col-9">
-							<input asp-for="@Model.Note.isPrivate" type="checkbox" class="form-check-input">
-							<span asp-validation-for="@Model.Note.isPrivate" class="text-danger"></span>
-						</div>
-					</div>
-				</div>
-				<button asp-route-id="@Model.StudentId" type="submit" class="btn btn-success">Create</button>
-				<a class="btn btn-primary" asp-route-id="@Model.StudentId" asp-page="/Instructor/Students/StudentNotes">Cancel</a>
-			</div>
-		</div>
-	</div>
+    <input asp-for="@Model.Note.NoteId" hidden />
+    <input asp-for="@Model.Note.Student.StudentId" hidden />
+    <input asp-for="@Model.Note.FacultyMember.Id" hidden />
+
+    <div class="card">
+        <h4 localize-content class="card-header">Create Note</h4>
+        <div class="card-body rounded pb-2">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div localize-content class="col-3 text-end">
+                    Topic
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input asp-for="@Model.Note.Topic" type="text" class="form-control" />
+                        <span asp-validation-for="@Model.Note.Topic" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div localize-content class="col-3 text-end">
+                    Content
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <textarea asp-for="@Model.Note.Content" class="form-control"></textarea>
+                        <span asp-validation-for="@Model.Note.Content" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div localize-content class="col-3 text-end">
+                    Role Type
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select asp-for="@Model.SelectedRole" asp-items="@Model.RolesOfUser" class="form-select">
+                            <option disabled selected>---Select Role---</option>
+                            <span asp-validation-for="@Model.RolesOfUser" class="text-danger"></span>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div localize-content class="col-3 text-end">
+                    Level Type
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <select asp-for="@Model.Note.Importance" asp-items="Html.GetEnumSelectList<Note.NoteLevel>()" class="form-select">
+                            <option disabled selected>---Select Importance Level---</option>
+                            <span asp-validation-for="@Model.Note.Importance" class="text-danger"></span>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1 mb-2 d-flex align-items-center">
+                <div localize-content class="col-3 text-end">
+                    Private Note
+                </div>
+                <div class="col-9">
+                    <div class="form-group">
+                        <input asp-for="@Model.Note.isPrivate" type="checkbox" class="form-check-input">
+                        <span asp-validation-for="@Model.Note.isPrivate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6">
+                    <button localize-content asp-route-id="@Model.StudentId" type="submit" class="btn btn-success" style="width:100%">Create</button>
+                </div>
+                <div class="col-6">
+                    <a localize-content class="btn btn-primary" asp-route-id="@Model.StudentId" asp-page="/Instructor/Students/StudentNotes" style="width:100%">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 
 @section Scripts{
-	<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
+    <localization-validation-scripts></localization-validation-scripts>
 }

@@ -72,8 +72,7 @@
                 <div class="col-9">
                     <div class="form-check">
                         <div class="form-check form-check-inline">
-                            <input type="checkbox" asp-for="Input.Admin" class="form-check-input"
-                                   value="true">
+                            <input type="checkbox" asp-for="Input.Admin" class="form-check-input" value="true">
                             <label class="form-check-label" asp-for="Input.Admin">@Roles.Admin</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -81,7 +80,6 @@
                             <label class="form-check-label" asp-for="Input.Instructor">@Roles.Instructor</label>
                         </div>
                         <div class="form-check form-check-inline">
-
                             <input type="checkbox" asp-for="Input.Rater" class="form-check-input" value="true">
                             <label class="form-check-label" asp-for="Input.Rater">@Roles.Rater</label>
                         </div>
@@ -111,5 +109,6 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <localization-validation-scripts></localization-validation-scripts>
     }
 }

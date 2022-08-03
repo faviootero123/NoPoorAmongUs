@@ -10,11 +10,11 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2>Notes For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
+            <h2 localize-content>Notes For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-route-studentId="@Model.Student.StudentId" asp-page="./Add/addNotes" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add Note</a>
-            <a class="btn btn-primary" asp-page="/Instructor/Students/Index">Back to Students</a>
+            <a asp-route-studentId="@Model.Student.StudentId" asp-page="./Add/addNotes" class="btn btn-success"><i class="bi bi-plus-circle">&nbsp;</i><localize>Add Note</localize></a>
+            <a localize-content class="btn btn-primary" asp-page="/Instructor/Students/Index">Back to Students</a>
         </div>
     </div>
     <hr />
@@ -22,28 +22,28 @@
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>
+                <th localize-content>
                     Topic
                 </th>
-                <th>
+                <th localize-content>
                     Content
                 </th>
-                <th>
+                <th localize-content>
                     Importance Level
                 </th>
-                <th>
+                <th localize-content>
                     Creator
                 </th>
-                <th>
+                <th localize-content>
                     Access Type
                 </th>
-                <th>
+                <th localize-content>
                     Edited Date
                 </th>
-                <th>
+                <th localize-content>
                     Visible by
                 </th>
-                <th>Options</th>
+                <th localize-content>Options</th>
             </tr>
         </thead>
         <tbody>

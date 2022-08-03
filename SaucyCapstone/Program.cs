@@ -1,8 +1,10 @@
 using Data;
+using LazZiya.TagHelpers;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop;
 using Microsoft.Net.Http.Headers;
@@ -69,7 +71,7 @@ services.Configure<RequestLocalizationOptions>(ops =>
     }; 
     ops.SupportedCultures = cultures;
     ops.SupportedUICultures = cultures;
-    ops.DefaultRequestCulture = new RequestCulture("en-US");    // Optional: add custom provider to support localization 
+    //ops.DefaultRequestCulture = new RequestCulture("en-US");    // Optional: add custom provider to support localization 
     // based on route value
     ops.RequestCultureProviders.Insert(0, new RouteSegmentRequestCultureProvider(cultures));
 });
@@ -87,6 +89,7 @@ services.AddRazorPages()
         ops.TranslateFromCulture = "en-US";
     })
     .AddRazorRuntimeCompilation();
+services.AddTransient<ITagHelperComponent, LocalizationValidationScriptsTagHelperComponent>();
 
 services.AddHttpContextAccessor();
 

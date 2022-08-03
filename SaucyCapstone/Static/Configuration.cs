@@ -48,19 +48,10 @@ public static class ConfigurationStaticMethods
                 UserName ="AdminUser@odetopeaches.com",
                 Email = "AdminUser@odetopeaches.com" ,
                 EmailConfirmed = true,
+                FirstName = "Super",
+                LastName = "Admin"
               },
               "SuperUserDo@123!"
-           },
-           {
-               new ApplicationUser
-               {
-                    UserName ="InstructorUser@odetopeaches.com",
-                    Email = "InstructorUser@odetopeaches.com" ,
-                    EmailConfirmed = true,
-                    FirstName = "Instructor",
-                    LastName = "Instructor"
-               },
-               "InstructorUserDo@123!"
            },
            {
                new ApplicationUser
@@ -68,6 +59,8 @@ public static class ConfigurationStaticMethods
                     UserName ="SocialWorker@odetopeaches.com",
                     Email = "SocialWorker@odetopeaches.com" ,
                     EmailConfirmed = true,
+                    FirstName = "Social",
+                    LastName = "Worker"
                },
                "SocialWorkerUserDo@123!"
            },
@@ -77,6 +70,8 @@ public static class ConfigurationStaticMethods
                     UserName ="Rater@odetopeaches.com",
                     Email = "Rater@odetopeaches.com" ,
                     EmailConfirmed = true,
+                    FirstName = "Judge",
+                    LastName = "Judy"
                },
                "RaterUserDo@123!"
            },
@@ -86,6 +81,8 @@ public static class ConfigurationStaticMethods
                     UserName ="Rater2@odetopeaches.com",
                     Email = "Rater2@odetopeaches.com" ,
                     EmailConfirmed = true,
+                    FirstName = "Judge",
+                    LastName = "Josh"
                },
                "RaterUserDo@123!"
            },

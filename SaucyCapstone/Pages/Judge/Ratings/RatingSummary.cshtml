@@ -12,32 +12,32 @@
     <div class="container p-3">
         <div class="row pt-4">
             <div class="col-6">
-                <h2>Ratings Summary</h2>
+                <h2 localize-content>Ratings Summary</h2>
             </div>
             <div class="col-6 text-end">
-                <button type="submit" class="btn btn-success"><i class="bi bi-check2-circle"></i> &nbsp; Add Selected Student(s)</button>
-                <a asp-page="./Index" class="btn btn-primary">
+                <button type="submit" class="btn btn-success"><i class="bi bi-check2-circle">&nbsp;</i><localize>Add Selected Students</localize></button>
+                <a localize-content asp-page="./Index" class="btn btn-primary">
                     Go to Overiew
                 </a>
             </div>
             <hr />
 
-            <h3 class="pt-4">Active Applicants</h3>
+            <h3 localize-content class="pt-4">Active Applicants</h3>
             <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Select</th>
-                        <th>
+                        <th localize-content>Select</th>
+                        <th localize-content>
                             @Html.DisplayNameFor(model => model.RatingSummaryVM.OpenApp[studentIndex].FirstName)
                         </th>
                         @foreach (var item in Model.RatingSummaryVM.Criteria)
                         {
-                            <th>
+                            <th localize-content>
                                 @Html.DisplayFor(modelItem => item.Description)
                             </th>
                         }
-                        <th>Total Score</th>
-                        <th>Options</th>
+                        <th localize-content>Total Score</th>
+                        <th localize-content>Options</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,7 +78,7 @@
                             <td>
 
                                 <a asp-page="Waitlist" asp-route-id="@student.StudentId"
-                               class="btn btn-warning mx-2"> <i class="bi bi-archive-fill"></i>&nbsp;Waitlist</a>
+                               class="btn btn-warning mx-2"> <i class="bi bi-archive-fill">&nbsp;</i><localize>Waitlist</localize></a>
 
 
                             </td>
@@ -87,21 +87,21 @@
                     }
             </table>
 
-            <h3 class="pt-4">Waitlisted Applicants</h3>
+            <h3 localize-content class="pt-4">Waitlisted Applicants</h3>
             <table id="dataTable2" class="table table-bordered table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th>
+                        <th localize-content>
                             @Html.DisplayNameFor(model => model.RatingSummaryVM.Waitlisted[0].FirstName)
                         </th>
                         @foreach (var item in Model.RatingSummaryVM.Criteria)
                         {
-                            <th>
+                            <th localize-content>
                                 @Html.DisplayFor(modelItem => item.Description)
                             </th>
                         }
-                        <th>Total Score</th>
-                        <th>Options</th>
+                        <th localize-content>Total Score</th>
+                        <th localize-content>Options</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -125,7 +125,7 @@
                             </td>
                             <td>
                                 <a asp-page="Waitlist" asp-route-id="@student.StudentId"
-                               class="btn btn-info mx-2"> <i class="bi bi-plus-circle"></i>&nbsp;Reactivate</a>
+                               class="btn btn-info mx-2"> <i class="bi bi-plus-circle">&nbsp;</i><localize>Reactivate</localize></a>
                             </td>
                         </tr>
                         totalValue = 0;

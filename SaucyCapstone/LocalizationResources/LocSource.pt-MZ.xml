@@ -372,4 +372,484 @@
     <value>voltar para a vista geral</value>
     <comment>Created by XLocalizer</comment>
   </data>
+  <data isActive="false">
+    <key>The {0} field is not a valid e-mail address.</key>
+    <value>O campo {0} não é um endereço de e-mail válido.</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Remember me?</key>
+    <value>Lembrar-me?</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>New User</key>
+    <value>Novo Utilizador</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>User Name</key>
+    <value>Nome de Utilizador</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Email</key>
+    <value>E-mail</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Lock</key>
+    <value>Bloquear</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Password Reset</key>
+    <value>Reposição da palavra-passe</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Change Password</key>
+    <value>Alterar Senha</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Create User</key>
+    <value>Criar utilizador</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Password</key>
+    <value>Palavra-passe</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>The field {0} must be a string with a minimum length of {2} and a maximum length of {1}.</key>
+    <value>O campo {0} deve ser uma string com comprimento mínimo de {2} e comprimento máximo de {1}.</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Confirm Password</key>
+    <value>Confirme a Senha</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>'{0}' and '{1}' do not match.</key>
+    <value>'{0}' e '{1}' não correspondem.</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>First Name</key>
+    <value>Nome</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Last Name</key>
+    <value>Apelido</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Roles</key>
+    <value>Cargos</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Back to User Overview</key>
+    <value>Voltar para a visão geral do usuário</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Applicant Overview</key>
+    <value>Visão geral do candidato</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>New Application</key>
+    <value>Novo Aplicativo</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Name</key>
+    <value>Nome</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Application Status</key>
+    <value>Estado da Candidatura</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Last Modified Date</key>
+    <value>Ultima Modificação</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Archive</key>
+    <value>Arquivo</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Open</key>
+    <value>Abrir</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>New Applicant</key>
+    <value>Novo Candidato</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>&lt;i class="bi bi-plus-circle"&gt;&lt;/i&gt;&amp;nbsp;Update/Create</key>
+    <value>&lt;i class="bi bi-plus-circle"&gt;&lt;/i&gt;</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Back to Applicants</key>
+    <value>Voltar para Candidatos</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Student Info</key>
+    <value>Informação do aluno</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Guardian Info</key>
+    <value>Informações do Guardião</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Personal Details</key>
+    <value>Dados Pessoais</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Student Name</key>
+    <value>Nome do estudante</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Phone</key>
+    <value>Telefone</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Date of Birth</key>
+    <value>Data de nascimento</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>School Level</key>
+    <value>Ensino pré-primário</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Determination</key>
+    <value>[figura] Determinação</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Address</key>
+    <value>Endereço</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Village</key>
+    <value>Aldeia</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Lattitude</key>
+    <value>Latitude</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Longitude</key>
+    <value>Longitude</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Annual Income</key>
+    <value>Rendimento anual</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Back to Criteria Overview</key>
+    <value>Visão geral dos critérios</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Ratings Overview</key>
+    <value>Visão geral das classificações</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Save Ratings</key>
+    <value>Salvar classificações</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Go to Summary</key>
+    <value>ir para o sumário</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Academics</key>
+    <value>Académicos</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Age</key>
+    <value>Idade</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Distance</key>
+    <value>Distância</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Family support and interest</key>
+    <value>Apoio e interesse da família</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Finances</key>
+    <value>Finanças</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>View Application</key>
+    <value>Ver pedido</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Ratings Summary</key>
+    <value>Resumo das Avaliações</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Add Selected Students</key>
+    <value>Adicionar alunos selecionados</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Go to Overiew</key>
+    <value>Ir para Visão geral</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Select</key>
+    <value>Selecionar</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Nome do estudante</key>
+    <value>Nome do estudante</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Total Score</key>
+    <value>Total de Pontos</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Waitlist</key>
+    <value>Lista de Espera</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Active Applicants</key>
+    <value>Candidatos Ativos</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Waitlisted Applicants</key>
+    <value>Candidatos na lista de espera</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Reactivate</key>
+    <value>Reativar</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>No Poor Among Us</key>
+    <value>Nenhum pobre entre nós</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Quick Links:</key>
+    <value>Links Rápidos:</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Students</key>
+    <value>Estudantes</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Student Overview</key>
+    <value>Visão geral do aluno</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>IT Level</key>
+    <value>Nível de TI</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>English Level</key>
+    <value>Nível de Inglês</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Details</key>
+    <value>Detalhes</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Notes</key>
+    <value>Notes</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Documents</key>
+    <value>Documentos</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Certifications</key>
+    <value>Certificações</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Schedule</key>
+    <value>Agenda</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Notes For Ashley Smith</key>
+    <value>Notas para Ashley Smith</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Add Note</key>
+    <value>Adicionar Nota</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Back to Students</key>
+    <value>Voltar para Alunos</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Topic</key>
+    <value>Tema</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Content</key>
+    <value>Índice</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Importance Level</key>
+    <value>Nível de importância</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Creator</key>
+    <value>Criativo</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Access Type</key>
+    <value>Tipo de Acesso</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Edited Date</key>
+    <value>Data editada</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Visible by</key>
+    <value>Visível por</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Create Note</key>
+    <value>Criar nota</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Role Type</key>
+    <value>Tipo de Regras</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Level Type</key>
+    <value>Tipo de Nível</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Private Note</key>
+    <value>Nota particular</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Cancel</key>
+    <value>Cancelar</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Documents For Ashley Smith</key>
+    <value>Documentos para Ashley Smith</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Add Document</key>
+    <value>Adicionar Documento</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Document Type</key>
+    <value>Tipo de Documento</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Upload Date</key>
+    <value>Data do Carregamento</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Create Document</key>
+    <value>Baixar os objectos seleccionados</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Upload File</key>
+    <value>Enviar ficheiro</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Certificates For Ashley Smith</key>
+    <value>Certificados para Ashley Smith</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Course</key>
+    <value>Visão Geral</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Level</key>
+    <value>Nível</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Download</key>
+    <value>Download</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
 </root>
