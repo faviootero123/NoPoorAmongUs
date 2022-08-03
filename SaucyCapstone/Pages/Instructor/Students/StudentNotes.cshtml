@@ -26,9 +26,6 @@
                     Topic
                 </th>
                 <th localize-content>
-                    Content
-                </th>
-                <th localize-content>
                     Importance Level
                 </th>
                 <th localize-content>
@@ -58,9 +55,6 @@
                             @obj.Topic
                         </td>
                         <td>
-                            <textarea asp-for="@obj.Content" class="form-control" readonly></textarea>                      
-                        </td>
-                        <td>
                             @((int)obj.Importance + 1)-@obj.Importance                    
                         </td>
                         <td>
@@ -88,7 +82,7 @@
                             @if (@obj.FacultyMember.Id == Model.userId)
                             {
                             <div class="btn-group" role="group">
-                                <a class="btn btn-primary mx-2" asp-page="./Edit/editNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                                <a class="btn btn-primary mx-2" asp-page="./Edit/editNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-pencil-square"></i>&nbsp;View/Edit</a>
                                 <a class="btn btn-danger mx-2" asp-page="./Delete/deleteNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
                             </div>
                             }

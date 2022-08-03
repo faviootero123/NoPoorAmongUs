@@ -21,6 +21,9 @@ public class addNotesModel : PageModel
     public Note? Note { get; set; }
     [BindProperty]
     public AccessType.Type? SelectedRole { get; set; }
+
+    [BindProperty]
+    public string Content { get; set; }
     public List<SelectListItem> RoleOfUser;
 
     public addNotesModel(ApplicationDbContext db)
@@ -33,7 +36,7 @@ public class addNotesModel : PageModel
     {
         foreach (var Roles in User.UserRoles())
             RoleOfUser.Add(new SelectListItem { Text = Roles, Value = Roles });
-        
+
         StudentId = studentId;
         return Page();     
     }
