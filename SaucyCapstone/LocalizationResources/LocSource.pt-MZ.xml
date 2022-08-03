@@ -852,4 +852,19 @@
     <value>Download</value>
     <comment>Created by XLocalizer</comment>
   </data>
+  <data isActive="false">
+    <key>Notes For Enrollment Tester</key>
+    <value>Notas para testador de matrícula</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>View/Edit Note</key>
+    <value>Ver/Editar nota</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Go Back</key>
+    <value>Voltar</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
 </root>

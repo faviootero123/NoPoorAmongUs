@@ -2,13 +2,15 @@
 @using Data
 @model SaucyCapstone.Pages.Instructor.Students.Add.addNotesModel
 
+<h1 localize-content>Create Note</h1>
+<hr />
+
 <form method="post" id="FormID" enctype="multipart/form-data" onsubmit="handleSubmit()">
     <input asp-for="@Model.Note.NoteId" hidden />
     <input asp-for="@Model.Note.Student.StudentId" hidden />
     <input asp-for="@Model.Note.FacultyMember.Id" hidden />
 
     <div class="card">
-        <h4 localize-content class="card-header">Create Note</h4>
         <div class="card-body rounded pb-2">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row my-1 mb-2 d-flex align-items-center">
@@ -90,20 +92,24 @@
 
     <script>
         var toolbarOptions = [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
-        [{ 'direction': 'rtl' }],                         // text direction
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['image'],
+            ['blockquote', 'code-block'],
 
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
 
-        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-        [{ 'align': [] }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
-        ['clean']                                         // remove formatting button
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+
+            ['clean']                                         // remove formatting button
         ];
         var options = {
             theme: 'snow',
