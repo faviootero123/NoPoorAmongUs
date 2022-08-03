@@ -85,7 +85,7 @@
                             </td>
                         }                      
                         <td>
-                            @if (@obj.FacultyMember.Id == Model.userId || User.IsAdmin())
+                            @if (@obj.FacultyMember.Id == Model.userId)
                             {
                             <div class="btn-group" role="group">
                                 <a class="btn btn-primary mx-2" asp-page="./Edit/editNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
