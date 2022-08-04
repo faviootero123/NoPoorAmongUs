@@ -45,7 +45,7 @@ public class EnrollmentsModel : PageModel
             .ThenInclude(c => c.Subject)
             .ToListAsync();
 
-        var SessionEnrollments = await _context.Enrollments.Where(e => e.Session.SessionId == id)
+        var SessionEnrollments = await _context.Enrollments.Where(e => e.Session.SessionId == id && e.EnrollmentStatus == Enrollment.EnrollmentStatusType.Ongoing)
             .Include(e => e.Student)
             .Include(e => e.Session)
             .ThenInclude(s => s.Course)
@@ -128,18 +128,6 @@ public class EnrollmentsModel : PageModel
                         }
                     }
                 }
-                //if (SessionVM.SubjectName == "English" && s.EnglishLevel == SessionVM.CourseLevel)
-                //{
-                //    SessionVM.EligibleStudents.Add(s);
-                //}
-                //else if (SessionVM.SubjectName == "IT" && s.ITLevel == SessionVM.CourseLevel)
-                //{
-                //    SessionVM.EligibleStudents.Add(s);
-                //}
-                //else if (SessionVM.SubjectName == "Public")
-                //{
-                //    SessionVM.EligibleStudents.Add(s);
-                //}
             }
         }
 
@@ -178,11 +166,22 @@ public class EnrollmentsModel : PageModel
         {
             return NotFound();
         }
-        enrollment = _context.Enrollments.Where(c => c.EnrollmentId == id)  .Include(e => e.Session)
+
+        enrollment = _context.Enrollments.Where(c => c.EnrollmentId == id)
+            .Include(e => e.Session)
             .ThenInclude(s => s.Course)
             .ThenInclude(c => c.Subject).FirstOrDefault();
+
+        var Enrollments = _context.Enrollments.Include(c => c.Session).Include(c => c.Session.Course).Include(c => c.Session.Course.Subject).Where(c => c.Session.Course.Subject == enrollment.Session.Course.Subject && c.Session.Course.CourseLevel == enrollment.Session.Course.CourseLevel && c.StudentId == enrollment.StudentId).ToList();
+
+        foreach (var Enrollment in Enrollments)
+        {
+            Enrollment.EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed;
+        }
+
         var courseLevel = enrollment.Session.Course.CourseLevel;
         student = _context.Students.Where(c => c.StudentId == enrollment.StudentId).FirstOrDefault();
+
         if (enrollment.Session.Course.Subject.SubjectName == "English")
         {
             student.EnglishLevel = courseLevel + 1;
@@ -191,12 +190,14 @@ public class EnrollmentsModel : PageModel
         {
             student.ITLevel = courseLevel + 1;
         }
-        _context.Enrollments.Remove(enrollment);
+
+        _context.Enrollments.UpdateRange(Enrollments);
         _context.Students.Update(student);
         _context.SaveChanges();
 
         return RedirectToPage("./Enrollments", new { id = enrollment.SessionId });
     }
+
     public bool isEnrolled(int SessionId, int StudentId)
     {
         var enrollmentStudentId = _context.Enrollments

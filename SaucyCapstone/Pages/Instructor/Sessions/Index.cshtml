@@ -25,11 +25,11 @@
                 {
                     subjectCourse = @course.Subject.SubjectName + " " + @course.CourseLevel.ToString();
                     <a id="@subjectCourse" asp-page="/Instructor/Sessions/Index" asp-route-subject="@course.Subject.SubjectName" asp-route-courselvl="@course.CourseLevel">
-                    <li class="custom btn @(sessionSubject is not null && subjectCourse == sessionSubjectCourse ? "btn-primary": "btn-outline-primary bg-white")">@subjectCourse</li>
+                    <li class="custom btn @(sessionSubject is not null && subjectCourse == sessionSubjectCourse ? "btn-primary": "btn-outline-primary")">@subjectCourse</li>
                     </a>
                 }
                 <a style="text-decoration:none" asp-page="/Instructor/Sessions/Index" asp-route-subject="All">
-                <li class="custom btn @(sessionCourse is null ? "btn-primary": "btn-outline-primary bg-white")">All</li>
+                <li class="custom btn @(sessionCourse is null ? "btn-primary": "btn-outline-primary")">All</li>
                 </a>
             </ul>
         </div>
