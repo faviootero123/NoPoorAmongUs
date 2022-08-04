@@ -121,9 +121,8 @@ public class EnrollmentsModel : PageModel
                                 }
                                 break;
                             case "Public":
-                                SessionVM.EligibleStudents.Add(s);
-                                break;
                             default:
+                                SessionVM.EligibleStudents.Add(s);
                                 break;
                         }
                     }
