@@ -917,58 +917,36 @@ public static class ConfigurationStaticMethods
                 session21
             });
 
-
-            ////////////grade\\\\\\\\\\\\
-            //var grade = new Grade
-            //{
-            //    AssessmentGrade = "A+",
-            //    BeginningRange = 1,
-            //    EndingRange = 1
-            //};
-            //var grade2 = new Grade
-            //{
-            //    AssessmentGrade = "B+",
-            //    BeginningRange = 1,
-            //    EndingRange = 1
-            //};
-            //await db.AddRangeAsync(new Grade[]
-            //{
-            //    grade,
-            //    grade2
-            //});
-
-
-
             ////////////enrollment\\\\\\\\\\\\
             var enrollment = new Enrollment
             {
                 Student = student5,
                 Session = session,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment2 = new Enrollment
             {
                 Student = student5,
                 Session = session2,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment3 = new Enrollment
             {
                 Student = student5,
                 Session = session3,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment4 = new Enrollment
             {
                 Student = student5,
                 Session = session4,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment5 = new Enrollment
             {
                 Student = student5,
                 Session = session5,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment6 = new Enrollment
             {
@@ -1083,32 +1061,6 @@ public static class ConfigurationStaticMethods
                 enrollment19,
                 enrollment21
             });
-
-
-            ////attendance
-            //var attendance = new Attendance
-            //{
-            //    Status = Attendance.AttendanceStatus.OnTime,
-            //    Date = DateTime.Now,
-            //    Session = session
-            //};
-            //var attendance2 = new Attendance
-            //{
-            //    Status = Attendance.AttendanceStatus.OnTime,
-            //    Date = DateTime.Now,
-            //    Session = session
-            //};
-            //var attendance3 = new Attendance
-            //{
-            //    Status = Attendance.AttendanceStatus.OnTime,
-            //    Date = DateTime.Now,
-            //    Session = session
-            //};
-            //await db.AddAsync(attendance);
-            //await db.AddAsync(attendance2);
-            //await db.AddAsync(attendance3);
-
-            //Session Dates
 
             ////////////assessment (homework)\\\\\\\\\\\\
             //assessments tied to courses in active term

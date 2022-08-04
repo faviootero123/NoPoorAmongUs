@@ -1,4 +1,5 @@
 ﻿@page
+@using Data
 @model SaucyCapstone.Pages.Instructor.Students.StudentDetailsModel
 
 <form method="post" enctype="multipart/form-data">
@@ -14,6 +15,7 @@
                 <h2>Student Details For @(Model.Applicant.StudentDetails.FirstName + " " + Model.Applicant.StudentDetails.LastName)</h2>
             </div>
             <div class="col-6 text-end">
+                <button localize-content type="submit" class="btn btn-success"><i class="bi bi-plus-circle">&nbsp;</i>Update</button>
                 <a class="btn btn-primary" asp-page="/Instructor/Students/Index">Back to Students</a>
             </div>
         </div>
@@ -40,81 +42,86 @@
                                     <div class="row my-1">
                                         <div class="col-3">First Name</div>
                                         <div class="col-9">
-                                            <input id="studentFirst" asp-for="Applicant.StudentDetails.FirstName" type="text" class="form-control" readonly />
+                                            <input id="studentFirst" asp-for="Applicant.StudentDetails.FirstName" type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">Last Name</div>
                                         <div class="col-9">
-                                            <input id="studentLast" asp-for="Applicant.StudentDetails.LastName" type="text" class="form-control" readonly />
+                                            <input id="studentLast" asp-for="Applicant.StudentDetails.LastName" type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">Phone</div>
                                         <div class="col-9">
-                                            <input asp-for="Applicant.StudentDetails.Phone" type="text" class="form-control" readonly />
+                                            <input asp-for="Applicant.StudentDetails.Phone" type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">Date of Birth</div>
                                         <div class="col-9">
-                                            <input id="dob" asp-for="Applicant.StudentDetails.DateOfBirth" type="date" class="form-control" readonly />
+                                            <input id="dob" asp-for="Applicant.StudentDetails.DateOfBirth" type="date" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">School Level</div>
                                         <div class="col-9">
-                                            <div class="form-group">
-                                                <input asp-for="Applicant.StudentDetails.SchoolLevel" class="form-control" readonly>
-                                            </div>
+                                            <select asp-for="Applicant.StudentDetails.SchoolLevel" class="form-select">
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                                <option>11</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">Determination</div>
                                         <div class="col-9">
                                             <div class="form-group">
-                                                <input asp-for="Applicant.StudentDetails.Determination" class="form-control" readonly>
+                                                <select asp-for="Applicant.StudentDetails.Determination" class="form-select" asp-items="Html.GetEnumSelectList<Student.DeterminationLevel>()"></select>
+                                                <span asp-validation-for="Applicant.StudentDetails.Determination" class="text-danger" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">Address</div>
                                         <div class="col-9">
-                                            <input asp-for="Applicant.StudentDetails.Address" type="text" class="form-control" readonly />
+                                            <input asp-for="Applicant.StudentDetails.Address" type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">Village</div>
                                         <div class="col-9">
-                                            <input asp-for="Applicant.StudentDetails.Village" type="text" class="form-control" readonly />
+                                            <input asp-for="Applicant.StudentDetails.Village" type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">Lattitude</div>
                                         <div class="col-9">
-                                            <input asp-for="Applicant.StudentDetails.Latitude" type="text" class="form-control" readonly />
+                                            <input asp-for="Applicant.StudentDetails.Latitude" type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">Longitude</div>
                                         <div class="col-9">
-                                            <input asp-for="Applicant.StudentDetails.Longitude" type="text" class="form-control" readonly />
+                                            <input asp-for="Applicant.StudentDetails.Longitude" type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row my-1">
                                         <div class="col-3">Annual Income</div>
                                         <div class="col-9">
-                                            <input id="income" asp-for="Applicant.StudentDetails.AnnualIncome" type="text" class="form-control" readonly />
+                                            <input id="income" asp-for="Applicant.StudentDetails.AnnualIncome" type="text" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row my-1 pb-3">
                                         <div class="col-3">Food Assist?</div>
                                         <div class="col-3">
-                                            <input asp-for="Applicant.StudentDetails.FoodAssistance" type="checkbox" class="form-check-input" readonly />
+                                            <input asp-for="Applicant.StudentDetails.FoodAssistance" type="checkbox" class="form-check-input" />
                                         </div>
                                         <div class="col-3">Chappa Assist?</div>
                                         <div class="col-3">
-                                            <input asp-for="Applicant.StudentDetails.ChappaAssistance" type="checkbox" class="form-check-input" readonly />
+                                            <input asp-for="Applicant.StudentDetails.ChappaAssistance" type="checkbox" class="form-check-input" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -131,7 +138,7 @@
                                     <div class="row my-1">
                                         <div class="col-3">Status</div>
                                         <div class="col-9">
-                                            <input asp-for="Applicant.StudentDetails.Status" type="text" class="form-control" disabled />
+                                            <input asp-for="Applicant.StudentDetails.Status" type="text" class="form-control" disabled/>
                                         </div>
                                     </div>
                                 </div>
@@ -162,25 +169,25 @@
                                         <div class="row my-1">
                                             <div class="col-3">First Name</div>
                                             <div class="col-9">
-                                                <input id="guardianFirst" asp-for="Applicant.GuardianDetails[i].FirstName" type="text" class="form-control" readonly />
+                                                <input id="guardianFirst" asp-for="Applicant.GuardianDetails[i].FirstName" type="text" class="form-control"/>
                                             </div>
                                         </div>
                                         <div class="row my-1">
                                             <div class="col-3">Last Name</div>
                                             <div class="col-9">
-                                                <input id="guardianLast" asp-for="Applicant.GuardianDetails[i].LastName" type="text" class="form-control" readonly />
+                                                <input id="guardianLast" asp-for="Applicant.GuardianDetails[i].LastName" type="text" class="form-control"/>
                                             </div>
                                         </div>
                                         <div class="row my-1">
                                             <div class="col-3">Contact Info</div>
                                             <div class="col-9">
-                                                <input id="guardianContact" asp-for="Applicant.GuardianDetails[i].ContactInfo" type="text" class="form-control" readonly />
+                                                <input id="guardianContact" asp-for="Applicant.GuardianDetails[i].ContactInfo" type="text" class="form-control"/>
                                             </div>
                                         </div>
                                         <div class="row my-1">
                                             <div class="col-3">Relationship</div>
                                             <div class="col-9">
-                                                <input id="guardianRelation" asp-for="Applicant.GuardianDetails[i].Relation" type="text" class="form-control" readonly />
+                                                <input id="guardianRelation" asp-for="Applicant.GuardianDetails[i].Relation" type="text" class="form-control"/>
                                             </div>
                                         </div>
                                         <hr>
@@ -267,9 +274,6 @@
             return true;
         }
 
-
-
-
         function changeTab(category) {
             var i, x, tablinks;
             x = document.getElementsByClassName("category");
@@ -278,15 +282,5 @@
             }
             document.getElementById(category).style.display = "block";
         }
-
-                //onclick="AddGuardian('guardianTable');"
-                //$("#guardianButton").click(function(e) {
-                //    e.preventDefault();
-                //    var formData = new FormData();
-                //    var newGuardian = $("#guardianTable").clone();
-                //    newGuardian.attr("id", "guardianTable-" + $(".row").length);
-                //    newGuardian.insertAfter("#guardianTable:last");
-                //});
-
     </script>
     }
