@@ -12,17 +12,13 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2>Session Overview</h2>
+            <h2 localize-content>Session Overview</h2>
         </div>
         <div class="col-6 text-end">
             <a asp-page="Upsert" id="CreateBtn" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> &nbsp; New Session
+                <i class="bi bi-plus-circle">&nbsp;</i><localize>New Session</localize>
             </a>
-            @*<a asp-page="ViewArchived" id="CreateBtn" class="btn btn-danger">
-            <i class="bi bi-plus-circle"></i> &nbsp; View Archived
-            </a>*@
         </div>
-
         <div class="pt-2">
             <ul class="list-group list-group-horizontal-sm">
                 @foreach (var course in Model.CourseList)
@@ -39,15 +35,14 @@
         </div>
     </div>
     <hr />
-
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>Course Name</th>
-                <th>Day of Week</th>
-                <th>Time</th>
-                <th>Term</th>
-                <th>Options</th>
+                <th localize-content>Course Name</th>
+                <th localize-content>Day of Week</th>
+                <th localize-content>Time</th>
+                <th localize-content>Term</th>
+                <th localize-content>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -68,11 +63,11 @@
                     </td>
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end">
-                            <a class="btn btn-primary mx-2" asp-page="./Upsert" asp-route-id="@session.SessionId"><i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
-                            <a class="btn btn-warning mx-2" asp-page="./Enrollments" asp-route-id="@session.SessionId"><i class="bi bi-people-fill"></i>&nbsp;Enrollments</a>
-                            <a class="btn btn-info mx-2" asp-page="./Grades" asp-route-id="@session.SessionId"><i class="bi bi-file-earmark-text-fill"></i>&nbsp;Assessments</a>
-                            <a class="btn btn-secondary mx-2" asp-page="./Attendance" asp-route-id="@session.SessionId"><i class="bi bi-calendar-check-fill"></i>&nbsp;Attendance</a>
-                            <a class="btn btn-danger mx-2" asp-page="./Archive" asp-route-id="@session.SessionId"><i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
+                            <a class="btn btn-primary mx-2" asp-page="./Upsert" asp-route-id="@session.SessionId"><i class="bi bi-pencil-square">&nbsp;</i><localize>Edit</localize></a>
+                            <a class="btn btn-warning mx-2" asp-page="./Enrollments" asp-route-id="@session.SessionId"><i class="bi bi-people-fill">&nbsp;</i><localize>Enrollments</localize></a>
+                            <a class="btn btn-info mx-2" asp-page="./Grades" asp-route-id="@session.SessionId"><i class="bi bi-file-earmark-text-fill">&nbsp;</i><localize>Assessments</localize></a>
+                            <a class="btn btn-secondary mx-2" asp-page="./Attendance" asp-route-id="@session.SessionId"><i class="bi bi-calendar-check-fill">&nbsp;</i><localize>Attendance</localize></a>
+                            <a class="btn btn-danger mx-2" asp-page="./Archive" asp-route-id="@session.SessionId"><i class="bi bi-trash-fill">&nbsp;</i><localize>Delete</localize></a>
                         </div>
                     </td>
                 </tr>
