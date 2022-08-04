@@ -372,4 +372,24 @@
     <value>voltar para a vista geral</value>
     <comment>Created by XLocalizer</comment>
   </data>
+  <data isActive="false">
+    <key>Copy from Active Term: Summer22</key>
+    <value>Copiar do Termo Ativo: Summer22</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Copy Courses from active?</key>
+    <value>Copiar cursos de ativo?</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Copy Assignments from active?</key>
+    <value>Copiar atribuições de ativo?</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Copy Sessions from active?</key>
+    <value>Copiar sessões do ativo?</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
 </root>

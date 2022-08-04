@@ -14,7 +14,7 @@
     @if (Model.ScheduleVM.Student.Enrollments.Count > 0)
     {
             @(await Html.RenderComponentAsync<Component>(
-        renderMode: RenderMode.Server@*Prerendered*@,
+        renderMode: RenderMode.ServerPrerendered,
         new{
         studentId = Model.ScheduleVM.Student.StudentId,
         studentName = Model.ScheduleVM.Student.FirstName + Model.ScheduleVM.Student.LastName,
