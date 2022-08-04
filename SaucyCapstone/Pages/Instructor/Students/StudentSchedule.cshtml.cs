@@ -21,11 +21,11 @@ public class StudentScheduleModel : PageModel
     [BindProperty]
     public ScheduleVM ScheduleVM { get; set; }
 
-    public async Task OnGet(int? studentId)
+    public async Task<IActionResult> OnGetAsync(int? studentId)
     {
         if (studentId == null)
         {
-            return;
+            return NotFound();
         }
 
         var student = await _db.Students.Where(s => s.StudentId == studentId).Include(s => s.Enrollments).FirstOrDefaultAsync();
@@ -34,5 +34,7 @@ public class StudentScheduleModel : PageModel
         {
             Student = student
         };
+
+        return Page();
     }
 }

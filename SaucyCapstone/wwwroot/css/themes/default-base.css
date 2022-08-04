@@ -3738,9 +3738,8 @@ ul.rz-profile-menu .rz-navigation-menu .rz-fileupload-row .rz-paginator-element 
   height: 1.5em;
   text-align: right;
   padding: 0 4px;
-  width: 55px;
+  width: 60px;
   border-right: 1px solid #888888;
-  white-space: nowrap;
 }
 
 .rz-slot-minor {

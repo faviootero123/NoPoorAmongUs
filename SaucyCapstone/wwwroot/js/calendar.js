@@ -22,7 +22,6 @@ function reloadCss(print) {
 }
 
 function saveAsPdf(student) {
-    //reloadCss(true);
     let element = document.getElementById('calendar');
 
     let opt = {
