@@ -132,7 +132,6 @@ public static class ConfigurationStaticMethods
 
         // Apply role to user 
         await userManager.AddUserToRole("AdminUser@odetopeaches.com", Roles.Admin);
-        await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
         await userManager.AddUserToRole("SocialWorker@odetopeaches.com", Roles.SocialWorker);
         await userManager.AddUserToRole("Rater@odetopeaches.com", Roles.Rater);
         await userManager.AddUserToRole("Rater2@odetopeaches.com", Roles.Rater);
@@ -160,11 +159,11 @@ public static class ConfigurationStaticMethods
             ///////////school\\\\\\\\\\\
             var school = new School
             {
-                SchoolName = "Bowani"
+                SchoolName = "Boane"
             };
             var school2 = new School
             {
-                SchoolName = "Weber"
+                SchoolName = "Mahubo"
             };
             var school3 = new School
             {
@@ -219,6 +218,7 @@ public static class ConfigurationStaticMethods
             var faculty = await userManager.FindByEmailAsync("john.doe@odetopeaches.com");
             var faculty2 = await userManager.FindByEmailAsync("adam.smith@odetopeaches.com");
             var faculty3 = await userManager.FindByEmailAsync("public.teacher@odetopeaches.com");
+
             ////////////course\\\\\\\\\\\\
             //courses for inactive term
             var course = new Course
