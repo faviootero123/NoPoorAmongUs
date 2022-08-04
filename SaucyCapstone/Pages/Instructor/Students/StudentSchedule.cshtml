@@ -5,7 +5,7 @@
 <div class="card">
     <div class="card-header">
         <div class="h2">
-            Student Schedule
+            <localize>Student Schedule</localize>
             <span class="h3 text-muted">
                 - @Model.ScheduleVM.Student.FirstName @Model.ScheduleVM.Student.LastName
             </span>
@@ -27,12 +27,12 @@
     {
         <div class="card-body">
             <i class="h4 text-muted text-center d-block">
-                No Enrollments
+                <localize>No Enrollments</localize>
             </i>
         </div>
         <div class="card-footer d-print-none">
             <div class="d-grid col-6 mx-auto">
-                <a asp-page="Index" class="btn btn-primary">
+                <a localize-content asp-page="Index" class="btn btn-primary">
                     Back to Student List
                 </a>
             </div>

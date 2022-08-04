@@ -853,18 +853,253 @@
     <comment>Created by XLocalizer</comment>
   </data>
   <data isActive="false">
+    <key>Student Schedule &lt;span class="h3 text-muted"&gt; - Ashley Smith &lt;/span&gt;</key>
+    <value>Agenda Estudantil &amp;lt;span class="h3 text-muted"&amp;gt; - Ashley Smith &amp;lt;/span&amp;gt;</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>No Enrollments</key>
+    <value>N° matriculas</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Back to Student List</key>
+    <value>De volta ao Aluno</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Student Schedule</key>
+    <value>Programação Estudantil</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Session Overview</key>
+    <value>Visão geral da sessão</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>New Session</key>
+    <value>Nova Sessão</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>English 1</key>
+    <value>Inglês I</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>English 2</key>
+    <value>Inglês II</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>English 3</key>
+    <value>Inglês III</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>IT 1</key>
+    <value>(IT‑I)</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>IT 2</key>
+    <value>TI 2</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>IT 3</key>
+    <value>TI 3</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Public 0</key>
+    <value>Público 0</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Course Name</key>
+    <value>Nome do curso</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Day of Week</key>
+    <value>Dia da Semana</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Time</key>
+    <value>Hora</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Enrollments</key>
+    <value>Inscrições</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Assessments</key>
+    <value>Avaliações</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Attendance</key>
+    <value>Assiduidade</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Course Title</key>
+    <value>Título do Curso</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Update Session</key>
+    <value>Sessão de atualização</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Start Time</key>
+    <value>Hora início</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>End Time</key>
+    <value>End Time</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Back to Session Overview</key>
+    <value>Visão geral da sessão de volta</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Create Session</key>
+    <value>Criar Sessão</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Enrollments for English 1</key>
+    <value>Inscrições para Inglês 1</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Monday, 09:00 - 10:00</key>
+    <value>Segunda, das 9h às 22h.</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Back to Session</key>
+    <value>Voltar à sessão</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Enrolled Students</key>
+    <value>Estudantes matriculados</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Student Options</key>
+    <value>Opções estudantis</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Student Details</key>
+    <value>Detalhes do Aluno</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Remove</key>
+    <value>Remover</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Pass</key>
+    <value>Aprovado</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Eligible Students</key>
+    <value>Alunos elegíveis</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Enroll</key>
+    <value>Inscrição</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Previous Page</key>
+    <value>Página Anterior</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Next Page</key>
+    <value>Página Seguinte</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Mark All Present</key>
+    <value>Marque Todos Os Presentes</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Unmark All</key>
+    <value>Desmarcar tudo</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Attendence for English 1</key>
+    <value>Atendimento para Inglês 1</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Save</key>
+    <value>Guardar</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Optional Comments</key>
+    <value>Comentários Opcionais</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
     <key>Notes For Enrollment Tester</key>
     <value>Notas para testador de matrícula</value>
     <comment>Created by XLocalizer</comment>
   </data>
   <data isActive="false">
-    <key>View/Edit Note</key>
-    <value>Ver/Editar nota</value>
+    <key>Assignment Overview</key>
+    <value>Visão geral da atribuição</value>
     <comment>Created by XLocalizer</comment>
   </data>
   <data isActive="false">
-    <key>Go Back</key>
-    <value>Voltar</value>
+    <key>New Assignment</key>
+    <value>Nova Atribuição</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Title</key>
+    <value>Título</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Max Score</key>
+    <value>Pontuação máxima</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Update Assignment</key>
+    <value>Alterar lotação</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Assignment Title</key>
+    <value>Título da Tarefa</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
+  <data isActive="false">
+    <key>Delete Assignment</key>
+    <value>Apagar Atribuição</value>
     <comment>Created by XLocalizer</comment>
   </data>
 </root>
