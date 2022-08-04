@@ -1,11 +1,11 @@
 using Data;
+using LazZiya.TagHelpers;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.JSInterop;
-using Microsoft.Net.Http.Headers;
 using Radzen;
 using SaucyCapstone.Constants;
 using SaucyCapstone.Data;
@@ -66,18 +66,17 @@ services.Configure<RequestLocalizationOptions>(ops =>
     {
        new CultureInfo("en-US"),
        new CultureInfo("pt-MZ"),
-    }; 
+    };
     ops.SupportedCultures = cultures;
     ops.SupportedUICultures = cultures;
-    ops.DefaultRequestCulture = new RequestCulture("en-US");    // Optional: add custom provider to support localization 
+    //ops.DefaultRequestCulture = new RequestCulture("en-US");    // Optional: add custom provider to support localization 
     // based on route value
-    ops.RequestCultureProviders.Insert(0, new RouteSegmentRequestCultureProvider(cultures));
+    ops.RequestCultureProviders.Insert(1, new RouteSegmentRequestCultureProvider(cultures));
 });
 services.AddHttpClient<ITranslator, MyMemoryTranslateService>();
 services.AddSingleton<IXResourceProvider, XmlResourceProvider>();
 
 services.AddRazorPages()
-    .AddRazorPagesOptions(ops => { ops.Conventions.Insert(0, new RouteTemplateModelConventionRazorPages()); })
     .AddXLocalizer<LocSource, MyMemoryTranslateService>(ops =>
     {
         ops.ResourcesPath = "LocalizationResources";
@@ -87,6 +86,7 @@ services.AddRazorPages()
         ops.TranslateFromCulture = "en-US";
     })
     .AddRazorRuntimeCompilation();
+services.AddTransient<ITagHelperComponent, LocalizationValidationScriptsTagHelperComponent>();
 
 services.AddHttpContextAccessor();
 
@@ -100,34 +100,25 @@ app.UseSerilogRequestLogging();
 //Seed the data to the database
 if (app.Configuration.GetValue<bool>("SeedData"))
 {
-   await app.Services.SeedDataAsync();
+    await app.Services.SeedDataAsync();
 }
-var mvcBuilder = builder.Services.AddRazorPages();
-// Configure the HTTP request pipeline. AKA middleware
 
+// Configure the HTTP request pipeline. AKA middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseHttpsRedirection();
     app.UseDeveloperExceptionPage();
-    mvcBuilder.AddRazorRuntimeCompilation();
-    app.UseStaticFiles();
 }
 else
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-    app.UseStaticFiles(new StaticFileOptions
-    {
-        OnPrepareResponse = ctx =>
-        {
-            const int durationInSeconds = 60 * 60 * 24;
-            ctx.Context.Request.Headers[HeaderNames.CacheControl] = $"public,max-age={durationInSeconds}";
-        }
-    });
+
 }
 
+app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
@@ -140,14 +131,10 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapRazorPages();
 app.MapBlazorHub();
+app.MapRazorPages();
 
 // Use request localization middleware
 app.UseRequestLocalization();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapRazorPages();
-});
 
 app.Run();

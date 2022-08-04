@@ -5,13 +5,13 @@
 
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
     <div class="card">
-        <h4 class="card-header">@(Model.Session.SessionId != 0 ? "Update" : "Create") Session</h4>
+        <h4 localize-content class="card-header">@(Model.Session.SessionId != 0 ? "Update" : "Create") Session</h4>
         <div class="card-body rounded pb-2">
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Session.SessionId" />
 
             <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     Course
                 </div>
                 <div class="col-9">
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     Term
                 </div>
                 <div class="col-9">
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     Day of Week
                 </div>
                 <div class="col-9">
@@ -50,23 +50,23 @@
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     Start Time
                 </div>
-                <div class="col-9">
+                <div class="col-2">
                     <div class="form-group">
-                        <input id="starttimepicker" value="@Model.Session.StartTime.ToShortTimeString()" asp-for="Session.StartTime" type="text" class="form-control" />
+                        <input id="starttimepicker" value="@Model.Session.StartTime.TimeOfDay" asp-for="Session.StartTime" type="time" class="form-control" />
                         <span asp-validation-for="Session.StartTime" class="text-danger"></span>
                     </div>
                 </div>
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
-                <div class="col-3 text-end">
+                <div localize-content class="col-3 text-end">
                     End Time
                 </div>
-                <div class="col-9">
+                <div class="col-2">
                     <div class="form-group">
-                        <input id="endtimepicker" value="@Model.Session.EndTime.ToShortTimeString()" asp-for="Session.EndTime" type="text" class="form-control" />
+                        <input id="endtimepicker" value="@Model.Session.EndTime.TimeOfDay" asp-for="Session.EndTime" type="time" class="form-control" />
                         <span asp-validation-for="Session.EndTime" class="text-danger"></span>
                     </div>
                 </div>
@@ -76,15 +76,15 @@
                     <div class="col-6">
                         @if (Model.Session.SessionId != 0)
                         {
-                            <button type="submit" class="btn btn-success form-control" onclick="return validateInput()">Update</button>
+                            <button localize-content type="submit" class="btn btn-success form-control" onclick="return validateInput()">Update</button>
                         }
                         else
                         {
-                            <button type="submit" class="btn btn-success form-control" onclick="return validateInput()">Create</button>
+                            <button localize-content type="submit" class="btn btn-success form-control" onclick="return validateInput()">Create</button>
                         }
                     </div>
                     <div class="col-6">
-                        <a asp-page="Index" class="btn btn-primary" style="width:100%">
+                        <a localize-content asp-page="Index" class="btn btn-primary" style="width:100%">
                             Back to Session Overview
                         </a>
                     </div>

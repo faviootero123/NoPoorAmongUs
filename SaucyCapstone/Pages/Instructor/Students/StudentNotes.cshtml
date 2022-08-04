@@ -10,11 +10,11 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2>Notes For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
+            <h2 localize-content>Notes For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-route-studentId="@Model.Student.StudentId" asp-page="./Add/addNotes" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add Note</a>
-            <a class="btn btn-primary" asp-page="/Instructor/Students/Index">Back to Students</a>
+            <a asp-route-studentId="@Model.Student.StudentId" asp-page="./Add/addNotes" class="btn btn-success"><i class="bi bi-plus-circle">&nbsp;</i><localize>Add Note</localize></a>
+            <a localize-content class="btn btn-primary" asp-page="/Instructor/Students/Index">Back to Students</a>
         </div>
     </div>
     <hr />
@@ -22,28 +22,25 @@
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>
+                <th localize-content>
                     Topic
                 </th>
-                <th>
-                    Content
-                </th>
-                <th>
+                <th localize-content>
                     Importance Level
                 </th>
-                <th>
+                <th localize-content>
                     Creator
                 </th>
-                <th>
+                <th localize-content>
                     Access Type
                 </th>
-                <th>
+                <th localize-content>
                     Edited Date
                 </th>
-                <th>
+                <th localize-content>
                     Visible by
                 </th>
-                <th>Options</th>
+                <th localize-content>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -56,9 +53,6 @@
                     <tr>
                         <td>
                             @obj.Topic
-                        </td>
-                        <td>
-                            <textarea asp-for="@obj.Content" class="form-control" readonly></textarea>                      
                         </td>
                         <td>
                             @((int)obj.Importance + 1)-@obj.Importance                    
@@ -85,10 +79,10 @@
                             </td>
                         }                      
                         <td>
-                            @if (@obj.FacultyMember.Id == Model.userId || User.IsAdmin())
+                            @if (@obj.FacultyMember.Id == Model.userId)
                             {
                             <div class="btn-group" role="group">
-                                <a class="btn btn-primary mx-2" asp-page="./Edit/editNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                                <a class="btn btn-primary mx-2" asp-page="./Edit/editNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-pencil-square"></i>&nbsp;View/Edit</a>
                                 <a class="btn btn-danger mx-2" asp-page="./Delete/deleteNotes" asp-route-noteId="@obj.NoteId"> <i class="bi bi-trash-fill"></i>&nbsp;Delete</a>
                             </div>
                             }

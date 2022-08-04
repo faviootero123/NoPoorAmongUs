@@ -4,10 +4,10 @@
 <div class="container p-3">
 	<div class="row pt-4">
 		<div class="col-6">
-			<h2>Certificates For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
+			<h2 localize-content>Certificates For @(Model.Student.FirstName + " " + Model.Student.LastName)</h2>
 		</div>
 		<div class="col-6 text-end">
-			<a class="btn btn-primary" asp-page="/Instructor/Students/Index">Back to Students</a>
+			<a localize-content class="btn btn-primary" asp-page="/Instructor/Students/Index">Back to Students</a>
 		</div>
 	</div>
 	<hr />
@@ -15,16 +15,16 @@
 	<table id="dataTable" class="table table-bordered table-striped " style="width:100%">
 		<thead>
 			<tr>
-				<th>
+				<th localize-content>
 					Course
 				</th>
-				<th>
+				<th localize-content>
 					Level
 				</th>
-				<th>
+				<th localize-content>
 					Term
 				</th>
-				<th>
+				<th localize-content>
 					Download
 				</th>
 			</tr>
@@ -51,7 +51,7 @@
 							<input asp-for="@Model.CertificationVM.Subject" value="@(Enrollment.Session.Course.Subject.SubjectName + " " + Enrollment.Session.Course.CourseLevel)" hidden>
 							<input asp-for="@Model.CertificationVM.TermName" value="@Enrollment.Session.Course.Term.TermName" hidden>
 							<input asp-for="@Model.CertificationVM.StudentName" value="@(Model.Student.FirstName + " " + Model.Student.LastName)" hidden>
-							<input type="Submit" value="GeneratePDF" />
+							<input localize-content type="Submit" class="btn btn-success" value="GeneratePDF" />
 						</form>
 					</td>
 				</tr>

@@ -51,17 +51,14 @@ public class StudentCertificatesModel : PageModel
     }
     public ActionResult OnPostGeneratePDF(CertificationVM CertificationVM)
     {
-        string user = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        string download = Path.Combine(user, "Downloads");
+        var HTML_Render = new HtmlToPdf();
+        var PDF = HTML_Render.RenderHtmlAsPdf("<h1> Congratulations " +
+            CertificationVM.StudentName +
+            "!</h1><br><h2> You have successfully passed " +
+            CertificationVM.Subject + " during " +
+            CertificationVM.TermName + "<h2>");
 
-        var renderer = new HtmlToPdf();
-
-        renderer.RenderHtmlAsPdf("<h1> Congratulations " + 
-            CertificationVM.StudentName + 
-            "!</h1><br><h2> You have successfully passed " + 
-            CertificationVM.Subject + " during " + 
-            CertificationVM.TermName + "<h2>").SaveAs(download);
-        return RedirectToPage("StudentCertificates", new { id = CertificationVM.StudentId });
+        return File(PDF.BinaryData, "application/pdf", CertificationVM.StudentName + ".Pdf");
     }
 }
 

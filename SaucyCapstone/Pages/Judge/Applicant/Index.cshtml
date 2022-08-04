@@ -4,11 +4,11 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2>Applicant Overview</h2>
+            <h2 localize-content>Applicant Overview</h2>
         </div>
         <div class="col-6 text-end">
             <a asp-page="Upsert" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> &nbsp; New Application
+                <i class="bi bi-plus-circle">&nbsp;</i><localize>New Application</localize>
             </a>
         </div>
     </div>
@@ -17,16 +17,16 @@
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>
+                <th localize-content>
                     Name
                 </th>
-                <th>
+                <th localize-content>
                     Application Status
                 </th>
-                <th>
+                <th localize-content>
                     Last Modified Date
                 </th>
-                <th>Application Options</th>
+                <th localize-content>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -45,16 +45,16 @@
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end">
                             <a asp-page="Upsert" asp-route-id="@obj.StudentId"
-                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>&nbsp;Edit</a>
+                           class="btn btn-primary mx-2"><i class="bi bi-pencil-square">&nbsp;</i><localize>Edit</localize></a>
                             @if (obj.AppStatus == Data.Student.ApplicationStatus.Open)
                             {
                                 <a asp-page="Archive" asp-route-id="@obj.StudentId"
-                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Archive</a>
+                           class="btn btn-danger mx-2"><i class="bi bi-trash-fill">&nbsp;</i><localize>Archive</localize></a>
                             }
                             else if (obj.AppStatus == Data.Student.ApplicationStatus.Archived)
                             {
                                 <a asp-page="Archive" asp-route-id="@obj.StudentId"
-                           class="btn btn-info mx-2"> <i class="bi bi-trash-fill"></i>&nbsp;Open</a>
+                           class="btn btn-info mx-2"><i class="bi bi-trash-fill">&nbsp;</i><localize>Open</localize></a>
                             }
                         </div>
                     </td>

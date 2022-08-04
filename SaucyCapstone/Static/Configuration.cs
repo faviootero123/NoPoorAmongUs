@@ -48,19 +48,10 @@ public static class ConfigurationStaticMethods
                 UserName ="AdminUser@odetopeaches.com",
                 Email = "AdminUser@odetopeaches.com" ,
                 EmailConfirmed = true,
+                FirstName = "Super",
+                LastName = "Admin"
               },
               "SuperUserDo@123!"
-           },
-           {
-               new ApplicationUser
-               {
-                    UserName ="InstructorUser@odetopeaches.com",
-                    Email = "InstructorUser@odetopeaches.com" ,
-                    EmailConfirmed = true,
-                    FirstName = "Instructor",
-                    LastName = "Instructor"
-               },
-               "InstructorUserDo@123!"
            },
            {
                new ApplicationUser
@@ -68,6 +59,8 @@ public static class ConfigurationStaticMethods
                     UserName ="SocialWorker@odetopeaches.com",
                     Email = "SocialWorker@odetopeaches.com" ,
                     EmailConfirmed = true,
+                    FirstName = "Social",
+                    LastName = "Worker"
                },
                "SocialWorkerUserDo@123!"
            },
@@ -77,6 +70,8 @@ public static class ConfigurationStaticMethods
                     UserName ="Rater@odetopeaches.com",
                     Email = "Rater@odetopeaches.com" ,
                     EmailConfirmed = true,
+                    FirstName = "Judge",
+                    LastName = "Judy"
                },
                "RaterUserDo@123!"
            },
@@ -86,6 +81,8 @@ public static class ConfigurationStaticMethods
                     UserName ="Rater2@odetopeaches.com",
                     Email = "Rater2@odetopeaches.com" ,
                     EmailConfirmed = true,
+                    FirstName = "Judge",
+                    LastName = "Josh"
                },
                "RaterUserDo@123!"
            },
@@ -135,7 +132,6 @@ public static class ConfigurationStaticMethods
 
         // Apply role to user 
         await userManager.AddUserToRole("AdminUser@odetopeaches.com", Roles.Admin);
-        await userManager.AddUserToRole("InstructorUser@odetopeaches.com", Roles.Instructor);
         await userManager.AddUserToRole("SocialWorker@odetopeaches.com", Roles.SocialWorker);
         await userManager.AddUserToRole("Rater@odetopeaches.com", Roles.Rater);
         await userManager.AddUserToRole("Rater2@odetopeaches.com", Roles.Rater);
@@ -163,11 +159,11 @@ public static class ConfigurationStaticMethods
             ///////////school\\\\\\\\\\\
             var school = new School
             {
-                SchoolName = "Bowani"
+                SchoolName = "Boane"
             };
             var school2 = new School
             {
-                SchoolName = "Weber"
+                SchoolName = "Mahubo"
             };
             var school3 = new School
             {
@@ -222,6 +218,7 @@ public static class ConfigurationStaticMethods
             var faculty = await userManager.FindByEmailAsync("john.doe@odetopeaches.com");
             var faculty2 = await userManager.FindByEmailAsync("adam.smith@odetopeaches.com");
             var faculty3 = await userManager.FindByEmailAsync("public.teacher@odetopeaches.com");
+
             ////////////course\\\\\\\\\\\\
             //courses for inactive term
             var course = new Course
@@ -920,58 +917,36 @@ public static class ConfigurationStaticMethods
                 session21
             });
 
-
-            ////////////grade\\\\\\\\\\\\
-            //var grade = new Grade
-            //{
-            //    AssessmentGrade = "A+",
-            //    BeginningRange = 1,
-            //    EndingRange = 1
-            //};
-            //var grade2 = new Grade
-            //{
-            //    AssessmentGrade = "B+",
-            //    BeginningRange = 1,
-            //    EndingRange = 1
-            //};
-            //await db.AddRangeAsync(new Grade[]
-            //{
-            //    grade,
-            //    grade2
-            //});
-
-
-
             ////////////enrollment\\\\\\\\\\\\
             var enrollment = new Enrollment
             {
                 Student = student5,
                 Session = session,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment2 = new Enrollment
             {
                 Student = student5,
                 Session = session2,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment3 = new Enrollment
             {
                 Student = student5,
                 Session = session3,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment4 = new Enrollment
             {
                 Student = student5,
                 Session = session4,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment5 = new Enrollment
             {
                 Student = student5,
                 Session = session5,
-                EnrollmentStatus = Enrollment.EnrollmentStatusType.Completed,
+                EnrollmentStatus = Enrollment.EnrollmentStatusType.Ongoing,
             };
             var enrollment6 = new Enrollment
             {
@@ -1086,32 +1061,6 @@ public static class ConfigurationStaticMethods
                 enrollment19,
                 enrollment21
             });
-
-
-            ////attendance
-            //var attendance = new Attendance
-            //{
-            //    Status = Attendance.AttendanceStatus.OnTime,
-            //    Date = DateTime.Now,
-            //    Session = session
-            //};
-            //var attendance2 = new Attendance
-            //{
-            //    Status = Attendance.AttendanceStatus.OnTime,
-            //    Date = DateTime.Now,
-            //    Session = session
-            //};
-            //var attendance3 = new Attendance
-            //{
-            //    Status = Attendance.AttendanceStatus.OnTime,
-            //    Date = DateTime.Now,
-            //    Session = session
-            //};
-            //await db.AddAsync(attendance);
-            //await db.AddAsync(attendance2);
-            //await db.AddAsync(attendance3);
-
-            //Session Dates
 
             ////////////assessment (homework)\\\\\\\\\\\\
             //assessments tied to courses in active term

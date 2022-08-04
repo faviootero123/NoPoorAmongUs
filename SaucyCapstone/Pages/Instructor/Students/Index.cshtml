@@ -4,7 +4,7 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2>Student Overview</h2>
+            <h2 localize-content>Student Overview</h2>
         </div>     
     </div>
     <hr />
@@ -12,19 +12,19 @@
     <table id="dataTable" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>
-                    First Name
+                <th localize-content>
+                    Student Name
                 </th>
-                <th>
+                <th localize-content>
                     School Level
                 </th>
-                <th>
+                <th localize-content>
                     IT Level
                 </th>
-                <th>
+                <th localize-content>
                     English Level 
                 </th>
-                <th>Options</th>
+                <th localize-content>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -45,11 +45,11 @@
                     </td>
                     <td>
                         <div class="btn-group" role="group" style="justify-content:end">
-                            <a class="btn btn-success mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentDetails"><i class="bi bi-clipboard2-fill"></i>&nbsp;Details</a>
-                            <a class="btn btn-primary mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentNotes"><i class="bi bi-pencil-square"></i>&nbsp;Notes</a>
-                            <a class="btn btn-info mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentDocuments"><i class="bi bi-file-earmark-text-fill"></i>&nbsp;Documents</a>
-                            <a class="btn btn-warning mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentCertificates"><i class="bi bi-file-earmark-person"></i>&nbsp;Certifications</a>
-                            <a class="btn btn-dark mx-2" asp-route-studentId="@student.StudentId" asp-page="/Instructor/Students/StudentSchedule"><i class="bi bi-calendar"></i>&nbsp;Schedule</a>
+                            <a class="btn btn-success mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentDetails"><i class="bi bi-clipboard2-fill">&nbsp;</i><localize>Details</localize></a>
+                            <a class="btn btn-primary mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentNotes"><i class="bi bi-pencil-square">&nbsp;</i><localize>Notes</localize></a>
+                            <a class="btn btn-info mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentDocuments"><i class="bi bi-file-earmark-text-fill">&nbsp;</i><localize>Documents</localize></a>
+                            <a class="btn btn-warning mx-2" asp-route-id="@student.StudentId" asp-page="/Instructor/Students/StudentCertificates"><i class="bi bi-file-earmark-person">&nbsp;</i><localize>Certifications</localize></a>
+                            <a class="btn btn-dark mx-2" asp-route-studentId="@student.StudentId" asp-page="/Instructor/Students/StudentSchedule"><i class="bi bi-calendar">&nbsp;</i><localize>Schedule</localize></a>
                         </div>
                     </td>
                 </tr>
