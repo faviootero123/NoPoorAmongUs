@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models.ViewModels;
 using SaucyCapstone.Data;
+using SaucyCapstone.Static;
 
 namespace SaucyCapstone.Pages.Instructor.Sessions;
 
@@ -44,7 +45,7 @@ public class UpsertModel : PageModel
             var Courses = _context.Courses
                 .Include(d => d.Subject)
                 .Include(d => d.Term)
-                .Where(d => d.Term.IsActive == true)
+                .Where(d => d.Term.IsActive == true && d.ApplicationUserId == User.UserId())
                 .ToList();
 
             CourseList = Courses
@@ -71,7 +72,7 @@ public class UpsertModel : PageModel
                 .ToList();
 
             CourseList = Courses
-                .Where(d => d.Term.IsActive == true)
+                .Where(d => d.Term.IsActive == true && d.ApplicationUserId == User.UserId())
                 .Select(c => new SelectListItem
                 {
                     Value = c.CourseId.ToString(),

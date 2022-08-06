@@ -26,14 +26,15 @@
     [Parameter]
     public string studentLastName { get; set; }
 
-    protected override async void OnInitialized()
-    {
-        var targetUrl = "js/calendar.js";
-        await _js.InvokeVoidAsync("loadJs", targetUrl);
-    }
+    //protected override async void OnInitialized()
+    //{
+
+    //}
 
     protected override void OnAfterRender(bool firstRender)
     {
+        var targetUrl = "js/calendar.js";
+        _js.InvokeVoidAsync("loadJs", targetUrl);
         _js.InvokeVoidAsync("setTitle", studentFirstName + " " + studentLastName);
     }
 

@@ -54,6 +54,8 @@ public class EditModel : PageModel
 
         try
         {
+            var SessionDates = await _context.SessionDates.ToListAsync();
+            _context.RemoveRange(SessionDates);
             await _context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
