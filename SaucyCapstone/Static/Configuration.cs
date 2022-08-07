@@ -53,75 +53,41 @@ public static class ConfigurationStaticMethods
               },
               "SuperUserDo@123!"
            },
-        };
-        //   {
-        //       new ApplicationUser
-        //       {
-        //            UserName ="SocialWorker@odetopeaches.com",
-        //            Email = "SocialWorker@odetopeaches.com" ,
-        //            EmailConfirmed = true,
-        //            FirstName = "Social",
-        //            LastName = "Worker"
-        //       },
+        //{
+        //    new ApplicationUser
+        //    {
+        //        UserName = "SocialWorker@odetopeaches.com",
+        //        Email = "SocialWorker@odetopeaches.com",
+        //        EmailConfirmed = true,
+        //        FirstName = "Social",
+        //        LastName = "Worker"
+        //    },
         //       "SocialWorkerUserDo@123!"
         //   },
-        //   {
-        //       new ApplicationUser
-        //       {
-        //            UserName ="Rater@odetopeaches.com",
-        //            Email = "Rater@odetopeaches.com" ,
-        //            EmailConfirmed = true,
-        //            FirstName = "Judge",
-        //            LastName = "Judy"
-        //       },
-        //       "RaterUserDo@123!"
-        //   },
-        //              {
-        //       new ApplicationUser
-        //       {
-        //            UserName ="Rater2@odetopeaches.com",
-        //            Email = "Rater2@odetopeaches.com" ,
-        //            EmailConfirmed = true,
-        //            FirstName = "Judge",
-        //            LastName = "Josh"
-        //       },
-        //       "RaterUserDo@123!"
-        //   },
-        //   // Test Faculty Members 
-        //   {
-        //       new ApplicationUser
-        //       {
-        //            UserName ="john.doe@odetopeaches.com",
-        //            Email = "john.doe@odetopeaches.com" ,
-        //            EmailConfirmed = true,
-        //            FirstName = "John",
-        //            LastName = "Doe",
-        //       },
-        //       "RaterUserDo@123!"
-        //   },
-        //   {
-        //       new ApplicationUser
-        //       {
-        //            UserName ="adam.smith@odetopeaches.com",
-        //            Email = "adam.smith@odetopeaches.com" ,
-        //            EmailConfirmed = true,
-        //            FirstName = "Adam",
-        //            LastName = "Smith",
-        //       },
-        //       "RaterUserDo@123!"
-        //   },
-        //   {
-        //       new ApplicationUser
-        //       {
-        //            UserName ="public.teacher@odetopeaches.com",
-        //            Email = "public.teacher@odetopeaches.com" ,
-        //            EmailConfirmed = true,
-        //            FirstName = "Public",
-        //            LastName = "Teacher",
-        //       },
-        //       "RaterUserDo@123!"
-        //   }
-        //
+           {
+            new ApplicationUser
+            {
+                UserName = "Rater@odetopeaches.com",
+                Email = "Rater@odetopeaches.com",
+                EmailConfirmed = true,
+                FirstName = "Judge",
+                LastName = "Judy"
+            },
+               "RaterUserDo@123!"
+           },                  
+           {
+            new ApplicationUser
+            {
+                UserName = "public.teacher@odetopeaches.com",
+                Email = "public.teacher@odetopeaches.com",
+                EmailConfirmed = true,
+                FirstName = "Public",
+                LastName = "Teacher",
+            },
+               "RaterUserDo@123!"
+           }
+        };
+
 
         IdentityResult userResult;
         foreach (var user in users)
@@ -134,11 +100,11 @@ public static class ConfigurationStaticMethods
         // Apply role to user 
         await userManager.AddUserToRole("AdminUser@odetopeaches.com", Roles.Admin);
         //await userManager.AddUserToRole("SocialWorker@odetopeaches.com", Roles.SocialWorker);
-        //await userManager.AddUserToRole("Rater@odetopeaches.com", Roles.Rater);
+        await userManager.AddUserToRole("Rater@odetopeaches.com", Roles.Rater);
         //await userManager.AddUserToRole("Rater2@odetopeaches.com", Roles.Rater);
         //await userManager.AddUserToRole("john.doe@odetopeaches.com", Roles.Instructor);
         //await userManager.AddUserToRole("adam.smith@odetopeaches.com", Roles.Instructor);
-        //await userManager.AddUserToRole("public.teacher@odetopeaches.com", Roles.Instructor);
+        await userManager.AddUserToRole("public.teacher@odetopeaches.com", Roles.Instructor);
 
         //Seed data for other tables 
         await SeedData(db, userManager);
@@ -198,92 +164,85 @@ public static class ConfigurationStaticMethods
             });
 
             ///////////terms\\\\\\\\\\\\
-            //var term = new Term
-            //{
-            //    StartDate = DateTime.Now.AddMonths(-6),
-            //    EndDate = DateTime.Now.AddMonths(-3),
-            //    TermName = "Spring22",
-            //    IsActive = false
-            //};
-            //var term2 = new Term
-            //{
-            //    StartDate = DateTime.Now,
-            //    EndDate = DateTime.Now.AddMonths(3),
-            //    TermName = "Summer22",
-            //    IsActive = true
-            //};
-            //await db.AddRangeAsync(new Term[] { term, term2 });
+            var term = new Term
+            {
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(3),
+                TermName = "Fall22",
+                IsActive = true
+            };
+            await db.AddAsync(term);
 
             ///////////faculty-member\\\\\\\\\\\
             //var faculty = await userManager.FindByEmailAsync("john.doe@odetopeaches.com");
             //var faculty2 = await userManager.FindByEmailAsync("adam.smith@odetopeaches.com");
-            //var faculty3 = await userManager.FindByEmailAsync("public.teacher@odetopeaches.com");
+            var faculty3 = await userManager.FindByEmailAsync("public.teacher@odetopeaches.com");
 
             ////////////course\\\\\\\\\\\\
             //courses for inactive term
-            //var course = new Course
-            //{
-            //    School = school,
-            //    CourseLevel = 1,
-            //    Subject = subject,
-            //    Term = term,
-            //    Instructor = faculty,
-            //    Sessions = new List<Session>()
-            //};
-            //var course2 = new Course
-            //{
-            //    School = school,
-            //    CourseLevel = 2,
-            //    Subject = subject,
-            //    Term = term,
-            //    Instructor = faculty,
-            //    Sessions = new List<Session>()
-            //};
-            //var course3 = new Course
-            //{
-            //    School = school,
-            //    CourseLevel = 3,
-            //    Subject = subject,
-            //    Term = term,
-            //    Instructor = faculty,
-            //    Sessions = new List<Session>()
-            //};
-            //var course4 = new Course
-            //{
-            //    School = school,
-            //    CourseLevel = 1,
-            //    Subject = subject2,
-            //    Term = term,
-            //    Instructor = faculty2,
-            //    Sessions = new List<Session>()
-            //};
-            //var course5 = new Course
-            //{
-            //    School = school,
-            //    CourseLevel = 2,
-            //    Subject = subject2,
-            //    Term = term,
-            //    Instructor = faculty2,
-            //    Sessions = new List<Session>()
-            //};
-            //var course6 = new Course
-            //{
-            //    School = school,
-            //    CourseLevel = 3,
-            //    Subject = subject2,
-            //    Term = term,
-            //    Instructor = faculty2,
-            //    Sessions = new List<Session>()
-            //};
-            //var course7 = new Course
-            //{
-            //    School = school3,
-            //    CourseLevel = 0,
-            //    Subject = subject3,
-            //    Term = term,
-            //    Instructor = faculty3,
-            //    Sessions = new List<Session>()
-            //};
+            var course = new Course
+            {
+                School = school,
+                CourseLevel = 1,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty3,
+                Sessions = new List<Session>()
+            };
+            var course2 = new Course
+            {
+                School = school,
+                CourseLevel = 2,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty3,
+                Sessions = new List<Session>()
+            };
+            var course3 = new Course
+            {
+                School = school,
+                CourseLevel = 3,
+                Subject = subject,
+                Term = term,
+                Instructor = faculty3,
+                Sessions = new List<Session>()
+            };
+            var course4 = new Course
+            {
+                School = school2,
+                CourseLevel = 1,
+                Subject = subject2,
+                Term = term,
+                Instructor = faculty3,
+                Sessions = new List<Session>()
+            };
+            var course5 = new Course
+            {
+                School = school2,
+                CourseLevel = 2,
+                Subject = subject2,
+                Term = term,
+                Instructor = faculty3,
+                Sessions = new List<Session>()
+            };
+            var course6 = new Course
+            {
+                School = school2,
+                CourseLevel = 3,
+                Subject = subject2,
+                Term = term,
+                Instructor = faculty3,
+                Sessions = new List<Session>()
+            };
+            var course7 = new Course
+            {
+                School = school3,
+                CourseLevel = 0,
+                Subject = subject3,
+                Term = term,
+                Instructor = faculty3,
+                Sessions = new List<Session>()
+            };
 
             //courses for active term
             //var course8 = new Course
@@ -349,24 +308,54 @@ public static class ConfigurationStaticMethods
             //    Instructor = faculty3,
             //    Sessions = new List<Session>()
             //};
-            //await db.AddRangeAsync(new Course[]
-            //{
-            //    course,
-            //    course2,
-            //    course3,
-            //    course4,
-            //    course5,
-            //    course6,
-            //    course7,
-            //    course8,
-            //    course9,
-            //    course10,
-            //    course11,
-            //    course12,
-            //    course13,
-            //    course14
-            //});
+            await db.AddRangeAsync(new Course[]
+            {
+                course,
+                course2,
+                course3,
+                course4,
+                course5,
+                course6,
+                course7
+                //course8,
+                //course9,
+                //course10,
+                //course11,
+                //course12,
+                //course13,
+                //course14
+            });
 
+
+            ////////////criterion\\\\\\\\\\\\
+            var criteria = new List<Criterion> {
+                new Criterion
+                {
+                    Description = "Academics",
+                    Weight = .25m
+                },
+                new Criterion
+                {
+                    Description = "Age",
+                    Weight = .05m
+                },
+                new Criterion
+                {
+                    Description = "Distance",
+                    Weight = .05m
+                },
+                new Criterion
+                {
+                    Description = "Family support and interest",
+                    Weight = .4m
+                },
+                new Criterion
+                {
+                    Description = "Finances",
+                    Weight = .25m
+                }
+            };
+            await db.AddRangeAsync(criteria);
 
             ////////////guardians\\\\\\\\\\\\
             //var guardian1 = new Guardian
@@ -1135,60 +1124,30 @@ public static class ConfigurationStaticMethods
             //});
 
 
-            ////////////criterion\\\\\\\\\\\\
-            //var criteria = new List<Criterion> {
-            //    new Criterion
-            //    {
-            //        Description = "Academics",
-            //        Weight = .25m
-            //    },
-            //    new Criterion
-            //    {
-            //        Description = "Age",
-            //        Weight = .05m
-            //    },
-            //    new Criterion
-            //    {
-            //        Description = "Distance",
-            //        Weight = .05m
-            //    },
-            //    new Criterion
-            //    {
-            //        Description = "Family support and interest",
-            //        Weight = .4m
-            //    },
-            //    new Criterion
-            //    {
-            //        Description = "Finances",
-            //        Weight = .25m
-            //    }
-            //};
-            //await db.AddRangeAsync(criteria);
-
             ////////////accesstype\\\\\\\\\\\\
-            //var accesstype = new AccessType
-            //{
-            //    Accesss = AccessType.Type.Rater
-            //};
-            //await db.AddAsync(accesstype);
+            var accesstype = new AccessType
+            {
+                Accesss = AccessType.Type.Rater
+            };
+            await db.AddAsync(accesstype);
 
-            //var accesstype2 = new AccessType
-            //{
-            //    Accesss = AccessType.Type.Admin
-            //};
-            //await db.AddAsync(accesstype2);
+            var accesstype2 = new AccessType
+            {
+                Accesss = AccessType.Type.Admin
+            };
+            await db.AddAsync(accesstype2);
 
-            //var accesstype3 = new AccessType
-            //{
-            //    Accesss = AccessType.Type.SocialWorker
-            //};
-            //await db.AddAsync(accesstype3);
+            var accesstype3 = new AccessType
+            {
+                Accesss = AccessType.Type.SocialWorker
+            };
+            await db.AddAsync(accesstype3);
 
-            //var accesstype4 = new AccessType
-            //{
-            //    Accesss = AccessType.Type.Instructor
-            //};
-            //await db.AddAsync(accesstype4);
+            var accesstype4 = new AccessType
+            {
+                Accesss = AccessType.Type.Instructor
+            };
+            await db.AddAsync(accesstype4);
 
             ////////////student note\\\\\\\\\\\\
             //var note = new Note
