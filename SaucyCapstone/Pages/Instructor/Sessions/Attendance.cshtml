@@ -23,6 +23,19 @@
             _ => throw new Exception()
         };
     }
+        string StatusToColorText(int? Status)
+    {
+
+        return Status switch
+        {
+            null => "Absent",
+            0 => "Present",
+            1 => "Late",
+            2 => "Absent",
+            3 => "Excused",
+            _ => throw new Exception()
+        };
+    }
 
 }
 
@@ -35,7 +48,6 @@
             </h5>
         </div>
         <div class="col-3 text-end">
-            <button type="submit" class="btn btn-success"><i class="bi bi-check2-circle">&nbsp;</i><localize>Save</localize></button>
             <a localize-content class="btn btn-primary" asp-page="Index" id="CreateBtn">Back to Session</a>
         </div>
         <div class="pb-3">
@@ -86,7 +98,7 @@
                                         <input id="@(ButtonGuid + "input")" name="Attendances[@index].Status" value="@((int?)attendance?.Status ?? 2)" class="btn btn-outline-success" hidden>
                                         <input name="Attendances[@index].StudentId" value="@Enrollment.StudentId" hidden>
                                         <input name="Attendances[@index].SessionDateId" value="@SessionDate.SessionDateId" hidden>
-                                        <button id="@ButtonGuid" type="button" name="@SessionDate.Date" class="@(StatusToColor((int?)attendance?.Status))" onclick="changeColors(this.id)" style="padding: 30px"></button>
+                                        <button id="@ButtonGuid" type="button" name="@SessionDate.Date" class="@(StatusToColor((int?)attendance?.Status))" onclick="changeColors(this.id)" style="padding: 30px">@StatusToColorText((int?)attendance?.Status)</button>
                                         <br>
                                         <label for="Attendances[@index].Comment"><localize>Optional Comments</localize></label>
                                         <br>
@@ -99,6 +111,9 @@
                     }
                 </tbody>
             </table>
+            <div>
+                <button type="submit" class="btn btn-success btn-lg btn" style="display:block; width: 100%"><i class="bi bi-check2-circle">&nbsp;</i><localize>Save</localize></button>
+            </div>
         </form>
     </div>
 </div>
@@ -122,18 +137,22 @@
 
             if (button.className == "btn btn-danger") {
                 button.className = "btn btn-success";
+                button.textContent = "Present";
                 input.value = "0";
             }
             else if (button.className == "btn btn-success") {
                 button.className = "btn btn-warning";
+                button.textContent = "Late";
                 input.value = "1";
             }
             else if (button.className == "btn btn-warning") {
                 button.className = "btn btn-primary";
+                button.textContent = "Excused";
                 input.value = "3";
             }
             else if (button.className == "btn btn-primary") {
                 button.className = "btn btn-danger";
+                button.textContent = "Absent";
                 input.value = "2";
             }
         }
@@ -143,6 +162,7 @@
 
             for (let i = 0; i < buttons.length; i++) {
                 buttons[i].className = "btn btn-success";
+                buttons[i].textContent = "Present";
                 const input = document.getElementById(buttons[i].id + "input");
                 input.value = "0";
             }
@@ -153,6 +173,7 @@
 
             for (let i = 0; i < buttons.length; i++) {
                 buttons[i].className = "btn btn-danger";
+                buttons[i].textContent = "Absent";
                 const input = document.getElementById(buttons[i].id + "input");
                 input.value = "2";
             }
