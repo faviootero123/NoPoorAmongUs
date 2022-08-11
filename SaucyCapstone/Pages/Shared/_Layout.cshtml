@@ -7,6 +7,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SaucyCapstone</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SaucyCapstone.styles.css" asp-append-version="true" />
     <script>
         let theme = window.localStorage.getItem("theme");
         let head = document.getElementsByTagName('head')[0];
@@ -29,9 +32,6 @@
             head.appendChild(link);
         }
     </script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/SaucyCapstone.styles.css" asp-append-version="true" />
     @* <link id="radzenTheme" rel="stylesheet" href="~/css/themes/default-base.css" />
     <link id="theme" rel="stylesheet" href="~/css/themes/flatly.min.css" /> *@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
