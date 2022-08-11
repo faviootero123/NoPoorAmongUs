@@ -45,7 +45,7 @@ public class UpsertModel : PageModel
             var Courses = _context.Courses
                 .Include(d => d.Subject)
                 .Include(d => d.Term)
-                .Where(d => d.Term.IsActive == true && d.ApplicationUserId == User.UserId())
+                .Where(d => d.Term.IsActive == true && (d.ApplicationUserId == User.UserId() || User.IsAdmin()))
                 .ToList();
 
             CourseList = Courses
@@ -66,18 +66,37 @@ public class UpsertModel : PageModel
 
         if (Session == null)
         {
-            var Courses = _context.Courses
-                .Include(d => d.Subject)
-                .Include(d => d.Term)
-                .ToList();
+            if (User.IsAdmin())
+            {
+                var Courses = _context.Courses
+                    .Include(d => d.Subject)
+                    .Include(d => d.Term)
+                    .Include(c => c.Instructor)
+                    .ToList();
+                CourseList = Courses
+                    .Where(d => d.Term.IsActive == true && (d.ApplicationUserId == User.UserId() || User.IsAdmin()))
+                    .Select(c => new SelectListItem
+                    {
+                        Value = c.CourseId.ToString(),
+                        Text = c.Subject.SubjectName + " " + c.CourseLevel + " - Instructor: " + c.Instructor.FirstName + " " + c.Instructor.LastName
+                    });
+            }
+            else
+            {
+                var Courses = _context.Courses
+                    .Include(d => d.Subject)
+                    .Include(d => d.Term)
+                    .ToList();
 
-            CourseList = Courses
-                .Where(d => d.Term.IsActive == true && d.ApplicationUserId == User.UserId())
-                .Select(c => new SelectListItem
-                {
-                    Value = c.CourseId.ToString(),
-                    Text = c.Subject.SubjectName + " " + c.CourseLevel
-                });
+                CourseList = Courses
+                    .Where(d => d.Term.IsActive == true && (d.ApplicationUserId == User.UserId() || User.IsAdmin()))
+                    .Select(c => new SelectListItem
+                    {
+                        Value = c.CourseId.ToString(),
+                        Text = c.Subject.SubjectName + " " + c.CourseLevel
+                    });
+            }
+
             TermList = _context.Terms
                 .Where(d => d.IsActive == true)
                 .Select(c => new SelectListItem
