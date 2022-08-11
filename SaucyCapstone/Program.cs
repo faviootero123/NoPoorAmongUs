@@ -69,7 +69,7 @@ services.Configure<RequestLocalizationOptions>(ops =>
     };
     ops.SupportedCultures = cultures;
     ops.SupportedUICultures = cultures;
-    //ops.DefaultRequestCulture = new RequestCulture("en-US");    // Optional: add custom provider to support localization 
+    /*ops.DefaultRequestCulture = new RequestCulture("en-US");*/    // Optional: add custom provider to support localization 
     // based on route value
     ops.RequestCultureProviders.Insert(1, new RouteSegmentRequestCultureProvider(cultures));
 });
@@ -80,7 +80,7 @@ services.AddRazorPages()
     .AddXLocalizer<LocSource, MyMemoryTranslateService>(ops =>
     {
         ops.ResourcesPath = "LocalizationResources";
-        ops.AutoTranslate = true;
+        ops.AutoTranslate = false;
         ops.AutoAddKeys = true;
         ops.UseExpressMemoryCache = true;
         ops.TranslateFromCulture = "en-US";

@@ -26,8 +26,8 @@
                 </div>
                 <div class="col-9">
                     <div class="form-group">
-@*                        <input type="text" pattern="[0-9]+([\.|,][0-9]{1,2})?" name="amount" >
-*@                        <input id="weight" asp-for="Criterion.Weight"  type="number" step=".01" lang="en" class="form-control"/>
+@*                        <input type="text" pattern="[0-9]+([\.][0-9]{1,2})?" name="amount" >*@                       
+                        <input id="weight" asp-for="Criterion.Weight"  type="number" step=".01" class="form-control"/>
                         <span asp-validation-for="Criterion.Weight" class="text-danger"></span>
                     </div>
                 </div>
