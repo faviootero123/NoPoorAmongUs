@@ -14,14 +14,12 @@
     <link id="theme" rel="stylesheet" href="~/css/themes/flatly.min.css" />
     <script>
         let theme = window.localStorage.getItem("theme");
-        let radzencss = document.createElement('link')
-        let themecss = document.createElement('link')
         if (theme == "dark") {
-            themecss.href = "/css/themes/dark-base.css";
-            radzencss.href = "/css/themes/darkly.min.css";
+            document.getElementById("radzenTheme").href = "/css/themes/dark-base.css";
+            document.getElementById("theme").href = "/css/themes/darkly.min.css";
         } else {
-            radzencss.href = "/css/themes/default-base.css";
-            themecss.href = "/css/themes/flatly.min.css";
+            document.getElementById("radzenTheme").href = "/css/themes/default-base.css";
+            document.getElementById("theme").href = "/css/themes/flatly.min.css";
         }
     </script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
