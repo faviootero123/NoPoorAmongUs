@@ -1102,4 +1102,9 @@
     <value>Apagar Atribuição</value>
     <comment>Created by XLocalizer</comment>
   </data>
+  <data isActive="false">
+    <key>&lt;i class="bi bi-plus-circle"&gt;&amp;nbsp;&lt;/i&gt;Update</key>
+    <value>&amp;lt;i class="bi bi-plus-circle"&amp;gt;&amp;lt;/i&amp;gt;</value>
+    <comment>Created by XLocalizer</comment>
+  </data>
 </root>

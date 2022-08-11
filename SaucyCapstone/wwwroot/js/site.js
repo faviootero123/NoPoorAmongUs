@@ -8,15 +8,11 @@ window.onload = function () {
     let themeSwitch = document.getElementById("themeSwitch");
 
     if (theme == "dark") {
-        document.getElementById("radzenTheme").href = "/css/themes/dark-base.css";
-        document.getElementById("theme").href = "/css/themes/darkly.min.css";
         let icon = document.getElementById("themeIcon");
         icon.classList.remove("bi-sun-fill");
         icon.classList.add("bi-moon-fill");
         themeSwitch.checked = true;
     } else {
-        document.getElementById("radzenTheme").href = "/css/themes/default-base.css";
-        document.getElementById("theme").href = "/css/themes/flatly.min.css";
         let icon = document.getElementById("themeIcon");
         icon.classList.remove("bi-moon-fill");
         icon.classList.add("bi-sun-fill");

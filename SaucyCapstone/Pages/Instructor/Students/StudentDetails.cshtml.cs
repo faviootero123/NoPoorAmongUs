@@ -12,6 +12,7 @@ namespace SaucyCapstone.Pages.Instructor.Students;
 public class StudentDetailsModel : PageModel
 {
     private readonly ApplicationDbContext _db;
+    private readonly IWebHostEnvironment _hostEnvironment;
 
     [BindProperty(SupportsGet = true)]
     public ApplicantVM? Applicant { get; set; }
@@ -19,9 +20,10 @@ public class StudentDetailsModel : PageModel
     [BindProperty]
     public int StudentId { get; set; }
 
-    public StudentDetailsModel(ApplicationDbContext db)
+    public StudentDetailsModel(ApplicationDbContext db, IWebHostEnvironment hostEnvironment)
     {
         _db = db;
+        _hostEnvironment = hostEnvironment;
     }
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -36,10 +38,31 @@ public class StudentDetailsModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPost(ApplicantVM Applicant)
+    public async Task<IActionResult> OnPost(ApplicantVM Applicant, IFormFile? file)
     {
         if (ModelState.IsValid)
         {
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            if (file != null)
+            {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(wwwRootPath, @"images\students");
+                var extension = Path.GetExtension(file.FileName);
+                if (Applicant.StudentDetails.ImageUrl != null)
+                {
+                    var oldImagePath = Path.Combine(wwwRootPath, Applicant.StudentDetails.ImageUrl.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath) && Applicant.StudentDetails.ImageUrl != "\\images\\stock-profile-pic.jpg")
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    file.CopyTo(fileStreams);
+                }
+                Applicant.StudentDetails.ImageUrl = @"\images\students\" + fileName + extension;
+            }
+
             var temp = await _db.Students.Where(d => d.StudentId == Applicant.StudentDetails.StudentId).FirstOrDefaultAsync();
 
             if (temp != null)
@@ -48,8 +71,8 @@ public class StudentDetailsModel : PageModel
                 temp.FirstName = Applicant.StudentDetails.FirstName;
                 temp.LastName = Applicant.StudentDetails.LastName;
                 temp.Phone = Applicant.StudentDetails.Phone;
+                temp.ImageUrl = Applicant.StudentDetails.ImageUrl;
                 temp.Determination = Applicant.StudentDetails.Determination;
-                temp.AppStatus = Student.ApplicationStatus.Open;
                 temp.DateOfBirth = Applicant.StudentDetails.DateOfBirth;
                 temp.LastModifiedDate = DateTime.Now;
                 temp.Address = Applicant.StudentDetails.Address;
@@ -58,6 +81,8 @@ public class StudentDetailsModel : PageModel
                 temp.Longitude = Applicant.StudentDetails.Longitude;
                 temp.AnnualIncome = Applicant.StudentDetails.AnnualIncome;
                 temp.SchoolLevel = Applicant.StudentDetails.SchoolLevel;
+                temp.SchoolLevel = Applicant.StudentDetails.ITLevel;
+                temp.SchoolLevel = Applicant.StudentDetails.EnglishLevel;
                 temp.FoodAssistance = Applicant.StudentDetails.FoodAssistance;
                 temp.ChappaAssistance = Applicant.StudentDetails.ChappaAssistance;
 

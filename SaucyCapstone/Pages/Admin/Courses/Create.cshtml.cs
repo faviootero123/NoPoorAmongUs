@@ -33,7 +33,7 @@ public class CreateModel : PageModel
 
         InstructorList = (await _user.GetUsersInRoleAsync(Roles.Instructor)).Select(i => new SelectListItem
         {
-            Text = i.FirstName + ", " + i.FirstName,
+            Text = i.FirstName + " " + i.LastName,
             Value = i.Id.ToString(),
         });
 

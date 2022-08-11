@@ -76,6 +76,26 @@
                                         </div>
                                     </div>
                                     <div class="row my-1">
+                                        <div class="col-3">School Level</div>
+                                        <div class="col-9">
+                                            <select asp-for="Applicant.StudentDetails.EnglishLevel" class="form-select">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row my-1">
+                                        <div class="col-3">School Level</div>
+                                        <div class="col-9">
+                                            <select asp-for="Applicant.StudentDetails.ITLevel" class="form-select">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row my-1">
                                         <div class="col-3">Determination</div>
                                         <div class="col-9">
                                             <div class="form-group">
@@ -143,8 +163,10 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-5 offset-lg-1 pb-6">
-                                    <img src="@Model.Applicant.StudentDetails.ImageUrl"
-                                         width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                                    <img src="@Model.Applicant.StudentDetails.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                                    <div class="mb-3">
+                                        <input asp-for="Applicant.StudentDetails.ImageUrl" type="file" id="uploadBox" name="file" class="form-control" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

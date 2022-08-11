@@ -22,40 +22,49 @@
 					Level
 				</th>
 				<th localize-content>
-					Term
-				</th>
-				<th localize-content>
 					Download
 				</th>
 			</tr>
 		</thead>
-		<tbody>
-			@foreach (var Enrollment in Model.Enrollment)
+		<tbody>	
+			@for (int i = 1; i <= Model.Student.ITLevel; i++)
 			{
 				<tr>
 					<td>
-						@Enrollment.Session.Course.Subject.SubjectName
-
+						IT
 					</td>
 					<td>
-						@Enrollment.Session.Course.CourseLevel
-
-					</td>
-					<td>
-						@Enrollment.Session.Course.Term.TermName
-
+						@(i)
 					</td>
 					<td>
 						<form method="post" asp-page-handler="GeneratePDF">
 							<input asp-for="@Model.CertificationVM.StudentId" value="@Model.Student.StudentId" hidden>
-							<input asp-for="@Model.CertificationVM.Subject" value="@(Enrollment.Session.Course.Subject.SubjectName + " " + Enrollment.Session.Course.CourseLevel)" hidden>
-							<input asp-for="@Model.CertificationVM.TermName" value="@Enrollment.Session.Course.Term.TermName" hidden>
+							<input asp-for="@Model.CertificationVM.Subject" value="IT @(i)!" hidden>
 							<input asp-for="@Model.CertificationVM.StudentName" value="@(Model.Student.FirstName + " " + Model.Student.LastName)" hidden>
 							<input localize-content type="Submit" class="btn btn-success" value="GeneratePDF" />
 						</form>
 					</td>
 				</tr>
-			}		
+			}
+			@for (int i = 1; i <= Model.Student.EnglishLevel; i++)
+			{
+				<tr>
+					<td>
+						English
+					</td>
+					<td>
+						@(i)
+					</td>
+					<td>
+						<form method="post" asp-page-handler="GeneratePDF">
+							<input asp-for="@Model.CertificationVM.StudentId" value="@Model.Student.StudentId" hidden>
+							<input asp-for="@Model.CertificationVM.Subject" value="English @(i)!" hidden>
+							<input asp-for="@Model.CertificationVM.StudentName" value="@(Model.Student.FirstName + " " + Model.Student.LastName)" hidden>
+							<input localize-content type="Submit" class="btn btn-success" value="GeneratePDF" />
+						</form>
+					</td>
+				</tr>
+			}
 		</tbody>
 	</table>
 </div>

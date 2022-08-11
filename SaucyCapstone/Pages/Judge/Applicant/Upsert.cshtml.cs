@@ -163,6 +163,8 @@ public class CreateModel : PageModel
                     Longitude = applicant.StudentDetails.Longitude,
                     AnnualIncome = applicant.StudentDetails.AnnualIncome,
                     SchoolLevel = applicant.StudentDetails.SchoolLevel,
+                    EnglishLevel = 1,
+                    ITLevel = 1,
                     FoodAssistance = applicant.StudentDetails.FoodAssistance,
                     ChappaAssistance = applicant.StudentDetails.ChappaAssistance,
                 };

@@ -2,6 +2,7 @@
 @using SaucyCapstone.Static
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,30 +12,45 @@
     <link rel="stylesheet" href="~/SaucyCapstone.styles.css" asp-append-version="true" />
     <link id="radzenTheme" rel="stylesheet" href="~/css/themes/default-base.css" />
     <link id="theme" rel="stylesheet" href="~/css/themes/flatly.min.css" />
+    <script>
+        let theme = window.localStorage.getItem("theme");
+        if (theme == "dark") {
+            document.getElementById("radzenTheme").href = "/css/themes/dark-base.css";
+            document.getElementById("theme").href = "/css/themes/darkly.min.css";
+        } else {
+            document.getElementById("radzenTheme").href = "/css/themes/default-base.css";
+            document.getElementById("theme").href = "/css/themes/flatly.min.css";
+        }
+    </script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/css/flag-icon.min.css" />  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/css/flag-icon.min.css" />
     <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+
     <base href="~/" />
 </head>
+
 <body>
     <header class="d-print-none">
         <nav class="navbar navbar-expand-lg border-bottom navbar-dark bg-primary box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-page="/Index">SaucyCapstone</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        @if (@User.IsAdmin()) {
+                        @if (@User.IsAdmin())
+                        {
                             <li class="nav-item dropdown">
-                                <a localize-content class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                                <a localize-content class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                                role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
                                 <div class="dropdown-menu">
                                     <a localize-content class="dropdown-item" asp-page="/Admin/Courses/Index">Courses</a>
                                     <a localize-content class="dropdown-item" asp-page="/Admin/Criteria/Index">Criteria</a>
@@ -42,41 +58,57 @@
                                     <a localize-content class="dropdown-item" asp-page="/Admin/Subjects/Index">Subjects</a>
                                     <a localize-content class="dropdown-item" asp-page="/Admin/Terms/Index">Terms</a>
                                     <div class="dropdown-divider"></div>
-                                    <a localize-content class="dropdown-item" asp-page="/Admin/UserManagement/Index">Manage Users</a>
+                                    <a localize-content class="dropdown-item" asp-page="/Admin/UserManagement/Index">Manage
+                                        Users</a>
                                 </div>
                             </li>
                         }
-                        <li class="nav-item dropdown">
-                            <a localize-content class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Applicant</a>
-                            <div class="dropdown-menu">
-                                <a localize-content class="dropdown-item" asp-page="/Judge/Applicant/Index">Overview</a>
-                                <a localize-content class="dropdown-item" asp-page="/Judge/Ratings/Index">Ratings</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a localize-content class="nav-link" asp-page="/Instructor/Students/Index">Student</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a localize-content class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Instructor</a>
-                            <div class="dropdown-menu">
-                                <a localize-content class="dropdown-item" asp-page="/Instructor/Sessions/Index">Sessions</a>
-                                <a localize-content class="dropdown-item" asp-page="/Instructor/Assessments/Index">Assignments</a>
-                            </div>
-                        </li>
+                        @if (@User.IsAdmin() || @User.IsRater() || @User.IsSocialWorker())
+                        {
+                            <li class="nav-item dropdown">
+                                <a localize-content class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                                role="button" aria-haspopup="true" aria-expanded="false">Applicant</a>
+                                <div class="dropdown-menu">
+                                    <a localize-content class="dropdown-item" asp-page="/Judge/Applicant/Index">Overview</a>
+                                    <a localize-content class="dropdown-item" asp-page="/Judge/Ratings/Index">Ratings</a>
+                                </div>
+                            </li>
+                        }
+                        @if (@User.IsAdmin() || @User.IsInstructor() || @User.IsSocialWorker())
+                        {
+                            <li class="nav-item">
+                                <a localize-content class="nav-link" asp-page="/Instructor/Students/Index">Student</a>
+                            </li>
+                        }
+                        @if (@User.IsAdmin() || @User.IsInstructor())
+                        {
+                            <li class="nav-item dropdown">
+                                <a localize-content class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                                role="button" aria-haspopup="true" aria-expanded="false">Instructor</a>
+                                <div class="dropdown-menu">
+                                    <a localize-content class="dropdown-item"
+                                    asp-page="/Instructor/Sessions/Index">Sessions</a>
+                                    <a localize-content class="dropdown-item"
+                                    asp-page="/Instructor/Assessments/Index">Assignments</a>
+                                </div>
+                            </li>
+                        }
                         @*<li class="nav-item">
                             <a localize-content class="nav-link" asp-page="/Admin/Reports/Index">Reports</a>
-                        </li>*@
+                            </li>*@
                     </ul>
 
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-gear"></i></a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                                aria-haspopup="true" aria-expanded="false"><i class="bi bi-gear"></i></a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <div class="dropdown-item">
                                     <div localize-content>Dark Mode:</div>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" role="switch" id="themeSwitch">
-                                        <div class="custom-control-label" for="themeSwitch"><i id="themeIcon" class="bi bi-sun-fill"></i></div>
+                                        <div class="custom-control-label" for="themeSwitch"><i id="themeIcon"
+                                                class="bi bi-sun-fill"></i></div>
                                     </div>
                                 </div>
                                 <div class="dropdown-divider"></div>
@@ -84,11 +116,11 @@
                             </div>
                         </li>
                     </ul>
-                    <language-nav flags="true" render-mode="Bootstrap5" redirect-to-url="@(Url.Page(ViewContext.RouteData.Values["Page"].ToString(), new { culture = "{0}" }))" cookie-handler-url="@Url.Page("/Index", "SetCultureCookie", new { area="", cltr="{0}", returnUrl="{1}" })">></language-nav>
+                    <language-nav flags="true" render-mode="Bootstrap5"
+                        redirect-to-url="@(Url.Page(ViewContext.RouteData.Values["Page"].ToString(), new { culture = "{0}" }))"
+                        cookie-handler-url="@Url.Page("/Index", "SetCultureCookie", new { area="", cltr="{0}", returnUrl="{1}" })">
+                        ></language-nav>
                     <partial name="_LoginPartial" />
-
-
-                    
                 </div>
             </div>
         </nav>
@@ -125,4 +157,5 @@
     @await RenderSectionAsync("Styles", required: false)
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

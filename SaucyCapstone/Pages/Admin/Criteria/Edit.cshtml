@@ -21,11 +21,11 @@
             </div>
             <div class="row my-1 mb-2 d-flex align-items-center">
                 <div localize-content class="col-3 text-end">
-                    Weight
+                    Weight (Decimal)
                 </div>
                 <div class="col-9">
                     <div class="form-group">
-                        <input localize-content="false" id="weight" asp-for="Criterion.Weight" type="text" class="form-control" />
+                        <input id="weight" asp-for="Criterion.Weight" type="text" class="form-control" />
                         <span asp-validation-for="Criterion.Weight" class="text-danger"></span>
                     </div>
                 </div>
