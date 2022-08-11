@@ -74,7 +74,7 @@
                                         <div localize-content class="col-3">Date of Birth</div>
                                         <div class="col-9">
 
-                                            <input id="dob" asp-for="Applicant.StudentDetails.DateOfBirth" type="date" class="form-control" />
+                                            <input id="dob" asp-for="Applicant.StudentDetails.DateOfBirth" type="date" class="form-control" min="2000-01-01" />
                                             <span asp-validation-for="Applicant.StudentDetails.DateOfBirth" class="text-danger"></span>
 
                                         </div>
