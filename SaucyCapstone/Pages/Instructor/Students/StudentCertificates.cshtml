@@ -39,7 +39,7 @@
 					<td>
 						<form method="post" asp-page-handler="GeneratePDF">
 							<input asp-for="@Model.CertificationVM.StudentId" value="@Model.Student.StudentId" hidden>
-							<input asp-for="@Model.CertificationVM.Subject" value="IT + @(i)" hidden>
+							<input asp-for="@Model.CertificationVM.Subject" value="IT @(i)!" hidden>
 							<input asp-for="@Model.CertificationVM.StudentName" value="@(Model.Student.FirstName + " " + Model.Student.LastName)" hidden>
 							<input localize-content type="Submit" class="btn btn-success" value="GeneratePDF" />
 						</form>
@@ -58,7 +58,7 @@
 					<td>
 						<form method="post" asp-page-handler="GeneratePDF">
 							<input asp-for="@Model.CertificationVM.StudentId" value="@Model.Student.StudentId" hidden>
-							<input asp-for="@Model.CertificationVM.Subject" value="English + @(i)" hidden>
+							<input asp-for="@Model.CertificationVM.Subject" value="English @(i)!" hidden>
 							<input asp-for="@Model.CertificationVM.StudentName" value="@(Model.Student.FirstName + " " + Model.Student.LastName)" hidden>
 							<input localize-content type="Submit" class="btn btn-success" value="GeneratePDF" />
 						</form>
