@@ -10,16 +10,31 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SaucyCapstone.styles.css" asp-append-version="true" />
-    <link id="radzenTheme" rel="stylesheet" href="~/css/themes/default-base.css" />
-    <link id="theme" rel="stylesheet" href="~/css/themes/flatly.min.css" />
+    @* <link id="radzenTheme" rel="stylesheet" href="~/css/themes/default-base.css" />
+    <link id="theme" rel="stylesheet" href="~/css/themes/flatly.min.css" /> *@
     <script>
         let theme = window.localStorage.getItem("theme");
-        if (theme == "dark") {
-            document.getElementById("radzenTheme").href = "/css/themes/dark-base.css";
-            document.getElementById("theme").href = "/css/themes/darkly.min.css";
-        } else {
-            document.getElementById("radzenTheme").href = "/css/themes/default-base.css";
-            document.getElementById("theme").href = "/css/themes/flatly.min.css";
+        let head = document.getElementsByTagName('head')[0];
+        if (!document.getElementById("radzenTheme")) {
+            let link = document.createElement('link');
+            link.id = "radzenTheme";
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+
+            theme == "dark" ? link.href = "/css/themes/dark-base.css" : link.href = "/css/themes/default-base.css";
+            link.media = 'all';
+            head.appendChild(radzenTheme);
+        }
+        if (!document.getElementById("theme")) {
+
+            let link = document.createElement('link');
+            link.id = "theme";
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            theme == "dark" ? link.href = "/css/themes/darkly.min.css" : link.href = "/css/themes/flatly.min.css"
+            link.href = 'http://website.example/css/stylesheet.css';
+            link.media = 'all';
+            head.appendChild(link);
         }
     </script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
