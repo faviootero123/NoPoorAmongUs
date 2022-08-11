@@ -79,9 +79,10 @@
                                         <div class="col-3">English Level</div>
                                         <div class="col-9">
                                             <select asp-for="Applicant.StudentDetails.EnglishLevel" class="form-select">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
+                                                @for(var i = 1; i <= Model.MaxEnglish; i++)
+                                                {
+                                                    <option>@(i)</option>
+                                                }                                           
                                             </select>
                                         </div>
                                     </div>
@@ -89,9 +90,10 @@
                                         <div class="col-3">IT Level</div>
                                         <div class="col-9">
                                             <select asp-for="Applicant.StudentDetails.ITLevel" class="form-select">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
+                                                @for(var i = 1; i <= Model.MaxIt; i++)
+                                                {
+                                                    <option>@(i)</option>
+                                                }  
                                             </select>
                                         </div>
                                     </div>

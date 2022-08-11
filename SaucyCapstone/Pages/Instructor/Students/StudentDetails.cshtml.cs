@@ -17,9 +17,11 @@ public class StudentDetailsModel : PageModel
     [BindProperty(SupportsGet = true)]
     public ApplicantVM? Applicant { get; set; }
 
+    public int MaxEnglish { get; set; }
+    public int MaxIt { get; set; }
+
     [BindProperty]
     public int StudentId { get; set; }
-
     public StudentDetailsModel(ApplicationDbContext db, IWebHostEnvironment hostEnvironment)
     {
         _db = db;
@@ -30,6 +32,9 @@ public class StudentDetailsModel : PageModel
         Applicant.StudentDetails = await _db.Students.Where(u => u.StudentId == id).FirstAsync();
         var studentGuardians = await _db.StudentGuardians.Where(u => u.Student.StudentId == id).Include(u => u.Guardian).ToListAsync();
         Applicant.GuardianDetails = new List<Guardian>();
+
+        MaxEnglish = _db.Courses.Include(d => d.Subject).Where(d => d.Subject.SubjectName == "English").Max(d => d.CourseLevel);
+        MaxIt = _db.Courses.Include(d => d.Subject).Where(d => d.Subject.SubjectName == "It").Max(d => d.CourseLevel);
 
         foreach (var guardian in studentGuardians)
         {
@@ -81,8 +86,8 @@ public class StudentDetailsModel : PageModel
                 temp.Longitude = Applicant.StudentDetails.Longitude;
                 temp.AnnualIncome = Applicant.StudentDetails.AnnualIncome;
                 temp.SchoolLevel = Applicant.StudentDetails.SchoolLevel;
-                temp.SchoolLevel = Applicant.StudentDetails.ITLevel;
-                temp.SchoolLevel = Applicant.StudentDetails.EnglishLevel;
+                temp.ITLevel = Applicant.StudentDetails.ITLevel;
+                temp.EnglishLevel = Applicant.StudentDetails.EnglishLevel;
                 temp.FoodAssistance = Applicant.StudentDetails.FoodAssistance;
                 temp.ChappaAssistance = Applicant.StudentDetails.ChappaAssistance;
 
